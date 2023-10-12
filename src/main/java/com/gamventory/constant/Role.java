@@ -1,6 +1,5 @@
 package com.gamventory.constant;
 
-public enum ItemSellStatus {
-  
+public enum Role {
+    USER, ADMIN
 }
-  
