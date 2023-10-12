@@ -1,5 +1,5 @@
 /*gamventory database 생성*/ 
-create database gamventory;
+create database gamventory default character set utf8 collate utf8_general_ci;
 
 /*
 사용자 생성 
