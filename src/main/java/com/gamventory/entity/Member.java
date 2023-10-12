@@ -1,6 +1,9 @@
 package com.gamventory.entity;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.gamventory.constant.Role;
+import com.gamventory.dto.MemberFormDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,6 +39,21 @@ public class Member extends BaseEntity {
     private String address;
 
     private Role role;
+
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
+
+        String password = passwordEncoder.encode(memberFormDto.getPassword());
+
+        Member member = Member.builder()
+                .name(memberFormDto.getName())
+                .email(memberFormDto.getEmail())
+                .address(memberFormDto.getAddress())
+                .password(password)
+                .role(Role.USER)
+                .build();
+
+        return member;
+    }
 
 }
     
