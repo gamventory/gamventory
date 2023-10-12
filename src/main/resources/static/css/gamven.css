@@ -56,6 +56,12 @@ li{
     border : 1px solid green;
 }
 
+#nav li:nth-child(5){
+    float : right;
+    margin-right : 50px;
+}
+
+
 /* header end ============*/
 
 
