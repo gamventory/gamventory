@@ -2,7 +2,7 @@ package com.gamventory.constant;
 
 public enum ItemSellStatus {
 
-    /* 손원덕 2023-10-12 */
+    /* 상품 판매상태 enum */
 
     SELL,SOLD_OUT;
 }

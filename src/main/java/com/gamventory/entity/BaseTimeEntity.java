@@ -1,4 +1,4 @@
-package com.gamventory.exception;
+package com.gamventory.entity;
 
 
 import java.time.LocalDateTime;
@@ -13,13 +13,15 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
-@EntityListeners(value = {AuditingEntityListener.class}) //config폴더의 Auditing을 적용하는 어노테이션
-@MappedSuperclass //공통 매핑정보가 필요할 때 사용하는 어노테이션, 부모 클래스를 상속받는 자식클래스에게만 매핑정보 제공
+@EntityListeners(value = {AuditingEntityListener.class})
+@MappedSuperclass 
 @Getter
 @Setter
 public abstract class BaseTimeEntity {
 
-    /* 손원덕 2023-10-12 */
+    /* 공통 시간 entity
+     *  BaseEntity에게 상속해서 구현 됨
+     */
 
     @CreatedDate
     @Column(updatable = false)

@@ -1,4 +1,4 @@
-package com.gamventory.exception;
+package com.gamventory.entity;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -9,12 +9,14 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 
-@EntityListeners(value = {AuditingEntityListener.class}) //config폴더의 Auditing을 적용하는 어노테이션
-@MappedSuperclass //공통 매핑정보가 필요할 때 사용하는 어노테이션, 부모 클래스를 상속받는 자식클래스에게만 매핑정보 제공
+@EntityListeners(value = {AuditingEntityListener.class}) 
+@MappedSuperclass 
 @Getter
 public abstract class BaseEntity extends BaseTimeEntity{
 
-    /* 손원덕 2023-10-12 */
+    /* 공통 entity, 공통시간 entity를 상속받음
+     *  작성자, 수정자, 작성일, 수정일 을 가지고 있음
+     */
 
     @CreatedBy
     @Column(updatable = false)
