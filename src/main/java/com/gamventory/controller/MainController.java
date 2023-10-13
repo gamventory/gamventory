@@ -11,9 +11,8 @@ public class MainController {
         return "/main";
     }
 
-    @GetMapping(value = "/gm")
-    public String gm(){
-        return "/gm";
+    @GetMapping(value = "/members/login")
+    public String login(){
+        return "/member/login";
     }
-
 }
