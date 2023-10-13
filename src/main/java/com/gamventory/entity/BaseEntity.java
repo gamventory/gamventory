@@ -9,17 +9,15 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 
-@EntityListeners(value = {AuditingEntityListener.class})
+@EntityListeners(value = {AuditingEntityListener.class}) 
 @MappedSuperclass 
 @Getter
-public abstract class BaseEntity extends BaseTimeEntity {
+public abstract class BaseEntity extends BaseTimeEntity{
 
-    /*
-     * 상속받은 BaseTimeEntity에서 최초 등록일, 수정일 컬럼을 가지고 있다.
-     * 현재 BaseEntity는 작성자, 수정자를 가진 클래스이다.
+    /* 공통 entity, 공통시간 entity를 상속받음
+     *  작성자, 수정자, 작성일, 수정일 을 가지고 있음
      */
 
-    // 작성자
     @CreatedBy
     @Column(updatable = false)
     private String createdBy;

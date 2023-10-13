@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+      <!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+<script th:inline="javascript">
+
+    //상품등록 실패시 실패사유 보여주는 함수
+    $(document).ready(function(){
+        var errorMessage = [[${errorMessage}]]; 
+        if(errorMessage != null){
+            alert(errorMessage);
+        }
+
+        bindDomEvent();
+
+    });
+
+    function bindDomEvent(){
+        $(".custom-file-input").on("change", function() {
+
+            //이미지 파일명
+            var fileName = $(this).val().split("\\").pop();  
+
+            // 확장자 추출
+            var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); 
+
+             //소문자 변환  
+            fileExt = fileExt.toLowerCase(); 
+
+            //이미지 파일인지 검사하는 if문
+            if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+                alert("이미지 파일만 등록이 가능합니다.");
+                return;
+            }
+            //label 태그 안 내용을 jqeury의 .html(파일명)으로 입력해줌
+            $(this).siblings(".custom-file-label").html(fileName);
+        });
+    }
+
+</script>
+
+</th:block>
+
+    <!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .input-group {
+            margin-bottom : 15px
+        }
+        .img-div {
+            margin-bottom : 10px
+        }
+        .fieldError {
+            color: #bd2130;
+        }
+    </style>
+</th:block>
+</head>
+<body>
+    <h1> 상품등록 페이지</h1>
+
+    <form role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
+
+        <div class="form-group">
+            <select th:field="*{itemSellStatus}" class="custom-select">
+                <option value="SELL">판매중</option>
+                <option value="SOLD_OUT">품절</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select th:field="*{platform}" class="custom-select">
+                <option value="ALL">전체</option>
+                <option value="STEAM">Steam</option>
+                <option value="EPIC_GAMES">에픽게임즈</option>
+                <option value="OTHER">기타</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select th:field="*{category}" class="custom-select">
+                <option value="ALL">전체</option>
+                <option value="ACTION">액션</option>
+                <option value="RPG">RPG</option>
+                <option value="ADVENTURE">어드벤처</option>
+                <option value="CASUAL">캐쥬얼</option>
+                <option value="OTHER">기타</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">상품명</span>
+            </div>
+            <input type="text" th:field="*{itemNm}" class="form-control" placeholder="상품명을 입력해주세요">
+        </div>
+        <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError">Incorrect data</p>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">가격</span>
+            </div>
+            <input type="number" th:field="*{price}" class="form-control" placeholder="상품의 가격을 입력해주세요">
+        </div>
+        <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="fieldError">Incorrect data</p>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">재고</span>
+            </div>
+            <input type="number" th:field="*{stockNumber}" class="form-control" placeholder="상품의 재고를 입력해주세요">
+        </div>
+        <p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}" class="fieldError">Incorrect data</p>
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">상품 상세 내용</span>
+            </div>
+            <textarea class="form-control" aria-label="With textarea" th:field="*{itemDetail}"></textarea>
+        </div>
+        <p th:if="${#fields.hasErrors('itemDetail')}" th:errors="*{itemDetail}" class="fieldError">Incorrect data</p>
+       
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">플랫폼</span>
+            </div>
+            <textarea class="form-control" aria-label="With textarea" th:field="*{platform}"></textarea>
+        </div>
+        <p th:if="${#fields.hasErrors('platform')}" th:errors="*{platform}" class="fieldError">Incorrect data</p>
+       
+         <!-- 상품 이미지 없이 등록하는 경우-->
+         <div th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"> 
+            <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">
+                <div class="custom-file img-div">
+                    <input type="file" class="custom-file-input" name="itemImgFile">
+                    <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
+                </div>
+            </div>
+        </div>
+        <!-- 상품 이미지 없이 등록하는 경우 몇번째 이미지인지 알려줌-->
+
+        <!--상품 이미지가 있는 경우-->
+        <div th:if = "${not #lists.isEmpty(itemFormDto.itemImgDtoList)}"> 
+            <div class="form-group" th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}">
+                <div class="custom-file img-div">
+                    <input type="file" class="custom-file-input" name="itemImgFile">
+                    <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}"> <!-- 유저 아이디는 히든으로 숨겨둠-->
+                    <label class="custom-file-label" th:text="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '상품이미지' + ${status.index+1}">
+                    </label><!-- 이미지 정보가 있으면 파일이름을 보여주고 없으면 이미지+번호 출력-->
+                </div>
+            </div>
+        </div>
+        <!--/. 상품 이미지가 있는 경우-->
+        
+    </form>
+</body>
+</html>

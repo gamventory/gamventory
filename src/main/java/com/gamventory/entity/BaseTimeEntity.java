@@ -18,6 +18,10 @@ import lombok.Setter;
 @Setter
 public abstract class BaseTimeEntity {
     
+    /* 공통 시간 entity
+     *  BaseEntity에게 상속해서 구현 됨
+     */
+
     // 엔티티 생성 및 저장 -> 시간 자동 저장
     @CreatedDate 
     @Column(updatable = false)
