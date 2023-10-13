@@ -12,3 +12,5 @@ gamventory.dev에게 모든 권한을 위임 * 애스터리크는 db안의 모�
 */
 grant all privileges on gamventory.* to 'gamventory.dev'@'localhost';
 flush privileges;
+
+commit;

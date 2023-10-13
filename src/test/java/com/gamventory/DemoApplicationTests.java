@@ -1,4 +1,4 @@
-package com.gamventory.demo;
+package com.gamventory;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
