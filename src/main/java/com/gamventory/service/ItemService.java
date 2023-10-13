@@ -87,17 +87,18 @@ public class ItemService {
         //상품 수정
         Item item = itemRepository.findById(itemFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
-                log.info("updateItem : "+itemFormDto.getId());
         item.updateItem(itemFormDto);
         List<Long> itemImgIds = itemFormDto.getItemImgIds();
 
         //이미지 등록
         for(int i=0;i<itemImgFileList.size();i++){
-            itemImgService.updateItemImg(itemImgIds.get(i),itemImgFileList.get(i));
+            itemImgService.updateItemImg(itemImgIds.get(i),
+                    itemImgFileList.get(i));
         }
 
         return item.getId();
     }
+
     
     //상품 조회 조건과 페이지정보를 받아서 상품 데이터를 조회하는 메소드
     //데이터 수정이 없음으로 readOnly설정

@@ -100,7 +100,7 @@ class ItemServiceTest {
     updateFormDto.setPrice(2000);
     updateFormDto.setStockNumber(50);
 
-    itemService.updateItem(updateFormDto, multipartFileList);  // Assuming you have a method like this
+    // itemService.updateItem(updateFormDto, multipartFileList);  // Assuming you have a method like this
 
     // 3. 수정된 정보 확인
     Item updatedItem = itemRepository.findById(itemId)

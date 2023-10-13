@@ -1,33 +1,34 @@
 package com.gamventory.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.ui.Model;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.gamventory.dto.ItemFormDto;
+import com.gamventory.dto.ItemSearchDto;
+import com.gamventory.entity.Item;
+import com.gamventory.service.ItemService;
+
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.gamventory.constant.ItemSellStatus;
-import com.gamventory.dto.ItemFormDto;
-import com.gamventory.dto.ItemSearchDto;
-import com.gamventory.entity.Item;
-import com.gamventory.repository.ItemRepository;
-import com.gamventory.service.ItemService;
-
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class ItemController {
     /*상품의 CRUD에 관련된 컨트롤러입니다. */
 
     //상품 등록화면으로 이동하는 메서드
-    @GetMapping("/item/new")
+    @GetMapping("admin/item/new")
     public String itemForm(Model model){
         model.addAttribute("itemFormDto", new ItemFormDto());
 
@@ -47,17 +48,17 @@ public class ItemController {
     }
 
      //상품등록페이지에서 완료시 메인 페이지로 가는 함수
-    @PostMapping(value = "/item/new")
+    @PostMapping(value = "admin/item/new")
     public String itemNew(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, 
                             Model model, @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList){
         //에러 있으면 작성페이지로                    
         if(bindingResult.hasErrors()){
 
             List<ObjectError> errors = bindingResult.getAllErrors();
-            List<String> errorMessages = errors.stream()
-                                       .map(ObjectError::getDefaultMessage)
-                                       .collect(Collectors.toList());
-            model.addAttribute("errorMessages", errorMessages);
+            // List<String> errorMessages = errors.stream()
+            //                            .map(ObjectError::getDefaultMessage)
+                                    //    .collect(Collectors.toList());
+            // model.addAttribute("errorMessages", errorMessages);
             
             return "item/itemForm";
         }
@@ -86,7 +87,7 @@ public class ItemController {
     }
 
     //상품 수정페이지로 이동하는 메소드, 
-    @GetMapping(value="/item/{itemId}")
+    @GetMapping(value="admin/item/{itemId}")
     public String itemDtl(@PathVariable("itemId") Long itemId, Model model) {
         
         try {
@@ -106,22 +107,23 @@ public class ItemController {
     }
 
     //상품 수정 완료 후 상세페이지로 이동하는 메소드
-    @PostMapping(value = "/item/{itemId}")
-    public String itemUpdate(@Valid ItemFormDto itemFormDto, BindingResult bindingResult, Model model,
+    @PostMapping(value = "admin/item/{itemId}")
+    public String itemUpdate(@Valid ItemFormDto itemFormDto , BindingResult bindingResult, Model model,
                                  @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList){
         
         log.info("로그로그로그"+itemFormDto.getId());
+        log.info(itemFormDto.getPrice());
 
         if(bindingResult.hasErrors()){
             return "item/itemForm";
         }
-       
 
         if(itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null){
 
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "item/itemForm";
         }
+
         try {
             itemService.updateItem(itemFormDto, itemImgFileList);
         } catch (Exception e) {
@@ -135,7 +137,7 @@ public class ItemController {
     }
 
     //관리자 페이지 목록 
-    @GetMapping(value = {"/items", "/items/{page}"})
+    @GetMapping(value = {"admin/items", "admin/items/{page}"})
     public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
 
         //조회할 페이지번호, 한번에 가지고올 데이터 수
