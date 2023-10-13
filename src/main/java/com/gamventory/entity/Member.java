@@ -7,12 +7,16 @@ import com.gamventory.dto.MemberFormDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -22,6 +26,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Member extends BaseEntity {
   
     @Id
@@ -38,6 +44,7 @@ public class Member extends BaseEntity {
 
     private String address;
 
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
@@ -50,7 +57,8 @@ public class Member extends BaseEntity {
                 .address(memberFormDto.getAddress())
                 .password(password)
                 .role(Role.USER)
-                .build();
+                .build(); 
+
 
         return member;
     }
