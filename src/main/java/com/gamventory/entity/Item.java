@@ -25,7 +25,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@Builder
 public class Item extends BaseEntity{
 
     /* 상품 정보에 대한 entity입니다
@@ -73,6 +72,8 @@ public class Item extends BaseEntity{
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
+        this.platform = itemFormDto.getPlatform();
+        this.category = itemFormDto.getCategory();
         if(stockNumber > 0){
             itemSellStatus = ItemSellStatus.SELL;
         }

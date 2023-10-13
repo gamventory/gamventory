@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 public class MainItemDto {
     
     private Long id;
@@ -35,4 +34,5 @@ public class MainItemDto {
         this.platform = platform;
         this.category = category;
     }
+
 }

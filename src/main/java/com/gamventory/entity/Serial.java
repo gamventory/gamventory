@@ -20,7 +20,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @ToString
-@Builder
 public class Serial {
     
     /* 상품의 시리얼 번호에 대한 entity 

@@ -2,6 +2,8 @@ package com.gamventory.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +29,7 @@ import org.springframework.data.domain.Pageable;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Log4j2
 public class ItemService {
 
     private final ItemRepository itemRepository;
@@ -53,9 +56,11 @@ public class ItemService {
 
             itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
         }
+        log.info(item.getId());
 
         return item.getId();
     }
+
 
     //상품 데이터 읽기 전용 설정, 변경감지를 수행하지 않아서 성능이 향샹됨
     @Transactional(readOnly = true) 
@@ -74,6 +79,7 @@ public class ItemService {
                 .orElseThrow(EntityNotFoundException::new);
         ItemFormDto itemFormDto = ItemFormDto.of(item);
         itemFormDto.setItemImgDtoList(itemImgDtoList);
+        log.info("getItemDtl" + itemId );
         return itemFormDto;
     }
 
@@ -81,20 +87,20 @@ public class ItemService {
         //상품 수정
         Item item = itemRepository.findById(itemFormDto.getId())
                 .orElseThrow(EntityNotFoundException::new);
+                log.info("updateItem : "+itemFormDto.getId());
         item.updateItem(itemFormDto);
         List<Long> itemImgIds = itemFormDto.getItemImgIds();
 
         //이미지 등록
         for(int i=0;i<itemImgFileList.size();i++){
-            itemImgService.updateItemImg(itemImgIds.get(i),
-                    itemImgFileList.get(i));
+            itemImgService.updateItemImg(itemImgIds.get(i),itemImgFileList.get(i));
         }
 
         return item.getId();
     }
     
     //상품 조회 조건과 페이지정보를 받아서 상품 데이터를 조회하는 메소드
-    //데이터 수정이 없음으로 readOnyl설정
+    //데이터 수정이 없음으로 readOnly설정
     @Transactional(readOnly = true) 
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
