@@ -10,4 +10,10 @@ public class MainController {
     public String main(){
         return "/main";
     }
+
+    @GetMapping(value = "/gm")
+    public String gm(){
+        return "/gm";
+    }
+
 }
