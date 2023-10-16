@@ -7,6 +7,9 @@
     <title>GAMVENTORY</title>
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
 
+
+    <!-- jquary -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- css -->
     <link rel="stylesheet" type="text/css" th:href="@{../css/gamven.css}">
     <!-- bootstrap -->
@@ -14,7 +17,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 </head>
+
+
 <body>
     <!-- header fragment 사용 -->
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
@@ -22,5 +29,33 @@
     <th:block layout:fragment="content"></th:block>
     <!-- footer fragment 사용 -->
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+
+
+
+
+
+    <script>
+        let browserPoint = (event)=>{
+                console.log(`브라우저 좌표 : (${event.pageX}, ${event.pageY})`);
+            }
+            let clientPoint = (event) =>{
+                console.log(`화면 좌표 : (${event.clientX}, ${event.clientY})`);
+            }
+            window.addEventListener('click',e=>{
+                browserPoint(e);
+                clientPoint(e);
+            });
+
+        //javascript 라이브러리 충돌을 피하기 위하여 var jq = $.noConflict();를 사용
+
+        var jq = $.noConflict();
+
+        jq(document).ready(function(){
+            $("#nav_game").click(function() {
+                $("html").animate({scrollTop: 532});
+            });
+        });
+    </script>
+
 </body>
 </html>

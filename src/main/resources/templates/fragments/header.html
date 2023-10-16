@@ -1,5 +1,8 @@
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 
+<!-- jquary -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!-- css link -->
 <link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
 
@@ -8,6 +11,12 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- fontawesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+ />
 
 <!--headerFragment 선언-->
 <div th:fragment="headerFragment">
@@ -19,21 +28,22 @@
             </div>
             <div class="col-sm-6 bg-success">검색창</div>
             <div class="col-sm-1 bg-danger">계정</div>
-            <div class="col-sm-1 bg-primary">카트</div>
+            <div class="col-sm-1 bg-primary px-auto">
+                <i class="fa fa-shopping-cart fa-2x my-3 mx-1" style="color:skyblue" aria-hidden="true"></i>
+            </div>
         </div>
     </div>
 
     
     <div id="nav" class="container bg-dark">
         <ul>
-            <li><a href="#">게임</a></li>
+            <li><a id="nav_game">게임</a></li>
             <li><a href="#">공지사항</a></li>
             <li><a href="#">커뮤니티</a></li>
             <li><a href="#">회사소개</a></li>
             <li><a href="#" class="badge bg-success text-white">관리자</a></li>
         </ul>
     </div>
-
 
 </div>
 </html>

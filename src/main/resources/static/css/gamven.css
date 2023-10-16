@@ -17,6 +17,12 @@ ul,li{
 li{
     list-style: none;
 }
+
+a{
+    cursor: pointer;
+    color : white;
+    font-weight: bolder;
+}
 /* base end ============================================*/
 
 
@@ -72,6 +78,10 @@ li{
 
 #footer{
     font-weight: bolder;
+}
+
+#footer div{
+    height: 300px;
 }
 
 /*footer ends ===========*/
