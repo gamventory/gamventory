@@ -1,7 +1,9 @@
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+
 <!-- css link -->
-<link rel="stylesheet" href="../css/gamven.css">
+<link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
 
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -12,14 +14,20 @@
 <!--headerFragment 선언-->
 <div th:fragment="headerFragment">
 
-    <div  class="fixed-top">
+    <div class="fixed-top">
         <div class="container">
             <div id="head" class="row bg-warning"> 
                 <div class="col-sm-4 bg-info">
                 </div>
-                <div class="col-sm-6 bg-success">검색창</div>
-                <div class="col-sm-1 bg-danger">계정</div>
-                <div class="col-sm-1 bg-primary">카트</div>
+                <div class="col-sm-5 bg-success">검색창</div>
+                <div class="col-sm-2 bg-danger">
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    <span>비회원</span>
+                </div>
+                <div class="col-sm-1 bg-primary">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="badge bg-danger">0</span>
+                </div>
             </div>
         </div>
 
@@ -33,6 +41,10 @@
                 <li><a href="#" class="badge bg-success text-white">관리자</a></li>
             </ul>
         </div>
+    </div>
+
+    <div id="header_user_box">
+
     </div>
     
 
