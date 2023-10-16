@@ -5,8 +5,8 @@
       layout:decorate="~{layout/layout}">
 
       
-<!-- test css link -->
-<link rel="stylesheet" href="../static/css/gamven.css">
+<!-- css link -->
+<link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
 
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -35,9 +35,48 @@
         <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
     </div>
 
-            <div id="img_slider" class="row bg-warning">이미지슬라이더영역</div>
+        <!--imgslider-->
+        <div id="img_slider" class="carousel slide row" data-ride="carousel">
 
-            <div id="filter" class="row bg-info">필터영역</div>
+            <ul class="carousel-indicators">
+              <li data-target="#img_slider" data-slide-to="0" class="active"></li>
+              <li data-target="#img_slider" data-slide-to="1"></li>
+              <li data-target="#img_slider" data-slide-to="2"></li>
+            </ul>
+
+            <div class="carousel-inner">
+                
+              <div class="carousel-item active">
+                <img src="la.jpg" alt="slide1" width="1100" height="500">
+                <div class="carousel-caption bg-info">
+                </div>   
+              </div>
+
+              <div class="carousel-item">
+                <img src="chicago.jpg" alt="slide2" width="1100" height="500">
+                <div class="carousel-caption bg-success">
+                </div>   
+              </div>
+
+              <div class="carousel-item">
+                <img src="ny.jpg" alt="slide3" width="1100" height="500">
+                <div class="carousel-caption bg-primary">
+                </div>   
+              </div>
+
+            </div>
+
+            
+            <a class="carousel-control-prev" href="#img_slider" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#img_slider" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+
+          <!-- filter -->
+        <div id="filter" class="row bg-info">필터영역</div>
 
              <!-- 상품 이미지 출력 for문-->
     <div class="row ">
@@ -62,55 +101,6 @@
     </div>
     <!-- /. 상품 이미지 출력 for문-->
 
-            <!-- <div id="list" class="row bg-primary">
-                <div class="col-sm-4">
-                    <div class="main_img_box"></div>
-                    <div class="main_list_text">
-                        이름<br>
-                        가격
-                    </div>     
-                </div>
-                <div class="col-sm-4">
-                    <div class="main_img_box"></div>
-                    <div class="main_list_text">
-                        이름<br>
-                        가격
-                    </div>     
-                </div>
-                <div class="col-sm-4">
-                    <div class="main_img_box"></div>
-                    <div class="main_list_text">
-                        이름<br>
-                        가격
-                    </div>     
-                </div>
-                <div class="col-sm-4">
-                    <div class="main_img_box"></div>
-                    <div class="main_list_text">
-                        이름<br>
-                        가격
-                    </div>     
-                </div>
-                <div class="col-sm-4">
-                    <div class="main_img_box"></div>
-                    <div class="main_list_text">
-                        이름<br>
-                        가격
-                    </div>     
-                </div>
-                <div class="col-sm-4">
-                    <div class="main_img_box"></div>
-                    <div class="main_list_text">
-                        이름<br>
-                        가격
-                    </div>     
-                </div>
-            </div>
-    </div> -->
-    
-
-
-    
     <!-- 페이지 이동 버튼-->
     <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
         <ul class="pagination justify-content-center">
@@ -134,5 +124,6 @@
         </ul>
     </div>
     <!--  /. 페이지 이동 버튼-->
+
 </div>
 </html>

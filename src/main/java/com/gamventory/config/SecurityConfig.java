@@ -34,6 +34,8 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/members/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/item/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/management/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/managementGameDetail/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                 .anyRequest().authenticated())

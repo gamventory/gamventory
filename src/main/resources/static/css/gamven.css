@@ -17,7 +17,15 @@ ul,li{
 li{
     list-style: none;
 }
+
+a{
+    cursor: pointer;
+    color : white;
+    font-weight: bolder;
+}
 /* base end ============================================*/
+
+
 
 
 
@@ -36,6 +44,7 @@ li{
 
 #head div{
     border : 1px solid red;
+    cursor: pointer;
 }
 
 
@@ -72,6 +81,10 @@ li{
     font-weight: bolder;
 }
 
+#footer div{
+    height: 300px;
+}
+
 /*footer ends ===========*/
 
 /* fragments end ============================================*/
@@ -80,15 +93,31 @@ li{
 
 
 
-/*main*/
+
+
+
+
+/* main.html start ================================================*/
 
 #img_slider{
+    margin-top: 140px;
     height : 300px;
 }
+
+#img_slider div{
+    height: 300px;
+    border : 1px solid red;
+}
+
+
+
 
 #filter{
     height : 100px;
 }
+
+
+
 
 #list>div{
     height : 400px;
@@ -107,3 +136,54 @@ li{
     float : right;
     margin-right : 50px;
 }
+
+/* main.html end ================================================*/
+
+
+
+
+
+
+/* member/login.html start ================================================*/
+
+#loginBox{
+    border : 1px solid red;
+    margin-top : 220px;
+    margin-bottom : 100px;
+}
+
+/* member/login.html end ================================================*/
+
+
+
+
+
+/* management.html start ================================================*/
+
+#management_box{
+    height : 500px;
+    margin-top : 130px;
+}
+
+#management_box div:nth-child(1){
+    padding : 0px;
+}
+
+#management_game_list{
+    text-align: center;
+}
+
+/* management.html end ================================================*/
+
+
+
+
+/* managementDetail.html start =========================================*/
+
+#management_game_detail #btn_box{
+    margin-top: 30px;
+    float: right;
+    margin-right: 80px;
+}
+
+/* managementDetail.html end ===========================================*/

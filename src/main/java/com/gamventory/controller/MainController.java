@@ -36,4 +36,9 @@ public class MainController {
 
         
     }
+
+    @GetMapping(value = "/members/login")
+    public String login(){
+        return "/member/login";
+    }
 }

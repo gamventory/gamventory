@@ -26,6 +26,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
 public class Item extends BaseEntity{
 
     /* 상품 정보에 대한 entity입니다
@@ -68,47 +69,33 @@ public class Item extends BaseEntity{
     private Category category; 
 
     public void updateItem(ItemFormDto itemFormDto){
-
         this.itemNm = itemFormDto.getItemNm();
         this.price = itemFormDto.getPrice();
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
-        this.platform = itemFormDto.getPlatform();
-        this.category = itemFormDto.getCategory();
-
         if(stockNumber > 0){
             itemSellStatus = ItemSellStatus.SELL;
         }
-        
     }
 
     //상품을 주문할 경우 재고가 감소하는 메소드
     public void removeStock(int stockNumber){
-
-        //현재 재고 - 구매하는 재고 수량
-        int restStock = this.stockNumber - stockNumber; 
-
-        //수량 부족할 경우 예외
-        if (restStock < 0) { 
+        int restStock = this.stockNumber - stockNumber; //현재 재고 - 구매하는 재고 수량
+        if (restStock < 0) { //수량 부족할 경우 예외
             throw new OutOfStockException("상품의 재고가 부족합니다. 현재 재고 수량: " + this.stockNumber );
         }else if(restStock == 0){
             itemSellStatus = ItemSellStatus.SOLD_OUT;
         }
-
-        //남은 재고수량값을 할당
-        this.stockNumber = restStock; 
+        this.stockNumber = restStock; //남은 재고수량값을 할당
     }
 
     //재고를 늘려주는 메소드
     public void addStock(int stockNumber){
-
         this.stockNumber += stockNumber;
-
         if(stockNumber > 0){
             itemSellStatus = ItemSellStatus.SELL;
         }
-
     }
 
 
