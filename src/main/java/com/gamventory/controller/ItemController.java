@@ -154,6 +154,15 @@ public class ItemController {
         return "item/itemMng";
     }
 
-    
+     //상세보기 페이지로 이동하는 getmapping
+     @GetMapping(value="/item/{itemId}")
+     public String itemDtl(Model model, @PathVariable("itemId") Long itemId) {
+         
+         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+         model.addAttribute("item", itemFormDto);
+ 
+         return "item/itemDtl";
+     }
+     
     
 }

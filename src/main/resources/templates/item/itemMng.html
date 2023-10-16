@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>관리자페이지</title>
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
-    <!-- 사용자 스크립트 추가 -->
+<!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
     <script th:inline="javascript">
 
@@ -31,15 +28,21 @@
         }
 
     </script>
-
-
 </th:block>
 
-</head>
-<body>
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        select{
+            margin-right:10px;
+        }
+    </style>
+</th:block>
 
-     <!-- 상품 데이터-->
-     <form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
+<div layout:fragment="content">
+
+    <!-- 상품 데이터-->
+    <form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
         <table class="table">
             <thead>
             <tr>
@@ -113,6 +116,5 @@
     </form>
 
 </div>
-    
-</body>
+
 </html>

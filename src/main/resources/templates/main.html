@@ -25,15 +25,39 @@
 </th:block>
 
 
+
 <!-- Content -->
 <div layout:fragment="content">
     <div class="container">
+        <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+    <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+        <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+    </div>
 
             <div id="img_slider" class="row bg-warning">이미지슬라이더영역</div>
 
             <div id="filter" class="row bg-info">필터영역</div>
 
-            <div id="list" class="row bg-primary">
+             <!-- 상품 이미지 출력 for문-->
+    <div class="row ">
+        <th:block th:each="item, status: ${items.getContent()}">
+            <div class="col-md-4 margin">
+                <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card">
+                    <a th:href="'/item/' +${item.id}" class="text-dark">
+                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+                        <div class="card-body">
+                            <h4 class="card-title">[[${item.itemNm}]]</h4>
+                            <p class="card-text">[[${item.itemDetail}]]</p>
+                            <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </th:block>
+    </div>
+    <!-- /. 상품 이미지 출력 for문-->
+
+            <!-- <div id="list" class="row bg-primary">
                 <div class="col-sm-4">
                     <div class="main_img_box"></div>
                     <div class="main_list_text">
@@ -77,6 +101,45 @@
                     </div>     
                 </div>
             </div>
+    </div> -->
+    <!-- 이미지 슬라이더상품 이미지 부분
+    <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active item">
+                <img class="d-block w-100 banner" src="C:\team\gamventory\upload\images\item\2a6c29af-d291-444c-a047-615d187b84a5.jpg" alt="First slide">
+            </div>
+        </div>
+    </div> -->
+    
+    <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+    <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+        <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
     </div>
+
+   
+    
+    <!-- 페이지 이동 버튼-->
+    <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+        <ul class="pagination justify-content-center">
+
+            <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+                <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
+                    <span aria-hidden='true'>이전</span>
+                </a>
+            </li>
+            
+            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
+                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+            </li>
+
+            <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+                    <span aria-hidden='true'>다음</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <!--  /. 페이지 이동 버튼-->
 </div>
 </html>
