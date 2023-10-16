@@ -37,14 +37,17 @@ a{
 
 /* header start ============*/
 
+#header_box{
+    position: relative;
+}
 
 #head{
     height : 70px;
+    z-index : 5px;
 }
 
 #head div{
     border : 1px solid red;
-    cursor: pointer;
 }
 
 
@@ -70,8 +73,18 @@ a{
     margin-right : 50px;
 }
 
+#header_user_box{
+    width : 300px;
+    height: 300px;
+    position: absolute;
+    top : -50px;
+    margin-left : 750px;
+}
+
 
 /* header end ============*/
+
+
 
 
 
