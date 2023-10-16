@@ -5,6 +5,7 @@ import com.gamventory.constant.Category;
 import com.gamventory.constant.ItemSellStatus;
 import com.gamventory.constant.Platform;
 import com.gamventory.dto.ItemFormDto;
+import com.gamventory.exception.OutOfStockException;
 
 import groovy.transform.builder.Builder;
 import jakarta.persistence.Column;
@@ -67,6 +68,7 @@ public class Item extends BaseEntity{
     private Category category; 
 
     public void updateItem(ItemFormDto itemFormDto){
+
         this.itemNm = itemFormDto.getItemNm();
         this.price = itemFormDto.getPrice();
         this.stockNumber = itemFormDto.getStockNumber();
@@ -74,28 +76,39 @@ public class Item extends BaseEntity{
         this.itemSellStatus = itemFormDto.getItemSellStatus();
         this.platform = itemFormDto.getPlatform();
         this.category = itemFormDto.getCategory();
+
         if(stockNumber > 0){
             itemSellStatus = ItemSellStatus.SELL;
         }
+        
     }
 
-    // //상품을 주문할 경우 재고가 감소하는 메소드
-    // public void removeStock(int stockNumber){
-    //     int restStock = this.stockNumber - stockNumber; //현재 재고 - 구매하는 재고 수량
-    //     if (restStock < 0) { //수량 부족할 경우 예외
-    //         throw new OutofStockException("상품의 재고가 부족합니다. 현재 재고 수량: " + this.stockNumber );
-    //     }else if(restStock == 0){
-    //         itemSellStatus = ItemSellStatus.SOLD_OUT;
-    //     }
-    //     this.stockNumber = restStock; //남은 재고수량값을 할당
-    // }
+    //상품을 주문할 경우 재고가 감소하는 메소드
+    public void removeStock(int stockNumber){
+
+        //현재 재고 - 구매하는 재고 수량
+        int restStock = this.stockNumber - stockNumber; 
+
+        //수량 부족할 경우 예외
+        if (restStock < 0) { 
+            throw new OutOfStockException("상품의 재고가 부족합니다. 현재 재고 수량: " + this.stockNumber );
+        }else if(restStock == 0){
+            itemSellStatus = ItemSellStatus.SOLD_OUT;
+        }
+
+        //남은 재고수량값을 할당
+        this.stockNumber = restStock; 
+    }
 
     //재고를 늘려주는 메소드
     public void addStock(int stockNumber){
+
         this.stockNumber += stockNumber;
+
         if(stockNumber > 0){
             itemSellStatus = ItemSellStatus.SELL;
         }
+
     }
 
 

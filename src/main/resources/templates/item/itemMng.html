@@ -41,6 +41,14 @@
 
 <div layout:fragment="content">
 
+       <!-- 관리자 페이지에 좌측에 해당부분 추가해주세요-->
+            <div class="col-sm-1 bg-danger" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <a href="/admin/item/new">상품등록</a>
+            </div>
+            <div class="col-sm-1 bg-danger" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <a href="/admin/items">상품관리</a>
+            </div>
+
     <!-- 상품 데이터-->
     <form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
         <table class="table">

@@ -28,6 +28,7 @@
 
 <!-- Content -->
 <div layout:fragment="content">
+
     <div class="container">
         <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
     <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
@@ -54,6 +55,10 @@
                 </div>
             </div>
         </th:block>
+    </div>
+    <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+    <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+        <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
     </div>
     <!-- /. 상품 이미지 출력 for문-->
 
@@ -102,21 +107,9 @@
                 </div>
             </div>
     </div> -->
-    <!-- 이미지 슬라이더상품 이미지 부분
-    <div id="carouselControls" class="carousel slide margin" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active item">
-                <img class="d-block w-100 banner" src="C:\team\gamventory\upload\images\item\2a6c29af-d291-444c-a047-615d187b84a5.jpg" alt="First slide">
-            </div>
-        </div>
-    </div> -->
     
-    <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-    <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-        <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
-    </div>
 
-   
+
     
     <!-- 페이지 이동 버튼-->
     <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >

@@ -1,4 +1,5 @@
-<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <!-- css link -->
 <link rel="stylesheet" href="../css/gamven.css">
@@ -17,7 +18,13 @@
         <div id="head" class="row bg-warning"> 
             <div class="col-sm-4 bg-info">
             </div>
-            <div class="col-sm-6 bg-success">검색창 test</div>
+             <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
+                <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="검색할 상품을 입력하세요" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+            </form>
+            <div class="col-sm-1 bg-danger" sec:authorize="isAuthenticated()">
+                <a href="/orders">구매이력</a>
+            </div>
             <div class="col-sm-1 bg-danger" sec:authorize="isAnonymous()">
                 <a href="/members/login">로그인</a>
             </div>
