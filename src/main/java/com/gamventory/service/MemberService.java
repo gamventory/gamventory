@@ -1,5 +1,7 @@
 package com.gamventory.service;
 
+import com.gamventory.dto.MemberUpdateFormDto;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,15 +18,40 @@ import lombok.RequiredArgsConstructor;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Log4j2
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
-    
+
+    public MemberUpdateFormDto getMember(String email) {
+
+       Member member  = memberRepository.findByEmail(email);
+
+       log.info("--------- get member --------");
+       log.info(member.toString());
+       MemberUpdateFormDto memberUpdateForm = MemberUpdateFormDto.builder()
+               .name(member.getName())
+               .email(member.getEmail())
+               .address(member.getAddress())
+               .build();
+
+        return memberUpdateForm;
+    }
+
     public Member saveMember(Member member) {
 
         validateDulpicateMember(member);
 
         return memberRepository.save(member);
+    }
+
+    public Long modifyMember(MemberUpdateFormDto memberUpdateForm) {
+
+        Member member = memberRepository.findByEmail(memberUpdateForm.getEmail());
+        member.modifyMember(memberUpdateForm);
+        memberRepository.save(member);
+
+        return member.getId();
     }
 
     private void validateDulpicateMember(Member member) {
@@ -47,10 +74,10 @@ public class MemberService implements UserDetailsService {
         }
 
         return User.builder()
-                .username(member.getEmail())
-                .password(member.getPassword())
-                .roles(member.getRole().toString())
-                .build();
+            .username(member.getEmail())
+            .password(member.getPassword())
+            .roles(member.getRole().toString())
+            .build();
     }
 
 

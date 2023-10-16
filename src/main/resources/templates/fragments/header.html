@@ -17,13 +17,13 @@
         <div id="head" class="row bg-warning"> 
             <div class="col-sm-4 bg-info">
             </div>
-            <div class="col-sm-6 bg-success">검색창 test</div>
+            <div class="col-sm-6 bg-success">검색창</div>
             <div class="col-sm-1 bg-danger" sec:authorize="isAnonymous()">
                 <a href="/members/login">로그인</a>
             </div>
             <div class="col-sm-1 bg-danger" sec:authorize="isAuthenticated()">
                 <a href="/members/logout">로그아웃</a>
-                <a href="/members/modify">개인정보 수정</a>
+                <a href="/members/info">개인정보</a>
             </div>
             <div class="col-sm-1 bg-primary">카트</div>
         </div>
