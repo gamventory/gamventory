@@ -24,14 +24,20 @@ import jakarta.persistence.EntityManager;
 
 public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
-    private JPAQueryFactory queryFactory; //동적으로 쿼리를 생성하는 클래스
+    /* 상품에 관련된 동적쿼리를 생성하는 querydsl 클래스 */
 
-    public ItemRepositoryCustomImpl(EntityManager em){ //JPAQueryFactory의 생성자,em 객체를 넣어줌
+    //동적으로 쿼리를 생성하는 클래스
+    private JPAQueryFactory queryFactory; 
+
+    //JPAQueryFactory의 생성자,em 객체를 넣어줌
+    public ItemRepositoryCustomImpl(EntityManager em){  
+
         this.queryFactory = new JPAQueryFactory(em);
     }
 
     //상품 판매 상태 조건이 전체가 null 이면 null반환, 아니면 조회된 상품을 조회하는 메소드
     private BooleanExpression searchSellStatusEq(ItemSellStatus searchSellStatus){ 
+
         return searchSellStatus == null ? null : QItem.item.itemSellStatus.eq(searchSellStatus);
     }
 
@@ -60,16 +66,21 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
         if(StringUtils.equals("itemNm", searchBy)){
             return QItem.item.itemNm.like("%" + searchQuery + "%");
-        } else if(StringUtils.equals("createdBy", searchBy)){
+        }  
+        else if(StringUtils.equals("createdBy", searchBy)){ 
+
             return QItem.item.createdBy.like("%" + searchQuery + "%");
         }
 
         return null;
     }
 
-    //쿼리 생성하는 메소드, offset:데이터를 가지고 올 시작 인덱스, limit-한번에 가지고 올 최대개수, fetchResult - 조회한 리스트, 전체 개수를 포함하는 객체
+    /*    //쿼리 생성하는 메소드, offset:데이터를 가지고 올 시작 인덱스, limit-한번에 가지고 올 최대개수,
+     *    fetchResult - 조회한 리스트, 전체 개수를 포함하는 객체
+     */
     @Override
     public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto,Pageable pageable) {
+
             List<Item> content = queryFactory
                     .selectFrom(QItem.item)
                     .where(regDtsAfter(itemSearchDto.getSearchDateType()),
@@ -94,11 +105,13 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
     //메인페이지 작업시 필요한 쿼리
     private BooleanExpression itemNmLike(String searchQuery){
+
         return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemNm.like("%" + searchQuery + "%");
     }
 
     @Override
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+
         QItem item = QItem.item;
         QItemImg itemImg = QItemImg.itemImg;
 

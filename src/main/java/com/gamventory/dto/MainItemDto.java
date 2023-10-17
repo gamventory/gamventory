@@ -8,8 +8,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 public class MainItemDto {
+
+    /* 메인 페이지에서 상품을 보여줄 때 사용할 dto */
     
     private Long id;
 
@@ -35,4 +36,5 @@ public class MainItemDto {
         this.platform = platform;
         this.category = category;
     }
+
 }

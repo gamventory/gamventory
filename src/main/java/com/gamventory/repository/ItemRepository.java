@@ -12,6 +12,7 @@ import com.gamventory.constant.Platform;
 import com.gamventory.entity.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Long>,QuerydslPredicateExecutor<Item>, ItemRepositoryCustom{
+
     
     /* Item 테이블의 db를 생성해주는 클래스입니다. */
 

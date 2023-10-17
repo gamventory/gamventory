@@ -17,6 +17,12 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <th:block layout:fragment="script"></th:block>
+    <th:block layout:fragment="css"></th:block>
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 </head>
@@ -35,6 +41,8 @@
 
 
     <script>
+
+        //좌표 알려주는 쿼리
         let browserPoint = (event)=>{
                 console.log(`브라우저 좌표 : (${event.pageX}, ${event.pageY})`);
             }
@@ -46,10 +54,28 @@
                 clientPoint(e);
             });
 
-        //javascript 라이브러리 충돌을 피하기 위하여 var jq = $.noConflict();를 사용
-        jq(document).ready(function(){
-            $("#nav_game").click(function() {
-                $("html").animate({scrollTop: 417});
+
+        $(document).ready(function(){
+
+            //메인 페이지 스크롤 이벤트 쿼리
+            $("#logo").click(function() {
+                $("html").animate({scrollTop: 0});
+            });
+
+            $("#nav_game").click(function(event) {
+    event.preventDefault(); // 클릭 이벤트의 기본 동작을 중단합니다.
+
+    // 페이지 이동을 시작합니다.
+    window.location.href = 'http://localhost:8081/';
+
+    // 페이지 이동이 완료되면 애니메이션을 시작합니다.
+    window.onload = function() {
+        $("html").animate({scrollTop: 417});
+    };
+});
+
+            $("#header_User").click(function(){
+                $("#user_Modal").slideToggle("slow");
             });
         });
     </script>

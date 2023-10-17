@@ -24,12 +24,14 @@ public class ItemImgService {
     private final FileService fileService;
 
     public void saveItemImg(ItemImg itemImg, MultipartFile itemImgFile) throws Exception{
+
         String oriImgName = itemImgFile.getOriginalFilename();
         String imgName = "";
         String imgUrl = "";
 
         //파일 업로드
         if(!StringUtils.isEmpty(oriImgName)){
+
             //사용자가 이미지를 등록하면 저장결로, 파일이름, 파일을 파일 업로드 파라미터로 uploadFile메소드를 호출해서 imgName 변수에 저장
             imgName = fileService.uploadFile(itemImgLocation, oriImgName, itemImgFile.getBytes()); 
              // 저장한 상품 이미지를 불러올 주소를 저장
@@ -42,7 +44,9 @@ public class ItemImgService {
     }
 
     public void updateItemImg(Long itemImgId, MultipartFile itemImgFile) throws Exception{
+
         if(!itemImgFile.isEmpty()){
+
             ItemImg savedItemImg = itemImgRepository.findById(itemImgId)
                     .orElseThrow(EntityNotFoundException::new);
 
@@ -57,6 +61,8 @@ public class ItemImgService {
             String imgUrl = "/images/item/" + imgName;
             savedItemImg.updateItemImg(oriImgName, imgName, imgUrl);
         }
+
     }
+    
 }
 
