@@ -36,7 +36,7 @@ dependencies {
  	testAnnotationProcessor 'org.projectlombok:lombok'
 
 	// spring-boot-devtools
-	implementation 'org.springframework.boot:spring-boot-devtools:3.1.4'
+	implementation 'org.springframework.boot:spring-boot-devtools'
 
 	// spring-security, spring-security-test thymeleaf expansion
 	implementation 'org.springframework.boot:spring-boot-starter-security'

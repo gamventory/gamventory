@@ -89,13 +89,13 @@
         <div class="row">
             <th:block th:each="item, status: ${items.getContent()}">
                 <div class="col-md-4 margin">
-                    <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5">
+                    <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5 bg-dark">
                         <a th:href="'/item/' +${item.id}" class="text-dark">
-                            <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
-                            <div class="card-body">
-                                <h4 class="card-title">[[${item.itemNm}]]</h4>
-                                <p class="card-text">[[${item.itemDetail}]]</p>
-                                <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+                            <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+                            <div id="main_game_card_text"class="card-body bg-dark">
+                                <p class="card-title text-white">[[${item.itemNm}]]</span><p>
+                                <p class="card-text text-white" style="opacity: 0.5;">[[${item.itemDetail}]]</p>
+                                <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]원</p>
                             </div>
                         </a>
                     </div>
