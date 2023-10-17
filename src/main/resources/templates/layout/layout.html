@@ -41,6 +41,8 @@
 
 
     <script>
+
+        //좌표 알려주는 쿼리
         let browserPoint = (event)=>{
                 console.log(`브라우저 좌표 : (${event.pageX}, ${event.pageY})`);
             }
@@ -52,13 +54,28 @@
                 clientPoint(e);
             });
 
-        //javascript 라이브러리 충돌을 피하기 위하여 var jq = $.noConflict();를 사용
 
-        var jq = $.noConflict();
+        $(document).ready(function(){
 
-        jq(document).ready(function(){
-            $("#nav_game").click(function() {
-                $("html").animate({scrollTop: 417});
+            //메인 페이지 스크롤 이벤트 쿼리
+            $("#logo").click(function() {
+                $("html").animate({scrollTop: 0});
+            });
+
+            $("#nav_game").click(function(event) {
+    event.preventDefault(); // 클릭 이벤트의 기본 동작을 중단합니다.
+
+    // 페이지 이동을 시작합니다.
+    window.location.href = 'http://localhost:8081/';
+
+    // 페이지 이동이 완료되면 애니메이션을 시작합니다.
+    window.onload = function() {
+        $("html").animate({scrollTop: 417});
+    };
+});
+
+            $("#header_User").click(function(){
+                $("#user_Modal").slideToggle("slow");
             });
         });
     </script>

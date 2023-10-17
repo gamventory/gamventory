@@ -30,10 +30,12 @@
 <div layout:fragment="content">
 
     <div class="container">
+
         <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-    <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-        <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
-    </div>
+        
+        <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+            <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+        </div>
 
         <!--imgslider-->
         <div id="img_slider" class="carousel slide row" data-ride="carousel">
@@ -49,6 +51,7 @@
               <div class="carousel-item active">
                 <img src="la.jpg" alt="slide1" width="1100" height="500">
                 <div class="carousel-caption bg-info">
+
                 </div>   
               </div>
 
@@ -73,32 +76,36 @@
             <a class="carousel-control-next" href="#img_slider" data-slide="next">
               <span class="carousel-control-next-icon"></span>
             </a>
-          </div>
+        </div>
+        <!-- imgslider end-->
 
-          <!-- filter -->
-        <div id="filter" class="row bg-info">필터영역</div>
 
-             <!-- 상품 이미지 출력 for문-->
-    <div class="row ">
-        <th:block th:each="item, status: ${items.getContent()}">
-            <div class="col-md-4 margin">
-                <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card">
-                    <a th:href="'/item/' +${item.id}" class="text-dark">
-                        <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
-                        <div class="card-body">
-                            <h4 class="card-title">[[${item.itemNm}]]</h4>
-                            <p class="card-text">[[${item.itemDetail}]]</p>
-                            <h3 class="card-title text-danger">[[${item.price}]]원</h3>
-                        </div>
-                    </a>
+        <!-- filter -->
+        <div id="filter" class="row bg-info mb-3">필터영역</div>
+        <!-- fliter end-->
+
+
+        <!-- 상품 이미지 출력 for문-->
+        <div class="row">
+            <th:block th:each="item, status: ${items.getContent()}">
+                <div class="col-md-4 margin">
+                    <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5">
+                        <a th:href="'/item/' +${item.id}" class="text-dark">
+                            <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
+                            <div class="card-body">
+                                <h4 class="card-title">[[${item.itemNm}]]</h4>
+                                <p class="card-text">[[${item.itemDetail}]]</p>
+                                <h3 class="card-title text-danger">[[${item.price}]]원</h3>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-        </th:block>
-    </div>
-    <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-    <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-        <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
-    </div>
+            </th:block>
+        </div>
+        <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+        <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+            <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+        </div>
     <!-- /. 상품 이미지 출력 for문-->
 
     <!-- 페이지 이동 버튼-->

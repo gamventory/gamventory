@@ -1,7 +1,11 @@
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org"
                 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<!-- fontawesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+
+<!-- jquary -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- css link -->
 <link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
@@ -16,51 +20,65 @@
 <div th:fragment="headerFragment">
 
     <div id="header_box" class="fixed-top">
+
         <div class="container">
+
             <div id="head" class="row bg-warning"> 
-                <div class="col-sm-4 bg-info">
+
+                <!-- logo -->
+                <div class="col-sm-3 bg-dark">
+                    <h2 id="logo" class="text-white">GAMVENTORY</h2>
                 </div>
-                <div class="col-sm-5 bg-success">검색창</div>
-                <div class="col-sm-2 bg-danger">
-                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+
+                <!-- search -->
+                <div id="search_Form" class="col-sm-7 bg-dark px-auto">
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
+                        <input id="searchBar" name="searchQuery" class="form-control mr-sm-3 text-white" type="search" placeholder="검색할 상품을 입력하세요" aria-label="Search">
+                        <button class="btn btn-outline bg-primary text-white my-3" type="submit">검색</button>
+                    </form>
+                </div>
+
+                <!-- user -->
+                <div id="header_User" class="col-sm-2 bg-dark">
+                    <i class="fa fa-user-circle fa-2x" style="color: white;" aria-hidden="true"></i>
                     <span>비회원</span>
                 </div>
-                <div class="col-sm-1 bg-primary">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+
+                <!-- cart -->
+                <!-- <div class="col-sm-2 bg-dark">
+                    <i class="fa fa-shopping-cart" style="color:white" aria-hidden="true"></i>
                     <span class="badge bg-danger">0</span>
+                </div> -->
+            </div>
+
+            <div id="user_Modal" class="container">
+                <div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a href="/orders" class="text-white">구매이력</a>
+                    </div>
+                    <div sec:authorize="isAnonymous()">
+                        <a href="/members/login" class="text-white">로그인</a>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a href="/members/logout" class="text-white">로그아웃</a><br>
+                        <a href="/members/modify" class="text-white">개인정보 수정</a>
+                    </div>
                 </div>
             </div>
-             <form class="form-inline my-2 my-lg-0" th:action="@{/}" method="get">
-                <input name="searchQuery" class="form-control mr-sm-2" type="search" placeholder="검색할 상품을 입력하세요" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-            </form>
-            <div class="col-sm-1 bg-danger" sec:authorize="isAuthenticated()">
-                <a href="/orders">구매이력</a>
-            </div>
-            <div class="col-sm-1 bg-danger" sec:authorize="isAnonymous()">
-                <a href="/members/login">로그인</a>
-            </div>
-            <div class="col-sm-1 bg-danger" sec:authorize="isAuthenticated()">
-                <a href="/members/logout">로그아웃</a>
-                <a href="/members/modify">개인정보 수정</a>
-            </div>
-            <div class="col-sm-1 bg-primary">카트</div>
+
         </div>
 
     
     <div id="nav" class="container bg-dark">
         <ul>
-            <li><a href="#">게임</a></li>
-            <li><a href="#">공지사항</a></li>
-            <li><a href="#">커뮤니티</a></li>
-            <li><a href="#">회사소개</a></li>
+            <li><a id="nav_game" class="text-white">게임</a></li>
+            <li><a href="#" class="text-white">공지사항</a></li>
+            <li><a href="#" class="text-white">커뮤니티</a></li>
+            <li><a href="#" class="text-white">회사소개</a></li>
             <li><a href="http://localhost:8081/admin/items" class="badge bg-success text-white">관리자</a></li>
         </ul>
     </div>
-
-    
-    
-
 </div>
+
 </html>
 
