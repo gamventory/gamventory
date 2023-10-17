@@ -77,7 +77,6 @@
 
           <!-- filter -->
         <div id="filter" class="row bg-info">필터영역</div>
-
              <!-- 상품 이미지 출력 for문-->
     <div class="row ">
         <th:block th:each="item, status: ${items.getContent()}">
@@ -86,8 +85,8 @@
                     <a th:href="'/item/' +${item.id}" class="text-dark">
                         <img th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="400">
                         <div class="card-body">
-                            <h4 class="card-title">[[${item.itemNm}]]</h4>
-                            <p class="card-text">[[${item.itemDetail}]]</p>
+                            <h4 class="card-title" th:text="${#strings.length(item.itemNm) > 10 ? #strings.substring(item.itemNm, 0, 10) + '...' : item.itemNm}"></h4>
+                            <p class="card-text" th:text="${#strings.length(item.itemDetail) > 10 ? #strings.substring(item.itemDetail, 0, 10) + '...' : item.itemDetail}"></p>
                             <h3 class="card-title text-danger">[[${item.price}]]원</h3>
                         </div>
                     </a>
