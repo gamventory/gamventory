@@ -31,7 +31,6 @@ public class MemberServiceTest {
                 .name("test")
                 .email("test@gmail.com")
                 .password("1234")
-                .address("서울시 마포구 합정동")
                 .build();
         
         return Member.createMember(member, passwordEncoder);

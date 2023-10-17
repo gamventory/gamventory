@@ -5,8 +5,10 @@ import com.gamventory.constant.Category;
 import com.gamventory.constant.ItemSellStatus;
 import com.gamventory.constant.Platform;
 import com.gamventory.dto.ItemFormDto;
+import com.gamventory.exception.OutOfStockException;
 
 import groovy.transform.builder.Builder;
+import groovyjarjarpicocli.CommandLine.Help.Ansi.Text;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -52,7 +54,7 @@ public class Item extends BaseEntity{
 
     //상품 상세 설명
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String itemDetail; 
 
     //상품 판매 상태
@@ -78,16 +80,16 @@ public class Item extends BaseEntity{
         }
     }
 
-    // //상품을 주문할 경우 재고가 감소하는 메소드
-    // public void removeStock(int stockNumber){
-    //     int restStock = this.stockNumber - stockNumber; //현재 재고 - 구매하는 재고 수량
-    //     if (restStock < 0) { //수량 부족할 경우 예외
-    //         throw new OutofStockException("상품의 재고가 부족합니다. 현재 재고 수량: " + this.stockNumber );
-    //     }else if(restStock == 0){
-    //         itemSellStatus = ItemSellStatus.SOLD_OUT;
-    //     }
-    //     this.stockNumber = restStock; //남은 재고수량값을 할당
-    // }
+    //상품을 주문할 경우 재고가 감소하는 메소드
+    public void removeStock(int stockNumber){
+        int restStock = this.stockNumber - stockNumber; //현재 재고 - 구매하는 재고 수량
+        if (restStock < 0) { //수량 부족할 경우 예외
+            throw new OutOfStockException("상품의 재고가 부족합니다. 현재 재고 수량: " + this.stockNumber );
+        }else if(restStock == 0){
+            itemSellStatus = ItemSellStatus.SOLD_OUT;
+        }
+        this.stockNumber = restStock; //남은 재고수량값을 할당
+    }
 
     //재고를 늘려주는 메소드
     public void addStock(int stockNumber){

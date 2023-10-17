@@ -17,7 +17,18 @@ ul,li{
 li{
     list-style: none;
 }
+
+a{
+    cursor: pointer;
+    color : white;
+    font-weight: bolder;
+}
 /* base end ============================================*/
+
+
+
+
+
 
 
 
@@ -28,20 +39,45 @@ li{
 
 
 /* header start ============*/
+#logo{
+    font-weight: bolder;
+    margin-top : 15px;
+    cursor: pointer;
+    margin-left : 10px;
+}
 
+
+#header{
+    position: relative;
+}
 
 #head{
     height : 70px;
+    z-index : 5px;
 }
 
-#head div{
-    border : 1px solid red;
+
+#search_Form{
+
+    padding-left : 100px;
+}
+
+#searchBar{
+    background-color: rgb(150, 150, 150);
+    width : 350px;
+}
+
+#header_User {
+    padding-top :  15px;
+    cursor: pointer;
+    color : white;
+    font-weight: bolder;
 }
 
 
 #nav{
-    padding : 0px;
-    border : 1px solid red;
+    padding-bottom : 2px; 
+
 }
 
 
@@ -53,16 +89,46 @@ li{
 #nav li{
     display : inline-block;
     margin-right: 10px;
-    border : 1px solid green;
 }
 
 #nav li:nth-child(5){
     float : right;
-    margin-right : 50px;
+    margin-right : 100px;
+}
+
+#user_Modal{
+    padding : 10px;
+    padding-left : 940px;
+    position: absolute;
+    top : 60px;
+    display: none;
+}
+
+#user_Modal>div:nth-child(1){
+    background-color: rgb(65, 84, 112, 0.5);
+    margin-right : -10px;
+    width : 200px;
+
+}
+
+#user_Modal div{
+    margin-bottom : 10px;
+}
+
+#user_Modal a{
+    opacity: 1;
+}
+
+#user_Modal div div:nth-child(3) a{
+    line-height: 30px;
 }
 
 
+
+
 /* header end ============*/
+
+
 
 
 
@@ -70,6 +136,10 @@ li{
 
 #footer{
     font-weight: bolder;
+}
+
+#footer div{
+    height: 300px;
 }
 
 /*footer ends ===========*/
@@ -80,30 +150,109 @@ li{
 
 
 
-/*main*/
+
+
+
+
+/* main.html start ================================================*/
 
 #img_slider{
+    margin-top: 140px;
     height : 300px;
 }
+
+#img_slider div{
+    height: 300px;
+}
+
+
+
 
 #filter{
     height : 100px;
 }
 
-#list>div{
-    height : 400px;
-    border : 1px solid gray;
-    padding : 0px;  
+/* main.html end ================================================*/
+
+
+
+
+
+
+
+
+/* memberForm start ================================================*/
+
+#singup_box{
+    margin-top : 220px;
+    color: white;
+    padding-left : 20%;
+    margin-bottom : 100px;
 }
 
-.main_img_box{
-    width : 80%;
-    height : 75%;
-    background-color: yellow;
-    margin : 10px auto;
+#singup_box input{
+    width : 400px;
 }
 
-.main_list_text{
-    float : right;
-    margin-right : 50px;
+
+/* memberForm end ==================================================*/
+
+
+
+/* memberLogin start ================================================*/
+
+#login_box{
+    margin-top : 320px;
+    margin-bottom : 200px;
+    padding-left : 20%;
 }
+
+#login_box input{
+    width : 400px;
+}
+
+/* memberLogin end ================================================*/
+
+
+
+
+
+
+
+
+
+
+/* management.html start ================================================*/
+
+#management_box{
+    height : 500px;
+    margin-top : 130px;
+}
+
+#management_box div:nth-child(1){
+    padding : 0px;
+}
+
+#management_game_list{
+    text-align: center;
+}
+
+/* management.html end ================================================*/
+
+
+
+
+
+
+
+
+
+/* managementDetail.html start =========================================*/
+
+#management_game_detail #btn_box{
+    margin-top: 30px;
+    float: right;
+    margin-right: 80px;
+}
+
+/* managementDetail.html end ===========================================*/

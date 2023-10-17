@@ -1,9 +1,9 @@
 package com.gamventory.entity;
 
+
 import com.gamventory.constant.Platform;
 
-import groovy.transform.ToString;
-import groovy.transform.builder.Builder;
+import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,8 +12,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="serial")
@@ -21,6 +25,8 @@ import lombok.Setter;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Serial {
     
     /* 상품의 시리얼 번호에 대한 entity 
@@ -32,12 +38,25 @@ public class Serial {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;       
 
+    @Column(name = "item_id", nullable = false)
+    private Long itemId;
+
     //시리얼 번호
     @Column(name = "serial_number", nullable = false)
     private String serialNumber; 
    
     //플랫폼
     @Enumerated(EnumType.STRING)
-    private Platform platform; 
+    private Platform platform;
+
+    public static Serial createWithRandomSerialNumber(Long itemId, Platform platform) {
+        return Serial.builder()
+                     .itemId(itemId)
+                     .serialNumber(UUID.randomUUID().toString())
+                     .platform(platform)
+                     .build();
+    }
+
+    
     
 }

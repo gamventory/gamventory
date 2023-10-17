@@ -43,13 +43,14 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/members/login"),
                                         new AntPathRequestMatcher("/members/new"),
                                         new AntPathRequestMatcher("/item/**"),
+                                        new AntPathRequestMatcher("/serials/**"),
+                                        new AntPathRequestMatcher("/api/**"),
+                                        new AntPathRequestMatcher("/images/**"),
                                         new AntPathRequestMatcher("/mail/**"),
-                                        new AntPathRequestMatcher("/images/**")).permitAll()
+                                        new AntPathRequestMatcher("/order/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**")).hasRole("USER")
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
-
-
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling
