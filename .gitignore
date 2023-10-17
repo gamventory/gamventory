@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# application.properties 파일 무시
+/application.properties
+
+# application-test.properties 파일 무시
+/application-test.properties

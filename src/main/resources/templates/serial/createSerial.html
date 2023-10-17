@@ -9,15 +9,18 @@
     <form th:action="@{/serials/createSerial}" method="post">
         <label for="itemId">Item ID:</label>
         <input type="text" id="itemId" name="itemId" required>
-        
+
         <label for="platform">Platform:</label>
         <select id="platform" name="platform" required>
             <option value="STEAM">Steam</option>
             <option value="EPIC_GAMES">Epic Games</option>
             <option value="OTHER">Other</option>
         </select>
-        
-        <button type="submit">Create Serial</button>
+
+        <label for="numberOfSerials">Number of Serials:</label>
+        <input type="number" id="numberOfSerials" name="numberOfSerials" required min="1">
+
+        <button type="submit">Create Serials</button>
     </form>
 </body>
 </html>

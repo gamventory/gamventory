@@ -49,13 +49,19 @@ public class Serial {
     @Enumerated(EnumType.STRING)
     private Platform platform;
 
-    public static Serial createWithRandomSerialNumber(Long itemId, Platform platform) {
+    //사용여부
+    @Column(name = "user_status", nullable = false)
+    private boolean userStatus;
+
+    public static Serial createWithRandomSerialNumber(Long itemId, Platform platform, boolean userStatus) {
         return Serial.builder()
                      .itemId(itemId)
                      .serialNumber(UUID.randomUUID().toString())
                      .platform(platform)
+                     .userStatus(userStatus) // userStatus 초기화
                      .build();
     }
+    
 
     
     
