@@ -7,6 +7,7 @@ body{
     padding: 0px;
     box-sizing: border-box;
     background-color: rgb(97, 97, 97) !important;
+    padding-top : 140px;
 }
 
 ul,li{
@@ -97,8 +98,9 @@ a{
 }
 
 #user_Modal{
-    padding : 10px;
-    padding-left : 940px;
+    width : 200px;
+    padding : 0px;
+    margin : 0 48%;
     position: absolute;
     top : 60px;
     display: none;
@@ -115,9 +117,6 @@ a{
     margin-bottom : 10px;
 }
 
-#user_Modal a{
-    opacity: 1;
-}
 
 #user_Modal div div:nth-child(3) a{
     line-height: 30px;
@@ -157,7 +156,7 @@ a{
 /* main.html start ================================================*/
 
 #img_slider{
-    margin-top: 140px;
+
     height : 300px;
 }
 
@@ -184,7 +183,7 @@ a{
 /* memberForm start ================================================*/
 
 #singup_box{
-    margin-top : 220px;
+    margin-top : 80px;
     color: white;
     padding-left : 20%;
     margin-bottom : 100px;
@@ -199,10 +198,11 @@ a{
 
 
 
+
 /* memberLogin start ================================================*/
 
 #login_box{
-    margin-top : 320px;
+    margin-top : 180px;
     margin-bottom : 200px;
     padding-left : 20%;
 }
@@ -212,6 +212,44 @@ a{
 }
 
 /* memberLogin end ================================================*/
+
+
+
+
+/* memberLModify start ================================================*/
+
+#modify_box{
+    margin-top : 180px;
+    margin-bottom : 200px;
+    padding-left : 20%
+}
+
+#modify_box input{
+    width : 400px;
+}
+
+
+/* memberLModify end ================================================*/
+
+
+
+
+
+
+
+
+
+/* itemDtl start ================================================*/
+#item_detail_box{
+    border: 1px solid red;
+}
+/* itemDtl end ==================================================*/
+
+
+
+
+
+
 
 
 
@@ -226,7 +264,7 @@ a{
 
 #management_box{
     height : 500px;
-    margin-top : 130px;
+    margin-bottom: 20px;
 }
 
 #management_box div:nth-child(1){
