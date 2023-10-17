@@ -21,10 +21,10 @@ public class QMember extends EntityPathBase<Member> {
 
     public final QBaseEntity _super = new QBaseEntity(this);
 
-    public final StringPath address = createString("address");
-
     //inherited
     public final StringPath createdBy = _super.createdBy;
+
+    public final StringPath detailAddress = createString("detailAddress");
 
     public final StringPath email = createString("email");
 
@@ -42,8 +42,12 @@ public class QMember extends EntityPathBase<Member> {
 
     public final EnumPath<com.gamventory.constant.Role> role = createEnum("role", com.gamventory.constant.Role.class);
 
+    public final StringPath streetAddress = createString("streetAddress");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updateTime = _super.updateTime;
+
+    public final StringPath zipcode = createString("zipcode");
 
     public QMember(String variable) {
         super(Member.class, forVariable(variable));

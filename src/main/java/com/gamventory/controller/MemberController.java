@@ -41,11 +41,15 @@ public class MemberController {
     @PostMapping(value = "/new")
     public String newMember(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model) {
 
+        log.info("/members/new controller");
         if(bindingResult.hasErrors()) {
+            log.info("binding....");
+            log.info(bindingResult.toString());
             return "member/memberForm";
         }
 
         try {
+            log.info("member.createMember");
             Member member = Member.createMember(memberFormDto, passwordEncoder);
             memberService.saveMember(member);
         } catch (Exception e) {

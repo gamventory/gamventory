@@ -20,7 +20,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          AuthenticationException authException) throws IOException, ServletException {
 
         // 권한이 없다면 해당 페이지로 리다이렉트
-        response.sendRedirect("/members/login");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+
     }
 
 }

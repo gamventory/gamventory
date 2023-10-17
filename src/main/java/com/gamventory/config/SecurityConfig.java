@@ -20,6 +20,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf((csrf) -> csrf
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/members/login")
@@ -32,7 +34,7 @@ public class SecurityConfig {
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
                                 .logoutSuccessUrl("/")
                 )
-                .authorizeRequests(authorizeRequests ->
+                .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
                                         new AntPathRequestMatcher("/js/**"),
@@ -41,10 +43,13 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/members/login"),
                                         new AntPathRequestMatcher("/members/new"),
                                         new AntPathRequestMatcher("/item/**"),
+                                        new AntPathRequestMatcher("/mail/**"),
                                         new AntPathRequestMatcher("/images/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**")).hasRole("USER")
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
+
+
                 )
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling

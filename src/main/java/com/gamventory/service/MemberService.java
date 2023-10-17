@@ -32,7 +32,7 @@ public class MemberService implements UserDetailsService {
        MemberUpdateFormDto memberUpdateForm = MemberUpdateFormDto.builder()
                .name(member.getName())
                .email(member.getEmail())
-               .address(member.getAddress())
+               .address(member.getStreetAddress())
                .build();
 
         return memberUpdateForm;
