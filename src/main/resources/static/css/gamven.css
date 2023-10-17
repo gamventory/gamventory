@@ -143,6 +143,9 @@ a{
 
 /*footer ends ===========*/
 
+
+
+
 /* fragments end ============================================*/
 
 
@@ -198,7 +201,6 @@ a{
 
 
 
-
 /* memberLogin start ================================================*/
 
 #login_box{
@@ -212,7 +214,6 @@ a{
 }
 
 /* memberLogin end ================================================*/
-
 
 
 
@@ -248,6 +249,17 @@ a{
 
 
 
+/* itemForm start ================================================*/
+
+
+#item_form button{
+    float : left;
+    margin-right : 10px;
+}
+
+/* itemForm end ================================================*/
+
+
 
 
 
@@ -262,24 +274,19 @@ a{
 
 /* management.html start ================================================*/
 
-#management_box{
-    height : 500px;
+.management_box{
     margin-bottom: 20px;
 }
 
-#management_box div:nth-child(1){
+.management_box div:nth-child(1){
     padding : 0px;
 }
 
-#management_game_list{
+.management_game_list{
     text-align: center;
 }
 
 /* management.html end ================================================*/
-
-
-
-
 
 
 
