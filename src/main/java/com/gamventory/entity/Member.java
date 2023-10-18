@@ -69,17 +69,11 @@ public class Member extends BaseEntity {
                 .name(memberFormDto.getName())
                 .email(memberFormDto.getEmail())
                 .password(password)
-<<<<<<< HEAD
                 .zipcode(memberFormDto.getZipCode())
                 .streetAddress(memberFormDto.getStreetAddress())
                 .detailAddress(memberFormDto.getDetailAddress())
                 .role(Role.USER)
                 .build();
-=======
-                .role(Role.ADMIN)
-                .build(); 
-
->>>>>>> sonwonduk
 
         return member;
     }
