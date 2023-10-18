@@ -18,7 +18,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -28,6 +30,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Item extends BaseEntity{
 
     /* 상품 정보에 대한 entity입니다
