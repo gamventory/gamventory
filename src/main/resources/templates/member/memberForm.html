@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      >
+      layout:decorate="~{layout/layout}">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,6 +20,7 @@
     <script type="text/javascript">
 
         let isCertification = false;
+        let pwckcorCheck = false;
 
         function sendNumber(){
 
@@ -148,13 +149,38 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
-        function pwCheck() {
 
-            if($("#password").val() == $("#passwordConfirm").val()) {
-                $("#")
+        function validatePassword() {
+
+            let newPassword = $("#password").val();
+            let confirmPassword = $("#passwordConfirm").val();
+            let resultSpan1 = $("#passwordCheckResult1");
+            let resultSpan2 = $("#passwordCheckResult2");
+            const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
+
+            if (passwordRegex.test(newPassword)) {
+                if(newPassword === confirmPassword) {
+
+                    resultSpan2.html("비밀번호가 일치합니다.");
+                    resultSpan2.css("color", "green");
+                    pwckcorCheck = true;
+                } else {
+
+                    resultSpan2.html("비밀번호가 다릅니다..");
+                    resultSpan2.css("color", "red");
+                    pwckcorCheck = false;
+                }
+
+                resultSpan1.html("");
+                resultSpan1.css("color", "red");
+
+            } else {
+
+                resultSpan1.html("비밀번호는 최소 8자에서 16자, 영문자, 숫자 및 특수 문자를 포함해야됩니다.");
+                resultSpan1.css("color", "red");
             }
-
         }
+
     </script>
 
 </th:block>    
@@ -162,7 +188,6 @@
 
 </head>
 <body>
-      layout:decorate="~{layout/layout}">
 
     <!-- css link -->
     <link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
@@ -197,11 +222,13 @@
                 <input type="text" id="Confirm" name="Confirm" style="display: none" value="">
             <div class="form-group">
                 <label th:for="password">비밀번호</label>
-                <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호 입력">
+                <input type="password" th:field="*{password}" class="form-control" onchange="validatePassword()" placeholder="비밀번호 입력">
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+                <span id="passwordCheckResult1"></span>
             </div>
             <div class="form-group">
-                <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" placeholder="비밀번호 확인">
+                <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control" onchange="validatePassword()" placeholder="비밀번호 확인">
+                <span id="passwordCheckResult2"></span>
             </div>
             <div class="form-group">
                 <label th:for="zipCode">우편번호</label>

@@ -47,7 +47,7 @@ public class ItemRepositoryTest {
             item.setUpdateTime(LocalDateTime.now());
             item.setCategory(Category.ALL);
             item.setPlatform(Platform.STEAM);
-            Item savedItem = itemRepository.save(item);
+            itemRepository.save(item);
         }
     }
 

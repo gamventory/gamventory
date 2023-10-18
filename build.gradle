@@ -48,6 +48,7 @@ dependencies {
 
 	// spring-boot-start-mail
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	
 	// mysql jdbc driver
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	

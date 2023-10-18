@@ -8,7 +8,6 @@ import com.gamventory.dto.ItemFormDto;
 import com.gamventory.exception.OutOfStockException;
 
 import groovy.transform.builder.Builder;
-import groovyjarjarpicocli.CommandLine.Help.Ansi.Text;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
