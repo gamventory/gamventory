@@ -25,7 +25,11 @@ public class MemberFormDto {
     @Length(min = 8, max = 16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요.")
     private String password;
 
-    @NotEmpty(message = "주소를 입력해주세요.")
-    private String address;
+    @NotEmpty(message = "주소지 검색 버튼을 통해 주소를 입력해 주세요.")
+    private String zipCode;
+
+    private String streetAddress;
+
+    private String detailAddress;
 
 }

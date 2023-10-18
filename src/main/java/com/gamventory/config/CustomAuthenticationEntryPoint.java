@@ -9,6 +9,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/*
+* 인증 되지 않는 사용가 인증이 필요한 페이지에 접근할 때 사용되는 클래스
+*/
+
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override

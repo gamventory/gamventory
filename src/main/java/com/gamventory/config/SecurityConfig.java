@@ -14,10 +14,14 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-  
+
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf((csrf) -> csrf
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/members/login")
@@ -42,6 +46,7 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/serials/**"),
                                         new AntPathRequestMatcher("/api/**"),
                                         new AntPathRequestMatcher("/images/**"),
+                                        new AntPathRequestMatcher("/mail/**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**")).hasRole("USER")
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
@@ -55,16 +60,17 @@ public class SecurityConfig {
         return http.build();
     }
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
         return auth.getAuthenticationManager();
     }
 
-}  
+}
 
 
