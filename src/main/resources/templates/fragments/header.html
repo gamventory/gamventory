@@ -40,8 +40,27 @@
 
                 <!-- user -->
                 <div id="header_User" class="col-sm-2 bg-dark">
-                    <i class="fa fa-user-circle fa-2x" style="color: white;" aria-hidden="true"></i>
-                    <span>비회원</span>
+                    <i class="fa fa-user-circle fa-2x" style="color: white;" aria-hidden="true">
+                        <div id="user_Modal" class="collapse show">
+                            <div>
+                                <div sec:authorize="isAuthenticated()">
+                                    <a href="/orders" class="text-white">구매이력</a>
+                                </div>
+                                <div sec:authorize="isAuthenticated()">
+                                    <a href="/members/logout" class="text-white">로그아웃</a>
+                                </div>
+                                <div sec:authorize="isAuthenticated()">
+                                    <a href="/members/info" class="text-white">개인정보 수정</a>
+                                </div>
+                                <div sec:authorize="isAnonymous()">
+                                    <a href="/members/login" class="text-white">로그인</a>
+                                </div>
+                                <div sec:authorize="isAnonymous()">
+                                    <a href="/members/new" class="text-white">회원가입</a>
+                                </div>
+                            </div>
+                        </div>
+                    </i>
                 </div>
 
                 <!-- cart -->
@@ -51,25 +70,7 @@
                 </div> -->
             </div>
 
-            <div id="user_Modal">
-                <div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a href="/orders" class="text-white">구매이력</a>
-                    </div>          
-                    <div sec:authorize="isAuthenticated()">
-                        <a href="/members/logout" class="text-white">로그아웃</a>
-                    </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a href="/members/modify" class="text-white">개인정보 수정</a>
-                    </div>
-                    <div sec:authorize="isAnonymous()">
-                        <a href="/members/login" class="text-white">로그인</a>
-                    </div>
-                    <div sec:authorize="isAnonymous()">
-                        <a href="/members/new" class="text-white">회원가입</a>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
 

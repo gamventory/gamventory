@@ -48,7 +48,7 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/images/**"),
                                         new AntPathRequestMatcher("/mail/**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/members/**")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/members/**")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )

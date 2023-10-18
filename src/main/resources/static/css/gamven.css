@@ -55,7 +55,6 @@ a{
 
 #head{
     height : 70px;
-    z-index : 5px;
 }
 
 
@@ -95,31 +94,26 @@ a{
 
 #nav li:nth-child(5){
     float : right;
-    margin-right : 100px;
+    margin-right : 120px;
 }
 
 #user_Modal{
     width : 200px;
-    padding : 0px;
-    margin : 0 48%;
     position: absolute;
     top : 60px;
     display: none;
+    font-size : 15px;
+    left : -65px;
 }
 
-#user_Modal>div:nth-child(1){
-    background-color: rgb(65, 84, 112, 0.5);
+#user_Modal>div{
+    background-color: rgb(65, 84, 112, 0.9);
+    border-radius: 10px;
     margin-right : -10px;
     width : 200px;
-
-}
-
-#user_Modal div{
-    margin-bottom : 10px;
-}
-
-
-#user_Modal div div:nth-child(3) a{
+    text-align: center;
+    padding-top : 10px;
+    padding-bottom : 10px;
     line-height: 30px;
 }
 
@@ -202,13 +196,19 @@ a{
 #singup_box{
     margin-top : 80px;
     color: white;
-    padding-left : 20%;
     margin-bottom : 100px;
 }
 
-#singup_box input{
-    width : 400px;
+#singup_box>div{
+    width : 50%;
+    margin-left : 25%;
 }
+
+#sinup_button{
+    margin-left : 25%;
+}
+
+
 
 
 /* memberForm end ==================================================*/
@@ -231,20 +231,35 @@ a{
 
 
 
-/* memberLModify start ================================================*/
-
-#modify_box{
-    margin-top : 180px;
+/* memberinfo start ================================================*/
+#memberinfo_box{
+    margin-top : 150px;
     margin-bottom : 200px;
-    padding-left : 20%
+    text-align: center;
 }
 
-#modify_box input{
-    width : 400px;
+#memberinfo_box a{
+    margin-bottom: 15px;
+    width : 150px;
+    height : 45px;
+    font-size : 15px;
+}
+/* memberinfo end ================================================*/
+
+
+/* memberUpdate start ================================================*/
+#member_update_box{
+    margin-top : 100px;
+    margin-bottom : 130px;
+    padding-left : 17%;
 }
 
 
-/* memberLModify end ================================================*/
+#member_update_box input{
+    width : 500px;
+}
+
+/* memberUpdate end ================================================*/
 
 
 
