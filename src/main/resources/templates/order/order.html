@@ -10,39 +10,138 @@
 
 <!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
+
     <script th:inline="javascript">
-        $(document).ready(function(){
 
-            calculateToalPrice();
-
-            $("#quantity").change( function(){
-                calculateToalPrice();
+        //주문할 상품을 체크하거나 해제할 경우 총 주문금액을 구하는 함수 호출
+        $(document).ready(function() {
+            // cartChkBox 체크박스 변경 이벤트 처리
+            $("input[name=cartChkBox]").change(function() {
+                getOrderTotalPrice();
             });
         });
-        //현재 주문할 수량과 상품 한개당 가격을 곱해서 결제 금액을 구해주는 함수
-        function calculateToalPrice(){
-            var count = $("#quantity").val();
-            var price = $("#price").val();
-            var totalPrice = price*count;
-            $("#totalPrice").html(totalPrice + '원');
+
+        //총 주문금액을 구하는 함수
+        function getOrderTotalPrice(){
+            var orderTotalPrice = 0;
+            $("input[name=cartChkBox]:checked").each(function() {
+                var cartItemId = $(this).val();
+                var price = $("#price_" + cartItemId).attr("data-price");
+                var count = $("#count_" + cartItemId).val();
+                orderTotalPrice += price*count;
+            });
+
+            $("#orderTotalPrice").html(orderTotalPrice+'원');
         }
-        //csrf토큰 값을 조회, 상품 아이디와 주문 수량 전달하는 객체 생성
-        function order(){
+
+        //장바구니에 들어있는 상품 수량을 변경 할 경우 상품 가격*수량 으로 금액 변경. 마지막에 변경금액 계산을 위해 총 주문금액 함수를 다시 호출
+        function changeCount(obj){
+            var count = obj.value;
+            var cartItemId = obj.id.split('_')[1];
+            var price = $("#price_" + cartItemId).data("price");
+            var totalPrice = count*price;
+            $("#totalPrice_" + cartItemId).html(totalPrice+"원");
+            getOrderTotalPrice();
+            updateCartItemCount(cartItemId, count);
+        }
+
+        //장바구니 전체상품을 체크하거나 해제하는 함수, 마지막 변경된 금액 계산을 위해 총 주문금액 함수 다시 호출
+        function checkAll(){
+            if($("#checkall").prop("checked")){
+                $("input[name=cartChkBox]").prop("checked",true);
+            }else{
+                $("input[name=cartChkBox]").prop("checked",false);
+            }
+            getOrderTotalPrice();
+        }
+
+        function updateCartItemCount(cartItemId, count){
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/order";
-            var paramData = {
-                itemId : $("#itemId").val(),
-                count : $("#quantity").val()
-            };
-            //서버에 보낼 주문데이터 JSON타입으로 변경
+            var url = "/cartItem/" + cartItemId+"?count=" + count;
+
+            $.ajax({
+                url      : url,
+                type     : "PATCH",
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    console.log("cartItem count update success");
+                },
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseJSON.message);
+                    }
+
+                }
+            });
+        }
+
+        function deleteCartItem(obj){
+            var cartItemId = obj.dataset.id;
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/cartItem/" + cartItemId;
+
+            $.ajax({
+                url      : url,
+                type     : "DELETE",
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    location.href='/cart';
+                },
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseJSON.message);
+                    }
+
+                }
+            });
+        }
+
+        function orders(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            
+
+            var url = "/cart/orders";
+
+            var dataList = new Array();
+            var paramData = new Object();
+
+            $("input[name=cartChkBox]:checked").each(function() {
+                var cartItemId = $(this).val();
+                var data = new Object();
+                data["cartItemId"] = cartItemId;
+                dataList.push(data);
+            });
+
+            paramData['cartOrderDtoList'] = dataList;
+
             var param = JSON.stringify(paramData);
 
             $.ajax({
                 url      : url,
                 type     : "POST",
-                //서버에 보낼 데이터 타입을 json으로 지정
                 contentType : "application/json",
                 data     : param,
                 beforeSend : function(xhr){
@@ -51,87 +150,116 @@
                 },
                 dataType : "json",
                 cache   : false,
-                //주문 성공시 메세지
                 success  : function(result, status){
                     alert("주문이 완료 되었습니다.");
-                    location.href='/';
+                    location.href='/orders';
                 },
-                //주문 시 에러가 발생하면 나오는 메세지
                 error : function(jqXHR, status, error){
 
                     if(jqXHR.status == '401'){
                         alert('로그인 후 이용해주세요');
                         location.href='/members/login';
                     } else{
-                        alert(jqXHR.responseText);
+                        alert(jqXHR.responseJSON.message);
                     }
 
                 }
             });
         }
 
-       
-
     </script>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+<script type="text/javascript">
+    $(document).ready(function(){
 
-                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 참고 항목 변수
+        //주문하기
+        $("#btn_settle").bind("click",function(){
+            var settlekind = $('input[name="settlekind"]:checked').val();
+            var useEmoney = parseInt($('input[name="use_emoney"]').val());
+            var memberEmoney = parseInt("0");
+            var emoney_chk = $('input[name="emoney_chk"]').val();
+            var termAgree_orderCheck = $('input[name="termAgree_orderCheck"]:checked').val();
 
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                   extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
+            var hp1 = $('select[name="hp1"] option:selected').val();
+            var hp2 = $('input[name="hp2"]').val();
+            var hp3 = $('input[name="hp3"]').val();
 
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('sample4_postcode').value = data.zonecode;
-                document.getElementById("sample4_roadAddress").value = roadAddr;
-                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-                
-                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-                if(roadAddr !== ''){
-                    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-                } else {
-                    document.getElementById("sample4_extraAddress").value = '';
-                }
-
-                var guideTextBox = document.getElementById("guide");
-                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-                if(data.autoRoadAddress) {
-                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-                    guideTextBox.style.display = 'block';
-
-                } else if(data.autoJibunAddress) {
-                    var expJibunAddr = data.autoJibunAddress;
-                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-                    guideTextBox.style.display = 'block';
-                } else {
-                    guideTextBox.innerHTML = '';
-                    guideTextBox.style.display = 'none';
-                }
+            if(memberEmoney==0){
+                $('input[name="use_emoney"]').val("0");
             }
-        }).open();
-    }
+
+            if(emoney_chk!="Y"){
+                $('input[name="use_emoney"]').val("0");
+            }
+
+            if($.type(settlekind)=="undefined"){
+                alert("결제수단을 선택하세요.");
+                return false;
+            }else{
+                if($.type(termAgree_orderCheck)=="undefined"){
+                    alert("청약의사 재확인에 동의해 주셔야 주문진행이 가능합니다.");
+                    return false;
+                }
+
+                if(settlekind=="PAYNOW"){
+                    $("#LGD_EASYPAY_ONLY").val(settlekind);
+                    $("#LGD_CUSTOM_USABLEPAY").val("SC0010");
+                }else if(settlekind=="PAYCO"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO");
+                }else if(settlekind=="PAYCO_POINT"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO_POINT");
+                }else{
+                    if(settlekind=="SC0040"){
+                        if(hp1=="" || hp2=="" || hp3==""){
+                            alert("휴대폰번호를 입력하세요.");
+                            return false;
+                        }else{
+                            $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                        }
+                    }else{
+                        $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                    }
+                }
+
+                $("#orderFrm").attr("action","settle.html");
+                $("#orderFrm").submit();
+            }
+            
+        });
+
+        $('input[name="settlekind"]').bind("click",function(){
+            var settlekind = $('input[name="settlekind"]:checked').val();
+            if(settlekind=="SC0040"){
+                $(".collapse").collapse('show');
+            }else{
+                $(".collapse").collapse('hide');
+            }
+        });
+
+
+        //포인트 사용취소
+        $("#btn_emoney_cancel").bind("click",function(){
+            $('#emoney_chk').val('N');
+            if($('input[name="use_emoney"]').val()>0){
+                $('input[name="use_emoney"]').val("0");
+                set_real_settle_price("0");
+            }
+            $('input[name="use_emoney"]').attr("readonly",false);
+        });
+
+        $("input[name='use_emoney']").on("keyup",function(key){
+            if(key.keyCode==13) {
+                check_use_emoney();
+            }
+        });
+    });
+
 </script>
+
+
+
 </th:block>
 
 <!-- 사용자 CSS 추가 -->
@@ -159,15 +287,18 @@
             height:auto;
             width:50%;
         }
+        th{
+            text-align: center;
+        }
     </style>
 </th:block>
 
 <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
-    <p>스크롤내리기용</p>
+    <p>주문하기</p>
     <p>레이아웃작업시 삭제하시면 됩니다</p>
     <p>스크롤내리기용</p>
     <p>스크롤내리기용</p>
-    <p>스크롤내리기용</p>
+    <p>주문하기</p>
     <p>스크롤내리기용</p>
     <p>스크롤내리기용</p>
     <p>스크롤내리기용</p>
@@ -178,56 +309,151 @@
     <p>스크롤내리기용</p>
     <p>스크롤내리기용</p>
 
-    <input type="hidden" id="itemId" th:value="${item.id}">
-        <!-- /.등록된 상품 이미지 보여주는 곳-->
-        <form action="/purchase" method="post">
-            <div class="row">
-                <div class="col-md-4 form-group">
-                    <span>게임명 : <label for="productName" th:text="${item.itemNm}"></label></span>
-                </div>
+
+    <!-- 등록된 상품 이미지 보여주는 곳-->
+    <form action="/purchase" method="post">
+        <table class="table table-bordered" style="border:1px solid rgba(255,255,255,0.1);">
+            <thead>
+                <tr>
+                    <th class="col-md-3" >이미지</th>
+                    <th class="col-md-3" >게임명</th>
+                    <th class="col-md-3" >가격</th>
+                    <th class="col-md-3">수량</th>
+                </tr>
+            </thead>
+        <tbody>
                 
-                <div class="col-md-4 form-group">
-                    <span>가격 : 
-                        <input type="hidden" th:value="${item.price}" id="price" name="price">
-                        <label for="productPrice" th:text="${item.price}">원</label>
-                    </span>
+                <form action="/purchase" method="post">
+                    <div class="row" style="border:1px solid rgba(255,255,255,0.1);">
+                        <td style="text-align: center;">
+                            <img th:src="${item.itemImgDtoList[0].imgUrl}" class="rounded repImg" th:alt="${item.itemNm}" style="height: 100px; width: auto; max-width: 300px;">
+                        </td>
+                    <td>
+                        <div style="font-size: 18px; color: #ffffff; vertical-align: middle; align-items: center; margin-top: 15px; text-align: center;  line-height:50px;">
+                            <span><label for="productName" th:text="${item.itemNm}"></label></span>
+                        </div>
+                    </td>
+                    <td>
+                        <div  style="font-size: 18px; color: #ffffff; vertical-align: middle; align-items: center; margin-top: 15px; text-align: center;  line-height:50px">
+                            <span>
+                                <input type="hidden" th:value="${item.price}" id="price" name="price">
+                                <label for="productPrice" th:text="${item.price}">원</label>
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <div style="text-align: center; align-items: center; margin-top: 15px; line-height:50px">
+                            <label for="quantity" class="input-group-text">
+                                <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1" required>
+                            </label>
+                        </div>
+                    </td>
+                    </div>
+                </form>
+        </tbody>
+    </table>
+
+        <div class="row">
+            <div class="col-md-6">
+                <fieldset class="vm-fieldset-tos">
+                <div class="cart tos" title="" style="margin-top:10px">
+                    <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">결제수단</span>
+                    <div class="list-group">
+                        <li class="list-group-item">
+                                                                        <div class="radio">
+                                <label><input type="radio" name="settlekind" id="settlekind8" value="NPAY" ><img src="/api/naverpay/btn_npay.png" style="border-radius:2px;" alt="네이버페이"><span style="display:none">네이버페이</span></label>
+                            </div>
+                            <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 100 원 이상일 때만 사용이 가능합니다.</strong></div>
+                        </li>
+
+                        <li class="list-group-item">
+                                                                            <div class="radio">
+                                <label><input type="radio" name="settlekind" id="settlekind2" value="SC0010" >신용/체크카드 결제</label>
+                            </div>
+                            <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 1,000 원 이상일 때만 사용이 가능합니다.</strong></div>
+                        </li>
+
+                        <li class="list-group-item">
+                                                                            <div class="radio" style="display:inline-block">
+                                <label><input type="radio" name="settlekind" id="settlekind3" value="SC0030" >계좌이체 결제</label>
+                            </div>
+                            <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 10,000 원 이상일 때만 사용이 가능합니다.</strong></div>
+                        </li>
+                            <li class="list-group-item">
+                                                                        <div class="radio" style="display:inline-block">
+                                <label><input type="radio" name="settlekind" id="settlekind5" value="SC0040" >가상계좌 결제</label>
+                            </div>
+                            <div style="display:block;"><strong class="text-danger">※  결제 예정액이 10,000 원 이상일 때만 사용이 가능하며, 이벤트 상품의 경우 이벤트 종료 후 입금이 불가합니다.</strong></div>
+                            <div id="hp_block" class="collapse">
+                                <label>휴대폰 번호 :</label>
+                                <select name="hp1" id="hp1" style="display:inline;">
+                                    <option value="">::선택::</option>
+                                    <option value="010" >010</option>
+                                    <option value="011" >011</option>
+                                    <option value="016" >016</option>
+                                    <option value="017" >017</option>
+                                    <option value="018" >018</option>
+                                    <option value="019" >019</option>
+                                </select> - 
+                                <input type="text" name="hp2" id="hp2" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value=""> -
+                                <input type="text" name="hp3" id="hp3" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value="">
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                                                                            <div class="radio">
+                                <label><input type="radio" name="settlekind" id="settlekind6" value="SC0060" >휴대폰 결제</label>
+                            </div>
+                            <div style="display:block;">
+                                <p><strong class="text-danger">※ 결제 예정액이 350 원 이상일 때만 사용이 가능합니다.</strong></p>
+                                <p><strong class="text-danger">※ 부분/이월 환불이 불가하며, 다이렉트 게임즈 포인트로 제공됩니다. 자세한 사항은 하단에 환불정책을 확인해 주시기 바랍니다.</strong></p>
+                            </div>
+                        </li>
+                    </div>
                 </div>
+                <!-- /.등록된 상품 이미지 보여주는 곳-->
                 
-                <div class="col-md-4 form-group">
-                    <label for="quantity" class="input-group-text">수량:
-                        <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1" required>
-                    </label>
-                    
-                </div>
-            </div>
-    
-                <div class="form-group">
-                    <input type="text" id="sample4_postcode" placeholder="우편번호">
-                    <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-                    <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-                    <input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-                    <span id="guide" style="color:#999;display:none"></span>
-                    <input type="text" id="sample4_detailAddress" placeholder="상세주소">
-                    <input type="text" id="sample4_extraAddress" placeholder="참고항목">
-                </div>
+                <!-- 결제수단, 최종결제정보-->
+                            </div>
+                            <div class="col-md-6">
+                                <fieldset class="vm-fieldset-tos">
+                                <div class="cart tos" title="" style="margin-top:10px">
+                                    <span class="cart customer-note" style="height:45px;line-height:45px;font-weight:bold;">최종결제 정보</span>
+
+                                    <div style="border:1px solid rgba(255,255,255,0.1);">
+                                        <div style="height:60px;">
+                                            <dl style="clear:both;width:100%;padding:10px">
+                                                <dt style="float:left;width:80px;line-height:40px;">결제예정액</dt>
+                                                <dd style="float:right;line-height:40px;"><span class="PricebillTotal" id="orderTotalPrice" > </span> 원</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                                </fieldset>
+                                
+                                <fieldset class="vm-fieldset-tos">
+                                <div class="terms-of-service" style="margin-top:10px;margin-bottom:20px;">
+                                    <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">청약의사 재확인</span>
+                                    
+                                    <div style="border:1px solid rgba(255,255,255,0.1);padding:10px 15px">
+                                        <label for="termAgree_orderCheck" style="">
+                                            <input class="terms-of-service required" id="termAgree_orderCheck" type="checkbox" name="termAgree_orderCheck" value="1" required>
+                                            <span class="vmicon"></span>구매할 상품의 상품정보 및 가격을 확인하였으며, 이에 동의합니다. <br/>
+                                        </label>
+                                    </div>
+                                </div>
+                                </fieldset>
+
+        <div class="text-center mt-3">
+            <button type="button" id="btn_settle" class="btn btn-primary btn-lg" onclick="orders()">주문하기</button>
+        </div>
         
-                <div class="form-group">
-                    <label for="paymentMethod">결제 방법:</label>
-                    <select class="form-control" id="paymentMethod" name="paymentMethod">
-                        <option value="creditCard">신용카드</option>
-                        <option value="bankTransfer">은행 송금</option>
-                        <option value="mobilePayment">모바일 결제</option>
-                    </select>
-                </div>
 
-                <div class="text-right mgt-50">
-                    <h5>결제 금액</h5>
-                    <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
-                </div>
-                <button type="button" class="btn btn-primary btn-lg" onclick="order()">구매하기</button>
-                    
-        </form>
     </div>
+
+</div>     
+
+
+</div>
     
 
 
