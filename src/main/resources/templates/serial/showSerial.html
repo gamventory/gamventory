@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Serial</title>
+</head>
+<body>
+    <h1>Serial Details</h1>
+
+    <div th:if="${serial != null}">
+        <h2>Serial Details:</h2>
+        <p><strong>ID:</strong> <span th:text="${serial.serialId}"></span></p>
+        <p><strong>Item ID:</strong> <span th:text="${serial.itemId}"></span></p>
+        <p><strong>Serial Number:</strong> <span th:text="${serial.serialNumber}"></span></p>
+        <p><strong>Platform:</strong> <span th:text="${serial.platform}"></span></p>
+    </div>
+    
+    <a href="/serial/createSerial">Create New Serial</a>
+</body>
+</html>

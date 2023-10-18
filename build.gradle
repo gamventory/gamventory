@@ -36,7 +36,7 @@ dependencies {
  	testAnnotationProcessor 'org.projectlombok:lombok'
 
 	// spring-boot-devtools
-	implementation 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// spring-security, spring-security-test thymeleaf expansion
 	implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -46,6 +46,8 @@ dependencies {
 	// spring-validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+	// spring-boot-start-mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	// mysql jdbc driver
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	
@@ -53,7 +55,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 
 	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.1.2'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 	// querydsl

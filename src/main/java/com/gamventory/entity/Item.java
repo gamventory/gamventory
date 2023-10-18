@@ -8,6 +8,7 @@ import com.gamventory.dto.ItemFormDto;
 import com.gamventory.exception.OutOfStockException;
 
 import groovy.transform.builder.Builder;
+import groovyjarjarpicocli.CommandLine.Help.Ansi.Text;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -53,7 +54,7 @@ public class Item extends BaseEntity{
 
     //상품 상세 설명
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String itemDetail; 
 
     //상품 판매 상태

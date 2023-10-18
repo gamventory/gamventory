@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Serial</title>
+</head>
+<body>
+    <h1>Create New Serial</h1>
+
+    <form th:action="@{/serials/createSerial}" method="post">
+        <label for="itemId">Item ID:</label>
+        <input type="text" id="itemId" name="itemId" required>
+        
+        <label for="platform">Platform:</label>
+        <select id="platform" name="platform" required>
+            <option value="STEAM">Steam</option>
+            <option value="EPIC_GAMES">Epic Games</option>
+            <option value="OTHER">Other</option>
+        </select>
+        
+        <button type="submit">Create Serial</button>
+    </form>
+</body>
+</html>

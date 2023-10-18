@@ -66,7 +66,11 @@ public class ItemController {
         if(itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null){
 
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
+<<<<<<< HEAD
+            System.out.println("------------------------------------");
+=======
 
+>>>>>>> sonwonduk
             return "item/itemForm";
         }
         //상품 저장
@@ -81,6 +85,7 @@ public class ItemController {
         System.out.println("--------------------regDate값이 왜 null일까, 수정값은 db에 저장되긴 함----------------");
         System.out.println(itemFormDto.createItem());
         System.out.println("아이디값"+ itemFormDto.getId());
+        System.out.println("------------------------------------");
         System.out.println("------------------------------------");
 
         return "redirect:/";

@@ -14,34 +14,52 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-  
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .formLogin((formLogin) -> formLogin
-                .loginPage("/members/login")
-                .defaultSuccessUrl("/")
-                .usernameParameter("email")
-                .failureUrl("/members/login/error"))
-            .logout((logout) -> logout
-                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-                .logoutSuccessUrl("/"))
-            .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/img/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/members/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/item/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/images/**")).permitAll()
-                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
-                .anyRequest().authenticated())
-            .exceptionHandling((exceptionHandling) -> exceptionHandling
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
-        
+                .csrf((csrf) -> csrf
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
+                .formLogin(formLogin ->
+                        formLogin
+                                .loginPage("/members/login")
+                                .defaultSuccessUrl("/")
+                                .usernameParameter("email")
+                                .failureUrl("/members/login/error")
+                )
+                .logout(logout ->
+                        logout
+                                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+                                .logoutSuccessUrl("/")
+                )
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests
+                                .requestMatchers(new AntPathRequestMatcher("/css/**"),
+                                        new AntPathRequestMatcher("/js/**"),
+                                        new AntPathRequestMatcher("/img/**"),
+                                        new AntPathRequestMatcher("/"),
+                                        new AntPathRequestMatcher("/members/login"),
+                                        new AntPathRequestMatcher("/members/new"),
+                                        new AntPathRequestMatcher("/item/**"),
+                                        new AntPathRequestMatcher("/serials/**"),
+                                        new AntPathRequestMatcher("/api/**"),
+                                        new AntPathRequestMatcher("/images/**"),
+                                        new AntPathRequestMatcher("/mail/**"),
+                                        new AntPathRequestMatcher("/order/**")).permitAll()
+                                .requestMatchers(new AntPathRequestMatcher("/members/**")).hasRole("USER")
+                                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+                                .anyRequest().authenticated()
+                )
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                );
+
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -49,10 +67,10 @@ public class SecurityConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
         return auth.getAuthenticationManager();
     }
 
-}  
+}
 
 
