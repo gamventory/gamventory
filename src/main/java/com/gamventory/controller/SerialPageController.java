@@ -28,7 +28,7 @@ public class SerialPageController {
     }
 
     // Serial 생성 페이지를 위한 매핑
-    @GetMapping("/serials/create")
+    @GetMapping("/admin/serials/create")
     public String showCreateSerialPage() {
         return "serial/createSerial";
     }
@@ -47,6 +47,7 @@ public class SerialPageController {
         return "serial/getSerial";
     }
 
+    //시리얼 생성 후 조회페이지로 이동하는 메서드
      @PostMapping("/serials/createSerial")
     public String createSerial(@ModelAttribute SerialCreationRequest request, Model model) {
         List<SerialDto> serialDtos = serialService.createSerialForItem(request.getItemId(), request.getPlatform(), request.getNumberOfSerials());
@@ -60,7 +61,7 @@ public class SerialPageController {
         private int numberOfSerials;
     }
 
-    // 시리얼 목록 페이지를 위한 매핑
+    // 시리얼 전체 목록 페이지를 위한 매핑
     @GetMapping("/serials/list")
     public String showSerialList(Model model) {
         List<SerialDto> serials = serialService.getAllSerials();

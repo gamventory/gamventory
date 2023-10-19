@@ -51,15 +51,15 @@ public class SerialService {
 
     //주어진 상품id와 플랫폼에 대한 새로운 시리얼을 생성하고 저장한 뒤 결과를 SerialDto로 반환하는 메서드
     @Transactional
-public List<SerialDto> createSerialForItem(Long itemId, Platform platform, int numberOfSerials) {
-    List<SerialDto> serialDtos = new ArrayList<>();
-    for (int i = 0; i < numberOfSerials; i++) {
-        Serial serial = Serial.createWithRandomSerialNumber(itemId, platform, false); // userStatus를 false로 초기화
-        Serial savedSerial = serialRepository.save(serial);
-        serialDtos.add(SerialDto.fromEntity(savedSerial));
+    public List<SerialDto> createSerialForItem(Long itemId, Platform platform, int numberOfSerials) {
+        List<SerialDto> serialDtos = new ArrayList<>();
+        for (int i = 0; i < numberOfSerials; i++) {
+            Serial serial = Serial.createWithRandomSerialNumber(itemId, platform, false); // userStatus를 false로 초기화
+            Serial savedSerial = serialRepository.save(serial);
+            serialDtos.add(SerialDto.fromEntity(savedSerial));
+        }
+        return serialDtos;
     }
-    return serialDtos;
-}
 
     //주어진 시리얼 ID에 해당하는 시리얼 정보를 조회하여 SerialDto로 반환
     @Transactional(readOnly = true)

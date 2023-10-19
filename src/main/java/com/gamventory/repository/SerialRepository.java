@@ -8,4 +8,8 @@ import java.util.List;
 
 public interface SerialRepository extends JpaRepository<Serial, Long> {
 
+    List<Serial> findByItemId(Long itemId);
+
+    List<Serial> findByItemIdAndUserStatusFalse(Long itemId);
+
 }

@@ -13,87 +13,147 @@
 
     <script th:inline="javascript">
 
-        $(document).ready(function(){
+        //주문할 상품을 체크하거나 해제할 경우 총 주문금액을 구하는 함수 호출
+        $(document).ready(function() {
+            // 페이지 로딩시 최초 계산
+            updateTotalPrice();
 
-            calculateToalPrice();
+            // 수량 변경시 최종 금액 업데이트
+            $("#quantity").on("change", function() {
+                updateTotalPrice();
+            });
+        });
 
-            $("#quantity").change( function(){
-                calculateToalPrice();
+        // 최종 금액 계산 및 업데이트 함수
+        function updateTotalPrice() {
+            var price = parseFloat($("#price").val());       // 상품 가격
+            var quantity = parseInt($("#quantity").val());   // 수량
+            var totalPrice = price * quantity;               // 총 금액 계산
+
+            $("#orderTotalPrice").text(totalPrice.toLocaleString() + "원");  // 총 금액 출력
+        }
+
+        //총 주문금액을 구하는 함수
+        function getOrderTotalPrice(){
+            var orderTotalPrice = 0;
+            $("input[name=cartChkBox]:checked").each(function() {
+                var cartItemId = $(this).val();
+                var price = $("#price_" + cartItemId).attr("data-price");
+                var count = $("#count_" + cartItemId).val();
+                orderTotalPrice += price*count;
             });
-            });
-            //현재 주문할 수량과 상품 한개당 가격을 곱해서 결제 금액을 구해주는 함수
-            function calculateToalPrice(){
-            var count = $("#quantity").val();
-            var price = $("#price").val();
-            var totalPrice = price*count;
-            $("#totalPrice").html(totalPrice + '원');
+
+            $("#orderTotalPrice").html(orderTotalPrice+'원');
+        }
+
+        //장바구니에 들어있는 상품 수량을 변경 할 경우 상품 가격*수량 으로 금액 변경. 마지막에 변경금액 계산을 위해 총 주문금액 함수를 다시 호출
+        function changeCount(obj){
+            var count = obj.value;
+            var cartItemId = obj.id.split('_')[1];
+            var price = $("#price_" + cartItemId).data("price");
+            var totalPrice = count*price;
+            $("#totalPrice_" + cartItemId).html(totalPrice+"원");
+            getOrderTotalPrice();
+            updateCartItemCount(cartItemId, count);
+        }
+
+        //장바구니 전체상품을 체크하거나 해제하는 함수, 마지막 변경된 금액 계산을 위해 총 주문금액 함수 다시 호출
+        function checkAll(){
+            if($("#checkall").prop("checked")){
+                $("input[name=cartChkBox]").prop("checked",true);
+            }else{
+                $("input[name=cartChkBox]").prop("checked",false);
             }
-            //csrf토큰 값을 조회, 상품 아이디와 주문 수량 전달하는 객체 생성
-            function order(){
+            getOrderTotalPrice();
+        }
+
+        function updateCartItemCount(cartItemId, count){
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var settlekind = $('input[name="settlekind"]:checked').val();
-            var useEmoney = parseInt($('input[name="use_emoney"]').val());
-            var memberEmoney = parseInt("0");
-            var emoney_chk = $('input[name="emoney_chk"]').val();
-            var termAgree_orderCheck = $('input[name="termAgree_orderCheck"]:checked').val();
+            var url = "/cartItem/" + cartItemId+"?count=" + count;
 
-            if(memberEmoney==0){
-                $('input[name="use_emoney"]').val("0");
-            }
+            $.ajax({
+                url      : url,
+                type     : "PATCH",
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    console.log("cartItem count update success");
+                },
+                error : function(jqXHR, status, error){
 
-            if(emoney_chk!="Y"){
-                $('input[name="use_emoney"]').val("0");
-            }
-
-            if($.type(settlekind)=="undefined"){
-                alert("결제수단을 선택하세요.");
-                return false;
-            }else{
-                if($.type(termAgree_orderCheck)=="undefined"){
-                    alert("청약의사 재확인에 동의해 주셔야 주문진행이 가능합니다.");
-                    return false;
-                }
-
-                if(settlekind=="PAYNOW"){
-                    $("#LGD_EASYPAY_ONLY").val(settlekind);
-                    $("#LGD_CUSTOM_USABLEPAY").val("SC0010");
-                }else if(settlekind=="PAYCO"){
-                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
-                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO");
-                }else if(settlekind=="PAYCO_POINT"){
-                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
-                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO_POINT");
-                }else{
-                    if(settlekind=="SC0040"){
-                        if(hp1=="" || hp2=="" || hp3==""){
-                            alert("휴대폰번호를 입력하세요.");
-                            return false;
-                        }else{
-                            $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
-                        }
-                    }else{
-                        $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseJSON.message);
                     }
+
                 }
+            });
+        }
 
-                $("#orderFrm").attr("action","settle.html");
-                $("#orderFrm").submit();
-            }
+        function deleteCartItem(obj){
+            var cartItemId = obj.dataset.id;
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/order";
-            var paramData = {
-                itemId : $("#itemId").val(),
-                count : $("#quantity").val()
-            };
-            //서버에 보낼 주문데이터 JSON타입으로 변경
+            var url = "/cartItem/" + cartItemId;
+
+            $.ajax({
+                url      : url,
+                type     : "DELETE",
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    location.href='/cart';
+                },
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseJSON.message);
+                    }
+
+                }
+            });
+        }
+
+        function orders(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+            
+
+            var url = "/cart/orders";
+
+            var dataList = new Array();
+            var paramData = new Object();
+
+            $("input[name=cartChkBox]:checked").each(function() {
+                var cartItemId = $(this).val();
+                var data = new Object();
+                data["cartItemId"] = cartItemId;
+                dataList.push(data);
+            });
+
+            paramData['cartOrderDtoList'] = dataList;
+
             var param = JSON.stringify(paramData);
 
             $.ajax({
                 url      : url,
                 type     : "POST",
-                //서버에 보낼 데이터 타입을 json으로 지정
                 contentType : "application/json",
                 data     : param,
                 beforeSend : function(xhr){
@@ -102,29 +162,26 @@
                 },
                 dataType : "json",
                 cache   : false,
-                //주문 성공시 메세지
                 success  : function(result, status){
                     alert("주문이 완료 되었습니다.");
-                    location.href='/';
+                    location.href='/orders';
                 },
-                //주문 시 에러가 발생하면 나오는 메세지
                 error : function(jqXHR, status, error){
 
                     if(jqXHR.status == '401'){
                         alert('로그인 후 이용해주세요');
                         location.href='/members/login';
                     } else{
-                        alert(jqXHR.responseText);
+                        alert(jqXHR.responseJSON.message);
                     }
 
                 }
             });
         }
 
-
     </script>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     $(document).ready(function(){
 
         //주문하기
@@ -211,7 +268,7 @@
         });
     });
 
-</script> -->
+</script>
 
 
 
@@ -264,9 +321,9 @@
     <p>스크롤내리기용</p>
     <p>스크롤내리기용</p>
 
+
     <!-- 등록된 상품 이미지 보여주는 곳-->
     <form action="/purchase" method="post">
-        <input type="hidden" id="itemId" th:value="${item.id}">
         <table class="table table-bordered" style="border:1px solid rgba(255,255,255,0.1);">
             <thead>
                 <tr>
@@ -378,7 +435,7 @@
                                         <div style="height:60px;">
                                             <dl style="clear:both;width:100%;padding:10px">
                                                 <dt style="float:left;width:80px;line-height:40px;">결제예정액</dt>
-                                                <dd style="float:right;line-height:40px;"><span class="PricebillTotal" id="totalPrice" name="totalPrice" > </span> 원</dd>
+                                                <dd style="float:right;line-height:40px;"><span class="PricebillTotal" id="orderTotalPrice" > </span> 원</dd>
                                             </dl>
                                         </div>
                                     </div>
@@ -399,7 +456,7 @@
                                 </fieldset>
 
         <div class="text-center mt-3">
-            <button type="button" id="btn_settle" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
+            <button type="button" id="btn_settle" class="btn btn-primary btn-lg" onclick="orders()">주문하기</button>
         </div>
         
 

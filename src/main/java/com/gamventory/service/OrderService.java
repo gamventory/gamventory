@@ -2,6 +2,7 @@ package com.gamventory.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,10 +19,13 @@ import com.gamventory.entity.ItemImg;
 import com.gamventory.entity.Member;
 import com.gamventory.entity.Order;
 import com.gamventory.entity.OrderItem;
+import com.gamventory.entity.Serial;
+import com.gamventory.exception.OrderNotFoundException;
 import com.gamventory.repository.ItemImgRepository;
 import com.gamventory.repository.ItemRepository;
 import com.gamventory.repository.MemberRepository;
 import com.gamventory.repository.OrderRepository;
+import com.gamventory.repository.SerialRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +39,7 @@ public class OrderService {
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
     private final ItemImgRepository itemImgRepository;
+    private final SerialRepository serialRepository;
 
     //주문 로직 메소드
     public Long order(OrderDto orderDto, String email){
@@ -51,6 +56,18 @@ public class OrderService {
         //회원정보와 상품 리스트 정보를 order에 넣어줌
         Order order = Order.createOrder(member, orderItemList); 
         orderRepository.save(order);
+
+        // // Serial 테이블의 userStatus 값을 true로 변경
+        // List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
+        // if (availableSerials.size() < orderDto.getCount()) {
+        //     throw new RuntimeException("Not enough available serials for the order");
+        // }
+        // for (int i = 0; i < orderDto.getCount(); i++) {
+        //     Serial serial = availableSerials.get(i);
+        //     serial.setUserStatus(true);
+        //     serialRepository.save(serial);
+        //     System.out.println("serial저장 몇번 실행 돼?=============================================" + serial + " i개수:" + i );
+        // }
 
         return order.getId();
         
@@ -109,8 +126,8 @@ public class OrderService {
         order.cancelOrder();
     }
 
-    //장바구니에서 주문 상품 데이터를 받아 주문을 생성하는 메서드
-    public Long orders(List<OrderDto> orderDtoList, String email){
+     //장바구니에서 주문 상품 데이터를 받아 주문을 생성하는 메서드
+     public Long orders(List<OrderDto> orderDtoList, String email){
         Member member = memberRepository.findByEmail(email);
         List<OrderItem> orderItemList = new ArrayList<>();
 
@@ -124,6 +141,38 @@ public class OrderService {
         orderRepository.save(order);
 
         return order.getId();
+    }
+
+     // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드
+     public void updateSerialUserStatus(OrderDto orderDto) {
+        List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
+        if (availableSerials.size() < orderDto.getCount()) {
+            throw new RuntimeException("Not enough available serials for the order");
+        }
+        for (int i = 0; i < orderDto.getCount(); i++) {
+            Serial serial = availableSerials.get(i);
+            serial.setUserStatus(true);
+            serialRepository.save(serial);
+            System.out.println("serial저장 몇번 실행 돼?=============================================" + serial + " i개수:" + i );
+        }
+    }
+
+    // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드
+    public void updateSerialUserStatus(List<OrderDto> orderDtoList) {
+        for (OrderDto orderDto : orderDtoList) {
+            List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
+            
+            if (availableSerials.size() < orderDto.getCount()) {
+                throw new RuntimeException("Not enough available serials for the order of item ID: " + orderDto.getItemId());
+            }
+            
+            for (int i = 0; i < orderDto.getCount(); i++) {
+                Serial serial = availableSerials.get(i);
+                serial.setUserStatus(true);
+                serialRepository.save(serial);
+                System.out.println("serial저장 몇번 실행 돼?=============================================" + serial + " i개수:" + i );
+            }
+        }
     }
 }
 

@@ -2,6 +2,7 @@ package com.gamventory.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gamventory.dto.CartDetailDto;
 import com.gamventory.dto.CartItemDto;
 import com.gamventory.dto.CartOrderDto;
+import com.gamventory.dto.OrderDto;
 import com.gamventory.service.CartService;
+import com.gamventory.service.OrderService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class CartController {
     
     private final CartService cartService;
+    private final OrderService orderService;
 
     //장바구니에 요청하는 메서드 처리하는 함수
     @PostMapping(value = "/cart")
@@ -110,10 +114,25 @@ public class CartController {
                 return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
             }
         }
+        // CartOrderDto를 OrderDto로 변환하여 Serial User Status를 업데이트
+        System.out.println("여기서 에러나나?");
+        List<OrderDto> orderDtoList = cartOrderDtoList.stream()
+        .map(cartOrder -> {
+            OrderDto orderDto = new OrderDto();
+            orderDto.setItemId(cartOrder.getCartItemId());
+            orderDto.setCount(cartOrderDtoList.size()); // Using the size of the list as count
+            return orderDto;
+        })
+        .collect(Collectors.toList());
+    
+        // Serial User Status 업데이트
+        orderService.updateSerialUserStatus(orderDtoList);
+            
         //주문 로직 호출결과 생성된 주문 번호를 반호나 받음
         Long orderId = cartService.orderCartItem(cartOrderDtoList, principal.getName());
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
+    
 
     //장바구니 이동 메서드
        @GetMapping(value = "/cart")

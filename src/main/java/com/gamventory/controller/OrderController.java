@@ -53,6 +53,7 @@ public class OrderController {
         
         try {
             orderid = orderService.order(orderDto, email);
+            orderService.updateSerialUserStatus(orderDto); 
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }

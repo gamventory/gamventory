@@ -3,14 +3,18 @@ package com.gamventory.entity;
 
 import com.gamventory.constant.Platform;
 
+import java.util.List;
 import java.util.UUID;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -49,9 +53,10 @@ public class Serial {
     @Enumerated(EnumType.STRING)
     private Platform platform;
 
-    //사용여부
+    //발급여부
     @Column(name = "user_status", nullable = false)
     private boolean userStatus;
+
 
     public static Serial createWithRandomSerialNumber(Long itemId, Platform platform, boolean userStatus) {
         return Serial.builder()
@@ -61,6 +66,8 @@ public class Serial {
                      .userStatus(userStatus) // userStatus 초기화
                      .build();
     }
+
+
     
 
     
