@@ -190,12 +190,12 @@
                             <input type="number" name="count" id="count" class="form-control" value="1" min="1">
                         </div>
                     </div>
+                    
                     <hr class="my-4">
 
                     <div class="text-right mgt-50">
                         <h5>결제 금액</h5>
                         <h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3>
-                    </div>
                         <div th:if="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right">
                             <button type="button" class="btn btn-light border border-primary btn-lg" onclick="addCart()">장바구니 담기</button>
                             <button type="button" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
@@ -203,17 +203,11 @@
                         <div th:unless="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right">
                             <button type="button" class="btn btn-danger btn-lg">품절</button>
                         </div>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </form>
-
-    <!-- 등록된 상품 이미지 보여주는 곳-->
-    <div th:each="itemImg : ${item.itemImgDtoList}" class="text-center"> 
-        <img th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}" class="rounded mgb-15" width="800">
-    </div>
 
     <!-- /.등록된 상품 이미지 보여주는 곳-->
     <div class="jumbotron jumbotron-fluid mgt-30 container">

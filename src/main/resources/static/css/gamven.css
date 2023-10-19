@@ -6,7 +6,7 @@ body{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    background : rgb(90, 90, 90) !important;
+    background : rgb(66, 66, 66) !important;
 
     padding-top : 140px;
 }
@@ -41,13 +41,6 @@ a{
 
 
 /* header start ============*/
-#logo{
-    font-weight: bolder;
-    margin-top : 15px;
-    cursor: pointer;
-    margin-left : 10px;
-}
-
 
 #header{
     position: relative;
@@ -57,28 +50,49 @@ a{
     height : 70px;
 }
 
-
 #search_Form{
+    padding-top : 25px;
+    
+}
 
-    padding-left : 100px;
+
+#search_Form>form{
+    margin-left : 10%;
+    width : 80%;
 }
 
 #searchBar{
     background-color: rgb(150, 150, 150);
-    width : 350px;
 }
 
 #header_User {
     padding-top :  15px;
-    cursor: pointer;
     color : white;
     font-weight: bolder;
 }
 
+#header_User i{
+    cursor: pointer;
+    font-size : 20px;
+    background-color: #1ca817;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    padding : 10px;
+    transition: 0.5s;
+}
+
+#header_User i:nth-child(1):hover{
+    background-color: #595959;
+}
+
+#header_User i:nth-child(2):hover{
+    background-color: #ce7e0d;
+}
+
 
 #nav{
-    padding-bottom : 2px; 
-
+    padding-bottom : 2px;
 }
 
 
@@ -92,18 +106,13 @@ a{
     margin-right: 10px;
 }
 
-#nav li:nth-child(5){
-    float : right;
-    margin-right : 120px;
-}
-
 #user_Modal{
     width : 200px;
     position: absolute;
     top : 60px;
     display: none;
     font-size : 15px;
-    left : -65px;
+    left : -80px;
 }
 
 #user_Modal>div{
@@ -128,12 +137,10 @@ a{
 
 /*footer start ===========*/
 
-#footer{
-    font-weight: bolder;
-}
 
-#footer div{
+#footer>div{
     height: 300px;
+    bottom: 0;
 }
 
 /*footer ends ===========*/
@@ -163,7 +170,6 @@ a{
 }
 
 #main_game_card{
-
     transition : 0.5s;
 }
 
@@ -271,7 +277,6 @@ a{
 
 /* itemDtl start ================================================*/
 #item_detail_box{
-    border: 1px solid red;
 }
 /* itemDtl end ==================================================*/
 
@@ -287,6 +292,17 @@ a{
 }
 
 /* itemForm end ================================================*/
+
+
+
+
+/* order start ================================================*/
+
+#order_img{
+    margin-left : 25%;
+    border : 1px solid blue;
+}
+/* order end ================================================*/
 
 
 
@@ -330,3 +346,17 @@ a{
 }
 
 /* managementDetail.html end ===========================================*/
+
+
+
+/* order start ===========================================*/
+#order_box{
+    margin-bottom: 100px;
+}
+
+#order_buy_box{
+    margin-top : 50px;
+}
+
+
+/* order end ===========================================*/
