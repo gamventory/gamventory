@@ -143,7 +143,7 @@ public class OrderService {
         return order.getId();
     }
 
-     // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드
+     // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드 --단일구매용
      public void updateSerialUserStatus(OrderDto orderDto) {
         List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
         if (availableSerials.size() < orderDto.getCount()) {
@@ -157,7 +157,7 @@ public class OrderService {
         }
     }
 
-    // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드
+    // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드 --장바구니구매용
     public void updateSerialUserStatus(List<OrderDto> orderDtoList) {
         for (OrderDto orderDto : orderDtoList) {
             List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
@@ -170,7 +170,6 @@ public class OrderService {
                 Serial serial = availableSerials.get(i);
                 serial.setUserStatus(true);
                 serialRepository.save(serial);
-                System.out.println("serial저장 몇번 실행 돼?=============================================" + serial + " i개수:" + i );
             }
         }
     }

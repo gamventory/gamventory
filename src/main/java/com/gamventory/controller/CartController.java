@@ -69,6 +69,7 @@ public class CartController {
 
         List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName());
         model.addAttribute("cartItems", cartDetailList);
+        
         return "cart/cartOrder";
     }
 
@@ -99,7 +100,7 @@ public class CartController {
     }
 
     //장바구니 상품의 수량을 업데이트하는 요청을 처리하는 메서드
-     @PostMapping(value = "/cart/orders")
+    @PostMapping(value = "/cart/orders")
     public @ResponseBody ResponseEntity orderCartItem(@RequestBody CartOrderDto cartOrderDto, Principal principal){
 
         List<CartOrderDto> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
@@ -115,7 +116,6 @@ public class CartController {
             }
         }
         // CartOrderDto를 OrderDto로 변환하여 Serial User Status를 업데이트
-        System.out.println("여기서 에러나나?");
         List<OrderDto> orderDtoList = cartOrderDtoList.stream()
         .map(cartOrder -> {
             OrderDto orderDto = new OrderDto();
@@ -124,7 +124,7 @@ public class CartController {
             return orderDto;
         })
         .collect(Collectors.toList());
-    
+        
         // Serial User Status 업데이트
         orderService.updateSerialUserStatus(orderDtoList);
             

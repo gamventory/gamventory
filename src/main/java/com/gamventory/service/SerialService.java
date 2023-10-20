@@ -8,6 +8,7 @@ import java.util.*;
 
 
 import com.gamventory.constant.Platform;
+import com.gamventory.dto.OrderDto;
 import com.gamventory.dto.SerialDto;
 import com.gamventory.entity.Serial;
 import com.gamventory.repository.SerialRepository;
@@ -73,7 +74,6 @@ public class SerialService {
         List<Serial> serialList = serialRepository.findAll();
         return SerialDto.fromEntityList(serialList);
     }
-
 
     // updateSerial, deleteSerial, etc...
 }
