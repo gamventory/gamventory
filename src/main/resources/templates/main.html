@@ -109,7 +109,7 @@
             <!-- /. 상품 이미지 출력 for문-->
 
             <!-- 페이지 이동 버튼-->
-            <div style="margin-left: 42%;">
+            <div style="margin : auto;">
                 <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
                     <ul class="pagination justify-content-center">
 
