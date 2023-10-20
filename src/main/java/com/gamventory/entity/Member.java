@@ -75,7 +75,6 @@ public class Member extends BaseEntity {
                 .role(Role.USER)
                 .build();
 
-
         return member;
     }
 

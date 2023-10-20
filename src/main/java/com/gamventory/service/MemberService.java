@@ -23,6 +23,13 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    public Member getUsernameForEmail(String username, String phoneNumber) {
+
+        Member member =  memberRepository.findByUsername(username, phoneNumber);
+
+        return member;
+    }
+
     public MemberUpdateFormDto getMember(String email) {
 
        Member member  = memberRepository.findByEmail(email);

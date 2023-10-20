@@ -14,6 +14,21 @@
 
     <div class="container">
         <div class="list-group">
+
+            <span class="bg-dark text-white pl-4"><h3>List</h3></span>
+
+            <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <a href="/admin/item/new">상품등록</a>
+            </div>
+
+            <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <a href="/admin/items">상품관리</a>
+            </div>
+
+            <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <a href="/admin/serials/create">시리얼생성</a>
+            </div>
+
             <a href="#" class="list-group-item list-group-item-action">게임</a>
             <a href="#" class="list-group-item list-group-item-action">회원</a>
             <a href="#" class="list-group-item list-group-item-action">게시판</a>

@@ -6,7 +6,9 @@ body{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    background-color: rgb(97, 97, 97) !important;
+    background : rgb(66, 66, 66) !important;
+
+    padding-top : 140px;
 }
 
 ul,li{
@@ -39,13 +41,6 @@ a{
 
 
 /* header start ============*/
-#logo{
-    font-weight: bolder;
-    margin-top : 15px;
-    cursor: pointer;
-    margin-left : 10px;
-}
-
 
 #header{
     position: relative;
@@ -53,31 +48,51 @@ a{
 
 #head{
     height : 70px;
-    z-index : 5px;
+}
+
+#search_Form{
+    padding-top : 25px;
+    
 }
 
 
-#search_Form{
-
-    padding-left : 100px;
+#search_Form>form{
+    margin-left : 10%;
+    width : 80%;
 }
 
 #searchBar{
     background-color: rgb(150, 150, 150);
-    width : 350px;
 }
 
 #header_User {
     padding-top :  15px;
-    cursor: pointer;
     color : white;
     font-weight: bolder;
 }
 
+#header_User i{
+    cursor: pointer;
+    font-size : 20px;
+    background-color: #1ca817;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    padding : 10px;
+    transition: 0.5s;
+}
+
+#header_User i:nth-child(1):hover{
+    background-color: #595959;
+}
+
+#header_User i:nth-child(2):hover{
+    background-color: #ce7e0d;
+}
+
 
 #nav{
-    padding-bottom : 2px; 
-
+    padding-bottom : 2px;
 }
 
 
@@ -91,35 +106,23 @@ a{
     margin-right: 10px;
 }
 
-#nav li:nth-child(5){
-    float : right;
-    margin-right : 100px;
-}
-
 #user_Modal{
-    padding : 10px;
-    padding-left : 940px;
+    width : 200px;
     position: absolute;
     top : 60px;
     display: none;
+    font-size : 15px;
+    left : -80px;
 }
 
-#user_Modal>div:nth-child(1){
-    background-color: rgb(65, 84, 112, 0.5);
+#user_Modal>div{
+    background-color: rgb(65, 84, 112, 0.9);
+    border-radius: 10px;
     margin-right : -10px;
     width : 200px;
-
-}
-
-#user_Modal div{
-    margin-bottom : 10px;
-}
-
-#user_Modal a{
-    opacity: 1;
-}
-
-#user_Modal div div:nth-child(3) a{
+    text-align: center;
+    padding-top : 10px;
+    padding-bottom : 10px;
     line-height: 30px;
 }
 
@@ -134,15 +137,16 @@ a{
 
 /*footer start ===========*/
 
-#footer{
-    font-weight: bolder;
-}
 
-#footer div{
+#footer>div{
     height: 300px;
+    bottom: 0;
 }
 
 /*footer ends ===========*/
+
+
+
 
 /* fragments end ============================================*/
 
@@ -157,12 +161,24 @@ a{
 /* main.html start ================================================*/
 
 #img_slider{
-    margin-top: 140px;
+
     height : 300px;
 }
 
 #img_slider div{
     height: 300px;
+}
+
+#main_game_card{
+    transition : 0.5s;
+}
+
+#main_game_card_text p{
+    margin-bottom: 0;
+}
+
+#main_game_card:hover{
+    scale: 1.1;
 }
 
 
@@ -184,15 +200,21 @@ a{
 /* memberForm start ================================================*/
 
 #singup_box{
-    margin-top : 220px;
+    margin-top : 80px;
     color: white;
-    padding-left : 20%;
     margin-bottom : 100px;
 }
 
-#singup_box input{
-    width : 400px;
+#singup_box>div{
+    width : 50%;
+    margin-left : 25%;
 }
+
+#sinup_button{
+    margin-left : 25%;
+}
+
+
 
 
 /* memberForm end ==================================================*/
@@ -202,7 +224,7 @@ a{
 /* memberLogin start ================================================*/
 
 #login_box{
-    margin-top : 320px;
+    margin-top : 180px;
     margin-bottom : 200px;
     padding-left : 20%;
 }
@@ -215,44 +237,61 @@ a{
 
 
 
-
-
-
-
-
-
-
-/* management.html start ================================================*/
-
-#management_box{
-    height : 500px;
-    margin-top : 130px;
-}
-
-#management_box div:nth-child(1){
-    padding : 0px;
-}
-
-#management_game_list{
+/* memberinfo start ================================================*/
+#memberinfo_box{
+    margin-top : 150px;
+    margin-bottom : 200px;
     text-align: center;
 }
 
-/* management.html end ================================================*/
+#memberinfo_box a{
+    margin-bottom: 15px;
+    width : 150px;
+    height : 45px;
+    font-size : 15px;
+}
+/* memberinfo end ================================================*/
 
 
-
-
-
-
-
-
-
-/* managementDetail.html start =========================================*/
-
-#management_game_detail #btn_box{
-    margin-top: 30px;
-    float: right;
-    margin-right: 80px;
+/* memberUpdate start ================================================*/
+#member_update_box{
+    margin-top : 100px;
+    margin-bottom : 130px;
+    padding-left : 17%;
 }
 
-/* managementDetail.html end ===========================================*/
+
+#member_update_box input{
+    width : 500px;
+}
+
+/* memberUpdate end ================================================*/
+
+
+
+
+
+
+
+
+
+/* itemDtl start ================================================*/
+#item_detail_box{
+}
+/* itemDtl end ==================================================*/
+
+
+
+
+/* itemForm start ================================================*/
+
+
+#item_form button{
+    float : left;
+    margin-right : 10px;
+}
+
+/* itemForm end ================================================*/
+
+
+

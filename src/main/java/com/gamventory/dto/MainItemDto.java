@@ -2,7 +2,6 @@ package com.gamventory.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 
-import groovy.transform.builder.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

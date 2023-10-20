@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gamventory.dto.MemberFIndDto;
 import com.gamventory.dto.MemberFormDto;
 import com.gamventory.entity.Member;
 import com.gamventory.service.MemberService;
@@ -104,6 +105,25 @@ public class MemberController {
         }
 
         return "/main";
+    }
+
+    @GetMapping(value = "/find")
+    public String memberFind(Model model) {
+
+        model.addAttribute("memberFindDto", MemberFIndDto.builder().build());
+        return "/member/memberFind";
+    }
+
+    @PostMapping(value = "/certification_member")
+    public String memberFound(@Valid MemberFIndDto memberFindDto, BindingResult bindingResult, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            return "/member/find";
+        }
+
+
+
+        return "/member/certificationMember";
     }
 
     @GetMapping(value = "/passUpdate")
