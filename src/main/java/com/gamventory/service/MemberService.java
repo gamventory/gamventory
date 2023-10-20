@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,8 @@ public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     public Member getUsernameForEmail(String username, String phoneNumber) {
 
         Member member =  memberRepository.findByUsername(username, phoneNumber);
@@ -30,11 +33,11 @@ public class MemberService implements UserDetailsService {
         return member;
     }
 
-    public MemberUpdateFormDto getMember(String email) {
+    public MemberUpdateFormDto getUpdateDtoFormMember(String email) {
 
        Member member  = memberRepository.findByEmail(email);
 
-       log.info("--------- get member --------");
+       log.info("--------- get Update Form member --------");
        log.info(member.toString());
        MemberUpdateFormDto memberUpdateForm = MemberUpdateFormDto.builder()
                .name(member.getName())
@@ -43,6 +46,12 @@ public class MemberService implements UserDetailsService {
                .build();
 
         return memberUpdateForm;
+    }
+
+    public Member getMember(String email) {
+        Member member = memberRepository.findByEmail(email);
+
+        return member;
     }
 
     public Member saveMember(Member member) {
@@ -59,6 +68,26 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
 
         return member.getId();
+    }
+
+    public int checkPassword(String email, String password) {
+
+        Member member = memberRepository.findByEmail(email);
+
+        String realPassword = member.getPassword();
+        String clientPassword = password;
+
+        int result;
+
+        if(passwordEncoder.matches(clientPassword, realPassword)) {
+            log.info("password match result : true");
+            result = 1;
+        } else {
+            log.info("password match result : false");
+            result = 2;
+        }
+
+        return result;
     }
 
     private void validateDulpicateMember(Member member) {

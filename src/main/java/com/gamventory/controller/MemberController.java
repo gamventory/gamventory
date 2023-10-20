@@ -2,6 +2,7 @@ package com.gamventory.controller;
 
 import java.security.Principal;
 
+import com.gamventory.dto.MemberPasswordDto;
 import com.gamventory.dto.MemberUpdateFormDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -55,7 +56,7 @@ public class MemberController {
             memberService.saveMember(member);
         } catch (Exception e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "member/MemberForm";
+            return "member/memberForm";
         }
 
         return "redirect:/";
@@ -71,7 +72,7 @@ public class MemberController {
     @GetMapping(value = "/update")
     public String memberUpdate(Model model, Principal principal) {
 
-        MemberUpdateFormDto memberUpdateFormDto  = memberService.getMember(principal.getName());
+        MemberUpdateFormDto memberUpdateFormDto  = memberService.getUpdateDtoFormMember(principal.getName());
         log.info(memberUpdateFormDto.toString());
         model.addAttribute("memberUpdateFormDto", memberUpdateFormDto);
         return "/member/memberUpdate";
@@ -121,14 +122,38 @@ public class MemberController {
             return "/member/find";
         }
 
-
-
         return "/member/certificationMember";
     }
 
-    @GetMapping(value = "/passUpdate")
-    public String memberPasswordUpdate() {
+    @GetMapping(value = "/memberPwUpdate")
+    public String userCheck(Model model) {
+
+        model.addAttribute("memberPasswordDto", MemberPasswordDto.builder().build());
+
         return "/member/memberPasswordUpdate";
+    }
+
+    @PostMapping(value = "/memberPwUpdate")
+    public String userValidateOk(@Valid MemberPasswordDto memberPasswordDto, BindingResult bindingResult,
+                                 Principal principal, Model model) {
+
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("errorMessage", "패스워드 검증에 오류가 있습니다.");
+            return "/member/memberCertify";
+        }
+
+        int result = memberService.checkPassword(principal.getName(), memberPasswordDto.getPassword());
+
+
+        if(result == 2) {
+            model.addAttribute("checkErrorMessage", "기존의 비밀번호가 다릅니다.");
+            return "/member/memberPasswordUpdate";
+        }
+
+        Member member = memberService.getMember(principal.getName());
+
+
+        return "redirect:/member/memberInfo";
     }
 
     @GetMapping(value = "/login")
