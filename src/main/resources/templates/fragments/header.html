@@ -56,6 +56,8 @@
                     <div sec:authorize="isAuthenticated()">
                         <a href="/orders" class="text-white">구매이력</a>
                     </div>
+                    <div sec:authorize="isAuthenticated()" href="/cart">
+                        <a href="/cart">장바구니</a></div>
                     <div sec:authorize="isAnonymous()">
                         <a href="/members/login" class="text-white">로그인</a>
                     </div>
@@ -68,14 +70,14 @@
 
         </div>
 
-    
-    <div id="nav" class="container bg-dark">
-        <ul>
-            <li><a id="nav_game" class="text-white">게임</a></li>
-            <li><a href="#" class="text-white">공지사항</a></li>
-            <li><a href="#" class="text-white">커뮤니티</a></li>
-            <li><a href="#" class="text-white">회사소개</a></li>
-            <li><a href="http://localhost:8081/admin/items" class="badge bg-success text-white">관리자</a></li>
+        
+        <div id="nav" class="container bg-dark">
+            <ul>
+                <li><a id="nav_game" class="text-white">게임</a></li>
+                <li><a href="#" class="text-white">공지사항</a></li>
+                <li><a href="#" class="text-white">커뮤니티</a></li>
+                <li><a href="#" class="text-white">회사소개</a></li>
+                <li><a href="http://localhost:8081/admin/items" class="badge bg-success text-white">관리자</a></li>
         </ul>
     </div>
 </div>

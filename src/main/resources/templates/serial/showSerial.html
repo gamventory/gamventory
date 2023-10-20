@@ -6,7 +6,7 @@
 <body>
     <h1>Serial Details</h1>
 
-    <div th:if="${serial != null}">
+    <div th:each="serial : ${serials}">
         <h2>Serial Details:</h2>
         <p><strong>ID:</strong> <span th:text="${serial.serialId}"></span></p>
         <p><strong>Item ID:</strong> <span th:text="${serial.itemId}"></span></p>
@@ -14,6 +14,6 @@
         <p><strong>Platform:</strong> <span th:text="${serial.platform}"></span></p>
     </div>
     
-    <a href="/serial/createSerial">Create New Serial</a>
+    <a href="/serial/create">Create New Serial</a>
 </body>
 </html>

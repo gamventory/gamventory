@@ -2,7 +2,6 @@ package com.gamventory.controller;
 
 import java.security.Principal;
 
-import com.gamventory.dto.MemberFindPasswordDto;
 import com.gamventory.dto.MemberUpdateFormDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gamventory.dto.MemberFIndDto;
 import com.gamventory.dto.MemberFormDto;
 import com.gamventory.entity.Member;
 import com.gamventory.service.MemberService;
@@ -110,12 +110,12 @@ public class MemberController {
     @GetMapping(value = "/find")
     public String memberFind(Model model) {
 
-        model.addAttribute("memberFindDto", MemberFindPasswordDto.builder().build());
+        model.addAttribute("memberFindDto", MemberFIndDto.builder().build());
         return "/member/memberFind";
     }
 
     @PostMapping(value = "/certification_member")
-    public String memberFound(@Valid MemberFindPasswordDto memberFindDto, BindingResult bindingResult, Model model) {
+    public String memberFound(@Valid MemberFIndDto memberFindDto, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()) {
             return "/member/find";

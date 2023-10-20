@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @ToString
 @Getter
@@ -21,12 +23,19 @@ public class SerialDto {
     /* 시리얼 번호를 담는 dto */
 
     private Long serialId;
+
     private Long itemId;
+
     private String serialNumber;
+
     private Platform platform;
+
+    private boolean userStatus;
+
 
     //Serial Entity 인스턴스를 받아서 Dto객체를 반환하는 메서드
     public static SerialDto fromEntity(Serial serial) {
+
         return SerialDto.builder()
                         .serialId(serial.getId())
                         .itemId(serial.getItemId())
@@ -37,6 +46,7 @@ public class SerialDto {
 
     // SerialDto 객체의 정보를 바탕으로 Entity를 반환하는 메서드
     public Serial toEntity() {
+
         return Serial.builder()
                      .id(this.serialId)
                      .itemId(this.itemId)
@@ -44,5 +54,12 @@ public class SerialDto {
                      .platform(this.platform)
                      .build();
     }
+
+    public static List<SerialDto> fromEntityList(List<Serial> serialList) {
+        return serialList.stream()
+                .map(SerialDto::fromEntity)
+                .collect(Collectors.toList());
+    }
+    
     
 }

@@ -1,23 +1,90 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Create Serial</title>
-</head>
-<body>
-    <h1>Create New Serial</h1>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+    <!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    </th:block>
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    </th:block>
 
-    <form th:action="@{/serials/createSerial}" method="post">
-        <label for="itemId">Item ID:</label>
-        <input type="text" id="itemId" name="itemId" required>
+    <!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    
+
+<script th:inline="javascript">
+    function createSerial() {
+        // 여기에서 서버로 데이터를 전송하거나 처리할 수 있습니다.
+
+        // 알림 창을 띄움
+        alert('생성이 완료되었습니다.');
+    }
+</script>
+
+</th:block>
+    <!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+
+        table {
+            border-collapse: collapse; /* 테두리 겹치기 해제 */
+            border: 1px solid white; /* 테두리 색상 및 두께 설정 */
+        }
+
+        table th, table td {
+            border: 1px solid white; /* 테두리 색상 및 두께 설정 */
+            padding: 8px; /* 셀 내용과 테두리 사이의 간격 설정 (원하는 값으로 조정) */
+        }
+
+    </style>
+</th:block>
         
-        <label for="platform">Platform:</label>
-        <select id="platform" name="platform" required>
-            <option value="STEAM">Steam</option>
-            <option value="EPIC_GAMES">Epic Games</option>
-            <option value="OTHER">Other</option>
-        </select>
-        
-        <button type="submit">Create Serial</button>
-    </form>
-</body>
+
+      
+    <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+        <h1>스크롤내리는용</h1>
+
+        <table>
+            <thead>
+                <colgroup>
+                    <col style="width: 20%;">
+                    <col style="width: 10%;">
+                    <col style="width: 30%;">
+                    <col style="width: 20%;">
+                </colgroup>
+                <tr>
+                    <th>상품 ID</th>
+                    <th>플랫폼</th>
+                    <th>생성 시리얼 번호 개수</th>
+                    <th>생성</th>
+                </tr>
+            </thead>
+            <tbody>
+                <form th:action="@{/serials/createSerial}" method="post">
+                    <tr>
+                        <td><input type="text" id="itemId" name="itemId" required></td>
+                        <td><select id="platform" name="platform" required>
+                                <option value="STEAM">Steam</option>
+                                <option value="EPIC_GAMES">Epic Games</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </td>
+                        <td><input type="number" id="numberOfSerials" name="numberOfSerials" required min="1"></td>
+                        <td colspan="2"><button type="submit" onclick="createSerial()">만들기</button></td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
 </html>

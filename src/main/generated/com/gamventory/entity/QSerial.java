@@ -27,6 +27,8 @@ public class QSerial extends EntityPathBase<Serial> {
 
     public final StringPath serialNumber = createString("serialNumber");
 
+    public final BooleanPath userStatus = createBoolean("userStatus");
+
     public QSerial(String variable) {
         super(Serial.class, forVariable(variable));
     }
