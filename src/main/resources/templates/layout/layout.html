@@ -11,7 +11,7 @@
     <!-- jquary -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/gamven.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{../css/gamven.css}">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
@@ -21,10 +21,15 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- script import -->
     <th:block layout:fragment="script"></th:block>
     <th:block layout:fragment="css"></th:block>
+
+    
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+
 </head>
 
 
@@ -35,6 +40,9 @@
     <th:block layout:fragment="content"></th:block>
     <!-- footer fragment 사용 -->
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+
+
+
 
 
     <script>
@@ -55,27 +63,39 @@
         $(document).ready(function(){
 
             //메인 페이지 스크롤 이벤트 쿼리
-            $("#logo").click(function() {
-                $("html").animate({scrollTop: 0});
-            });
+            // $("#logo").click(function() {
+            //     $("html").animate({scrollTop: 0});
+            // });
 
             $("#nav_game").click(function(event) {
-    event.preventDefault(); // 클릭 이벤트의 기본 동작을 중단합니다.
+                event.preventDefault(); // 클릭 이벤트의 기본 동작을 중단합니다.
 
-    // 페이지 이동을 시작합니다.
-    window.location.href = 'http://localhost:8081/';
+                // 페이지 이동을 시작합니다.
+                window.location.href = 'http://localhost:8081/';
 
-    // 페이지 이동이 완료되면 애니메이션을 시작합니다.
-    window.onload = function() {
-        $("html").animate({scrollTop: 417});
-    };
-});
-
-            $("#header_User").click(function(){
-                $("#user_Modal").slideToggle("slow");
+                // 페이지 이동이 완료되면 애니메이션을 시작합니다.
+                window.onload = function() {
+                    $("html").animate({scrollTop: 417});
+                };
             });
+
+
+            //user_modal event
+            $("#user_button").click(function(){
+                $("#user_Modal").slideToggle("fast");
+            });
+
+
+
+            //itemMng go
+            $("#management_go_button").click(function(){
+                window.location.href = 'http://localhost:8081/admin/items'
+            });
+
+
         });
     </script>
+
 
 </body>
 </html>
