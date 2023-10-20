@@ -48,20 +48,20 @@
             <div class="carousel-inner">
                 
               <div class="carousel-item active">
-                <img src="la.jpg" alt="slide1" width="1100" height="500">
+                <img src="" alt="slide1" width="1100" height="500">
                 <div class="carousel-caption bg-info">
 
                 </div>   
               </div>
 
               <div class="carousel-item">
-                <img src="chicago.jpg" alt="slide2" width="1100" height="500">
+                <img src="" alt="slide2" width="1100" height="500">
                 <div class="carousel-caption bg-success">
                 </div>   
               </div>
 
               <div class="carousel-item">
-                <img src="ny.jpg" alt="slide3" width="1100" height="500">
+                <img src="" alt="slide3" width="1100" height="500">
                 <div class="carousel-caption bg-primary">
                 </div>   
               </div>
@@ -80,19 +80,19 @@
 
 
         <!-- filter -->
-        <div id="filter" class="row bg-dark mb-3" style="border-radius: 20px;"></div>
+        <div id="filter" class="row mb-3" style="border-radius: 20px;"></div>
         <!-- fliter end-->
 
 
-        <div  class="row" style="background-color: #595959; border-radius : 20px; padding : 30px;">
+        <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px;">
             <!-- 상품 이미지 출력 for문-->
             <div class="row">
                 <th:block th:each="item, status: ${items.getContent()}">
                     <div class="col-md-4 margin">
-                        <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5 bg-dark">
+                        <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style="border-radius: 15px; background-color: rgb(32,33,35);">
                             <a th:href="'/item/' +${item.id}" class="text-dark">
                                 <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300" style="border-radius: 15px;">
-                                <div id="main_game_card_text" class="card-body bg-dark">
+                                <div id="main_game_card_text" class="card-body ">
                                     <p class="card-title text-white">[[${item.itemNm}]]</p>
                                     <p class="card-text text-white" style="opacity: 0.5;">[[${item.itemDetail}]]</p>
                                     <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]원</p>
