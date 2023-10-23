@@ -66,21 +66,21 @@
             // });
 
             $("#nav_game").click(function(event) {
-                event.preventDefault(); // 클릭 이벤트의 기본 동작을 중단합니다.
-
-                // 페이지 이동을 시작합니다.
                 window.location.href = 'http://localhost:8081/';
+            });
 
-                // 페이지 이동이 완료되면 애니메이션을 시작합니다.
-                window.onload = function() {
-                    $("html").animate({scrollTop: 417});
-                };
+            $("#m_nav_game").click(function(event) {
+                window.location.href = 'http://localhost:8081/';
             });
 
 
             //user_modal event
             $("#user_button").click(function(){
                 $("#user_Modal").slideToggle("fast");
+            });
+
+            $("#m_user_button").click(function(){
+                $("#m_user_Modal").slideToggle("fast")
             });
 
 
@@ -90,8 +90,16 @@
                 window.location.href = 'http://localhost:8081/admin/items'
             });
 
+            $("#m_management_go_button").click(function(){
+                window.location.href = 'http://localhost:8081/admin/items'
+            });
+
             //cart go
             $("#cart_go_button").click(function(){
+                window.location.href = 'http://localhost:8081/cart'
+            });
+
+            $("#m_cart_go_button").click(function(){
                 window.location.href = 'http://localhost:8081/cart'
             });
 
