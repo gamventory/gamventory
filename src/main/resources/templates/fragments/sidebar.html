@@ -12,10 +12,10 @@
 <!--sidebarFragment 선언-->
 <div th:fragment="sidebarFragment">
 
-    <div class="container">
-        <div class="list-group">
+    <div class="container" style="padding : 0px;">
+        <div class="list-group row">
 
-            <span class="bg-dark text-white pl-4"><h3>List</h3></span>
+            <span class="bg-dark text-white pl-4"><h3 class="mt-1">List</h3></span>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <a href="/admin/item/new">상품등록</a>

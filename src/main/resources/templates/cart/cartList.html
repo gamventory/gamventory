@@ -137,11 +137,10 @@
 
 <div layout:fragment="content">
 
-    <div id="cart_list_box" class="container">
-            <table class="table text-white">
-                <h3 class="my-5 text-white" style="font-weight: bold;">장바구니</h3>
+    <div class="cart_list_box container p-5">
+            <table class="table">
                 <thead>
-                    <tr class="text-center">
+                    <tr class="bg-success text-white text-center">
                         <th style="width : 100px;">이미지</th>
                         <th>게임명</th>
                         <th>금액</th>
@@ -161,7 +160,7 @@
 
                         <!-- 게임명 -->
                         <td class="text-center align-middle">
-                            <span th:text="${cartItem.itemNm}" class="font-weight-bold text-white"></span>
+                            <span th:text="${cartItem.itemNm}" class="text-white"></span>
                         </td>
 
 
@@ -169,7 +168,7 @@
                         <td class="text-center align-middle">
                             <span th:id="'price_' + ${cartItem.cartItemId}"
                                     th:data-price="${cartItem.price}"
-                                    th:text="${cartItem.price} + '원'" class="align-self-center mr-2 font-weight-bold text-white">
+                                    th:text="${cartItem.price} + '원'" class="align-self-center mr-2 text-white">
                             </span>
                         </td>
 
@@ -196,7 +195,7 @@
                 </tbody>
             </table>
 
-            <div class="text-center my-5">
+            <div class="text-center">
                 <button type="button" class="btn btn-primary" onclick="orders()">주문하기</button>
             </div>
     </div>

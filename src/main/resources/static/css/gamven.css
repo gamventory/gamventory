@@ -303,6 +303,10 @@ a{
 
 /* itemForm start ================================================*/
 
+#item_form{
+    width : 70%;
+}
+
 #item_form button{
     float : left;
     margin-right : 10px;
@@ -317,10 +321,30 @@ a{
 
 
 /* cartList start ================================================*/
-#cart_list_box{
+
+.cart_list_box{
+    background-color: #343541 !important;
+    border-radius: 20px;
     margin-bottom : 100px !important;
 }
 
 /* cartList end   ================================================*/
+
+
+
+
+
+/* management_box start   ================================================*/
+
+.management_box{
+    margin-top: 100px;
+    margin-bottom : 100px;
+}
+
+
+
+
+
+/* management_box end   ================================================*/
 
 
