@@ -282,7 +282,7 @@ a{
 
 
 /* itemDtl start ================================================*/
-#item_detail_box{
+.item_detail_box{
 
     padding-top : 50px;
     padding-bottom: 50px;
@@ -290,7 +290,7 @@ a{
     background-color: #343541;
 }
 
-#item_detail_box img{
+.item_detail_box img{
     width : 100%;
     height: 600px;
 }
@@ -321,15 +321,22 @@ a{
 
 
 /* cartList start ================================================*/
-
 .cart_list_box{
     background-color: #343541 !important;
     border-radius: 20px;
     margin-bottom : 100px !important;
 }
-
 /* cartList end   ================================================*/
 
+
+
+
+/* orde.html start   ================================================*/
+#order_box{
+    background-color: #343541;
+    border-radius:20px;
+}
+/* orde.html end   ================================================*/
 
 
 
@@ -340,11 +347,6 @@ a{
     margin-top: 100px;
     margin-bottom : 100px;
 }
-
-
-
-
-
 /* management_box end   ================================================*/
 
 

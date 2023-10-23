@@ -129,7 +129,7 @@
 
     <form th:action="@{/order/{id}(id=${item.id})}" method="post">
         
-        <div id="item_detail_box" class="container">
+        <div class="container item_detail_box p-5">
 
             <!-- CSRF 토큰 추가 -->
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
@@ -139,7 +139,7 @@
 
                 <div class="row">
                     <div id="item_detail_box_img" class="col-sm-8">
-                        <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 30px;" class = "rounded repImg" th:alt="${item.itemNm}">
+                        <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; height: 100%; width: 100%;" th:alt="${item.itemNm}">
                     </div>
 
                     <div id="item_detail_box_buy" class="col-sm-4 pt-3" style="text-align: left;">
@@ -175,9 +175,9 @@
                                 <button type="button" class="btn btn-light border bg-success text-white" onclick="addCart()">장바구니</button>
                                 <button type="button" class="btn btn-primary" onclick="order()">주문하기</button>
                             </div>
-                            <!--<div th:unless="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right mt-1">
+                            <div th:unless="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right mt-1">
                                 <button type="button" class="btn btn-danger">품절</button>
-                            </div>-->
+                            </div>
                         </div>
                     </div>
                 </div>
