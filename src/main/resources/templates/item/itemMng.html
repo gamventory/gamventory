@@ -78,7 +78,7 @@
                                 <td>
                                     <a th:href="'/admin/item/'+${item.id}" th:text="${item.itemNm}"></a>
                                 </td>
-                                <td th:text="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)} ? '판매' : '품절'"></td>
+                                <td th:text="${itemSellStatuses[status.index].name() == 'SELL'} ? '판매' : '품절'"></td>
                                 <td th:text="${item.createdBy}"></td>
                                 <td th:text="${#strings.replace(item.regTime.toString().substring(0,19), 'T', ' ')}"></td>
                             </tr>

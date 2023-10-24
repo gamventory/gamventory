@@ -26,8 +26,6 @@ public class MainController {
         
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
         Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
-        System.out.println("판매상태==================================="+itemSearchDto.getSearchSellStatus());
-       
 
         model.addAttribute("items", items); // 목록의 아이템들
         model.addAttribute("itemSearchDto", itemSearchDto); // 검색조건
