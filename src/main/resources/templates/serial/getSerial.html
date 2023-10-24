@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Get Serial</title>
+</head>
+<body>
+    <h1>Retrieve Serial Details</h1>
+
+    <form action="/api/serials/get" method="get">
+        <label for="serialId">Serial ID:</label>
+        <input type="text" id="serialId" name="serialId" required>
+        <button type="submit">Get Serial</button>
+    </form>
+
+    <!-- 결과를 출력하기 위한 영역 -->
+    <div th:if="${serial != null}">
+        <h2>시리얼정보</h2>
+        <p><strong>플랫폼:</strong> <span th:text="${serial.platform}"></span></p>
+        <p><strong>시리얼번호:</strong> <span th:text="${serial.serialNumber}"></span></p>
+        <p><strong>아이템 ID:</strong> <span th:text="${serial.itemId}"></span></p>
+    </div>
+</body>
+</html>

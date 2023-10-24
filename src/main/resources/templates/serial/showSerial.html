@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Serial</title>
+</head>
+<body>
+    <h1>시리얼 조회</h1>
+      <!-- 검색 폼 -->
+    <form th:action="@{/serials/list}" method="get">
+        <label for="keyword">키워드 :</label>
+        <input type="text" id="keyword" name="keyword" placeholder="사용자 ID나 상품 ID를 입력하세요.">
+        <button type="submit">검색</button>
+    </form>
+
+    <div th:each="serial : ${serials}">
+        <p><strong>시리얼 ID:</strong> <span th:text="${serial.serialId}"></span></p>
+        <p><strong>상품 ID:</strong> <span th:text="${serial.itemId}"></span></p>
+        <p><strong>시리얼번호:</strong> <span th:text="${serial.serialNumber}"></span></p>
+        <p><strong>플랫폼:</strong> <span th:text="${serial.platform}"></span></p>
+        <!--구매 했을 경우 구매자 아이디 출력, 구매를 안 했을 경우 미판매라고 출력됩니다.-->
+        <span th:if="${serial.member != null}">구매자ID:<div th:text="${serial.member.email}"></div></span> 
+        <span th:if="${serial.member == null}">미판매</span>
+        <!--/. 구매 했을 경우 구매자 아이디 출력, 구매를 안 했을 경우 미판매라고 출력됩니다.-->
+    </div>
+
+  <!-- 페이지 번호 이동 -->
+  <div>
+    <ul class="pagination">
+        <li th:if="${currentPage > 1}">
+            <a th:href="@{/serials/list/{page}(page=1)}">First</a>
+        </li>
+        <li th:if="${currentPage > 1}">
+            <a th:href="@{/serials/list/{page}(page=${currentPage - 1})}">Previous</a>
+        </li>
+        <li th:each="pageNumber : ${#numbers.sequence(currentPage - 2, currentPage + 2)}" th:if="${pageNumber >= 1 and pageNumber <= totalPages}">
+            <span th:if="${pageNumber == currentPage}" th:text="${pageNumber}"></span>
+            <a th:if="${pageNumber != currentPage}" th:href="@{/serials/list/{page}(page=${pageNumber})}" th:text="${pageNumber}"></a>
+        </li>
+        <li th:if="${currentPage < totalPages}">
+            <a th:href="@{/serials/list/{page}(page=${currentPage + 1})}">Next</a>
+        </li>
+        <li th:if="${currentPage < totalPages}">
+            <a th:href="@{/serials/list/{page}(page=${totalPages})}">Last</a>
+        </li>
+    </ul>
+</div>
+<!-- /.  페이지 번호 이동-->
+</body>
+</html>

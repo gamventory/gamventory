@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+    <!-- css link -->
+    <link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+
+        $(document).ready(function(){
+
+            calculateToalPrice();
+
+            $("#quantity").change( function(){
+                calculateToalPrice();
+            });
+            });
+            //현재 주문할 수량과 상품 한개당 가격을 곱해서 결제 금액을 구해주는 함수
+            function calculateToalPrice(){
+            var count = $("#quantity").val();
+            var price = $("#price").val();
+            var totalPrice = price*count;
+            $("#totalPrice").html(totalPrice + '원');
+            }
+            //csrf토큰 값을 조회, 상품 아이디와 주문 수량 전달하는 객체 생성
+            function order(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var settlekind = $('input[name="settlekind"]:checked').val();
+            var useEmoney = parseInt($('input[name="use_emoney"]').val());
+            var memberEmoney = parseInt("0");
+            var emoney_chk = $('input[name="emoney_chk"]').val();
+            var termAgree_orderCheck = $('input[name="termAgree_orderCheck"]:checked').val();
+
+            if(memberEmoney==0){
+                $('input[name="use_emoney"]').val("0");
+            }
+
+            if(emoney_chk!="Y"){
+                $('input[name="use_emoney"]').val("0");
+            }
+
+            if($.type(settlekind)=="undefined"){
+                alert("결제수단을 선택하세요.");
+                return false;
+            }else{
+                if($.type(termAgree_orderCheck)=="undefined"){
+                    alert("청약의사 재확인에 동의해 주셔야 주문진행이 가능합니다.");
+                    return false;
+                }
+
+                if(settlekind=="PAYNOW"){
+                    $("#LGD_EASYPAY_ONLY").val(settlekind);
+                    $("#LGD_CUSTOM_USABLEPAY").val("SC0010");
+                }else if(settlekind=="PAYCO"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO");
+                }else if(settlekind=="PAYCO_POINT"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO_POINT");
+                }else{
+                    if(settlekind=="SC0040"){
+                        if(hp1=="" || hp2=="" || hp3==""){
+                            alert("휴대폰번호를 입력하세요.");
+                            return false;
+                        }else{
+                            $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                        }
+                    }else{
+                        $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                    }
+                }
+
+                $("#orderFrm").attr("action","settle.html");
+                $("#orderFrm").submit();
+            }
+
+            var url = "/order";
+            var paramData = {
+                itemId : $("#itemId").val(),
+                count : $("#quantity").val()
+            };
+            //서버에 보낼 주문데이터 JSON타입으로 변경
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url      : url,
+                type     : "POST",
+                //서버에 보낼 데이터 타입을 json으로 지정
+                contentType : "application/json",
+                data     : param,
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                //주문 성공시 메세지
+                success  : function(result, status){
+                    alert("주문이 완료 되었습니다.");
+                    location.href='/';
+                },
+                //주문 시 에러가 발생하면 나오는 메세지
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseText);
+                    }
+
+                }
+            });
+        }
+
+
+    </script>
+
+</th:block>
+
+
+<!-- content -->
+<div layout:fragment="content">
+    
+
+    <form action="/purchase" method="post" class="container">
+
+        
+        <div id="order_box" class="row p-5 mb-5 d-flex justify-content-center">
+            <!-- 등록된 상품 이미지 보여주는 곳-->
+            <div class="mb-5">
+                <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; width: 100%;" th:alt="${item.itemNm}">
+            </div>
+
+            <input type="hidden" id="itemId" th:value="${item.id}">
+
+
+            <!-- 테이블 시작 -->
+            <table class="table bg-white my-3 mb-5" style="width: 80%;  border-radius: 10px;">
+                <thead class="bg-primary text-white" style="text-align: center;">
+                    <tr>
+                        <th>게임명</th>
+                        <th>가격</th>
+                        <th>수량</th>
+                    </tr>
+                </thead>
+
+                <tbody style="text-align: center;">               
+                    <form action="/purchase" method="post">
+                        <td class="pt-3">
+                            <div>
+                                <span><label for="productName" th:text="${item.itemNm}"></label></span>
+                            </div>
+                        </td>
+                        <td class="pt-3">
+                            <div>
+                                <span>
+                                    <input type="hidden" th:value="${item.price}" id="price" name="price">
+                                    <label for="productPrice" th:text="${item.price}">원</label>
+                                </span>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <div>
+                                <input type="number" class="form-control text-right" id="quantity" name="quantity" min="1" value="1" required>
+                            </div>
+                        </td>
+                    </form>
+                </tbody>
+            </table>
+            <!-- 테이블 끝 -->
+
+            <div class="row  text-white">
+                <div class="col-md-6">
+
+                    <fieldset class="vm-fieldset-tos">
+
+                        <div class="cart tos" title="" style="margin-top:10px">
+                        
+                            <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">결제수단</span>
+                        
+                            <div class="list-group">
+                                <li class="list-group-item">
+                                    <div class="radio">
+                                        <label><input type="radio" name="settlekind" id="settlekind8" value="NPAY" ><img src="/api/naverpay/btn_npay.png" style="border-radius:2px;" alt="네이버페이"><span style="display:none">네이버페이</span></label>
+                                    </div>
+                                    <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 100 원 이상일 때만 사용이 가능합니다.</strong></div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="radio">
+                                        <label><input type="radio" name="settlekind" id="settlekind2" value="SC0010" >신용/체크카드 결제</label>
+                                    </div>
+                                    <div style="display:block;">
+                                        <strong class="text-danger">※ 결제 예정액이 1,000 원 이상일 때만 사용이 가능합니다.</strong>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <div class="radio" style="display:inline-block">
+                                        <label><input type="radio" name="settlekind" id="settlekind3" value="SC0030" >계좌이체 결제</label>
+                                    </div>
+                                    <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 10,000 원 이상일 때만 사용이 가능합니다.</strong></div>
+                                </li>
+
+                                    
+                                <li class="list-group-item">
+                                    <div class="radio" style="display:inline-block">
+                                        <label><input type="radio" name="settlekind" id="settlekind5" value="SC0040" >가상계좌 결제</label>
+                                    </div>
+                                    <div style="display:block;"><strong class="text-danger">※  결제 예정액이 10,000 원 이상일 때만 사용이 가능하며, 이벤트 상품의 경우 이벤트 종료 후 입금이 불가합니다.</strong></div>
+                                    <div id="hp_block" class="collapse">
+                                        <label>휴대폰 번호 :</label>
+                                            <select name="hp1" id="hp1" style="display:inline;">
+                                                <option value="">::선택::</option>
+                                                <option value="010" >010</option>
+                                                <option value="011" >011</option>
+                                                <option value="016" >016</option>
+                                                <option value="017" >017</option>
+                                                <option value="018" >018</option>
+                                                <option value="019" >019</option>
+                                            </select> - 
+                                        <input type="text" name="hp2" id="hp2" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value=""> -
+                                        <input type="text" name="hp3" id="hp3" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value="">
+                                    </div>
+                                </li>
+
+
+                                <li class="list-group-item">
+                                    <div class="radio">
+                                        <label><input type="radio" name="settlekind" id="settlekind6" value="SC0060" >휴대폰 결제</label>
+                                    </div>
+                                    <div style="display:block;">
+                                        <p><strong class="text-danger">※ 결제 예정액이 350 원 이상일 때만 사용이 가능합니다.</strong></p>
+                                        <p><strong class="text-danger">※ 부분/이월 환불이 불가하며, 다이렉트 게임즈 포인트로 제공됩니다. 자세한 사항은 하단에 환불정책을 확인해 주시기 바랍니다.</strong></p>
+                                    </div>
+                                </li>
+
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- /.등록된 상품 이미지 보여주는 곳-->
+                    
+                    
+                <!-- 결제수단, 최종결제정보-->                             
+                <div class="col-md-6">
+                    <fieldset class="vm-fieldset-tos">
+                        <div class="cart tos" title="" style="margin-top:10px">
+                            <span class="cart customer-note" style="height:45px;line-height:45px;font-weight:bold;">최종결제 정보</span>
+
+                            <div style="border:1px solid rgba(255,255,255,0.1);">
+                                <div style="height:60px;">
+                                    <dl style="clear:both;width:100%;padding:10px">
+                                        <dt style="float:left;width:80px;line-height:40px;">결제예정액</dt>
+                                        <dd style="float:right;line-height:40px;"><span class="PricebillTotal" id="totalPrice" name="totalPrice" > </span> 원</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    
+                    <fieldset class="vm-fieldset-tos">
+                        <div class="terms-of-service" style="margin-top:10px;margin-bottom:20px;">
+                            <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">청약의사 재확인</span>
+                            
+                            <div style="border:1px solid rgba(255,255,255,0.1);padding:10px 15px">
+                                <label for="termAgree_orderCheck" style="">
+                                    <input class="terms-of-service required" id="termAgree_orderCheck" type="checkbox" name="termAgree_orderCheck" value="1" required>
+                                    <span class="vmicon"></span>구매할 상품의 상품정보 및 가격을 확인하였으며, 이에 동의합니다. <br/>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                                
+
+                    <div class="text-center mt-3">
+                        <button type="button" id="btn_settle" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>     
+
+
+</html>

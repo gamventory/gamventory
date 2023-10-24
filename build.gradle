@@ -1,0 +1,82 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.4'
+	id 'io.spring.dependency-management' version '1.1.3'
+}
+
+group = 'com.gamventory'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// spring-data-jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// spring-boot-web
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+ 	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	// spring-boot-devtools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// spring-security, spring-security-test thymeleaf expansion
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+
+	// spring-validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// spring-boot-start-mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	
+	// mysql jdbc driver
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	
+	// h2 driver
+	runtimeOnly 'com.h2database:h2'
+
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+	// querydsl
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+
+	// modelmapper -> 서로 다른 객체의 필드명이 같다면 복사한 뒤 객체 반환 하는 라이브러리
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+}
+
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+
+tasks.withType(JavaCompile) {
+  options.generatedSourceOutputDirectory=file(querydslDir)
+}
