@@ -2,6 +2,7 @@ package com.gamventory.entity;
 
 import com.gamventory.dto.MemberPasswordDto;
 import com.gamventory.dto.MemberUpdateFormDto;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.gamventory.constant.Role;
@@ -15,17 +16,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "member")
-@Getter
-@Setter
+@Data
 @ToString
 @Builder
 @AllArgsConstructor
@@ -35,7 +29,7 @@ public class Member extends BaseEntity {
     // 회원마다 존재하는 회원번호 -> 자동증가
     @Id
     @Column(name = "member_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // 이름
