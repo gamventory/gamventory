@@ -1,6 +1,7 @@
 package com.gamventory.dto;
 
 import com.gamventory.constant.Platform;
+import com.gamventory.entity.Member;
 import com.gamventory.entity.Serial;
 
 import groovy.transform.ToString;
@@ -32,6 +33,8 @@ public class SerialDto {
 
     private boolean userStatus;
 
+    private Member member;
+
 
     //Serial Entity 인스턴스를 받아서 Dto객체를 반환하는 메서드
     public static SerialDto fromEntity(Serial serial) {
@@ -41,6 +44,7 @@ public class SerialDto {
                         .itemId(serial.getItemId())
                         .serialNumber(serial.getSerialNumber())
                         .platform(serial.getPlatform())
+                        .member(serial.getMember())
                         .build();
     }
 
@@ -52,6 +56,7 @@ public class SerialDto {
                      .itemId(this.itemId)
                      .serialNumber(this.serialNumber)
                      .platform(this.platform)
+                     .member(member)
                      .build();
     }
 

@@ -15,6 +15,7 @@
 </head>
 
 <!-- script -->
+<!-- script -->
 <th:block layout:fragment="script">
 
     <script type="text/javascript">
@@ -159,20 +160,20 @@
             const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/;
 
             if (passwordRegex.test(newPassword)) {
-                if(newPassword === confirmPassword) {
-
-                    resultSpan2.html("비밀번호가 일치합니다.");
-                    resultSpan2.css("color", "green");
-                    pwckcorCheck = true;
-                } else {
+                if(newPassword !== confirmPassword) {
 
                     resultSpan2.html("비밀번호가 다릅니다..");
                     resultSpan2.css("color", "red");
                     pwckcorCheck = false;
-                }
+                } else {
+
+                    resultSpan2.html("비밀번호가 일치합니다.");
+                    resultSpan2.css("color", "green");
+                    pwckcorCheck = true;
+                } 
 
                 resultSpan1.html("");
-                resultSpan1.css("color", "red");
+                resultSpan1.css("color", "green");
 
             } else {
 
@@ -183,7 +184,7 @@
 
     </script>
 
-</th:block>    
+</th:block>       
     
 
 </head>

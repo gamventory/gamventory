@@ -3,6 +3,7 @@ package com.gamventory.controller;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +21,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gamventory.constant.OrderStatus;
 import com.gamventory.dto.ItemFormDto;
 import com.gamventory.dto.OrderDto;
 import com.gamventory.dto.OrderHistDto;
+import com.gamventory.entity.Member;
+import com.gamventory.entity.Serial;
+import com.gamventory.repository.MemberRepository;
 import com.gamventory.service.ItemService;
 import com.gamventory.service.OrderService;
+import com.gamventory.service.SerialService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +41,8 @@ public class OrderController {
 
     private final OrderService orderService;
     private final ItemService itemService;
+    private final SerialService serialService;
+    private final MemberRepository memberRepository; 
 
     @PostMapping(value = "/order")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal){
@@ -53,7 +61,7 @@ public class OrderController {
         
         try {
             orderid = orderService.order(orderDto, email);
-            orderService.updateSerialUserStatus(orderDto); 
+            orderService.updateSerialUserStatus(orderDto, principal.getName()); 
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
@@ -97,7 +105,24 @@ public class OrderController {
         //한번에 가지고 올 주문의 개수는 8개로 설정
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 8);
         Page<OrderHistDto> ordersHistDtoList = orderService.getOrderList(principal.getName(), pageable);
+        Member member = memberRepository.findByEmail(principal.getName());
+        if (member == null) {
+            // 적절한 오류 처리를 수행합니다.
+            return "/"; 
+        }
+        List<Serial> serials = serialService.getSerialsByMemberId(member.getId());
+        for (Serial serial : serials) {
+            System.out.println(serial);
+        }
 
+        // for (Serial serial : serials) {
+        //     System.out.println("Serial Number: " + serial.getSerialNumber());
+        //     System.out.println("ID: " + serial.getId());
+        //     System.out.println("User Status: " + serial.isUserStatus());
+        //     System.out.println("------------------------");
+        // }
+
+        model.addAttribute("serials", serials);
         model.addAttribute("orders", ordersHistDtoList);
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("maxPage", 5);
@@ -123,6 +148,7 @@ public class OrderController {
     public String orderPage(Model model,  @PathVariable("itemId") Long itemId) {
              
          ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+         model.addAttribute("orderStatusOrder", OrderStatus.ORDER);
          model.addAttribute("item", itemFormDto);
 
         return "order/order";

@@ -11,18 +11,25 @@ public class MainItemDto {
 
     /* 메인 페이지에서 상품을 보여줄 때 사용할 dto */
     
-    private Long id;
+    //고유번호
+    private Long id; 
 
-    private String itemNm;
+    //제목
+    private String itemNm; 
 
-    private String itemDetail;
+    //상세내용
+    private String itemDetail; 
 
-    private String imgUrl;
+    //이미지 주소
+    private String imgUrl; 
 
+    //가격
     private Integer price;
 
+    //플랫폼
     private String platform;
 
+    //카테고리
     private String category;
 
     @QueryProjection
@@ -30,7 +37,7 @@ public class MainItemDto {
         this.id = id;
         this.imgUrl = imgUrl;
         this.itemDetail = itemDetail;
-        this.itemNm = itemDetail;
+        this.itemNm = itemNm;
         this.price = price;
         this.platform = platform;
         this.category = category;

@@ -29,7 +29,7 @@ public class Cart extends BaseEntity{
     
     @Id
     @Column(name = "cart_id" )
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     //회원 엔티티와 1:1매핑, 회원당 장바구니는 1개씩 가지고 있음

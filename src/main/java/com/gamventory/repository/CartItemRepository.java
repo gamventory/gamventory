@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.gamventory.dto.CartDetailDto;
 import com.gamventory.entity.CartItem;
-public interface CartItemRepository extends JpaRepository<CartItem, Long>{
+public interface CartItemRepository extends JpaRepository<CartItem, Long>, CartItemCustomRepository {
     
     //장바구니에 들어갈 상품을 저장하거나 조회하는 Jpa
     
@@ -24,5 +24,5 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long>{
     " and im.repimgYn = 'Y' " +
     " order by ci.regTime desc "
             )
-    List<CartDetailDto> findCartDetailDtoList(@Param("cartId") Long cartId);
+    List<CartDetailDto> findCartDetailDtoList(@Param("cartId") Long itemId);
 }

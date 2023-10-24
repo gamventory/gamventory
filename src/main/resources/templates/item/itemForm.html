@@ -80,6 +80,11 @@
     <!-- Content -->
 <div layout:fragment="content">
     <div class="container">
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
         <div class="management_box row">
             <div class="col-sm-2 bg-primary">
                 <th:block th:replace="~{fragments/sidebar :: sidebarFragment}"></th:block>
@@ -103,9 +108,10 @@
             
                         <div class="form-group">
                             <select th:field="*{platform}" class="custom-select">
-                                <option value="ALL">전체</option>
                                 <option value="STEAM">Steam</option>
-                                <option value="EPIC_GAMES">에픽게임즈</option>
+                                <option value="EPIC_GAMES">Epic Games</option>
+                                <option value="ROCKSTAR_GAMES">Rockstar Games</option>
+                                <option value="UBISOFT_CONNECT">Ubisoft Connect</option>
                                 <option value="OTHER">기타</option>
                             </select>
                         </div>
@@ -117,6 +123,7 @@
                                 <option value="RPG">RPG</option>
                                 <option value="ADVENTURE">어드벤처</option>
                                 <option value="CASUAL">캐쥬얼</option>
+                                <option value="FPS">FPS</option>
                                 <option value="OTHER">기타</option>
                             </select>
                         </div>

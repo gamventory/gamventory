@@ -109,12 +109,7 @@ public class ItemService {
 
     @Transactional(readOnly = true)
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
-        System.out.println("서비스의 판매상태========================="+itemSearchDto.getSearchSellStatus());
         return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 
-    public Item findItemById(Long itemId) {
-        return null;
-    }
-    
 }

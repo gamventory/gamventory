@@ -5,6 +5,8 @@ import com.gamventory.constant.Platform;
 
 import java.util.List;
 import java.util.UUID;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -57,13 +59,18 @@ public class Serial {
     @Column(name = "user_status", nullable = false)
     private boolean userStatus;
 
+    //한명의 회원이 여러개 시리얼 번호를 가짐.
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @JoinColumn(name = "member_id")
+    private Member member; 
+
 
     public static Serial createWithRandomSerialNumber(Long itemId, Platform platform, boolean userStatus) {
         return Serial.builder()
                      .itemId(itemId)
                      .serialNumber(UUID.randomUUID().toString())
                      .platform(platform)
-                     .userStatus(userStatus) // userStatus 초기화
+                     .userStatus(userStatus) 
                      .build();
     }
 

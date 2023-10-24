@@ -17,10 +17,19 @@
     
 
 <script th:inline="javascript">
+    //시리얼번호 생성시 유효값검사 및 만들기 버튼 클릭시 발생하는 이벤트.
     function createSerial() {
-        // 여기에서 서버로 데이터를 전송하거나 처리할 수 있습니다.
-
-        // 알림 창을 띄움
+        
+        var itemId = document.getElementById("itemId").value;
+        var numberOfSerials = document.getElementById("numberOfSerials").value;
+        if (!itemId) {
+            alert("상품ID를 입력해주세요");
+            return false;
+        }
+        if (!numberOfSerials || numberOfSerials < 1) {
+            alert("최소 생성개수는 1개입니다.");
+            return false;
+        }
         alert('생성이 완료되었습니다.');
     }
 </script>
@@ -76,9 +85,11 @@
                     <tr>
                         <td><input type="text" id="itemId" name="itemId" required></td>
                         <td><select id="platform" name="platform" required>
-                                <option value="STEAM">Steam</option>
-                                <option value="EPIC_GAMES">Epic Games</option>
-                                <option value="OTHER">Other</option>
+                            <option value="STEAM">Steam</option>
+                            <option value="EPIC_GAMES">Epic Games</option>
+                            <option value="ROCKSTAR_GAMES">Rockstar Games</option>
+                            <option value="UBISOFT_CONNECT">Ubisoft Connect</option>
+                            <option value="OTHER">기타</option>
                             </select>
                         </td>
                         <td><input type="number" id="numberOfSerials" name="numberOfSerials" required min="1"></td>

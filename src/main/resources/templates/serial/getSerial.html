@@ -14,10 +14,10 @@
 
     <!-- 결과를 출력하기 위한 영역 -->
     <div th:if="${serial != null}">
-        <h2>Serial Details:</h2>
-        <p><strong>Platform:</strong> <span th:text="${serial.platform}"></span></p>
-        <p><strong>Serial Number:</strong> <span th:text="${serial.serialNumber}"></span></p>
-        <p><strong>Item ID:</strong> <span th:text="${serial.itemId}"></span></p>
+        <h2>시리얼정보</h2>
+        <p><strong>플랫폼:</strong> <span th:text="${serial.platform}"></span></p>
+        <p><strong>시리얼번호:</strong> <span th:text="${serial.serialNumber}"></span></p>
+        <p><strong>아이템 ID:</strong> <span th:text="${serial.itemId}"></span></p>
     </div>
 </body>
 </html>

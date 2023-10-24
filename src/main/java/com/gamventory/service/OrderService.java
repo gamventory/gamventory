@@ -14,6 +14,7 @@ import org.thymeleaf.util.StringUtils;
 import com.gamventory.dto.OrderDto;
 import com.gamventory.dto.OrderHistDto;
 import com.gamventory.dto.OrderItemDto;
+import com.gamventory.entity.Cart;
 import com.gamventory.entity.Item;
 import com.gamventory.entity.ItemImg;
 import com.gamventory.entity.Member;
@@ -21,6 +22,8 @@ import com.gamventory.entity.Order;
 import com.gamventory.entity.OrderItem;
 import com.gamventory.entity.Serial;
 import com.gamventory.exception.OrderNotFoundException;
+import com.gamventory.repository.CartItemRepository;
+import com.gamventory.repository.CartRepository;
 import com.gamventory.repository.ItemImgRepository;
 import com.gamventory.repository.ItemRepository;
 import com.gamventory.repository.MemberRepository;
@@ -40,6 +43,8 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ItemImgRepository itemImgRepository;
     private final SerialRepository serialRepository;
+     private final CartItemRepository cartItemRepository;
+
 
     //주문 로직 메소드
     public Long order(OrderDto orderDto, String email){
@@ -56,18 +61,6 @@ public class OrderService {
         //회원정보와 상품 리스트 정보를 order에 넣어줌
         Order order = Order.createOrder(member, orderItemList); 
         orderRepository.save(order);
-
-        // // Serial 테이블의 userStatus 값을 true로 변경
-        // List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
-        // if (availableSerials.size() < orderDto.getCount()) {
-        //     throw new RuntimeException("Not enough available serials for the order");
-        // }
-        // for (int i = 0; i < orderDto.getCount(); i++) {
-        //     Serial serial = availableSerials.get(i);
-        //     serial.setUserStatus(true);
-        //     serialRepository.save(serial);
-        //     System.out.println("serial저장 몇번 실행 돼?=============================================" + serial + " i개수:" + i );
-        // }
 
         return order.getId();
         
@@ -97,7 +90,7 @@ public class OrderService {
                         new OrderItemDto(orderItem, itemImg.getImgUrl());
                 orderHistDto.addOrderItemDto(orderItemDto);
             }
-
+            
             orderHistDtos.add(orderHistDto);
         }
         //페이지 구현 객체를 생성해서 반환
@@ -139,35 +132,56 @@ public class OrderService {
 
         Order order = Order.createOrder(member, orderItemList);
         orderRepository.save(order);
+        System.out.println("이거 호출 돼????");
 
         return order.getId();
     }
 
      // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드 --단일구매용
-     public void updateSerialUserStatus(OrderDto orderDto) {
+     public void updateSerialUserStatus(OrderDto orderDto, String email) {
+
+        Member member = memberRepository.findByEmail(email);
+        System.out.println("member의 값은:-----------" + member);
         List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
+
+        if (member == null) {
+            throw new RuntimeException("해당 이메일의 회원을 찾을 수 없습니다.");
+        } 
         if (availableSerials.size() < orderDto.getCount()) {
-            throw new RuntimeException("Not enough available serials for the order");
+            throw new RuntimeException("상품(시리얼번호) 재고가 부족합니다.");
         }
+
         for (int i = 0; i < orderDto.getCount(); i++) {
+
             Serial serial = availableSerials.get(i);
+            serial.setMember(member); // Member 객체를 Serial의 member 필드에 설정
             serial.setUserStatus(true);
+
             serialRepository.save(serial);
-            System.out.println("serial저장 몇번 실행 돼?=============================================" + serial + " i개수:" + i );
         }
+
+    }
+
+    public List<Long> findItemIdsByCartId(Long cartId) {
+
+        return cartItemRepository.findItemIdsByCartId(cartId);
     }
 
     // Serial 테이블의 userStatus 값을 true로 변경하는 새로운 메서드 --장바구니구매용
-    public void updateSerialUserStatus(List<OrderDto> orderDtoList) {
-        for (OrderDto orderDto : orderDtoList) {
-            List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(orderDto.getItemId());
-            
-            if (availableSerials.size() < orderDto.getCount()) {
-                throw new RuntimeException("Not enough available serials for the order of item ID: " + orderDto.getItemId());
+    public void updateSerialUserStatusByCartId(Long cartId) {
+
+        List<Long> itemIds = findItemIdsByCartId(cartId);
+        System.out.println("서비스 실행 돼??????????") ;
+        System.out.println("cartId="+cartId +", itemid크기 =" +itemIds.size()) ;
+
+        for (Long itemId : itemIds) {
+            List<Serial> availableSerials = serialRepository.findByItemIdAndUserStatusFalse(itemId);
+
+            if (availableSerials.isEmpty()) {
+                throw new RuntimeException("No available serials for the item ID: " + itemId);
             }
-            
-            for (int i = 0; i < orderDto.getCount(); i++) {
-                Serial serial = availableSerials.get(i);
+
+            for (Serial serial : availableSerials) {
                 serial.setUserStatus(true);
                 serialRepository.save(serial);
             }

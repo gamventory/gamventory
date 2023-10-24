@@ -22,6 +22,7 @@ import com.gamventory.dto.CartDetailDto;
 import com.gamventory.dto.CartItemDto;
 import com.gamventory.dto.CartOrderDto;
 import com.gamventory.dto.OrderDto;
+import com.gamventory.dto.SerialDto;
 import com.gamventory.service.CartService;
 import com.gamventory.service.OrderService;
 
@@ -38,7 +39,6 @@ public class CartController {
     //장바구니에 요청하는 메서드 처리하는 함수
     @PostMapping(value = "/cart")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid CartItemDto cartItemDto, BindingResult bindingResult, Principal principal){
-        
         //장바구니 바인딩시 에러 체크
         if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
@@ -104,6 +104,7 @@ public class CartController {
     public @ResponseBody ResponseEntity orderCartItem(@RequestBody CartOrderDto cartOrderDto, Principal principal){
 
         List<CartOrderDto> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
+        
 
         //주문할 상품을 선택하지 않았는지 체크
         if(cartOrderDtoList == null || cartOrderDtoList.size() == 0){
@@ -115,6 +116,9 @@ public class CartController {
                 return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
             }
         }
+        // Serial User Status 업데이트
+        orderService.updateSerialUserStatusByCartId(cartOrderDto.getCartItemId());
+        System.out.println("카트오더디티오의 아이디값은??????"+cartOrderDto.getCartItemId());
         // CartOrderDto를 OrderDto로 변환하여 Serial User Status를 업데이트
         List<OrderDto> orderDtoList = cartOrderDtoList.stream()
         .map(cartOrder -> {
@@ -125,8 +129,6 @@ public class CartController {
         })
         .collect(Collectors.toList());
         
-        // Serial User Status 업데이트
-        orderService.updateSerialUserStatus(orderDtoList);
             
         //주문 로직 호출결과 생성된 주문 번호를 반호나 받음
         Long orderId = cartService.orderCartItem(cartOrderDtoList, principal.getName());
