@@ -4,8 +4,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 
-    <!-- css link -->
-    <link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
+<!-- css link -->
+<link rel="stylesheet" type="text/css" href="../static/css/gamven.css">
 
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
@@ -13,6 +13,15 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    </th:block>
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    </th:block>
+    
     <head>
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
@@ -80,17 +89,19 @@
     <!-- Content -->
 <div layout:fragment="content">
     <div class="container">
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
+        <h1>스크롤 내리는용 </h1>
         <div class="management_box row">
-            <div class="col-sm-2 bg-primary">
+            <div class="col-sm-2">
                 <th:block th:replace="~{fragments/sidebar :: sidebarFragment}"></th:block>
             </div>
-            <div class="col-sm-10 bg-warning">
+            <div class="col-sm-10">
                 <div class="container">
-
-        
+  
                     <form id="item_form" class=" container" role="form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
-                        
-                        <h1> 상품등록,수정 페이지</h1>
                         
                         <input type="hidden" th:field="*{id}">
             
@@ -103,9 +114,10 @@
             
                         <div class="form-group">
                             <select th:field="*{platform}" class="custom-select">
-                                <option value="ALL">전체</option>
                                 <option value="STEAM">Steam</option>
-                                <option value="EPIC_GAMES">에픽게임즈</option>
+                                <option value="EPIC_GAMES">Epic Games</option>
+                                <option value="ROCKSTAR_GAMES">Rockstar Games</option>
+                                <option value="UBISOFT_CONNECT">Ubisoft Connect</option>
                                 <option value="OTHER">기타</option>
                             </select>
                         </div>
@@ -117,6 +129,7 @@
                                 <option value="RPG">RPG</option>
                                 <option value="ADVENTURE">어드벤처</option>
                                 <option value="CASUAL">캐쥬얼</option>
+                                <option value="FPS">FPS</option>
                                 <option value="OTHER">기타</option>
                             </select>
                         </div>
@@ -158,11 +171,22 @@
                     
                         
                         <!-- 상품 이미지 없이 등록하는 경우-->
-                        <div id="test" th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"> 
+                        <!-- <div id="test" th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"> 
+                            <br>
                             <div class="form-group" th:each="num: ${#numbers.sequence(1,5)}">
                                 <div class="custom-file img-div">
                                     <input type="file" class="custom-file-input" name="itemImgFile">
                                     <label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div id="test" th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}"> 
+                            <br>
+                            <div class="form-group" th:each="num: ${#numbers.sequence(1,1)}">
+                                <div class="custom-file img-div">
+                                    <input type="file" class="custom-file-input" name="itemImgFile">
+                                    <label class="custom-file-label" th:text="상품이미지"></label>
                                 </div>
                             </div>
                         </div>

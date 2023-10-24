@@ -7,7 +7,6 @@ import com.gamventory.constant.Platform;
 import com.gamventory.dto.ItemFormDto;
 import com.gamventory.exception.OutOfStockException;
 
-import groovy.transform.builder.Builder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +17,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,7 +40,7 @@ public class Item extends BaseEntity{
     //상품 코드
     @Id
     @Column(name="item_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;       
 
     //상품명
@@ -99,6 +99,14 @@ public class Item extends BaseEntity{
         this.stockNumber += stockNumber;
         if(stockNumber > 0){
             itemSellStatus = ItemSellStatus.SELL;
+        }
+    }
+    //판매상태를 정하는 메소드
+    public ItemSellStatus determineItemSellStatus() {
+        if (this.stockNumber > 0) {
+            return ItemSellStatus.SELL;
+        } else {
+            return ItemSellStatus.SOLD_OUT;
         }
     }
 

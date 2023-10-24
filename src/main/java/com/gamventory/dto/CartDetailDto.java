@@ -1,12 +1,8 @@
 package com.gamventory.dto;
 
-import com.gamventory.constant.Platform;
-
 import lombok.Getter;
 import lombok.Setter;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter

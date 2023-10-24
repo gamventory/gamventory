@@ -1,5 +1,6 @@
 package com.gamventory.entity;
 
+import com.gamventory.dto.MemberPasswordDto;
 import com.gamventory.dto.MemberUpdateFormDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -82,6 +83,12 @@ public class Member extends BaseEntity {
 
         this.name = memberUpdateForm.getName();
         this.streetAddress = memberUpdateForm.getAddress();
+    }
+
+    public void modifyMemberPassword(MemberPasswordDto memberPasswordDto, PasswordEncoder passwordEncoder) {
+
+        String newPassword = passwordEncoder.encode(memberPasswordDto.getNewPassword());
+        this.password = newPassword;
     }
 
 }
