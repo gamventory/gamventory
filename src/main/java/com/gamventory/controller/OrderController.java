@@ -110,10 +110,10 @@ public class OrderController {
             // 적절한 오류 처리를 수행합니다.
             return "/"; 
         }
-        List<Serial> serials = serialService.getSerialsByMemberId(member.getId());
-        for (Serial serial : serials) {
-            System.out.println(serial);
-        }
+        // List<Serial> serials = serialService.getSerialsByMemberId(member.getId());
+        // for (Serial serial : serials) {
+        //     System.out.println(serial);
+        // }
 
         // for (Serial serial : serials) {
         //     System.out.println("Serial Number: " + serial.getSerialNumber());
@@ -122,7 +122,7 @@ public class OrderController {
         //     System.out.println("------------------------");
         // }
 
-        model.addAttribute("serials", serials);
+        // model.addAttribute("serials", serials);
         model.addAttribute("orders", ordersHistDtoList);
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("maxPage", 5);
@@ -153,6 +153,22 @@ public class OrderController {
 
         return "order/order";
     }
+
+    @PostMapping("/order/item/{itemId}")
+    public String oneOrderPage(@PathVariable Long itemId, @RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal){
+         if(bindingResult.hasErrors()){
+
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+            for (FieldError fieldError : fieldErrors) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+            
+        return "order/{itemId}";
+    }
+
+
 
   
 
