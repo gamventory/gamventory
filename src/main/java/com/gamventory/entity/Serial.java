@@ -3,10 +3,8 @@ package com.gamventory.entity;
 
 import com.gamventory.constant.Platform;
 
-import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

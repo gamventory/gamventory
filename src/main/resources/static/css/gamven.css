@@ -6,7 +6,7 @@ body{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    background : rgb(66, 66, 66) !important;
+    background : rgb(68,70,84) !important;
 
     padding-top : 140px;
 }
@@ -42,12 +42,11 @@ a{
 
 /* header start ============*/
 
-#header{
-    position: relative;
-}
+
 
 #head{
     height : 70px;
+    background-color: rgb(32,33,35);
 }
 
 #search_Form{
@@ -93,6 +92,7 @@ a{
 
 #nav{
     padding-bottom : 2px;
+    background-color: rgb(32,33,35);
 }
 
 
@@ -137,6 +137,9 @@ a{
 
 /*footer start ===========*/
 
+#footer{
+    background-color: rgb(68,70,84);
+}
 
 #footer>div{
     height: 300px;
@@ -163,6 +166,9 @@ a{
 #img_slider{
 
     height : 300px;
+    margin-top:30px;
+    margin-bottom:30px;
+    padding-bottom : 10px;
 }
 
 #img_slider div{
@@ -171,6 +177,11 @@ a{
 
 #main_game_card{
     transition : 0.5s;
+}
+
+#main_game_card_text{
+    background-color: rgb(32,33,35);
+    border-radius: 15px;
 }
 
 #main_game_card_text p{
@@ -186,6 +197,7 @@ a{
 
 #filter{
     height : 100px;
+    background-color: rgb(32,33,35);
 }
 
 /* main.html end ================================================*/
@@ -215,8 +227,6 @@ a{
 }
 
 
-
-
 /* memberForm end ==================================================*/
 
 
@@ -226,7 +236,7 @@ a{
 #login_box{
     margin-top : 180px;
     margin-bottom : 200px;
-    padding-left : 20%;
+    margin-left:40%;   
 }
 
 #login_box input{
@@ -274,10 +284,21 @@ a{
 
 
 
-
 /* itemDtl start ================================================*/
-#item_detail_box{
+.item_detail_box{
+
+    padding-top : 50px;
+    padding-bottom: 50px;
+    border-radius: 20px;
+    background-color: #343541;
 }
+
+.item_detail_box img{
+    width : 100%;
+    height: 600px;
+}
+
+
 /* itemDtl end ==================================================*/
 
 
@@ -285,6 +306,9 @@ a{
 
 /* itemForm start ================================================*/
 
+#item_form{
+    width : 70%;
+}
 
 #item_form button{
     float : left;
@@ -295,3 +319,184 @@ a{
 
 
 
+
+
+
+
+/* cartList start ================================================*/
+.cart_list_box{
+    background-color: #343541 !important;
+    border-radius: 20px;
+    margin-bottom : 100px !important;
+}
+/* cartList end   ================================================*/
+
+
+
+
+/* orde.html start   ================================================*/
+#order_box{
+    background-color: #343541;
+    border-radius:20px;
+}
+/* orde.html end   ================================================*/
+
+
+
+
+/* management_box start   ================================================*/
+
+.management_box{
+    margin-top: 100px;
+    margin-bottom : 100px;
+}
+/* management_box end   ================================================*/
+
+
+
+
+
+
+
+
+
+
+/* 모바일 화면============================================================================*/
+/* 모바일 화면============================================================================*/
+
+#m_header{
+    display: none;
+}
+
+@media screen and (max-width:767px) {
+
+
+    /* m_header  start============================================================================*/
+    /* m_header  start============================================================================*/
+    #header_box{
+        display: none;
+    }
+
+    #m_header{
+        display: block;
+        margin-bottom: -30px;
+    }
+
+    #m_header_box{
+        background-color: rgb(32,33,35);
+        height: 80px;
+        color: white;
+    }
+
+
+    #m_header_User{
+        top : -5px;
+    }
+
+    #m_header_User i{
+        cursor: pointer;
+        color:white;
+        margin-right: 10px;
+        font-size: 15px;
+        background-color: #1ca817;
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+        transition: 0.5s;
+        padding : 5px;
+    }
+
+    #m_header_User i:nth-child(1):hover{
+        background-color: #5c5c5c;
+    }
+
+    #m_header_User i:nth-child(2):hover{
+        background-color: #df9a4b;
+    }
+
+
+
+
+    #m_user_Modal{
+        width : 200px;
+        position: absolute;
+        top : 53px;
+        display: none;
+        font-size : 12px;
+        left : -50px;
+    }
+
+    #m_user_Modal>div{
+        background-color: rgb(65, 84, 112, 0.9);
+        border-radius: 10px;
+        margin-right : -10px;
+        width : 130px;
+        text-align: center;
+        padding-top : 10px;
+        padding-bottom : 10px;
+        line-height: 30px;
+    }
+
+    #m_nav{
+        padding-bottom : 2px;
+        background-color: rgb(32,33,35);
+        font-size : 12px;
+    }
+
+
+    #m_nav ul{
+        padding-left : 10px;
+    }
+
+    #m_nav li{
+        display : inline-block;
+        margin-right: 10px;
+    }
+    /* m_header  end============================================================================*/
+    /* m_header  end============================================================================*/
+
+
+
+
+    /* main.html start============================================================================*/
+    /* main.html start============================================================================*/
+    #img_slider{
+        margin-top:-30px;
+    }
+
+    /* main.html end============================================================================*/
+    /* main.html end============================================================================*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 모바일 화면============================================================================*/
+/* 모바일 화면============================================================================*/

@@ -23,19 +23,19 @@
 
         <div class="container">
 
-            <div id="head" class="row">
+            <div id="head" class="row" style="background-color: rgb(32,33,35);">
 
 
 
                 <!-- logo -->
-                <div class="col-sm-3 bg-dark pt-3" style="cursor: pointer;">
-                    <img id="logo" src="/src/main/resources/static/img/logo2.png" th:src="@{/img/logo2.png}" alt="로고" style="width: 100%;"/>
+                <div class="col-sm-3 pt-3" style="cursor: pointer;">
+                    <img id="logo" src="/src/main/resources/static/img/logo3.png" th:src="@{/img/logo3.png}" alt="로고" style="width: 100%;"/>
                 </div>
 
 
 
                 <!-- search -->
-                <div id="search_Form" class="col-sm-7 bg-dark px-auto">
+                <div id="search_Form" class="col-sm-7 px-auto">
                     <form class="input-group  my-lg-0" th:action="@{/}" method="get">
                         <input id="searchBar" name="searchQuery" class="form-control text-white" type="search" placeholder="검색할 상품을 입력하세요" aria-label="Search">
                         <button class="btn bg-primary text-white" type="submit">검색</button>
@@ -45,9 +45,9 @@
 
 
                 <!-- user -->
-                <div id="header_User" class="col-sm-2 bg-dark">
-                    <div class="input-group mt-2">
-                        <i id="user_button" class="fa fa-user-circle mr-4" style="color: white;" aria-hidden="true">
+                <div id="header_User" class="col-sm-2">
+                    <div class="input-group mt-2 px-0">
+                        <i id="user_button" class="fa fa-user-circle mr-2" style="color: white;" aria-hidden="true">
                             <div id="user_Modal" class="collapse show">
                                 <div>
                                     <div sec:authorize="isAuthenticated()">
@@ -75,17 +75,89 @@
         </div>
 
     
-        <div id="nav" class="container bg-dark">
+        <div id="nav" class="container">
             <ul>
-                <li><a id="nav_game" class="text-white">홈</a></li>
+                <li><a href="/" id="nav_game" class="text-white">홈</a></li>
                 <li><a href="#" class="text-white">공지사항</a></li>
                 <li><a href="#" class="text-white">커뮤니티</a></li>
                 <li><a href="#" class="text-white">회사소개</a></li>
                 <li><a id="management_go_button" class="badge bg-success text-white">관리자</a></li>
             </ul>
         </div>
-
     </div>
+
+
+
+
+
+    <!-- 모바일 버전 헤더 -->
+
+    <div id="m_header" class="fixed-top">
+        <div class="container">
+            <div id="m_header_box" class="row">
+
+                <!-- m_logo -->
+                <div class="pl-4 pt-3 mb-2 col-4">
+                    <img id="logo" src="/src/main/resources/static/img/logo3.png" th:src="@{/img/logo3.png}" alt="로고" style="width: 150px; cursor: pointer;"/>
+                </div>
+
+                <div id="m_search_bar" class="pt-3 col-5" >
+                    <form class="input-group  my-lg-0 ml-3" th:action="@{/}" method="get">
+                        <input id="searchBar" name="searchQuery" class="form-control text-white" type="search" placeholder="검색할 상품을 입력하세요" aria-label="Search" style="height: 30px; width: 80px; font-size: 13px;">
+                        <button class="btn bg-primary text-white" type="submit" style="height: 30px; font-size: 13px;">검색</button>
+                    </form>
+                </div>
+
+
+                <!-- m_user -->
+                <div id="m_header_User" class="col-3" >
+                    <div class="input-group mt-2 pt-3 ml-3 justify-content-end">
+                        <i id="m_user_button" class="fa fa-user-circle"aria-hidden="true">
+                            <div id="m_user_Modal" class="collapse show">
+                                <div>
+                                    <div sec:authorize="isAuthenticated()">
+                                        <a href="/orders" class="text-white">구매이력</a>
+                                    </div>
+                                    <div sec:authorize="isAuthenticated()">
+                                        <a href="/members/logout" class="text-white">로그아웃</a>
+                                    </div>
+                                    <div sec:authorize="isAuthenticated()">
+                                        <a href="/members/info" class="text-white">개인정보 수정</a>
+                                    </div>
+                                    <div sec:authorize="isAnonymous()">
+                                        <a href="/members/login" class="text-white">로그인</a>
+                                    </div>
+                                    <div sec:authorize="isAnonymous()">
+                                        <a href="/members/new" class="text-white">회원가입</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </i>
+                        <i id="m_cart_go_button" class="fa fa-shopping-cart"aria-hidden="true" href="http://localhost:8081/cart"></i>
+                    </div>
+                </div>
+
+
+                <div id="m_nav" class="container">
+                    <ul>
+                        <li><a id="m_nav_game" class="text-white">홈</a></li>
+                        <li><a href="#" class="text-white">공지사항</a></li>
+                        <li><a href="#" class="text-white">커뮤니티</a></li>
+                        <li><a href="#" class="text-white">회사소개</a></li>
+                        <li><a id="m_management_go_button" class="badge bg-success text-white">관리자</a></li>
+                    </ul>
+                </div>
+                
+            </div>          
+        </div>
+    </div>
+
+
+    
+
+
+
+
 </div>
 
 

@@ -271,196 +271,193 @@
 
 </th:block>
 
-<!-- 사용자 CSS 추가 -->
-<th:block layout:fragment="css">
-    <style>
-        .content-mg{
-            margin-left:25%;
-            margin-right:25%;
-            margin-top:2%;
-            margin-bottom:100px;
-        }
-        .repImgDiv{
-            margin-right:15px;
-            margin-left:15px;
-            height:auto;
-        }
-        .repImg{
-            height:100px;
-            width:100px;
-        }
-        .fs18{
-            font-size:18px
-        }
-        .fs24{
-            font-size:24px
-        }
-    </style>
-</th:block>
 
-<div layout:fragment="content" class="content-mg">
+<div layout:fragment="content">
 
-    <h2 class="mb-4">
-        장바구니 목록
-    </h2>
+    <div class="cart_list_box container p-5">
 
     <div>
         <table class="table">
             <thead>
-                <colgroup>
-                    <col style="width: 20%;">
-                    <col style="width: 10%;">
-                    <col style="width: 30%;">
-                    <col style="width: 20%;">
-                    <col style="width: 20%;">
-                </colgroup>
-            <tr class="text-center">
-                <td>
-                    <input type="checkbox" id="checkall" onclick="checkAll()"> 전체선택
-                </td>
-                <th>이미지</th>
-                <th>게임명</th>
-                <th>금액</th>
-                <th>수량</th>
-            </tr>
+                <tr class="bg-success text-white text-center">
+                    <th style="width: 150px;">
+                        <input type="checkbox" id="checkall" onclick="checkAll()"> 전체선택
+                    </th>
+                    <th style="width : 100px;">이미지</th>
+                    <th>게임명</th>
+                    <th>금액</th>
+                    <th style="width: 120px;">수량</th>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="cartItem : ${cartItems}">
-                <td class="text-center align-middle">
-                    <input type="checkbox" name="cartChkBox" th:value="${cartItem.cartItemId}">
-                </td>
-                <td class="d-flex">
-                    <div class="repImgDiv align-self-center">
-                        <img th:src="${cartItem.imgUrl}" class = "rounded repImg" th:alt="${cartItem.itemNm}">
-                    </div>
-                </td>
-                    <div class="align-self-center ">
-                        <td class="text-center align-middle">
-                            <span th:text="${cartItem.itemNm}" class="fs24 font-weight-bold "></span>
-                        </td>
-                        <div class="fs18 font-weight-light ">
-                            <td class="text-center align-middle">
-                                <span>
-                                    <span th:id="'price_' + ${cartItem.cartItemId}"
-                                          th:data-price="${cartItem.price}"
-                                          th:text="${cartItem.price} + '원'" class="align-self-center mr-2 font-weight-bold">
-                                    </span>
-                                    <td class="text-center align-middle">
-                                        <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
-                                               th:value="${cartItem.count}" min="1"
-                                               onchange="changeCount(this)" class="form-control mr-2" >
-                                        <button type="button" class="close" aria-label="Close">
-                                            <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">&times;</span>
-                                        </button>
-                                    </td>
-                                </span>
+                <tr th:each="cartItem : ${cartItems}">
 
-                            </td>
+                    <!-- 체크박스칸 -->
+                    <td class="text-center align-middle">
+                        <input type="checkbox" name="cartChkBox" th:value="${cartItem.cartItemId}">
+                    </td>
+
+                    <!-- 이미지 들어가는 칸-->
+                    <td>
+                        <div class="text-center align-middle" style="margin: auto;">
+                            <img th:src="${cartItem.imgUrl}" class = "rounded" th:alt="${cartItem.itemNm}"  style="width: 100%;">
                         </div>
-                    </div>
-               
-            </tr>
-            
+                    </td>
+                        
+
+                    <!-- 게임명 -->
+                    <td class="text-center align-middle">
+                        <span th:text="${cartItem.itemNm}" class="text-white"></span>
+                    </td>
+
+
+                    <!-- 금액 -->
+                    <td class="text-center align-middle">
+                        <span th:id="'price_' + ${cartItem.cartItemId}"
+                                th:data-price="${cartItem.price}"
+                                th:text="${cartItem.price} + '원'" class="align-self-center mr-2 text-white">
+                        </span>
+                    </td>
+
+                                        
+                                        
+                    <td class="text-center align-middle">
+                        <div class="input-group">
+                            <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
+                                th:value="${cartItem.count}" min="1"
+                                onchange="changeCount(this)" class="form-control" >
+                            <button type="button" class="btn bg-danger">
+                                <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">x</span>
+                            </button>
+                        </div>
+                    </td>                                       
+                                                           
+                  
+                    <!-- <td class="text-center align-middle">
+                        <span th:id="'totalPrice_' + ${cartItem.cartItemId}"
+                            name="totalPrice" th:text="${cartItem.price * cartItem.count} + '원'">
+                        </span>
+                    </td> -->
+                </tr>
             </tbody>
         </table>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <fieldset class="vm-fieldset-tos">
-                    <div class="cart tos" title="" style="margin-top:10px">
-                        <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">결제수단</span>
-                        <div class="list-group">
-                            <li class="list-group-item">
+
+
+
+
+        <!-- 결제 수단  -->
+        <div class="row text-white">
+
+
+            <div class="col-md-6">
+                <fieldset class="vm-fieldset-tos">
+                <div class="cart tos" title="" style="margin-top:10px">
+                    <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">결제수단</span>
+                    <div class="list-group">
+
+
+                        <li class="list-group-item">
+                            <div class="radio">
+                                <label><input type="radio" name="settlekind" id="settlekind8" value="NPAY" ><img src="/api/naverpay/btn_npay.png" style="border-radius:2px;" alt="네이버페이"><span style="display:none">네이버페이</span></label>
+                            </div>
+                            <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 100 원 이상일 때만 사용이 가능합니다.</strong></div>
+                        </li>
+
+                        <li class="list-group-item">
+                            <div class="radio">
+                                <label><input type="radio" name="settlekind" id="settlekind2" value="SC0010" >신용/체크카드 결제</label>
+                            </div>
+                            <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 1,000 원 이상일 때만 사용이 가능합니다.</strong></div>
+                        </li>
+
+                        <li class="list-group-item">
+                            <div class="radio" style="display:inline-block">
+                                <label><input type="radio" name="settlekind" id="settlekind3" value="SC0030" >계좌이체 결제</label>
+                            </div>
+                            <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 10,000 원 이상일 때만 사용이 가능합니다.</strong></div>
+                        </li>
+
+                        <li class="list-group-item">
+                            <div class="radio" style="display:inline-block">
+                                <label><input type="radio" name="settlekind" id="settlekind5" value="SC0040" >가상계좌 결제</label>
+                            </div>
+                            <div style="display:block;">
+                                <strong class="text-danger">※  결제 예정액이 10,000 원 이상일 때만 사용이 가능하며, 이벤트 상품의 경우 이벤트 종료 후 입금이 불가합니다.</strong>
+                            </div>
+                            <div id="hp_block" class="collapse">
+                                <label>휴대폰 번호 :</label>
+                                <select name="hp1" id="hp1" style="display:inline;">
+                                    <option value="">::선택::</option>
+                                    <option value="010" >010</option>
+                                    <option value="011" >011</option>
+                                    <option value="016" >016</option>
+                                    <option value="017" >017</option>
+                                    <option value="018" >018</option>
+                                    <option value="019" >019</option>
+                                </select> - 
+                                <input type="text" name="hp2" id="hp2" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value=""> -
+                                <input type="text" name="hp3" id="hp3" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value="">
+                            </div>
+                        </li>
+
+
+                        <li class="list-group-item">
                                                                             <div class="radio">
-                                    <label><input type="radio" name="settlekind" id="settlekind8" value="NPAY" ><img src="/api/naverpay/btn_npay.png" style="border-radius:2px;" alt="네이버페이"><span style="display:none">네이버페이</span></label>
-                                </div>
-                                <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 100 원 이상일 때만 사용이 가능합니다.</strong></div>
-                            </li>
+                                <label><input type="radio" name="settlekind" id="settlekind6" value="SC0060" >휴대폰 결제</label>
+                            </div>
+                            <div style="display:block;">
+                                <p><strong class="text-danger">※ 결제 예정액이 350 원 이상일 때만 사용이 가능합니다.</strong></p>
+                                <p><strong class="text-danger">※ 부분/이월 환불이 불가하며, 다이렉트 게임즈 포인트로 제공됩니다. 자세한 사항은 하단에 환불정책을 확인해 주시기 바랍니다.</strong></p>
+                            </div>
+                        </li>
+                    </div>
+                </div>          		
+            </div>
 
-                            <li class="list-group-item">
-                                                                                <div class="radio">
-                                    <label><input type="radio" name="settlekind" id="settlekind2" value="SC0010" >신용/체크카드 결제</label>
-                                </div>
-                                <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 1,000 원 이상일 때만 사용이 가능합니다.</strong></div>
-                            </li>
 
-                            <li class="list-group-item">
-                                                                                <div class="radio" style="display:inline-block">
-                                    <label><input type="radio" name="settlekind" id="settlekind3" value="SC0030" >계좌이체 결제</label>
-                                </div>
-                                <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 10,000 원 이상일 때만 사용이 가능합니다.</strong></div>
-                            </li>
-                                <li class="list-group-item">
-                                                                            <div class="radio" style="display:inline-block">
-                                    <label><input type="radio" name="settlekind" id="settlekind5" value="SC0040" >가상계좌 결제</label>
-                                </div>
-                                <div style="display:block;"><strong class="text-danger">※  결제 예정액이 10,000 원 이상일 때만 사용이 가능하며, 이벤트 상품의 경우 이벤트 종료 후 입금이 불가합니다.</strong></div>
-                                <div id="hp_block" class="collapse">
-                                    <label>휴대폰 번호 :</label>
-                                    <select name="hp1" id="hp1" style="display:inline;">
-                                        <option value="">::선택::</option>
-                                        <option value="010" >010</option>
-                                        <option value="011" >011</option>
-                                        <option value="016" >016</option>
-                                        <option value="017" >017</option>
-                                        <option value="018" >018</option>
-                                        <option value="019" >019</option>
-                                    </select> - 
-                                    <input type="text" name="hp2" id="hp2" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value=""> -
-                                    <input type="text" name="hp3" id="hp3" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value="">
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                                                                <div class="radio">
-                                    <label><input type="radio" name="settlekind" id="settlekind6" value="SC0060" >휴대폰 결제</label>
-                                </div>
-                                <div style="display:block;">
-                                    <p><strong class="text-danger">※ 결제 예정액이 350 원 이상일 때만 사용이 가능합니다.</strong></p>
-                                    <p><strong class="text-danger">※ 부분/이월 환불이 불가하며, 다이렉트 게임즈 포인트로 제공됩니다. 자세한 사항은 하단에 환불정책을 확인해 주시기 바랍니다.</strong></p>
-                                </div>
-                            </li>
+
+
+            <div class="col-md-6">
+
+                <fieldset class="vm-fieldset-tos">
+                    <div class="cart tos" title="" style="margin-top:10px">
+                        <span class="cart customer-note" style="height:45px;line-height:45px;font-weight:bold;">최종결제 정보</span>
+
+                        <div style="border:1px solid rgba(255,255,255,0.1);">
+                            <div style="height:60px;">
+                                <dl style="clear:both;width:100%;padding:10px">
+                                    <dt style="float:left;width:80px;line-height:40px;">결제예정액</dt>
+                                    <dd style="float:right;line-height:40px;"><span class="PricebillTotal" id="orderTotalPrice" > </span> </dd>
+                                </dl>
+                            </div>
                         </div>
                     </div>
+                </fieldset>
+                    
 
-             		
+                <fieldset class="vm-fieldset-tos">
+                    <div class="terms-of-service" style="margin-top:10px;margin-bottom:20px;">
+                        <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">청약의사 재확인</span>
+                        
+                        <div style="border:1px solid rgba(255,255,255,0.1);padding:10px 15px">
+                            <label for="termAgree_orderCheck" style="">
+                                <input class="terms-of-service required" id="termAgree_orderCheck" type="checkbox" name="termAgree_orderCheck" value="1" required>
+                                <span class="vmicon"></span>구매할 상품의 상품정보 및 가격을 확인하였으며, 이에 동의합니다. <br/>
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div class="text-center mt-3">
+                    <button type="button" id="btn_settle" class="btn btn-primary btn-lg" onclick="orders()">주문하기</button>
                 </div>
-								<div class="col-md-6">
-									<fieldset class="vm-fieldset-tos">
-									<div class="cart tos" title="" style="margin-top:10px">
-										<span class="cart customer-note" style="height:45px;line-height:45px;font-weight:bold;">최종결제 정보</span>
-
-										<div style="border:1px solid rgba(255,255,255,0.1);">
-											<div style="height:60px;">
-												<dl style="clear:both;width:100%;padding:10px">
-													<dt style="float:left;width:80px;line-height:40px;">결제예정액</dt>
-													<dd style="float:right;line-height:40px;"><span class="PricebillTotal" id="orderTotalPrice" > </span> </dd>
-												</dl>
-											</div>
-										</div>
-									</div>
-									</fieldset>
-									
-									<fieldset class="vm-fieldset-tos">
-									<div class="terms-of-service" style="margin-top:10px;margin-bottom:20px;">
-										<span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">청약의사 재확인</span>
-										
-										<div style="border:1px solid rgba(255,255,255,0.1);padding:10px 15px">
-											<label for="termAgree_orderCheck" style="">
-												<input class="terms-of-service required" id="termAgree_orderCheck" type="checkbox" name="termAgree_orderCheck" value="1" required>
-												<span class="vmicon"></span>구매할 상품의 상품정보 및 가격을 확인하였으며, 이에 동의합니다. <br/>
-											</label>
-										</div>
-									</div>
-									</fieldset>
-
-                                    <div class="text-center mt-3">
-                                        <button type="button" id="btn_settle" class="btn btn-primary btn-lg" onclick="orders()">주문하기</button>
-                                    </div>
             
 
             </div>
 
         </div>
+    </div>
 
         
-        </html>
+</html>

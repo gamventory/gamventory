@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gamventory.constant.Platform;
 import com.gamventory.dto.SerialDto;
-import com.gamventory.entity.Member;
 import com.gamventory.entity.Serial;
 import com.gamventory.service.SerialService;
 

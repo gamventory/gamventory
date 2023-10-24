@@ -2,7 +2,7 @@ package com.gamventory.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,16 +14,15 @@ import org.thymeleaf.util.StringUtils;
 import com.gamventory.dto.OrderDto;
 import com.gamventory.dto.OrderHistDto;
 import com.gamventory.dto.OrderItemDto;
-import com.gamventory.entity.Cart;
+
 import com.gamventory.entity.Item;
 import com.gamventory.entity.ItemImg;
 import com.gamventory.entity.Member;
 import com.gamventory.entity.Order;
 import com.gamventory.entity.OrderItem;
 import com.gamventory.entity.Serial;
-import com.gamventory.exception.OrderNotFoundException;
+
 import com.gamventory.repository.CartItemRepository;
-import com.gamventory.repository.CartRepository;
 import com.gamventory.repository.ItemImgRepository;
 import com.gamventory.repository.ItemRepository;
 import com.gamventory.repository.MemberRepository;

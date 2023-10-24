@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.gamventory.constant.Platform;
 import com.gamventory.entity.Serial;
 
 import java.util.List;

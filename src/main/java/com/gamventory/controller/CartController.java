@@ -22,7 +22,6 @@ import com.gamventory.dto.CartDetailDto;
 import com.gamventory.dto.CartItemDto;
 import com.gamventory.dto.CartOrderDto;
 import com.gamventory.dto.OrderDto;
-import com.gamventory.dto.SerialDto;
 import com.gamventory.service.CartService;
 import com.gamventory.service.OrderService;
 

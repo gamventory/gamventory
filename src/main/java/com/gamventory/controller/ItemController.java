@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gamventory.constant.ItemSellStatus;
-import com.gamventory.constant.OrderStatus;
 import com.gamventory.dto.ItemFormDto;
 import com.gamventory.dto.ItemSearchDto;
 import com.gamventory.entity.Item;
