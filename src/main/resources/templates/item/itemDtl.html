@@ -4,139 +4,195 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 
-      
-<!-- css link -->
-<link rel="stylesheet" type="text/css" href="../static/css/gamven.css">
+    <!-- css link -->
+    <link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
 
-<!-- bootstrap -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
 
-
-<!-- index.html 고유 CSS 추가 -->
-<th:block layout:fragment="css">
-    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
-</th:block>
-<!-- index.html 고유 스크립트 추가 -->
+<!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
-    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+    <script th:inline="javascript">
+        $(document).ready(function(){
+
+            calculateToalPrice();
+
+            $("#count").change( function(){
+                calculateToalPrice();
+            });
+        });
+        //현재 주문할 수량과 상품 한개당 가격을 곱해서 결제 금액을 구해주는 함수
+        function calculateToalPrice(){
+            var count = $("#count").val();
+            var price = $("#price").val();
+            var totalPrice = price*count;
+            $("#totalPrice").html(totalPrice + '원');
+        }
+        //csrf토큰 값을 조회, 상품 아이디와 주문 수량 전달하는 객체 생성
+        function order() {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var itemId = $("#itemId").val();  // 상품 아이디를 가져옵니다.
+            var url = "/order/" + itemId;  // URL을 동적으로 구성합니다.
+            
+            var paramData = {
+                itemId: itemId,
+                count: $("#count").val()
+            };
+
+            // 서버에 보낼 주문데이터 JSON타입으로 변경
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                contentType: "application/json",
+                data: param,
+                beforeSend: function (xhr) {
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType: "json",
+                cache: false,
+                success: function (result, status) {
+                    // 사용자에게 구매 페이지로 이동할지 물어봅니다.
+                    var goOrderPage = confirm("구매 페이지로 이동하시겠습니까?");
+                    if (goOrderPage) {
+                        // 사용자가 '예'를 선택하면 /order/{itemId}로 리디렉션합니다.
+                        location.href = '/order/' + itemId;
+                    }
+                },
+                error: function (jqXHR, status, error) {
+                    if (jqXHR.status == '401') {
+                        alert('로그인 후 이용해주세요');
+                        location.href = '/members/login';
+                    } else {
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
+        }
+
+        function addCart(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/cart";
+            var paramData = {
+                itemId : $("#itemId").val(),
+                count : $("#count").val()
+            };
+
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url      : url,
+                type     : "POST",
+                contentType : "application/json",
+                data     : param,
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    alert("상품을 장바구니에 담았습니다.");
+                    location.href='/';
+                },
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseText);
+                    }
+
+                }
+            });
+        }
+
+    </script>
 </th:block>
 
-
-
-<!-- Content -->
+<!-- content -->
 <div layout:fragment="content">
 
-    <div class="container" style="margin-bottom:50px;">
-
-        <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+    <form th:action="@{/order/{id}(id=${item.id})}" method="post">
         
-        <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-            <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
-        </div>
+        <div class="container item_detail_box p-5">
 
-        <!--imgslider-->
-        <div id="img_slider" class="carousel slide row" data-ride="carousel">
-            <ul class="carousel-indicators">
-              <li data-target="#img_slider" data-slide-to="0" class="active"></li>
-              <li data-target="#img_slider" data-slide-to="1"></li>
-              <li data-target="#img_slider" data-slide-to="2"></li>
-            </ul>
+            <!-- CSRF 토큰 추가 -->
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
 
-            <div class="carousel-inner">
-                
-              <div class="carousel-item active">
-                <img src="" alt="slide1" width="1100" height="500">
-                <div class="carousel-caption bg-info">
-
-                </div>   
-              </div>
-
-              <div class="carousel-item">
-                <img src="" alt="slide2" width="1100" height="500">
-                <div class="carousel-caption bg-success">
-                </div>   
-              </div>
-
-              <div class="carousel-item">
-                <img src="" alt="slide3" width="1100" height="500">
-                <div class="carousel-caption bg-primary">
-                </div>   
-              </div>
-
-            </div>
-
-            
-            <a class="carousel-control-prev" href="#img_slider" data-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#img_slider" data-slide="next">
-              <span class="carousel-control-next-icon"></span>
-            </a>
-        </div>
-        <!-- imgslider end-->
+            <input type="hidden" id="itemId" th:value="${item.id}">
 
 
-        <!-- filter -->
-        <div id="filter" class="row mb-3" style="border-radius: 20px;"></div>
-        <!-- fliter end-->
+                <div class="row">
+                    <div id="item_detail_box_img" class="col-sm-8">
+                        <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; height: 100%; width: 100%;" th:alt="${item.itemNm}">
+                    </div>
 
+                    <div id="item_detail_box_buy" class="col-sm-4 pt-3" style="text-align: left;">
+                        <span th:if="${item.itemSellStatus == T(com.gamventory.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15">
+                            판매중
+                        </span>
+                        <span th:unless="${item.itemSellStatus == T(com.gamventory.constant.ItemSellStatus).SELL}" class="badge btn-danger mgb-15" >
+                            품절
+                        </span>
 
-        <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px;">
-            <!-- 상품 이미지 출력 for문-->
-            <div class="row">
-                <th:block th:each="item, status: ${items.getContent()}">
-                    <div class="col-md-4 margin">
-                        <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style="border-radius: 15px; background-color: rgb(32,33,35);">
-                            <a th:href="'/item/' +${item.id}" class="text-dark">
-                                <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300" style="border-radius: 15px;">
-                                <div id="main_game_card_text" class="card-body ">
-                                    <p class="card-title text-white">[[${item.itemNm}]]</p>
-                                    <p class="card-text text-white" style="opacity: 0.5;">[[${item.itemDetail}]]</p>
-                                    <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]원</p>
-                                </div>
-                            </a>
+                        <div class="h3 mt-3 text-white" th:text="${item.itemNm}" style="font-weight: bold;"></div>
+
+                        <hr class="my-4">
+
+                        <div>
+                            <div class="text-white">
+                                판매가격 : 
+                                <input type="hidden" th:value="${item.price}" id="price" name="price">
+                                <span th:text="${item.price}"></span>원
+                            </div>
+                        </div>
+
+                        <div class="input-group mt-3" style="width: 90%;">
+                            <span class="form-control bg-info text-white col-sm-3" style="text-align:center;">수량</span>
+                            <input type="number" name="count" id="count" class="form-control col-sm-3" value="1" min="1" style="text-align: right;"/>
+                            <span name="totalPrice" id="totalPrice" class="form-control col-sm-6" style="text-align: right;"></span>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div style="float: left;">
+                            <div th:if="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right">
+                                <button type="button" class="btn btn-light border bg-success text-white" onclick="addCart()">장바구니</button>
+                                <button type="button" class="btn btn-primary" onclick="order()">주문하기</button>
+                            </div>
+                            <div th:unless="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right mt-1">
+                                <button type="button" class="btn btn-danger">품절</button>
+                            </div>
                         </div>
                     </div>
-                </th:block>
-            </div>
-            <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-            <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-                <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
-            </div>
-            <!-- /. 상품 이미지 출력 for문-->
-
-            <!-- 페이지 이동 버튼-->
-            <div style="margin : auto;">
-                <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-                    <ul class="pagination justify-content-center">
-
-                        <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-                            <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                                <span aria-hidden='true'>이전</span>
-                            </a>
-                        </li>
-
-                        <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
-                            <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
-                        </li>
-
-                        <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-                            <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-                                <span aria-hidden='true'>다음</span>
-                            </a>
-                        </li>
-
-                    </ul>
                 </div>
-            </div>
-            <!--  /. 페이지 이동 버튼-->
 
         </div>
+    </form>
+    <!-- /.등록된 상품 이미지 보여주는 곳-->
 
+    <!-- 상세 설명 -->
+    <div class="container text-white mt-5" style="margin-bottom: 100px;">
+        <h4>상품 상세 설명</h4>
+        <hr class="my-4" style="border: 1px solid rgb(190, 190, 190);">
+        <p class="lead" th:text="${item.itemDetail}"></p>
     </div>
 
 </div>
+
 </html>

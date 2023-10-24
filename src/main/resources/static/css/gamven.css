@@ -125,16 +125,16 @@ a{
     margin-right: 10px;
 }
 
-#user_Modal{
+#user_modal{
     width : 200px;
     position: absolute;
     top : 50px;
     display: none;
     font-size : 15px;
-    left : 590px;
+    right : 45px;
 }
 
-#user_Modal>div{
+#user_modal>div{
     background-color: rgb(65, 84, 112, 0.9);
     border-radius: 10px;
     margin-right : -10px;
@@ -160,7 +160,7 @@ a{
 }
 
 #footer img{
-    width: 8%;
+    width: 155px;
 }
 /*footer ends ================================================*/
 
@@ -376,6 +376,7 @@ a{
 
 @media screen and (max-width:767px) {
     #logo{
+        margin-left : -15px;
         margin-top: 5px;
         width: 110px;
     }
@@ -385,6 +386,21 @@ a{
         height: 25px;
         font-size: 10px;
         padding: 7px;
+    }
+
+    #user_modal{
+        margin-top: -5px;
+        margin-right: -115px;
+    }
+
+    #user_modal>div{
+        font-size: 13px;
+        border-radius: 10px;
+        width : 150px;
+        text-align: center;
+        padding-top : 10px;
+        padding-bottom : 10px;
+        line-height: 30px;
     }
 
     #management_button,#user_button,#cart_button{
@@ -409,8 +425,14 @@ a{
     }
 
     #nav{
-        margin-left: -15px;
+        left : -20px;
         font-size: 10px;
+        padding-left : 0px;
+    }
+
+
+    #footer img{
+        width: 100px;
     }
 
     

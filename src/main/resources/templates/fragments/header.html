@@ -24,7 +24,7 @@
         <div class="container d-flex">
 
             <!-- logo -->
-            <div class="col-sm-3 pt-3">
+            <div class="pt-3 pl-2">
                 <img id="logo" src="/src/main/resources/static/img/logo3.png" th:src="@{/img/logo3.png}" alt="로고"/>
             </div>
 
@@ -42,7 +42,7 @@
                     <!-- user_button -->
                     <div id="user_button" class="pr-3 mr-3 mt-2" >
                         <i class="fa fa-user-circle mr-2" style="color: white;" aria-hidden="true">
-                            <div id="user_Modal" class="collapse show">
+                            <div id="user_modal" class="collapse show">
                                 <div>
                                     <div sec:authorize="isAuthenticated()">
                                         <a href="/orders" class="text-white">구매이력</a>
@@ -77,9 +77,9 @@
         </div>
 
     
-        <div id="nav" class="container-fluid">
-            <div class="container">
-                <ul class="ml-2">
+        <div id="nav" class="container">
+            <div>
+                <ul>
                     <li><a href="#" class="text-white">게임</a></li>
                     <li><a href="#" class="text-white">공지사항</a></li>
                     <li><a href="#" class="text-white">커뮤니티</a></li>
