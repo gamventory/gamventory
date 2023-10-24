@@ -286,15 +286,14 @@ a{
 
 /* memberUpdate start ================================================*/
 #member_update_box{
+    color: white;
+    width: 500px;
+    margin: auto;
     margin-top : 100px;
-    margin-bottom : 130px;
-    padding-left : 17%;
+    margin-bottom: 130px;
 }
 
 
-#member_update_box input{
-    width : 500px;
-}
 
 /* memberUpdate end ================================================*/
 
@@ -531,6 +530,21 @@ a{
     }
     
     /* m_memberPasswordUpdate.html end ================================================*/
+
+
+    /* m_memberUpdate.html start ================================================*/
+    
+    #member_update_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 70%;
+    }
+
+    #member_update_box button{
+        font-size: 12px;
+    }
+    
+    /* m_memberUpdate.html end ================================================*/
 
 }
 
