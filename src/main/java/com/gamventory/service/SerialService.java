@@ -107,4 +107,12 @@ public class SerialService {
     public List<Serial> searchByKeyword(String keyword) {
         return serialRepository.findByKeyword(keyword);
     }
+
+    public List<Serial> getSerialsByMemberEmail(String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member != null) {
+            return serialRepository.findByMember(member);
+        }
+        return new ArrayList<>();
+    }
 }

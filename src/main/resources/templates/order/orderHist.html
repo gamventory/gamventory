@@ -105,6 +105,20 @@
         <h2 class="mb-4">
             구매 이력
         </h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Platform</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="serial : ${serials}">
+                <td th:text="${serial.serialNumber}"></td>
+                <td th:text="${serial.platform}"></td>
+            </tr>
+            </tbody>
+        </table>
 
         <!--구매목록-->
         <div th:each="order : ${orders.getContent()}">
@@ -123,6 +137,7 @@
             <div class="card d-flex">
                 <div th:each="orderItem, iterStat : ${order.orderItemDtoList}" class="d-flex mb-3">
                     <div class="repImgDiv">
+                        
                         <img th:src="${orderItem.imgUrl}" class="rounded repImg" th:alt="${orderItem.itemNm}">
                     </div>
                     <div class="align-self-center w-75">
@@ -132,15 +147,10 @@
                             <span th:text="${orderItem.count} +'개'"></span>
                         </div>
                     </div>
-                    <!-- Serials 출력 -->
-                    <!-- <div th:if="${serials[iterStat.index] != null and order.orderStatus.name() == 'ORDER'}" class="serial-number">
-                        <span th:text="${serials[iterStat.index].serialNumber}"></span>
-                        <div>고유번호<span th:text="${order.orderId}"></span></div>
-                    </div> -->
                 </div>
             </div>
             <!-- /. Serials 출력 -->
-            
+            </div>
         </div>
         <!--/. 구매목록-->
         

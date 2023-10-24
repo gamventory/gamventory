@@ -58,8 +58,8 @@ public class OrderController {
         Long orderid;
         
         try {
-            orderid = orderService.order(orderDto, email);
             orderService.updateSerialUserStatus(orderDto, principal.getName()); 
+            orderid = orderService.order(orderDto, email);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
@@ -108,9 +108,15 @@ public class OrderController {
             // 적절한 오류 처리를 수행합니다.
             return "/"; 
         }
-        List<Serial> serials = serialService.getSerialsByMemberId(member.getId());
+        String loggedInEmail = principal.getName();
+        List<Serial> serials = serialService.getSerialsByMemberEmail(loggedInEmail);
+        
         for (Serial serial : serials) {
             System.out.println(serial);
+        }
+        for (OrderHistDto orderHistDto : ordersHistDtoList) {
+            System.out.println(orderHistDto.getOrderId());  // 여기에서는 단순히 toString() 결과를 출력하도록 했습니다.
+            System.out.println(orderHistDto.getOrderStatus());  // 여기에서는 단순히 toString() 결과를 출력하도록 했습니다.
         }
 
         // for (Serial serial : serials) {
@@ -150,21 +156,5 @@ public class OrderController {
 
         return "order/order";
     }
-
-//     // @PostMapping("/order/item/{itemId}")
-//     // public String oneOrderPage(@PathVariable Long itemId, @RequestBody @Valid OrderDto orderDto, BindingResult bindingResult, Principal principal){
-//     //      if(bindingResult.hasErrors()){
-
-//     //         StringBuilder sb = new StringBuilder();
-//     //         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-
-//     //         for (FieldError fieldError : fieldErrors) {
-//     //             sb.append(fieldError.getDefaultMessage());
-//     //         }
-            
-//     //     return "order/{itemId}";
-//     // }
-
-//    }
 
 }

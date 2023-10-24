@@ -37,76 +37,36 @@
             <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
         </div>
 
-        <!--imgslider-->
-        <div id="img_slider" class="carousel slide row" data-ride="carousel">
-            <ul class="carousel-indicators">
-              <li data-target="#img_slider" data-slide-to="0" class="active"></li>
-              <li data-target="#img_slider" data-slide-to="1"></li>
-              <li data-target="#img_slider" data-slide-to="2"></li>
-            </ul>
-
-            <div class="carousel-inner">
-                
-              <div class="carousel-item active">
-                <img src="" alt="slide1" width="1100" height="500">
-                <div class="carousel-caption bg-info">
-
-                </div>   
-              </div>
-
-              <div class="carousel-item">
-                <img src="" alt="slide2" width="1100" height="500">
-                <div class="carousel-caption bg-success">
-                </div>   
-              </div>
-
-              <div class="carousel-item">
-                <img src="" alt="slide3" width="1100" height="500">
-                <div class="carousel-caption bg-primary">
-                </div>   
-              </div>
-
-            </div>
-
-            
-            <a class="carousel-control-prev" href="#img_slider" data-slide="prev">
-              <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#img_slider" data-slide="next">
-              <span class="carousel-control-next-icon"></span>
-            </a>
-        </div>
-        <!-- imgslider end-->
-
-
-        <!-- filter -->
-        <div id="filter" class="row mb-3" style="border-radius: 20px;"></div>
-        <!-- fliter end-->
-
 
         <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px;">
             <!-- 상품 이미지 출력 for문-->
-            <div class="row">
-                <th:block th:each="item, status: ${items.getContent()}">
-                    <div class="col-md-4 margin">
-                        <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style="border-radius: 15px; background-color: rgb(32,33,35);">
-                            <a th:href="'/item/' +${item.id}" class="text-dark">
-                                <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300" style="border-radius: 15px;">
-                                <div id="main_game_card_text" class="card-body ">
-                                    <p class="card-title text-white">[[${item.itemNm}]]</p>
-                                    <p class="card-text text-white" style="opacity: 0.5;">[[${item.itemDetail}]]</p>
-                                    <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]₩</p>
-                                    <p class="card-title text-white" style="opacity: 0.5;">[[${item.platform}]]</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </th:block>
-            </div>
+            <table style="color: aliceblue;">
+                <thead>
+                    <tr>
+                        <th>이미지</th>
+                        <th>상품명</th>
+                        <th>플랫폼</th>
+                        <th>카테고리</th>
+                        <th>가격</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${items.getContent()}" >
+                        <td><a th:href="'/item/' + ${item.id}"><img th:src="${item.imgUrl}" th:alt="${item.itemNm}" height="75" width="140"></a></td>
+                        <td th:text="${item.itemNm}"></td>
+                        <td th:text="${item.platform}"></td>
+                        <td th:text="${item.category}"></td>
+                        <td th:text="${item.itemNm}"></td>
+                        <td th:text="${item.price + '₩'}"></td>
+                    </tr>
+                </tbody>
+            </table>
+            
             <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-            <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
-                <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+            <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}">
+                <p th:text="${itemSearchDto.searchQuery} + ' 검색 결과'"></p>
             </div>
+        </div>
             <!-- /. 상품 이미지 출력 for문-->
 
             <!-- 페이지 이동 버튼-->
