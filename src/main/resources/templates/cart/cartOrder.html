@@ -20,6 +20,7 @@
                 getOrderTotalPrice();
             });
 
+
             $('input[name="settlekind"]').bind("click",function(){
                 var settlekind = $('input[name="settlekind"]:checked').val();
                 if(settlekind=="SC0040"){
@@ -146,6 +147,9 @@
             var hp1 = $('select[name="hp1"] option:selected').val();
             var hp2 = $('input[name="hp2"]').val();
             var hp3 = $('input[name="hp3"]').val();
+
+            //체크박스 항목 가져오기
+            var checkboxes = document.querySelectorAll('input[name="cartChkBox"]:checked');
             
 
             var url = "/cart/orders";
@@ -157,7 +161,13 @@
             if(emoney_chk!="Y"){
                 $('input[name="use_emoney"]').val("0");
             }
+            // 선택된 체크박스의 수를 확인합니다.
+            if (checkboxes.length === 0) {
+                alert("상품을 선택해주세요");
+                return;
+            }
 
+            //결제수단 체크
             if($.type(settlekind)=="undefined"){
                 alert("결제수단을 선택하세요.");
                 return false;
@@ -266,7 +276,8 @@
 
     <div class="cart_list_box container p-5">
 
-        <table class="table ">
+    <div>
+        <table class="table">
             <thead>
                 <tr class="bg-success text-white text-center">
                     <th style="width: 150px;">
@@ -448,4 +459,5 @@
         </div>
     </div>
 
+        
 </html>

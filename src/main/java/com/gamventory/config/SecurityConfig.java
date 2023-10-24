@@ -38,6 +38,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
                                         new AntPathRequestMatcher("/js/**"),
+                                        new AntPathRequestMatcher("/favicon/**"),
                                         new AntPathRequestMatcher("/img/**"),
                                         new AntPathRequestMatcher("/"),
                                         new AntPathRequestMatcher("/members/login"),
@@ -47,6 +48,7 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/serials/**"),
                                         new AntPathRequestMatcher("/api/**"),
                                         new AntPathRequestMatcher("/images/**"),
+                                        new AntPathRequestMatcher("/error/**"),
                                         new AntPathRequestMatcher("/mail/**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**")).authenticated()

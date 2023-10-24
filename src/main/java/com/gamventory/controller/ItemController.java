@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gamventory.constant.ItemSellStatus;
 import com.gamventory.dto.ItemFormDto;
 import com.gamventory.dto.ItemSearchDto;
 import com.gamventory.entity.Item;
@@ -73,15 +75,10 @@ public class ItemController {
             itemService.saveItem(itemFormDto, itemImgFileList);
         } catch (Exception e) {
             model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
+            e.printStackTrace();
 
             return "item/itemForm";
         }
-
-        System.out.println("--------------------regDate값이 왜 null일까, 수정값은 db에 저장되긴 함----------------");
-        System.out.println(itemFormDto.createItem());
-        System.out.println("아이디값"+ itemFormDto.getId());
-        System.out.println("------------------------------------");
-        System.out.println("------------------------------------");
 
         return "redirect:/";
     }
@@ -144,6 +141,13 @@ public class ItemController {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 10);
         Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
 
+
+        List<ItemSellStatus> itemSellStatuses = items.getContent()
+            .stream()
+            .map(Item::determineItemSellStatus)
+            .collect(Collectors.toList());
+
+        model.addAttribute("itemSellStatuses", itemSellStatuses);
         //조회한 상품 데이터 및 페이징정보
         model.addAttribute("items", items);
         //페이지 전환시 기존 검색조건을 유지한채 이동
@@ -157,12 +161,14 @@ public class ItemController {
      //상세보기 페이지로 이동하는 getmapping
      @GetMapping(value="/item/{itemId}")
      public String itemDtl(Model model, @PathVariable("itemId") Long itemId) {
-         
-         ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-         model.addAttribute("item", itemFormDto);
- 
-         return "item/itemDtl";
+
+        ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
+        ItemSellStatus status = (itemFormDto.getStockNumber() > 0) ? ItemSellStatus.SELL : ItemSellStatus.SOLD_OUT;
+        
+        model.addAttribute("itemSellStatusSell", status);
+        model.addAttribute("item", itemFormDto);
+
+        return "item/itemDtl";
      }
-     
     
 }
