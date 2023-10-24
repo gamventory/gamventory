@@ -1,5 +1,7 @@
 package com.gamventory.dto;
 
+import java.text.NumberFormat;
+
 import com.gamventory.constant.Category;
 import com.gamventory.constant.Platform;
 import com.querydsl.core.annotations.QueryProjection;
@@ -43,6 +45,12 @@ public class MainItemDto {
         this.price = price;
         this.platform = platform;
         this.category = category;
+    }
+
+    //숫자포맷으로 설정하는거
+    public String getFormattedPrice() {
+        NumberFormat formatter = NumberFormat.getInstance();
+        return formatter.format(price);
     }
 
 }

@@ -24,6 +24,14 @@
     <!--    <script th:src="@{/js/page/home.js}"></script>-->
 </th:block>
 
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+    </script>
+
+</th:block>
+
 
 
 <!-- Content -->
@@ -36,6 +44,50 @@
         <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
             <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
         </div>
+
+        <!--필터검색-->
+        <form action="/list" method="get">
+
+            <!-- Price Filter -->
+            <select name="Price">
+                <option value="">-- 가격 선택 --</option>
+                <option value="ASC">낮은순</option>
+                <option value="DESC">높은순</option>
+            </select>
+        
+            <!-- Category Filter -->
+            <select name="category">
+                <option value="">-- 모든 카테고리 --</option>
+                <option value="ALL">모두</option>
+                <option value="ACTION">액션</option>
+                <option value="RPG">RPG</option>
+                <option value="ADVENTURE">어드벤처</option>
+                <option value="CASUAL">캐주얼</option>
+                <option value="FPS">FPS</option>
+                <option value="OTHER">기타</option>
+            </select>
+        
+            <!-- Platform Filter -->
+            <select name="platform">
+                <option value="">-- 모든 플랫폼 --</option>
+                <option value="ALL">모두</option>
+                <option value="STEAM">스팀</option>
+                <option value="EPIC_GAMES">에픽 게임즈</option>
+                <option value="ROCKSTAR_GAMES">록스타 게임즈</option>
+                <option value="UBISOFT_CONNECT">유비소프트 커넥트</option>
+                <option value="OTHER">기타</option>
+            </select>
+        
+            <!-- Release Date Filter -->
+            <select name="orderByReleaseDate">
+                <option value="">-- 출시일 선택 --</option>
+                <option value="DESC">최신순</option>
+                <option value="ASC">오래된순</option>
+            </select>
+        
+            <button type="submit">검색</button>
+        </form>
+        <!--/. 필터검색-->
 
 
         <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px;">
@@ -56,8 +108,8 @@
                         <td th:text="${item.itemNm}"></td>
                         <td th:text="${item.platform}"></td>
                         <td th:text="${item.category}"></td>
-                        <td th:text="${item.itemNm}"></td>
                         <td th:text="${item.price + '₩'}"></td>
+                        <td th:text="${item.formattedPrice + '₩'}"></td>
                     </tr>
                 </tbody>
             </table>
