@@ -122,7 +122,9 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                                 item.itemNm,
                                 item.itemDetail,
                                 itemImg.imgUrl,
-                                item.price)
+                                item.price,
+                                item.platform.stringValue(), // Enum to String
+                                item.category.stringValue())
                 )
                 .from(itemImg)
                 .join(itemImg.item, item)

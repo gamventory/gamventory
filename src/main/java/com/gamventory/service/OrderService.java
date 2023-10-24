@@ -1,5 +1,6 @@
 package com.gamventory.service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -185,6 +186,13 @@ public class OrderService {
                 serialRepository.save(serial);
             }
         }
+    }
+
+    //구매시 시리얼번호랑 주문이랑 한번에 트랜잭션처리해서 All or Nothing을 하기 위한 메서드
+      @Transactional
+    public Long processOrderAndUpdateStatus(OrderDto orderDto, String email, String principalName) {
+        updateSerialUserStatus(orderDto, principalName); 
+        return order(orderDto, email);
     }
 }
 

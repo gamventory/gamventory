@@ -13,6 +13,7 @@ public class SerialCustomRepositoryImpl implements SerialCustomRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
+    //시리얼 목록을 찾는 리스트 동적쿼리
     @Override
     public List<Serial> findByKeyword(String keyword) {
         QSerial serial = QSerial.serial;
