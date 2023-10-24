@@ -353,6 +353,10 @@ a{
     background-color: #343541;
     border-radius:20px;
 }
+
+#order_box table{
+    font-size: 13px;
+}
 /* orde.html end   ================================================*/
 
 
@@ -452,15 +456,7 @@ a{
     }
     /* m_footer end   ================================================*/
 
-    
 
-    /* m_itemDtl.html start   ===============================================*/
-    #item_detail_box_buy>div:nth-child(1){
-        border: 1px solid red;
-    }
-
-
-    /* m_itemDtl.html end   ================================================*/
 }
 
 
