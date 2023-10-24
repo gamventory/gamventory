@@ -119,7 +119,7 @@
                     </th:block>
                 </div>
             </div>
-            <div class="card d-flex">vbs
+            <div class="card d-flex">
                 <div th:each="orderItem : ${order.orderItemDtoList}" class="d-flex mb-3">
                     <div class="repImgDiv">
                         <img th:src="${orderItem.imgUrl}" class = "rounded repImg" th:alt="${orderItem.itemNm}">
@@ -131,6 +131,7 @@
                             <span th:text="${orderItem.count} +'개'"></span>
                         </div>
                     </div>
+                   
                 </div>
             </div>
 

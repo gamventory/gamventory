@@ -30,7 +30,7 @@ public class MainItemDto {
         this.id = id;
         this.imgUrl = imgUrl;
         this.itemDetail = itemDetail;
-        this.itemNm = itemDetail;
+        this.itemNm = itemNm;
         this.price = price;
         this.platform = platform;
         this.category = category;

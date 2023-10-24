@@ -26,65 +26,51 @@
 </script>
 
 </th:block>
-    <!-- 사용자 CSS 추가 -->
-<th:block layout:fragment="css">
-    <style>
 
-        table {
-            border-collapse: collapse; /* 테두리 겹치기 해제 */
-            border: 1px solid white; /* 테두리 색상 및 두께 설정 */
-        }
 
-        table th, table td {
-            border: 1px solid white; /* 테두리 색상 및 두께 설정 */
-            padding: 8px; /* 셀 내용과 테두리 사이의 간격 설정 (원하는 값으로 조정) */
-        }
 
-    </style>
-</th:block>
-        
+<!-- Content -->
+<div layout:fragment="content">
+    <div class="container">
+        <div class="management_box row">
+            <div class="col-sm-2">
+                <th:block th:replace="~{fragments/sidebar :: sidebarFragment}"></th:block>
+            </div>
+            <div class="col-sm-10">
+                <div class="container d-flex justify-content-center">
+                    <table class="table bg-white" style="text-align:center; width: 80%; border-radius: 10px;">
+                        <thead class="bg-primary text-white">
+                            <tr>
+                                <th>상품 ID</th>
+                                <th>플랫폼</th>
+                                <th>생성 시리얼 번호 개수</th>
+                                <th>생성</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form th:action="@{/serials/createSerial}" method="post">
+                                <tr>
+                                    <td><input type="text" id="itemId" name="itemId" required></td>
+                                    <td><select id="platform" name="platform" required>
+                                            <option value="STEAM">Steam</option>
+                                            <option value="EPIC_GAMES">Epic Games</option>
+                                            <option value="OTHER">Other</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="number" id="numberOfSerials" name="numberOfSerials" required min="1"></td>
+                                    <td colspan="2"><button type="submit" class="btn btn-primary" onclick="createSerial()">만들기</button></td>
+                                </tr>
+                            </form>
+                        </tbody>
+                    </table>
+                    
 
-      
-    <div layout:fragment="content" style="margin-left:25%;margin-right:25%">
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
-        <h1>스크롤내리는용</h1>
+                
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
 
-        <table>
-            <thead>
-                <colgroup>
-                    <col style="width: 20%;">
-                    <col style="width: 10%;">
-                    <col style="width: 30%;">
-                    <col style="width: 20%;">
-                </colgroup>
-                <tr>
-                    <th>상품 ID</th>
-                    <th>플랫폼</th>
-                    <th>생성 시리얼 번호 개수</th>
-                    <th>생성</th>
-                </tr>
-            </thead>
-            <tbody>
-                <form th:action="@{/serials/createSerial}" method="post">
-                    <tr>
-                        <td><input type="text" id="itemId" name="itemId" required></td>
-                        <td><select id="platform" name="platform" required>
-                                <option value="STEAM">Steam</option>
-                                <option value="EPIC_GAMES">Epic Games</option>
-                                <option value="OTHER">Other</option>
-                            </select>
-                        </td>
-                        <td><input type="number" id="numberOfSerials" name="numberOfSerials" required min="1"></td>
-                        <td colspan="2"><button type="submit" onclick="createSerial()">만들기</button></td>
-                    </tr>
-                </form>
-            </tbody>
-        </table>
 </html>
+        

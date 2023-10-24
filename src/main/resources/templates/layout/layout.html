@@ -8,10 +8,8 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, minimum-scale=1, user-scalable=yes,initial-scale=1.0" />
 
 
-    <!-- jquary -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- css -->
-    <link rel="stylesheet" type="text/css" th:href="@{../css/gamven.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/gamven.css}">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
@@ -68,15 +66,11 @@
             // });
 
             $("#nav_game").click(function(event) {
-                event.preventDefault(); // 클릭 이벤트의 기본 동작을 중단합니다.
-
-                // 페이지 이동을 시작합니다.
                 window.location.href = 'http://localhost:8081/';
+            });
 
-                // 페이지 이동이 완료되면 애니메이션을 시작합니다.
-                window.onload = function() {
-                    $("html").animate({scrollTop: 417});
-                };
+            $("#m_nav_game").click(function(event) {
+                window.location.href = 'http://localhost:8081/';
             });
 
 
@@ -85,11 +79,28 @@
                 $("#user_Modal").slideToggle("fast");
             });
 
+            $("#m_user_button").click(function(){
+                $("#m_user_Modal").slideToggle("fast")
+            });
+
 
 
             //itemMng go
             $("#management_go_button").click(function(){
                 window.location.href = 'http://localhost:8081/admin/items'
+            });
+
+            $("#m_management_go_button").click(function(){
+                window.location.href = 'http://localhost:8081/admin/items'
+            });
+
+            //cart go
+            $("#cart_go_button").click(function(){
+                window.location.href = 'http://localhost:8081/cart'
+            });
+
+            $("#m_cart_go_button").click(function(){
+                window.location.href = 'http://localhost:8081/cart'
             });
 
 
