@@ -251,12 +251,18 @@ a{
 #login_box{
     margin-top : 180px;
     margin-bottom : 200px;
-    margin-left:40%;   
+    display: grid;
+    place-items: center;
 }
 
 #login_box input{
     width : 400px;
 }
+
+#login_box div:nth-child(3){
+    margin-left:-140px;
+}
+
 
 /* memberLogin end ================================================*/
 
@@ -456,6 +462,26 @@ a{
     }
     /* m_footer end   ================================================*/
 
+
+    /* m_memberLogin.html start   ===============================================*/
+    #login_box{
+        margin-top : 30px;
+        font-size: 13px;
+    }
+
+    #login_box input{
+        font-size: 13px;
+        width: 110%;
+    }
+
+    #login_box div:nth-child(3){
+        margin-left: 40px;
+    }
+
+    #login_box div:nth-child(3) button{
+        font-size : 12px;
+    }
+    /* _memberLogin.html  ================================================*/
 
 }
 
