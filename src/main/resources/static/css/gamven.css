@@ -499,6 +499,30 @@ a{
 
 
 
+
+    /* m_memberForm start ============================================================================*/
+    /* m_memberForm start ================================*/
+
+    #singup_box{
+        font-size: 13px;
+    }
+
+    #singup_box input{
+        font-size: 13px;
+        height: 30px;
+    }
+
+    #singup_box button{
+        font-size: 13px;
+        padding : 0px;
+    }
+    
+
+    /* m_memberForm end ==================================*/
+    /* m_memberForm end ============================================================================*/
+
+
+
 }
 
 
