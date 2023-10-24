@@ -301,6 +301,25 @@ a{
 
 
 
+/* memberPasswordUpdate.html start ================================================*/
+
+#password_update_box{
+    color: white;
+    width: 500px;
+    margin: auto;
+    margin-top : 100px;
+    margin-bottom: 130px;
+}
+
+#password_update_box button{
+    margin-top: 15px;
+}
+
+/* memberPasswordUpdate.html end ================================================*/
+
+
+
+
 
 
 
@@ -495,10 +514,23 @@ a{
     #memberinfo_box a{
         width: 130px;
         font-size: 13px;
+    }  
+    /* m_memberInfo.html end ================================================*/
+
+
+    /* m_memberPasswordUpdate.html start ================================================*/
+    
+    #password_update_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 70%;
     }
 
+    #password_update_box button{
+        font-size: 12px;
+    }
     
-    /* m_memberInfo.html end ================================================*/
+    /* m_memberPasswordUpdate.html end ================================================*/
 
 }
 
