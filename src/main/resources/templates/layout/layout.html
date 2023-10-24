@@ -60,49 +60,25 @@
 
         $(document).ready(function(){
 
-            //메인 페이지 스크롤 이벤트 쿼리
-            // $("#logo").click(function() {
-            //     $("html").animate({scrollTop: 0});
-            // });
-
-            $("#nav_game").click(function(event) {
+            $("#logo").click(function(event) {
                 window.location.href = 'http://localhost:8081/';
             });
-
-            $("#m_nav_game").click(function(event) {
-                window.location.href = 'http://localhost:8081/';
-            });
-
 
             //user_modal event
             $("#user_button").click(function(){
                 $("#user_Modal").slideToggle("fast");
             });
 
-            $("#m_user_button").click(function(){
-                $("#m_user_Modal").slideToggle("fast")
-            });
-
-
 
             //itemMng go
-            $("#management_go_button").click(function(){
+            $("#management_button").click(function(){
                 window.location.href = 'http://localhost:8081/admin/items'
-            });
-
-            $("#m_management_go_button").click(function(){
-                window.location.href = 'http://localhost:8081/admin/items'
-            });
+            });     
 
             //cart go
-            $("#cart_go_button").click(function(){
+            $("#cart_button").click(function(){
                 window.location.href = 'http://localhost:8081/cart'
             });
-
-            $("#m_cart_go_button").click(function(){
-                window.location.href = 'http://localhost:8081/cart'
-            });
-
 
         });
     </script>

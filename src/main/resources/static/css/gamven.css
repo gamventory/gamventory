@@ -1,5 +1,10 @@
 /* base start ============================================*/
 
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+.nanum { font-family: 'Nanum Barun Gothic'; } 
+
+
+
 /* base */
 
 body{
@@ -7,8 +12,8 @@ body{
     padding: 0px;
     box-sizing: border-box;
     background : rgb(68,70,84) !important;
-
     padding-top : 140px;
+
 }
 
 ul,li{
@@ -37,62 +42,76 @@ a{
 
 
 
-/* fragments start ============================================*/
 
+/* header.html start ==========================================*/
 
-/* header start ============*/
-
-
-
-#head{
-    height : 70px;
+#header_box{
     background-color: rgb(32,33,35);
 }
 
-#search_Form{
-    padding-top : 25px;
-    
-}
 
-
-#search_Form>form{
-    margin-left : 10%;
-    width : 80%;
-}
-
-#searchBar{
-    background-color: rgb(150, 150, 150);
+#logo{
+    cursor: pointer;
+    width: 200px;
 }
 
 #header_User {
-    padding-top :  15px;
     color : white;
-    font-weight: bolder;
+    width: 100%;
 }
 
 #header_User i{
     cursor: pointer;
-    font-size : 20px;
+    font-size : 18px;
     background-color: #1ca817;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
-    padding : 10px;
-    transition: 0.5s;
+    padding : 6px;
 }
 
-#header_User i:nth-child(1):hover{
-    background-color: #595959;
+
+#management_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
 }
 
-#header_User i:nth-child(2):hover{
-    background-color: #ce7e0d;
+#management_button:hover{
+    background-color: rgb(216, 216, 216);
 }
+
+#user_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#user_button:hover{
+    background-color: rgb(216, 216, 216);
+}
+
+#cart_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#cart_button i{
+    background-color: rgb(236, 162, 25);
+}
+
+#cart_button:hover{
+    background-color: rgb(216, 216, 216);
+}
+
 
 
 #nav{
-    padding-bottom : 2px;
-    background-color: rgb(32,33,35);
+    padding-bottom : 1px;
 }
 
 
@@ -109,10 +128,10 @@ a{
 #user_Modal{
     width : 200px;
     position: absolute;
-    top : 60px;
+    top : 50px;
     display: none;
     font-size : 15px;
-    left : -80px;
+    left : 590px;
 }
 
 #user_Modal>div{
@@ -126,32 +145,28 @@ a{
     line-height: 30px;
 }
 
-
-
-
-/* header end ============*/
-
+/* header end ================================================*/
 
 
 
 
-/*footer start ===========*/
 
-#footer{
-    background-color: rgb(68,70,84);
-}
+
+
+/*footer start ===============================================*/
 
 #footer>div{
-    height: 300px;
-    bottom: 0;
+    margin-left: auto !important;
 }
 
-/*footer ends ===========*/
+#footer img{
+    width: 8%;
+}
+/*footer ends ================================================*/
 
 
 
 
-/* fragments end ============================================*/
 
 
 
@@ -359,201 +374,47 @@ a{
 
 
 
-
-
-/* 모바일 화면============================================================================*/
-/* 모바일 화면============================================================================*/
-
-#m_header{
-    display: none;
-}
-
 @media screen and (max-width:767px) {
-
-
-    /* m_header  start============================================================================*/
-    /* m_header  start==============================*/
-    #header_box{
-        display: none;
+    #logo{
+        margin-top: 5px;
+        width: 110px;
     }
 
-    #m_header{
-        display: block;
-        margin-bottom: -30px;
-    }
-
-    #m_header_box{
-        background-color: rgb(32,33,35);
-        height: 80px;
-        color: white;
-    }
-
-
-    #m_header_User{
-        top : -5px;
-    }
-
-    #m_header_User i{
-        cursor: pointer;
-        color:white;
-        margin-right: 10px;
-        font-size: 15px;
-        background-color: #1ca817;
-        width: 25px;
+    #header_User i{
+        width : 25px;
         height: 25px;
-        border-radius: 5px;
-        transition: 0.5s;
-        padding : 5px;
+        font-size: 10px;
+        padding: 7px;
     }
 
-    #m_header_User i:nth-child(1):hover{
-        background-color: #5c5c5c;
+    #management_button,#user_button,#cart_button{
+        background : none;
+        width: 25px;
     }
 
-    #m_header_User i:nth-child(2):hover{
-        background-color: #df9a4b;
+    #management_button i:hover{
+        background-color: #0068d6 !important;
     }
 
+    #user_button i:hover{
+        background-color: #1b8d17 !important;
+    }
 
+    #cart_button i:hover{
+        background-color: rgb(204, 141, 25) !important;
+    }
 
-
-    #m_user_Modal{
-        width : 200px;
-        position: absolute;
-        top : 53px;
+    #header_User span{
         display: none;
-        font-size : 12px;
-        left : -50px;
     }
 
-    #m_user_Modal>div{
-        background-color: rgb(65, 84, 112, 0.9);
-        border-radius: 10px;
-        margin-right : -10px;
-        width : 130px;
-        text-align: center;
-        padding-top : 10px;
-        padding-bottom : 10px;
-        line-height: 30px;
+    #nav{
+        margin-left: -15px;
+        font-size: 10px;
     }
 
-    #m_nav{
-        padding-bottom : 2px;
-        background-color: rgb(32,33,35);
-        font-size : 12px;
-    }
-
-
-    #m_nav ul{
-        padding-left : 10px;
-    }
-
-    #m_nav li{
-        display : inline-block;
-        margin-right: 10px;
-    }
-    /* m_header  end=================================*/
-    /* m_header  end============================================================================*/
-
-
-
-
-
-
-    /* m_main.html start============================================================================*/
-    /* m_main.html start================================*/
-    #img_slider{
-        margin-top:-30px;
-    }
-
-    /* m_main.html end==================================*/
-    /* m_main.html end============================================================================*/
-
-
-
-
-
-
-
-    /* m_memberLogin start ============================================================================*/
-    /* m_memberLogin start ================================*/
-    #login_box{
-        margin-left: 25%;
-    }
-
-    #login_box input{
-        width : 50%;
-        height: 30px;
-        font-size: 13px;
-    }
-
-    #login_box button{
-        width: 60px;
-        height: 30px;
-        font-size: 13px;
-        padding: 0px;
-    }
-
-    /* m_memberLogin end ==================================*/
-    /* m_memberLogin end ============================================================================*/
-
-
-
-
-    /* m_memberForm start ============================================================================*/
-    /* m_memberForm start ================================*/
-
-    #singup_box{
-        font-size: 13px;
-    }
-
-    #singup_box input{
-        font-size: 13px;
-        height: 30px;
-    }
-
-    #singup_box button{
-        font-size: 13px;
-        padding : 0px;
-    }
     
-
-    /* m_memberForm end ==================================*/
-    /* m_memberForm end ============================================================================*/
-
-
-
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 모바일 화면============================================================================*/
-/* 모바일 화면============================================================================*/
