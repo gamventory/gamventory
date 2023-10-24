@@ -310,7 +310,6 @@ a{
 
 .item_detail_box img{
     width : 100%;
-    height: 600px;
 }
 
 
@@ -374,7 +373,22 @@ a{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 @media screen and (max-width:767px) {
+
+
+
+    /* m_header start   ================================================*/
     #logo{
         margin-left : -15px;
         margin-top: 5px;
@@ -429,13 +443,24 @@ a{
         font-size: 10px;
         padding-left : 0px;
     }
+    /* m_header end   ================================================*/
 
 
+    /* m_footer start   ===============================================*/
     #footer img{
         width: 100px;
     }
+    /* m_footer end   ================================================*/
 
     
+
+    /* m_itemDtl.html start   ===============================================*/
+    #item_detail_box_buy>div:nth-child(1){
+        border: 1px solid red;
+    }
+
+
+    /* m_itemDtl.html end   ================================================*/
 }
 
 

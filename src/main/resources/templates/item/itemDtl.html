@@ -138,11 +138,11 @@
 
 
                 <div class="row">
-                    <div id="item_detail_box_img" class="col-sm-8">
-                        <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; height: 100%; width: 100%;" th:alt="${item.itemNm}">
+                    <div id="item_detail_box_img" class="col-sm-7">
+                        <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; height: 100%;" th:alt="${item.itemNm}">
                     </div>
 
-                    <div id="item_detail_box_buy" class="col-sm-4 pt-3" style="text-align: left;">
+                    <div id="item_detail_box_buy" class="col-sm-5 pt-3" style="text-align: left;">
                         <span th:if="${item.itemSellStatus == T(com.gamventory.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15">
                             판매중
                         </span>
@@ -162,18 +162,18 @@
                             </div>
                         </div>
 
-                        <div class="input-group mt-3" style="width: 90%;">
-                            <span class="form-control bg-info text-white col-sm-3" style="text-align:center;">수량</span>
-                            <input type="number" name="count" id="count" class="form-control col-sm-3" value="1" min="1" style="text-align: right;"/>
-                            <span name="totalPrice" id="totalPrice" class="form-control col-sm-6" style="text-align: right;"></span>
+                        <div class="input-group mt-3" style="width: 200px;">
+                            <span class="form-control bg-info text-white" style="text-align:center; font-size: 11px;">수량</span>
+                            <input type="number" name="count" id="count" class="form-control" value="1" min="1" style="text-align: right; font-size: 11px;"/>
+                            <span name="totalPrice" id="totalPrice" class="form-control" style="text-align: right; font-size: 11px; width: 80px;"></span>
                         </div>
 
                         <hr class="my-4">
 
                         <div style="float: left;">
                             <div th:if="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right">
-                                <button type="button" class="btn btn-light border bg-success text-white" onclick="addCart()">장바구니</button>
-                                <button type="button" class="btn btn-primary" onclick="order()">주문하기</button>
+                                <button type="button" class="btn btn-light border bg-success text-white" onclick="addCart()" style="font-size: 11px;">장바구니</button>
+                                <button type="button" class="btn btn-primary" onclick="order()" style="font-size: 12px;">주문하기</button>
                             </div>
                             <div th:unless="${item.itemSellStatus.equals(T(com.gamventory.constant.ItemSellStatus).SELL)}" class="text-right mt-1">
                                 <button type="button" class="btn btn-danger">품절</button>
