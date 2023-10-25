@@ -133,6 +133,94 @@
 
     </script>
 
+<!-- <script type="text/javascript">
+    $(document).ready(function(){
+
+        //주문하기
+        $("#btn_settle").bind("click",function(){
+            var settlekind = $('input[name="settlekind"]:checked').val();
+            var useEmoney = parseInt($('input[name="use_emoney"]').val());
+            var memberEmoney = parseInt("0");
+            var emoney_chk = $('input[name="emoney_chk"]').val();
+            var termAgree_orderCheck = $('input[name="termAgree_orderCheck"]:checked').val();
+
+            var hp1 = $('select[name="hp1"] option:selected').val();
+            var hp2 = $('input[name="hp2"]').val();
+            var hp3 = $('input[name="hp3"]').val();
+
+            if(memberEmoney==0){
+                $('input[name="use_emoney"]').val("0");
+            }
+
+            if(emoney_chk!="Y"){
+                $('input[name="use_emoney"]').val("0");
+            }
+
+            if($.type(settlekind)=="undefined"){
+                alert("결제수단을 선택하세요.");
+                return false;
+            }else{
+                if($.type(termAgree_orderCheck)=="undefined"){
+                    alert("청약의사 재확인에 동의해 주셔야 주문진행이 가능합니다.");
+                    return false;
+                }
+
+                if(settlekind=="PAYNOW"){
+                    $("#LGD_EASYPAY_ONLY").val(settlekind);
+                    $("#LGD_CUSTOM_USABLEPAY").val("SC0010");
+                }else if(settlekind=="PAYCO"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO");
+                }else if(settlekind=="PAYCO_POINT"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO_POINT");
+                }else{
+                    if(settlekind=="SC0040"){
+                        if(hp1=="" || hp2=="" || hp3==""){
+                            alert("휴대폰번호를 입력하세요.");
+                            return false;
+                        }else{
+                            $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                        }
+                    }else{
+                        $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                    }
+                }
+
+                $("#orderFrm").attr("action","settle.html");
+                $("#orderFrm").submit();
+            }
+            
+        });
+
+        $('input[name="settlekind"]').bind("click",function(){
+            var settlekind = $('input[name="settlekind"]:checked').val();
+            if(settlekind=="SC0040"){
+                $(".collapse").collapse('show');
+            }else{
+                $(".collapse").collapse('hide');
+            }
+        });
+
+
+        //포인트 사용취소
+        $("#btn_emoney_cancel").bind("click",function(){
+            $('#emoney_chk').val('N');
+            if($('input[name="use_emoney"]').val()>0){
+                $('input[name="use_emoney"]').val("0");
+                set_real_settle_price("0");
+            }
+            $('input[name="use_emoney"]').attr("readonly",false);
+        });
+
+        $("input[name='use_emoney']").on("keyup",function(key){
+            if(key.keyCode==13) {
+                check_use_emoney();
+            }
+        });
+    });
+
+</script> -->
 </th:block>
 
 
@@ -292,7 +380,7 @@
                                 
 
                     <div class="text-center mt-3">
-                        <button type="button" id="btn_settle" class="btn btn-primary" onclick="order()">주문하기</button>
+                        <button type="button" id="btn_settle" class="btn btn-primary btn-lg" onclick="order()">주문하기</button>
                     </div>
                     
                 </div>

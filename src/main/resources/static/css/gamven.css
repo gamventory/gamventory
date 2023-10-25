@@ -521,6 +521,7 @@ td {
 
     /* m_footer start   ===============================================*/
     #footer img{
+        display: none;
         width: 100px;
     }
     /* m_footer end   ================================================*/
@@ -668,10 +669,21 @@ td {
     #item_form div input{
         font-size: 12px;
     }
-
-
-       
     /* m_itemForm end ==========================================================*/
+
+
+
+    /* createSerial.html start ==========================================================*/
+    #createSerial_table{
+        width: 100% !important;
+    }
+
+    #createSerial_table button{
+        margin-top: -5px;
+        font-size: 11px;
+    }
+
+    /* createSerial.html end ============================================================*/
 
 }
 
