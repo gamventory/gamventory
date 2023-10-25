@@ -1,26 +1,33 @@
 package com.gamventory.config;
 
+import com.gamventory.service.OAuth2UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-
+    private final OAuth2UserService oAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+//                .csrf(AbstractHttpConfigurer::disable)
                 .csrf((csrf) -> csrf
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
                 .formLogin(formLogin ->
@@ -39,10 +46,11 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
                                         new AntPathRequestMatcher("/js/**"),
-                                        new AntPathRequestMatcher("/favicon/**"),
+                                        new AntPathRequestMatcher("/favicon.ico"),
                                         new AntPathRequestMatcher("/img/**"),
                                         new AntPathRequestMatcher("/"),
                                         new AntPathRequestMatcher("/members/login"),
+                                        new AntPathRequestMatcher("/members/login/oauth2/**"),
                                         new AntPathRequestMatcher("/members/new"),
                                         new AntPathRequestMatcher("/members/find/**"),
                                         new AntPathRequestMatcher("/item/**"),
@@ -64,7 +72,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         // ALWAYS, IF_REQUIRED, NEVER, STATLESS
                         // ALWAYS 항상 새로운 세션을 사용하도록
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .oauth2Login(oAuth2LoginConfigurer -> oAuth2LoginConfigurer
+                        .loginPage("/members/login")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/members/login/error")
+                        .userInfoEndpoint(endpoint -> endpoint
+                                .userService(oAuth2UserService)));
 
                 /*
                 현재 세션 상황을 ALWAYS로 설정 했음

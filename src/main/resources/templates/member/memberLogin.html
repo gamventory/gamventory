@@ -26,6 +26,13 @@
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
             <button type="button" class="btn btn-secondary" onclick="location.href='/members/find'">PW 찾기</button>
+            <hr>
+            <!-- 소셜 로그인 버튼 추가 -->
+            <div class="social-login">
+                <a href="/oauth2/authorization/kakao" class="btn btn-warning">카카오 로그인</a>
+                <!-- 다른 소셜 로그인 버튼들도 이 위치에 추가할 수 있습니다. -->
+                <!-- 예: <a href="/oauth2/authorization/google" class="btn btn-danger">구글 로그인</a> -->
+            </div>
         </form>
     
     </div>

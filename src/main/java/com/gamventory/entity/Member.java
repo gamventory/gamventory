@@ -55,6 +55,12 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    // 소셜 로그인 제공자
+    private String socialProvider;
+
+    // 소셜 로그인 제공자의 사용자 ID
+    private String socialId;
+
     // 회원 가입 메소드(MemberFormDto, PasswordEncoder)
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 
@@ -84,6 +90,21 @@ public class Member extends BaseEntity {
 
         String newPassword = passwordEncoder.encode(memberPasswordDto.getNewPassword());
         this.password = newPassword;
+    }
+
+    public static Member createSocialMember(String name, String email, String socialProvider, String socialId,
+                                            PasswordEncoder passwordEncoder) {
+
+        String dummyPassword = passwordEncoder.encode("dummy_password_" + System.currentTimeMillis());
+
+        return Member.builder()
+                .name(name)
+                .email(email)
+                .password(dummyPassword)
+                .socialProvider(socialProvider)
+                .socialId(socialId)
+                .role(Role.USER)
+                .build();
     }
 
 }
