@@ -148,6 +148,13 @@ a{
 /* header end ================================================*/
 
 
+/*sidebar.html start ================================================*/
+#sidebar{
+}
+
+/*sidebar.html end ==================================================*/
+
+
 
 
 
@@ -409,12 +416,17 @@ a{
 
 
 
+#m_sidebar_button{
+    display: none;
+}
+
+#m_sidebar{
+    display: none;
+}
 
 
 
 @media screen and (max-width:767px) {
-
-
 
     /* m_header start   ================================================*/
     #logo{
@@ -474,11 +486,44 @@ a{
     /* m_header end   ================================================*/
 
 
+
+
+
     /* m_footer start   ===============================================*/
     #footer img{
         width: 100px;
     }
     /* m_footer end   ================================================*/
+
+
+
+
+    /* m_sidebar.html start   ===============================================*/
+
+    #sidebar{
+        display: none;
+    }
+
+    #m_sidebar{
+        font-size: 12px;
+        width: 110px;
+        transition: 0.5s;
+        margin-left: -250px;
+        display: block;
+        position: absolute;
+        z-index: 9999;
+    }
+
+    #m_sidebar h3{
+        font-size: 20px;
+    }
+
+    #m_sidebar_button{
+        display:inline-block;
+    }
+
+    /* m_sidebar.html end  ==================================================*/
+
 
 
     /* m_memberLogin.html start   ===============================================*/
