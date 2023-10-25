@@ -1,9 +1,15 @@
 package com.gamventory.repository;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
 import com.gamventory.entity.QSerial;
 import com.gamventory.entity.Serial;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import java.util.List;
+
 import jakarta.persistence.EntityManager;
 
 public class SerialCustomRepositoryImpl implements SerialCustomRepository {
@@ -15,12 +21,23 @@ public class SerialCustomRepositoryImpl implements SerialCustomRepository {
 
     //시리얼 목록을 찾는 리스트 동적쿼리
     @Override
-    public List<Serial> findByKeyword(String keyword) {
+    public Page<Serial> findByKeyword(String keyword, Pageable pageable) {
         QSerial serial = QSerial.serial;
-        return queryFactory.selectFrom(serial)
-                           .leftJoin(serial.member)
-                           .where(serial.id.stringValue().contains(keyword)
-                                  .or(serial.member.email.contains(keyword)))
-                           .fetch();
+
+        List<Serial> serials = queryFactory.selectFrom(serial)
+                                           .leftJoin(serial.member)
+                                           .where(serial.id.stringValue().contains(keyword)
+                                                  .or(serial.member.email.contains(keyword)))
+                                           .offset(pageable.getOffset())
+                                           .limit(pageable.getPageSize())
+                                           .fetch();
+        
+        long total = queryFactory.selectFrom(serial)
+                                 .leftJoin(serial.member)
+                                 .where(serial.id.stringValue().contains(keyword)
+                                        .or(serial.member.email.contains(keyword)))
+                                 .fetchCount();
+
+        return new PageImpl<>(serials, pageable, total);
     }
 }
