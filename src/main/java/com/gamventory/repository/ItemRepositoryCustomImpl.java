@@ -2,6 +2,7 @@ package com.gamventory.repository;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -9,14 +10,19 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
+import com.gamventory.constant.Category;
 import com.gamventory.constant.ItemSellStatus;
+import com.gamventory.constant.Platform;
+import com.gamventory.dto.ItemFilterSearchDto;
 import com.gamventory.dto.ItemSearchDto;
 import com.gamventory.dto.MainItemDto;
 import com.gamventory.dto.QMainItemDto;
 import com.gamventory.entity.Item;
 import com.gamventory.entity.QItem;
 import com.gamventory.entity.QItemImg;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -28,6 +34,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
     //동적으로 쿼리를 생성하는 클래스
     private JPAQueryFactory queryFactory; 
+    private String orderByReleaseDate;
 
     //JPAQueryFactory의 생성자,em 객체를 넣어줌
     public ItemRepositoryCustomImpl(EntityManager em){  
@@ -122,7 +129,9 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                                 item.itemNm,
                                 item.itemDetail,
                                 itemImg.imgUrl,
-                                item.price)
+                                item.price,
+                                item.platform.stringValue(), // Enum to String
+                                item.category.stringValue())
                 )
                 .from(itemImg)
                 .join(itemImg.item, item)
@@ -144,5 +153,76 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
 
         return new PageImpl<>(content, pageable, total);
     }
+
+    //상품의 카테고리와 일치하는 상품을 조회하는 메소드
+    private BooleanExpression categoryEq(Category category) {
+        return category == null ? null : QItem.item.category.eq(category);
+    }
+
+    //상품의 플랫폼과 일치하는 상품을 조회하는 메소드
+    private BooleanExpression platformEq(Platform platform) {
+        return platform == null ? null : QItem.item.platform.eq(platform);
+    }
+
+    //상품의 출시일이 특정 날짜 이후인 상품을 조회하는 메소드
+    private BooleanExpression releaseDateAfter(LocalDateTime releaseDateFrom) {
+        return releaseDateFrom == null ? null : QItem.item.regTime.goe(releaseDateFrom);
+    }
+
+    //상품의 출시일이 특정 날짜 이전인 상품을 조회하는 메소드
+    private BooleanExpression releaseDateBefore(LocalDateTime releaseDateTo) {
+        return releaseDateTo == null ? null : QItem.item.regTime.loe(releaseDateTo);
+    }
+
+    private OrderSpecifier<?>[] getOrderSpecifier(ItemFilterSearchDto filterSearchDto) {
+        QItem item = QItem.item;
+        List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
+    
+        if ("ASC".equalsIgnoreCase(filterSearchDto.getPrice())) {
+            orderSpecifiers.add(item.price.asc());
+        } else if ("DESC".equalsIgnoreCase(filterSearchDto.getPrice())) {
+            orderSpecifiers.add(item.price.desc());
+        }
+    
+        if ("ASC".equalsIgnoreCase(filterSearchDto.getOrderByReleaseDate())) {
+            orderSpecifiers.add(item.regTime.asc());
+        } else if ("DESC".equalsIgnoreCase(filterSearchDto.getOrderByReleaseDate())) {
+            orderSpecifiers.add(item.regTime.desc());
+        }
+    
+        return orderSpecifiers.toArray(new OrderSpecifier[0]);
+    }
+
+    //필터검색 쿼리
+    @Override
+    public Page<Item> filterItemSort(ItemFilterSearchDto filterSearchDto, Pageable pageable) {
+        QItem item = QItem.item;
+
+        List<Item> content = queryFactory
+                .selectFrom(item)
+                .where(
+                    categoryEq(filterSearchDto.getCategory()),
+                    platformEq(filterSearchDto.getPlatform()),
+                    releaseDateAfter(filterSearchDto.getReleaseDateFrom()),
+                    releaseDateBefore(filterSearchDto.getReleaseDateTo())
+                )
+                .orderBy(getOrderSpecifier(filterSearchDto))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        long total = queryFactory
+                .selectFrom(item)
+                .where(
+                    categoryEq(filterSearchDto.getCategory()),
+                    platformEq(filterSearchDto.getPlatform()),
+                    releaseDateAfter(filterSearchDto.getReleaseDateFrom()),
+                    releaseDateBefore(filterSearchDto.getReleaseDateTo())
+                )
+                .fetchCount();
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
 
 }

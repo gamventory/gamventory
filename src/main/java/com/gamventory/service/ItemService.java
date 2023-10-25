@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gamventory.dto.ItemFilterSearchDto;
 import com.gamventory.dto.ItemFormDto;
 import com.gamventory.dto.ItemImgDto;
 import com.gamventory.dto.ItemSearchDto;
@@ -110,6 +111,12 @@ public class ItemService {
     @Transactional(readOnly = true)
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
         return itemRepository.getMainItemPage(itemSearchDto, pageable);
+    }
+
+    //필터검색 호출하는 메서드
+     @Transactional(readOnly = true)
+    public Page<Item> filterAndSortItems(ItemFilterSearchDto filterSearchDto, Pageable pageable) {
+        return itemRepository.filterItemSort(filterSearchDto, pageable);
     }
 
 }

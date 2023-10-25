@@ -104,7 +104,15 @@ public class SerialService {
     }
 
     //사용자 이메일이나 시리얼 ID로 시리얼목록을 조회하는 메서드
-    public List<Serial> searchByKeyword(String keyword) {
-        return serialRepository.findByKeyword(keyword);
+    public Page<Serial> searchByKeyword(String keyword, Pageable pageable) {
+        return serialRepository.findByKeyword(keyword, pageable);
+    }
+
+    public List<Serial> getSerialsByMemberEmail(String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member != null) {
+            return serialRepository.findByMember(member);
+        }
+        return new ArrayList<>();
     }
 }

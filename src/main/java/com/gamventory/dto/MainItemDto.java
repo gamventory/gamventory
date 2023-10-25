@@ -1,5 +1,9 @@
 package com.gamventory.dto;
 
+import java.text.NumberFormat;
+
+import com.gamventory.constant.Category;
+import com.gamventory.constant.Platform;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Getter;
@@ -33,7 +37,7 @@ public class MainItemDto {
     private String category;
 
     @QueryProjection
-    public MainItemDto(Long id, String itemNm, String itemDetail, String imgUrl, Integer price){
+    public MainItemDto(Long id, String itemNm, String itemDetail, String imgUrl, Integer price, String platform, String category){
         this.id = id;
         this.imgUrl = imgUrl;
         this.itemDetail = itemDetail;
@@ -41,6 +45,12 @@ public class MainItemDto {
         this.price = price;
         this.platform = platform;
         this.category = category;
+    }
+
+    //숫자포맷으로 설정하는거
+    public String getFormattedPrice() {
+        NumberFormat formatter = NumberFormat.getInstance();
+        return formatter.format(price);
     }
 
 }

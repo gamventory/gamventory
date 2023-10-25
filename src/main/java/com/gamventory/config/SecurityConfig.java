@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -50,6 +51,7 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/images/**"),
                                         new AntPathRequestMatcher("/error/**"),
                                         new AntPathRequestMatcher("/mail/**"),
+                                        new AntPathRequestMatcher("/list/**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
@@ -58,7 +60,18 @@ public class SecurityConfig {
                 .exceptionHandling(exceptionHandling ->
                         exceptionHandling
                                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                );
+                )
+                // 언제 세션을 생성 할 것인지 알려 주는 설정
+                .sessionManagement(session -> session
+                        // ALWAYS, IF_REQUIRED, NEVER, STATLESS
+                        // ALWAYS 항상 새로운 세션을 사용하도록
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
+
+                /*
+                현재 세션 상황을 ALWAYS로 설정 했음
+                어디 까지 영향이 갈지 모르겠음
+                 */
+
 
         return http.build();
     }

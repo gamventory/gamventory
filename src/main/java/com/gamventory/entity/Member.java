@@ -75,14 +75,15 @@ public class Member extends BaseEntity {
                 .detailAddress(memberFormDto.getDetailAddress())
                 .role(Role.USER)
                 .build();
-
         return member;
     }
 
     public void modifyMember(MemberUpdateFormDto memberUpdateForm) {
 
         this.name = memberUpdateForm.getName();
-        this.streetAddress = memberUpdateForm.getAddress();
+        this.zipcode = memberUpdateForm.getZipCode();
+        this.streetAddress = memberUpdateForm.getStreetAddress();
+        this.detailAddress = memberUpdateForm.getDetailAddress();
     }
 
     public void modifyMemberPassword(MemberPasswordDto memberPasswordDto, PasswordEncoder passwordEncoder) {
