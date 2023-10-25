@@ -8,7 +8,7 @@
       <!-- 검색 폼 -->
     <form th:action="@{/serials/list}" method="get">
         <label for="keyword">키워드 :</label>
-        <input type="text" id="keyword" name="keyword" placeholder="사용자 ID나 상품 ID를 입력하세요.">
+        <input type="text" id="keyword" name="keyword"  th:value="${keyword}" placeholder="사용자 ID나 상품 ID를 입력하세요.">
         <button type="submit">검색</button>
     </form>
 
@@ -23,24 +23,24 @@
         <!--/. 구매 했을 경우 구매자 아이디 출력, 구매를 안 했을 경우 미판매라고 출력됩니다.-->
     </div>
 
-  <!-- 페이지 번호 이동 -->
-  <div>
+ <!-- 페이지 번호 이동 -->
+<div>
     <ul class="pagination">
         <li th:if="${currentPage > 1}">
-            <a th:href="@{/serials/list/{page}(page=1)}">First</a>
+            <a th:href="@{/serials/list/{page}(page=1,keyword=${keyword})}">First</a>
         </li>
         <li th:if="${currentPage > 1}">
-            <a th:href="@{/serials/list/{page}(page=${currentPage - 1})}">Previous</a>
+            <a th:href="@{/serials/list/{page}(page=${currentPage - 1},keyword=${keyword})}">Previous</a>
         </li>
         <li th:each="pageNumber : ${#numbers.sequence(currentPage - 2, currentPage + 2)}" th:if="${pageNumber >= 1 and pageNumber <= totalPages}">
             <span th:if="${pageNumber == currentPage}" th:text="${pageNumber}"></span>
-            <a th:if="${pageNumber != currentPage}" th:href="@{/serials/list/{page}(page=${pageNumber})}" th:text="${pageNumber}"></a>
+            <a th:if="${pageNumber != currentPage}" th:href="@{/serials/list/{page}(page=${pageNumber},keyword=${keyword})}" th:text="${pageNumber}"></a>
         </li>
         <li th:if="${currentPage < totalPages}">
-            <a th:href="@{/serials/list/{page}(page=${currentPage + 1})}">Next</a>
+            <a th:href="@{/serials/list/{page}(page=${currentPage + 1},keyword=${keyword})}">Next</a>
         </li>
         <li th:if="${currentPage < totalPages}">
-            <a th:href="@{/serials/list/{page}(page=${totalPages})}">Last</a>
+            <a th:href="@{/serials/list/{page}(page=${totalPages},keyword=${keyword})}">Last</a>
         </li>
     </ul>
 </div>
