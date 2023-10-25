@@ -30,6 +30,15 @@ a{
     color : white;
     font-weight: bolder;
 }
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px; /* 텍스트의 최대 너비를 화면에 맞게 설정 */
+}
+
+
 /* base end ============================================*/
 
 
@@ -150,6 +159,7 @@ a{
 
 /*sidebar.html start ================================================*/
 #sidebar{
+    font-size: 15px;
 }
 
 /*sidebar.html end ==================================================*/
@@ -428,11 +438,31 @@ a{
 
 @media screen and (max-width:767px) {
 
+    /* m_base */
+    .management_box{
+        margin-top: 30px;
+        font-size: 10px;
+        margin-bottom: 600px;
+    }
+
+    .management_box>div:nth-child(2){
+        margin-top: 20px;
+        margin-top: 40px;
+        position: absolute;
+        margin: auto;
+        margin-top: 40px;
+    }
+
+    
+
+
+
     /* m_header start   ================================================*/
+
     #logo{
-        margin-left : -15px;
-        margin-top: 5px;
-        width: 110px;
+    margin-left : -15px;
+    margin-top: 5px;
+    width: 110px;
     }
 
     #header_User i{
@@ -590,6 +620,58 @@ a{
     }
     
     /* m_memberUpdate.html end ================================================*/
+
+
+
+
+    /* m_itemMng start ========================================================*/
+
+    #itemMng_search select{
+        font-size: 11px;
+        margin-right: 5px;
+    }
+
+    #itemMng_search input{
+        width: 50%;
+        margin-top: 20px;
+        font-size: 11px;      
+    }
+
+    #itemMng_search button{
+        font-size: 11px;
+        margin-top: 20px;
+    }
+       
+    /* m_itemMng end ==========================================================*/
+
+
+
+    /* m_itemForm start ========================================================*/
+
+
+    #item_form{
+        width: 90%;
+    }
+
+    #item_form select{
+        font-size: 12px;
+    }
+
+    #item_form div button{
+        font-size: 12px;
+    }
+
+    #item_form div div span{
+        font-size: 12px;
+    }
+
+    #item_form div input{
+        font-size: 12px;
+    }
+
+
+       
+    /* m_itemForm end ==========================================================*/
 
 }
 
