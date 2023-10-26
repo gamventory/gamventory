@@ -31,7 +31,7 @@
                     </div>
                 </th:block>
             </div>
-            <div class="col-sm-10 text-white"  style="padding: auto; padding-left: 20%; justify-content: center;">
+            <div class="col-sm-10 text-white"  style="margin-left: -40px; padding: auto; padding-left: 20%; justify-content: center;">
                 <div class="container">
 
 
@@ -43,7 +43,7 @@
                         </label>                       
                     </form> -->
 
-                    <form id="show_serial_box" th:action="@{/serials/list}" method="get" style="margin-bottom: 30px; margin-left:-15px;">
+                    <form id="show_serial_box" th:action="@{/serials/list}" method="get" style="width: 100%; margin-bottom: 30px; margin-left:-15px;">
                         <div class="input-group">
                             <input type="text" id="keyword" name="keyword" class="form-control ml-3 fs12" th:value="${keyword}" placeholder="사용자 ID나 상품 ID를 입력하세요.">
                             <button class="fs12 btn bg-primary text-white fs12" type="submit">검색</button>
