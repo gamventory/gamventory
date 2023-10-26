@@ -611,6 +611,10 @@ td {
     #password_update_box button{
         font-size: 12px;
     }
+
+    #password_update_box input{
+        font-size: 12px;
+    }
     
     /* m_memberPasswordUpdate.html end ================================================*/
 
