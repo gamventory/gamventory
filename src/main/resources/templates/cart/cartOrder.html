@@ -274,14 +274,14 @@
 
 <div layout:fragment="content">
 
-    <div class="cart_list_box container p-5">
+    <div class="cart_list_box container">
 
     <div>
-        <table class="table">
+        <table class="table table-sm">
             <thead>
-                <tr class="bg-success text-white text-center">
-                    <th style="width: 150px;">
-                        <input type="checkbox" id="checkall" onclick="checkAll()"> 전체선택
+                <tr class="bg-orange text-white text-center">
+                    <th style="width: 40px;">
+                        <input type="checkbox" id="checkall" onclick="checkAll()">
                     </th>
                     <th style="width : 100px;">이미지</th>
                     <th>게임명</th>
@@ -321,11 +321,11 @@
 
                                         
                                         
-                    <td class="text-center align-middle">
-                        <div class="input-group">
+                    <td class="text-center align-middle pl-4">
+                        <div class="input-group" style="width: 85px;">
                             <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
                                 th:value="${cartItem.count}" min="1"
-                                onchange="changeCount(this)" class="form-control" >
+                                onchange="changeCount(this)" class="form-control pr-1">
                             <button type="button" class="btn bg-danger">
                                 <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">x</span>
                             </button>
@@ -347,7 +347,7 @@
 
 
         <!-- 결제 수단  -->
-        <div class="row text-white">
+        <div class="row text-white fs12 buy">
 
 
             <div class="col-md-6">

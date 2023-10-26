@@ -43,6 +43,7 @@ td {
 .bg-orange:hover{
     filter: brightness(0.8);
 }
+
 /* base end ============================================*/
 
 
@@ -479,6 +480,10 @@ td {
         position: absolute;
         margin: auto;
         margin-top: 40px;
+    }
+
+    .buy{
+        font-size: 12px;
     }
 
     
