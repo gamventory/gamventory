@@ -245,7 +245,7 @@ td {
 
 
 
-/* memberForm start ================================================*/
+/* memberForm.html start ================================================*/
 
 #singup_box{
     margin-top : 80px;
@@ -263,11 +263,11 @@ td {
 }
 
 
-/* memberForm end ==================================================*/
+/* memberForm.html end ==================================================*/
 
 
 
-/* memberLogin start ================================================*/
+/* memberLogin.html start ================================================*/
 
 #login_box{
     margin-top : 180px;
@@ -285,11 +285,11 @@ td {
 }
 
 
-/* memberLogin end ================================================*/
+/* memberLogin.html end ================================================*/
 
 
 
-/* memberinfo start ================================================*/
+/* memberinfo.html start ================================================*/
 #memberinfo_box{
     margin-top : 150px;
     margin-bottom : 200px;
@@ -305,10 +305,10 @@ td {
 
 
 
-/* memberinfo end ================================================*/
+/* memberinfo.html end ================================================*/
 
 
-/* memberUpdate start ================================================*/
+/* memberUpdate.html start ================================================*/
 #member_update_box{
     color: white;
     width: 500px;
@@ -317,9 +317,7 @@ td {
     margin-bottom: 130px;
 }
 
-
-
-/* memberUpdate end ================================================*/
+/* memberUpdate.html end ================================================*/
 
 
 
@@ -344,10 +342,26 @@ td {
 
 
 
+/* memberDelete.html start ================================================*/
+
+#member_delete_box{
+    color: white;
+    width: 500px;
+    margin: auto;
+    margin-top : 100px;
+    margin-bottom: 300px;
+}
+
+/* memberDelete.html end ================================================*/
 
 
 
-/* itemDtl start ================================================*/
+
+
+
+
+
+/* itemDtl.html start ================================================*/
 .item_detail_box{
 
     padding-top : 50px;
@@ -361,12 +375,12 @@ td {
 }
 
 
-/* itemDtl end ==================================================*/
+/* itemDtl.html end ==================================================*/
 
 
 
 
-/* itemForm start ================================================*/
+/* itemForm.html start ================================================*/
 
 #item_form{
     width : 70%;
@@ -377,7 +391,7 @@ td {
     margin-right : 10px;
 }
 
-/* itemForm end ================================================*/
+/* itemForm.html end ================================================*/
 
 
 
@@ -385,13 +399,20 @@ td {
 
 
 
-/* cartList start ================================================*/
+/* cartList.html start ================================================*/
 .cart_list_box{
     background-color: #343541 !important;
     border-radius: 20px;
     margin-bottom : 100px !important;
+    padding : 40px;
+
 }
-/* cartList end   ================================================*/
+
+.cart_list_box input{
+    padding: 0px;
+    text-align: right;
+}
+/* cartList.html end   ================================================*/
 
 
 
@@ -410,13 +431,13 @@ td {
 
 
 
-/* management_box start   ================================================*/
+/* management_box.html start   ================================================*/
 
 .management_box{
     margin-top: 100px;
     margin-bottom : 100px;
 }
-/* management_box end   ================================================*/
+/* management_box.html end   ================================================*/
 
 
 
@@ -464,7 +485,7 @@ td {
 
 
 
-    /* m_header start   ================================================*/
+    /* m_header.html start   ================================================*/
 
     #logo{
     margin-left : -15px;
@@ -520,13 +541,13 @@ td {
         font-size: 10px;
         padding-left : 0px;
     }
-    /* m_header end   ================================================*/
+    /* m_header.html end   ================================================*/
 
 
 
 
 
-    /* m_footer start   ===============================================*/
+    /* m_footer.html start   ===============================================*/
     #footer img{
         display: none;
         width: 100px;
@@ -641,6 +662,31 @@ td {
 
 
 
+
+    /* m_memberDelete.html start ================================================*/
+    
+    #member_delete_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 80%;
+    }
+
+    #member_delete_box button{
+        font-size: 12px;
+    }
+    
+    #member_delete_box div input{
+        font-size: 12px;
+    }
+
+
+    /* m_memberDelete.html end ================================================*/
+
+
+
+
+
+
     /* m_itemMng start ========================================================*/
 
     #itemMng_search select{
@@ -689,7 +735,7 @@ td {
 
 
 
-    /* createSerial.html start ==========================================================*/
+    /* m_createSerial.html start ==========================================================*/
     #createSerial_table{
         width: 100% !important;
     }
@@ -699,7 +745,44 @@ td {
         font-size: 11px;
     }
 
-    /* createSerial.html end ============================================================*/
+    /* m_createSerial.html end ============================================================*/
+
+
+
+
+
+
+    /* m_cartList.html start ==========================================================*/
+
+    .cart_list_box{
+        padding : 10px;
+        padding-top : 30px;
+    }
+    
+
+    .cart_list_box table th{
+        font-size: 12px;
+    }
+
+    .cart_list_box table td{
+        font-size: 12px;
+    }
+
+    .cart_list_box table input{
+        text-align: right;
+        padding: 0px;
+        font-size: 12px;
+    }
+
+    .cart_list_box button span{
+        font-size: 12px;
+    }
+
+    .cart_list_box button{
+        font-size: 12px;
+    }
+
+    /* m_cartList.html end ============================================================*/
 
 }
 
