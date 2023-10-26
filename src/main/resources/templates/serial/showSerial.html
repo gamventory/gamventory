@@ -31,14 +31,13 @@
                     </div>
                 </th:block>
             </div>
-            <div class="col-sm-10" style="padding: 0%;">
+            <div class="col-sm-10 text-white"  style="padding: auto; padding-left: 20%;">
                 <div class="container">
-                    <h1>시리얼 조회</h1>
                     <!-- 검색 폼 -->
-                    <form th:action="@{/serials/list}" method="get">
+                    <form th:action="@{/serials/list}" method="get" class="input-group"  style="width: 400px;">
                         <label for="keyword">키워드 :</label>
-                        <input type="text" id="keyword" name="keyword"  th:value="${keyword}" placeholder="사용자 ID나 상품 ID를 입력하세요.">
-                        <button type="submit">검색</button>
+                        <input type="text" style="border-radius: 10px 0 0 10px;" id="keyword" name="keyword" class="form-control" th:value="${keyword}" placeholder="사용자 ID나 상품 ID를 입력하세요.">
+                        <button class="btn bg-primary text-white" style="border-radius: 0 10px 10px 0;" type="submit">검색</button>
                     </form>
 
                     <div th:each="serial : ${serials}">
