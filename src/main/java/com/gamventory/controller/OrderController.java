@@ -126,6 +126,9 @@ public class OrderController {
         //     System.out.println("------------------------");
         // }
 
+        String email = principal.getName();
+
+        model.addAttribute("email", email);
         model.addAttribute("serials", serials);
         model.addAttribute("orders", ordersHistDtoList);
         model.addAttribute("page", pageable.getPageNumber());

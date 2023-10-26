@@ -21,7 +21,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**"))
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/purchase")))
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/members/login")
@@ -37,6 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
+                                        new AntPathRequestMatcher("/purchase"),
                                         new AntPathRequestMatcher("/js/**"),
                                         new AntPathRequestMatcher("/favicon/**"),
                                         new AntPathRequestMatcher("/img/**"),
