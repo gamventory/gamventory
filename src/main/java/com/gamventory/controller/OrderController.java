@@ -126,9 +126,6 @@ public class OrderController {
         //     System.out.println("------------------------");
         // }
 
-        String email = principal.getName();
-
-        model.addAttribute("email", email);
         model.addAttribute("serials", serials);
         model.addAttribute("orders", ordersHistDtoList);
         model.addAttribute("page", pageable.getPageNumber());
@@ -152,10 +149,16 @@ public class OrderController {
 
      //구매페이지
     @GetMapping(value="/order/{itemId}")
-    public String orderPage(Model model,  @PathVariable("itemId") Long itemId) {
+    public String orderPage(Model model,  @PathVariable("itemId") Long itemId, Principal principal) {
              
          ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
-         model.addAttribute("item", itemFormDto);
+         String email = principal.getName();
+         System.out.println(email+"이메일아이디값임");
+
+
+        model.addAttribute("item", itemFormDto);
+        model.addAttribute("email", email);
+
 
         return "order/order";
     }

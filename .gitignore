@@ -43,3 +43,6 @@ application.properties
 
 # application-test.properties 파일 무시
 application-test.properties
+
+# 결제시크릿키 파일무시
+Payment.application.properties
