@@ -41,17 +41,44 @@
             var header = $("meta[name='_csrf_header']").attr("content");
 
             var itemId = $("#itemId").val();  // 상품 아이디를 가져옵니다.
-            var goOrderPage = confirm("구매 페이지로 이동하시겠습니까?");
+            var url = "/order/" + itemId;  // URL을 동적으로 구성합니다.
             
             var paramData = {
                 itemId: itemId,
                 count: $("#count").val()
             };
 
-            if (goOrderPage) {
-                // 사용자가 '예'를 선택하면 /order/{itemId}로 리디렉션합니다.
-                location.href = '/order/' + itemId;
-            }
+            // 서버에 보낼 주문데이터 JSON타입으로 변경
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                contentType: "application/json",
+                data: param,
+                beforeSend: function (xhr) {
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType: "json",
+                cache: false,
+                success: function (result, status) {
+                    // 사용자에게 구매 페이지로 이동할지 물어봅니다.
+                    var goOrderPage = confirm("구매 페이지로 이동하시겠습니까?");
+                    if (goOrderPage) {
+                        // 사용자가 '예'를 선택하면 /order/{itemId}로 리디렉션합니다.
+                        location.href = '/order/' + itemId;
+                    }
+                },
+                error: function (jqXHR, status, error) {
+                    if (jqXHR.status == '401') {
+                        alert('로그인 후 이용해주세요');
+                        location.href = '/members/login';
+                    } else {
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
         }
 
         function addCart(){
@@ -97,40 +124,12 @@
     </script>
 </th:block>
 
-<!-- 사용자 CSS 추가 -->
-<th:block layout:fragment="css">
-    <style>
-        .mgb-15{
-            margin-bottom:15px;
-        }
-        .mgt-30{
-            margin-top:30px;
-        }
-        .mgt-50{
-            margin-top:50px;
-        }
-        .repImgDiv{
-            margin-right:15px;
-            height:auto;
-            width:50%;
-        }
-        .repImg{
-            width:100%;
-            height:400px;
-        }
-        .wd50{
-            height:auto;
-            width:50%;
-        }
-    </style>
-</th:block>
-
 <!-- content -->
-<div layout:fragment="content" style="margin-left:25%;margin-right:25%">
+<div layout:fragment="content">
 
     <form th:action="@{/order/{id}(id=${item.id})}" method="post">
-
-        <div id="item_detail_box">
+        
+        <div class="container item_detail_box p-5">
 
             <!-- CSRF 토큰 추가 -->
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
@@ -142,8 +141,6 @@
                     <div id="item_detail_box_img" class="col-sm-7">
                         <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; height: 100%;" th:alt="${item.itemNm}">
                     </div>
-                    
-                    <hr class="my-4">
 
                     <div id="item_detail_box_buy" class="col-sm-5 pt-3" style="text-align: left;">
                         <span th:if="${item.itemSellStatus == T(com.gamventory.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15">
@@ -184,16 +181,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
         </div>
     </form>
     <!-- /.등록된 상품 이미지 보여주는 곳-->
-    <div class="jumbotron jumbotron-fluid mgt-30 container">
-        <div class="container">
-            <h4 class="display-5">상품 상세 설명</h4>
-            <hr class="my-4">
-            <p class="lead" th:text="${item.itemDetail}"></p>
-        </div>
+
+    <!-- 상세 설명 -->
+    <div class="container text-white mt-5" style="margin-bottom: 100px;">
+        <h4>상품 상세 설명</h4>
+        <hr class="my-4" style="border: 1px solid rgb(190, 190, 190);">
+        <p class="lead" th:text="${item.itemDetail}"></p>
     </div>
 
 </div>

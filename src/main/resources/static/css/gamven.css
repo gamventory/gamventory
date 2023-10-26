@@ -4,9 +4,6 @@
 .nanum { font-family: 'Nanum Barun Gothic'; } 
 
 
-
-/* base */
-
 body{
     margin: 0px;
     padding: 0px;
@@ -38,7 +35,14 @@ td {
     max-width: 70px; /* 텍스트의 최대 너비를 화면에 맞게 설정 */
 }
 
+.bg-orange{
+    background-color: rgb(236, 162, 25);
+}
 
+
+.bg-orange:hover{
+    filter: brightness(0.8);
+}
 /* base end ============================================*/
 
 
@@ -298,6 +302,9 @@ td {
     height : 45px;
     font-size : 15px;
 }
+
+
+
 /* memberinfo end ================================================*/
 
 
@@ -587,8 +594,8 @@ td {
     }
 
     #memberinfo_box a{
-        width: 130px;
-        font-size: 13px;
+        width: 100px;
+        font-size: 12px;
     }  
     /* m_memberInfo.html end ================================================*/
 

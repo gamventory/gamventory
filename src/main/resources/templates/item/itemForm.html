@@ -203,7 +203,7 @@
                         
                         <!-- 상품아이디가 없는 경우-->
                         <div th:if="${#strings.isEmpty(itemFormDto.id)}" style="text-align: center">
-                            <button th:formaction="@{/admin/item/new}" type="submit" class="btn btn-primary">저장</button>
+                            <button th:formaction="@{/admin/item/new}" type="submit" class="btn text-white" style="background-color: #25a5b6;">저장</button>
                         </div>
                         <!-- /. 상품아이디가 없는 경우 -->
             
