@@ -1,5 +1,6 @@
 package com.gamventory.service;
 
+import com.gamventory.dto.MemberPasswordDto;
 import com.gamventory.dto.MemberUpdateFormDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.userdetails.User;
@@ -42,7 +43,9 @@ public class MemberService implements UserDetailsService {
        MemberUpdateFormDto memberUpdateForm = MemberUpdateFormDto.builder()
                .name(member.getName())
                .email(member.getEmail())
-               .address(member.getStreetAddress())
+               .zipCode(member.getZipcode())
+               .streetAddress(member.getStreetAddress())
+               .detailAddress(member.getDetailAddress())
                .build();
 
         return memberUpdateForm;
@@ -68,6 +71,24 @@ public class MemberService implements UserDetailsService {
         memberRepository.save(member);
 
         return member.getId();
+    }
+
+    public Member updatePassword(MemberPasswordDto memberPasswordDto, String email) {
+
+        Member member = memberRepository.findByEmail(email);
+
+        member.modifyMemberPassword(memberPasswordDto, passwordEncoder);
+
+        memberRepository.save(member);
+
+        return member;
+    }
+
+    public void deleteMember(String email) {
+
+        Member member = memberRepository.findByEmail(email);
+
+        memberRepository.delete(member);
     }
 
     public int checkPassword(String email, String password) {
