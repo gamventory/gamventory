@@ -96,7 +96,7 @@ public class ListController {
     //     return "/list/list";
     // }
     
-    @GetMapping("/test")
+    @GetMapping("/listsearch")
     public String searchItems(ItemFilterSearchDto searchDto, Model model, @PageableDefault(size = 20) Pageable pageable) {
         Page<MainItemDto> items = itemService.findItemsByCriteria(searchDto, pageable);
 
@@ -114,8 +114,9 @@ public class ListController {
 
         model.addAttribute("items", items);
         model.addAttribute("searchDto", searchDto);  
+        model.addAttribute("maxPage", 5);  // 한페이지당 최대 보여줄 페이지 이동수
 
-        return "list/test"; // 검색 결과를 표시할 뷰 페이지
+        return "list/listsearch"; // 검색 결과를 표시할 뷰 페이지
     }
     
 }

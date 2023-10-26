@@ -46,14 +46,13 @@
         </div>
 
        <!-- 검색 폼 -->
-        <form th:action="@{/test}" method="get">
+        <form th:action="@{/listsearch}" method="get">
             <div class="row">
                 <!-- Platform Filter -->
                 <div class="col-md-3 form-group">
                     <label for="platform">플랫폼:</label>
                     <select class="form-control" id="platform" name="platform">
                         <option value="">-- 모든 플랫폼 --</option>
-                        <option value="ALL" th:selected="${searchDto.platform == 'ALL'}">모두</option>
                         <option value="STEAM" th:selected="${searchDto.platform == 'STEAM'}">Steam</option>
                         <option value="EPIC_GAMES" th:selected="${searchDto.platform == 'EPIC_GAMES'}">Epic Games</option>
                         <option value="ROCKSTAR_GAMES" th:selected="${searchDto.platform == 'ROCKSTAR_GAMES'}">Rockstar Games</option>
@@ -66,7 +65,6 @@
                     <label for="category">카테고리:</label>
                     <select class="form-control" id="category" name="category">
                         <option value="">-- 모든 카테고리 --</option>
-                        <option value="ALL" th:selected="${searchDto.category == 'ALL'}">모두</option>
                         <option value="ACTION" th:selected="${searchDto.category == 'ACTION'}">액션</option>
                         <option value="RPG" th:selected="${searchDto.category == 'RPG'}">RPG</option>
                         <option value="ADVENTURE" th:selected="${searchDto.category == 'ADVENTURE'}">어드벤처</option>
@@ -137,7 +135,7 @@
 
                         <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
                             <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                                <span aria-hidden='true'>이전</span>
+                                <span aria-hidden='true'>&laquo;</span>
                             </a>
                         </li>
 
@@ -147,7 +145,7 @@
 
                         <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
                             <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-                                <span aria-hidden='true'>다음</span>
+                                <span aria-hidden='true'>&raquo;</span>
                             </a>
                         </li>
 
