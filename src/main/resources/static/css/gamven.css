@@ -404,7 +404,7 @@ td {
 .cart_list_box{
     background-color: #343541 !important;
     border-radius: 20px;
-    margin-bottom : 100px !important;
+    margin-bottom : 60px !important;
     padding : 40px;
 
 }
@@ -426,6 +426,7 @@ td {
 
 #order_box table{
     font-size: 13px;
+    width: 60%;
 }
 /* orde.html end   ================================================*/
 
@@ -482,9 +483,14 @@ td {
         margin-top: 40px;
     }
 
-    .buy{
-        font-size: 12px;
+    .fs12{
+        font-size: 12px !important;
     }
+
+    .fs15{
+        font-size: 15px !important;
+    }
+
 
     
 
@@ -737,6 +743,20 @@ td {
         font-size: 12px;
     }
     /* m_itemForm end ==========================================================*/
+
+
+
+
+    /* m_order.html start ========================================================*/
+
+    #order_box table{
+        width: 90%;
+    }
+
+
+    /* m_order.html end ==========================================================*/
+
+
 
 
 
