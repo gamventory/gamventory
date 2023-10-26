@@ -141,8 +141,8 @@
                     <div id="item_detail_box_img" class="col-sm-7">
                         <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; height: 100%;" th:alt="${item.itemNm}">
                     </div>
-
-                    <div id="item_detail_box_buy" class="col-sm-5 pt-3" style="text-align: left;">
+                   
+                    <div id="item_detail_box_buy" class="col-sm-5 pt-3" style="text-align: left; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         <span th:if="${item.itemSellStatus == T(com.gamventory.constant.ItemSellStatus).SELL}" class="badge badge-primary mgb-15">
                             판매중
                         </span>
