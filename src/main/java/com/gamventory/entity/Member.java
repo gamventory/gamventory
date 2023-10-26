@@ -92,15 +92,14 @@ public class Member extends BaseEntity {
         this.password = newPassword;
     }
 
-    public static Member createSocialMember(String name, String email, String socialProvider, String socialId,
-                                            PasswordEncoder passwordEncoder) {
+    public static Member createSocialMember(String name, String email, String socialProvider, String socialId) {
 
-        String dummyPassword = passwordEncoder.encode("dummy_password_" + System.currentTimeMillis());
+        //String dummyPassword = passwordEncoder.encode("dummy_password_" + System.currentTimeMillis());
 
         return Member.builder()
                 .name(name)
                 .email(email)
-                .password(dummyPassword)
+                .password("dummy_password_" + System.currentTimeMillis())
                 .socialProvider(socialProvider)
                 .socialId(socialId)
                 .role(Role.USER)
