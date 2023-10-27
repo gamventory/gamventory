@@ -67,6 +67,10 @@ dependencies {
 
 	// modelmapper -> 서로 다른 객체의 필드명이 같다면 복사한 뒤 객체 반환 하는 라이브러리
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+
+
+	// nemo829 notice
+	 implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 
 

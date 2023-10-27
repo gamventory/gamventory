@@ -135,7 +135,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">상품명</span>
                             </div>
-                            <input type="text" th:field="*{itemNm}" class="form-control" placeholder="상품명을 입력해주세요">
+                            <input type="text" th:field="*{itemNm}" class="form-control fs12" style="font-size: 17px;" placeholder="상품명을 입력해주세요">
                         </div>
                         <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="fieldError">Incorrect data</p>
             
@@ -143,7 +143,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">가격</span>
                             </div>
-                            <input type="number" th:field="*{price}" class="form-control" placeholder="상품의 가격을 입력해주세요">
+                            <input type="number" th:field="*{price}" class="form-control fs12" style="font-size: 17px;" placeholder="상품의 가격을 입력해주세요">
                         </div>
                         <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="fieldError">Incorrect data</p>
             
@@ -151,7 +151,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">재고</span>
                             </div>
-                            <input type="number" th:field="*{stockNumber}" class="form-control" placeholder="상품의 재고를 입력해주세요">
+                            <input type="number" th:field="*{stockNumber}" class="form-control fs12" style="font-size: 17px;" placeholder="상품의 재고를 입력해주세요">
                         </div>
                         <p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}" class="fieldError">Incorrect data</p>
             
@@ -203,7 +203,7 @@
                         
                         <!-- 상품아이디가 없는 경우-->
                         <div th:if="${#strings.isEmpty(itemFormDto.id)}" style="text-align: center">
-                            <button th:formaction="@{/admin/item/new}" type="submit" class="btn text-white" style="background-color: #25a5b6;">저장</button>
+                            <button th:formaction="@{/admin/item/new}" type="submit" class="btn text-white bg-primary" style="background-color: #25a5b6;">저장</button>
                         </div>
                         <!-- /. 상품아이디가 없는 경우 -->
             
