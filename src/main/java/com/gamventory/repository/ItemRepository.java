@@ -21,6 +21,9 @@ public interface ItemRepository extends JpaRepository<Item, Long>,QuerydslPredic
     
     //지정된 가격의보다 작은 금액을 내림차순으로 찾는 쿼리메서드
     List<Item> findByPriceLessThanOrderByPriceDesc(int price);
+
+    Item findByItemNmAndPrice(String itemNm, int price);
+
     
 //     //플랫폼을 기준으로 아이템 목록을 찾는 쿼리메서드
 //     List<Item> findByPlatform(Platform platform);

@@ -26,7 +26,7 @@
     <script th:inline="javascript">
 
         var IMP = window.IMP; 
-        IMP.init("imp67011510"); 
+        IMP.init('imp12522227'); 
       
         var today = new Date();   
         var hours = today.getHours(); // 시
@@ -51,8 +51,10 @@
             }, function (rsp) { // callback
                 if (rsp.success) {
                     console.log(rsp);
+                    console.log("결제가완료되엇습니다.");
                 } else {
                     console.log(rsp);
+                    console.log("결제가 실패했습니다.");
                 }
             });
         }
