@@ -84,7 +84,7 @@
             <!-- fliter end-->
     
     
-            <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px;">
+            <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px; font-size: 14px;">
                 <!-- 상품 이미지 출력 for문-->
                 <div class="row">
                     <th:block th:each="item, status: ${items.getContent()}">
@@ -93,9 +93,10 @@
                                 <a th:href="'/item/' +${item.id}" class="text-dark">
                                     <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300" style="border-radius: 15px;">
                                     <div id="main_game_card_text" class="card-body ">
-                                        <p class="card-title text-white">[[${item.itemNm}]]</p>
-                                        <p class="card-text text-white" style="opacity: 0.5;">[[${item.itemDetail}]]</p>
+                                        <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
+                                        <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p>
                                         <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]원</p>
+                                        <p class="card-title text-white" style="opacity: 0.5;">[[${item.platform}]]</p>
                                     </div>
                                 </a>
                             </div>
@@ -115,7 +116,7 @@
     
                             <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
                                 <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                                    <span aria-hidden='true'>이전</span>
+                                    <span aria-hidden='true'><</span>
                                 </a>
                             </li>
     
@@ -125,10 +126,9 @@
     
                             <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
                                 <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-                                    <span aria-hidden='true'>다음</span>
+                                    <span aria-hidden='true'>></span>
                                 </a>
                             </li>
-    
                         </ul>
                     </div>
                 </div>

@@ -86,17 +86,19 @@ public class SerialPageController {
 
         if (keyword != null && !keyword.trim().isEmpty()) {
             // 키워드가 제공된 경우 검색 기능을 사용
-            List<Serial> searchResults = serialService.searchByKeyword(keyword);
-            serials = SerialDto.fromEntityList(searchResults);
+            serialPage = serialService.searchByKeyword(keyword, PageRequest.of(pageNumber - 1, pageSize));
+            serials = SerialDto.fromEntityList(serialPage.getContent());
             model.addAttribute("isSearchResult", true); // 검색 결과인지 여부
-            model.addAttribute("currentPage", 1);
-            model.addAttribute("totalPages", 1); // 검색 결과는 1페이지로 간주
+            model.addAttribute("currentPage", pageNumber);
+            model.addAttribute("totalPages", serialPage.getTotalPages());
+            model.addAttribute("keyword", keyword); 
         } else {
             // 키워드가 제공되지 않았거나 공백인 경우 원래의 로직을 따름
             serialPage = serialService.getAllSerials(PageRequest.of(pageNumber - 1, pageSize));
             serials = SerialDto.fromEntityList(serialPage.getContent());
             model.addAttribute("currentPage", pageNumber);
             model.addAttribute("totalPages", serialPage.getTotalPages());
+            model.addAttribute("keyword", keyword); 
         }
 
         for (SerialDto serialDto : serials) {

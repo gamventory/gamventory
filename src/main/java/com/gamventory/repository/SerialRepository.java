@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.gamventory.entity.Member;
 import com.gamventory.entity.Serial;
 
 import java.util.List;
@@ -19,5 +20,8 @@ public interface SerialRepository extends JpaRepository<Serial, Long>, SerialCus
 
     //페이징처리 추가된 시리얼 리스트정보 찾기
     Page<Serial> findAll(Pageable pageable);
+
+    List<Serial> findByMember(Member member);
+
 
 }

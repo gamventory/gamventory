@@ -1,6 +1,5 @@
 package com.gamventory.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import java.util.*;
 
 
 import com.gamventory.constant.Platform;
-import com.gamventory.dto.OrderDto;
 import com.gamventory.dto.SerialDto;
 import com.gamventory.entity.Member;
 import com.gamventory.entity.Serial;
@@ -104,7 +102,15 @@ public class SerialService {
     }
 
     //사용자 이메일이나 시리얼 ID로 시리얼목록을 조회하는 메서드
-    public List<Serial> searchByKeyword(String keyword) {
-        return serialRepository.findByKeyword(keyword);
+    public Page<Serial> searchByKeyword(String keyword, Pageable pageable) {
+        return serialRepository.findByKeyword(keyword, pageable);
+    }
+
+    public List<Serial> getSerialsByMemberEmail(String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member != null) {
+            return serialRepository.findByMember(member);
+        }
+        return new ArrayList<>();
     }
 }

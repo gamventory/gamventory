@@ -1,49 +1,98 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Show Serial</title>
-</head>
-<body>
-    <h1>시리얼 조회</h1>
-      <!-- 검색 폼 -->
-    <form th:action="@{/serials/list}" method="get">
-        <label for="keyword">키워드 :</label>
-        <input type="text" id="keyword" name="keyword" placeholder="사용자 ID나 상품 ID를 입력하세요.">
-        <button type="submit">검색</button>
-    </form>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
-    <div th:each="serial : ${serials}">
-        <p><strong>시리얼 ID:</strong> <span th:text="${serial.serialId}"></span></p>
-        <p><strong>상품 ID:</strong> <span th:text="${serial.itemId}"></span></p>
-        <p><strong>시리얼번호:</strong> <span th:text="${serial.serialNumber}"></span></p>
-        <p><strong>플랫폼:</strong> <span th:text="${serial.platform}"></span></p>
-        <!--구매 했을 경우 구매자 아이디 출력, 구매를 안 했을 경우 미판매라고 출력됩니다.-->
-        <span th:if="${serial.member != null}">구매자ID:<div th:text="${serial.member.email}"></div></span> 
-        <span th:if="${serial.member == null}">미판매</span>
-        <!--/. 구매 했을 경우 구매자 아이디 출력, 구매를 안 했을 경우 미판매라고 출력됩니다.-->
+      
+<!-- css link -->
+<link rel="stylesheet" href="/src/main/resources/static/css/gamven.css">
+
+<!-- fontawesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- content -->
+<!-- 상품데이터-->
+<div layout:fragment="content">
+    <div class="container">
+
+        <div class="management_box row">
+            <div class="col-sm-2">
+                <th:block th:replace="~{fragments/sidebar :: sidebarFragment}">
+                    <div id="m_sidebar_button" class="badge bg-white mb-2" style="cursor: pointer;">
+                        <i class="fa fa-cogs text-primary p-1" aria-hidden="true" style="font-size: 15px;"></i>
+                    </div>
+                </th:block>
+            </div>
+            <div class="col-sm-10 text-white"  style="margin-left: -40px; padding: auto; padding-left: 20%; justify-content: center;">
+                <div class="container">
+
+
+                    <!-- 검색 폼 -->
+                    <!-- <form th:action="@{/serials/list}" method="get"  style="width: 400px; margin-bottom: 30px;">
+                        <label class="mr-3 input-group" for="keyword">키워드 :
+                            <input type="text" id="keyword" name="keyword" class="form-control ml-3 fs12" th:value="${keyword}" placeholder="사용자 ID나 상품 ID를 입력하세요.">
+                            <button class="fs12 btn bg-primary text-white fs12" type="submit">검색</button>
+                        </label>                       
+                    </form> -->
+
+                    <form id="show_serial_box" th:action="@{/serials/list}" method="get" style="width: 100%; margin-bottom: 30px; margin-left:-15px;">
+                        <div class="input-group">
+                            <input type="text" id="keyword" name="keyword" class="form-control ml-3 fs12" th:value="${keyword}" placeholder="사용자 ID나 상품 ID를 입력하세요.">
+                            <button class="fs12 btn bg-primary text-white fs12" type="submit">검색</button>
+                        </div>                    
+                    </form>
+
+
+                    <div>
+                        <div id="show_serial_text_box" th:each="serial : ${serials}" class="p-3" style="margin-bottom: 30px; border: 1px solid gray;">
+                            <p><strong>시리얼 ID:</strong> <span th:text="${serial.serialId}"></span></p>
+                            <p><strong>상품 ID:</strong> <span th:text="${serial.itemId}"></span></p>
+                            <p><strong>시리얼번호:</strong> <span th:text="${serial.serialNumber}"></span></p>
+                            <p><strong>플랫폼:</strong> <span th:text="${serial.platform}"></span></p>
+                            <!--구매 했을 경우 구매자 아이디 출력, 구매를 안 했을 경우 미판매라고 출력됩니다.-->
+                            <span th:if="${serial.member != null}">구매자ID:<div th:text="${serial.member.email}"></div></span> 
+                            <span th:if="${serial.member == null}">미판매</span>
+                            <!--/. 구매 했을 경우 구매자 아이디 출력, 구매를 안 했을 경우 미판매라고 출력됩니다.-->
+                        </div>
+
+                        <!-- 페이지 번호 이동 -->
+                        <div class="container d-flex mb-0" style="margin-left: 0px;">
+                            <div id="show_serial_box_paging">
+                                <ul class="pagination fs12">
+                                    <li th:if="${currentPage > 1}" class="page-item">
+                                        <a class="page-link" th:href="@{/serials/list/{page}(page=1,keyword=${keyword})}">First</a>
+                                    </li>
+                                    <li th:if="${currentPage > 1}" class="page-item">
+                                        <a class="page-link" th:href="@{/serials/list/{page}(page=${currentPage - 1},keyword=${keyword})}"><</a>
+                                    </li>
+                                    <li class="page-item" th:each="pageNumber : ${#numbers.sequence(currentPage - 1, currentPage + 1)}" th:if="${pageNumber >= 1 and pageNumber <= totalPages}" th:classappend="${pageNumber == currentPage} ? 'active' : ''">                                           
+                                        <a th:href="@{/serials/list/{page}(page=${pageNumber},keyword=${keyword})}" th:text="${pageNumber}" th:inline="text" class="page-link">[[${page}]]</a>
+                                    </li>
+                                    <li th:if="${currentPage < totalPages}" class="page-item">
+                                        <a class="page-link" th:href="@{/serials/list/{page}(page=${currentPage + 1},keyword=${keyword})}">></a>
+                                    </li>
+                                    <li th:if="${currentPage < totalPages}" class="page-item">
+                                        <a class="page-link" th:href="@{/serials/list/{page}(page=${totalPages},keyword=${keyword})}">Last</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- /.  페이지 번호 이동-->
+                    </div>  
+                    
+                    
+                </div>
+            </div>
+        </div>
     </div>
-
-  <!-- 페이지 번호 이동 -->
-  <div>
-    <ul class="pagination">
-        <li th:if="${currentPage > 1}">
-            <a th:href="@{/serials/list/{page}(page=1)}">First</a>
-        </li>
-        <li th:if="${currentPage > 1}">
-            <a th:href="@{/serials/list/{page}(page=${currentPage - 1})}">Previous</a>
-        </li>
-        <li th:each="pageNumber : ${#numbers.sequence(currentPage - 2, currentPage + 2)}" th:if="${pageNumber >= 1 and pageNumber <= totalPages}">
-            <span th:if="${pageNumber == currentPage}" th:text="${pageNumber}"></span>
-            <a th:if="${pageNumber != currentPage}" th:href="@{/serials/list/{page}(page=${pageNumber})}" th:text="${pageNumber}"></a>
-        </li>
-        <li th:if="${currentPage < totalPages}">
-            <a th:href="@{/serials/list/{page}(page=${currentPage + 1})}">Next</a>
-        </li>
-        <li th:if="${currentPage < totalPages}">
-            <a th:href="@{/serials/list/{page}(page=${totalPages})}">Last</a>
-        </li>
-    </ul>
 </div>
-<!-- /.  페이지 번호 이동-->
-</body>
+
 </html>

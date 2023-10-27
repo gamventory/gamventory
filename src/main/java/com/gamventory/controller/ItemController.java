@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,7 @@ import com.gamventory.dto.ItemSearchDto;
 import com.gamventory.entity.Item;
 import com.gamventory.service.ItemService;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 @Controller
@@ -169,6 +172,23 @@ public class ItemController {
         model.addAttribute("item", itemFormDto);
 
         return "item/itemDtl";
+     }
+
+     @PostMapping(value = "/item/{itemId}")
+     public String itemOrder(@PathVariable("itemId") Long itemId, BindingResult bindingResult, Principal principal){
+
+        if(bindingResult.hasErrors()){
+
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+
+            for (FieldError fieldError : fieldErrors) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+
+        }
+
+        return "/order/order";
      }
     
 }

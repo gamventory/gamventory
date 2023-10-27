@@ -1,14 +1,16 @@
 /* base start ============================================*/
 
-/* base */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+.nanum { font-family: 'Nanum Barun Gothic'; } 
+
 
 body{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
     background : rgb(68,70,84) !important;
-
     padding-top : 140px;
+
 }
 
 ul,li{
@@ -25,6 +27,24 @@ a{
     color : white;
     font-weight: bolder;
 }
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px; /* 텍스트의 최대 너비를 화면에 맞게 설정 */
+}
+
+
+.bg-orange{
+    background-color: rgb(236, 162, 25);
+}
+
+
+.bg-orange:hover{
+    filter: brightness(0.8);
+}
+
 /* base end ============================================*/
 
 
@@ -37,62 +57,76 @@ a{
 
 
 
-/* fragments start ============================================*/
 
+/* header.html start ==========================================*/
 
-/* header start ============*/
-
-
-
-#head{
-    height : 70px;
+#header_box{
     background-color: rgb(32,33,35);
 }
 
-#search_Form{
-    padding-top : 25px;
-    
-}
 
-
-#search_Form>form{
-    margin-left : 10%;
-    width : 80%;
-}
-
-#searchBar{
-    background-color: rgb(150, 150, 150);
+#logo{
+    cursor: pointer;
+    width: 200px;
 }
 
 #header_User {
-    padding-top :  15px;
     color : white;
-    font-weight: bolder;
+    width: 100%;
 }
 
 #header_User i{
     cursor: pointer;
-    font-size : 20px;
+    font-size : 18px;
     background-color: #1ca817;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
-    padding : 10px;
-    transition: 0.5s;
+    padding : 6px;
 }
 
-#header_User i:nth-child(1):hover{
-    background-color: #595959;
+
+#management_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
 }
 
-#header_User i:nth-child(2):hover{
-    background-color: #ce7e0d;
+#management_button:hover{
+    background-color: rgb(216, 216, 216);
 }
+
+#user_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#user_button:hover{
+    background-color: rgb(216, 216, 216);
+}
+
+#cart_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#cart_button i{
+    background-color: rgb(236, 162, 25);
+}
+
+#cart_button:hover{
+    background-color: rgb(216, 216, 216);
+}
+
 
 
 #nav{
-    padding-bottom : 2px;
-    background-color: rgb(32,33,35);
+    padding-bottom : 1px;
 }
 
 
@@ -106,16 +140,16 @@ a{
     margin-right: 10px;
 }
 
-#user_Modal{
+#user_modal{
     width : 200px;
     position: absolute;
-    top : 60px;
+    top : 50px;
     display: none;
     font-size : 15px;
-    left : -80px;
+    right : 45px;
 }
 
-#user_Modal>div{
+#user_modal>div{
     background-color: rgb(65, 84, 112, 0.9);
     border-radius: 10px;
     margin-right : -10px;
@@ -126,32 +160,36 @@ a{
     line-height: 30px;
 }
 
+/* header end ================================================*/
 
 
-
-/* header end ============*/
-
-
-
-
-
-/*footer start ===========*/
-
-#footer{
-    background-color: rgb(68,70,84);
+/*sidebar.html start ================================================*/
+#sidebar{
+    font-size: 15px;
 }
+
+/*sidebar.html end ==================================================*/
+
+
+
+
+
+
+
+/*footer start ===============================================*/
 
 #footer>div{
-    height: 300px;
-    bottom: 0;
+    margin-left: auto !important;
 }
 
-/*footer ends ===========*/
+#footer img{
+    width: 155px;
+}
+/*footer ends ================================================*/
 
 
 
 
-/* fragments end ============================================*/
 
 
 
@@ -209,7 +247,7 @@ a{
 
 
 
-/* memberForm start ================================================*/
+/* memberForm.html start ================================================*/
 
 #singup_box{
     margin-top : 80px;
@@ -227,27 +265,33 @@ a{
 }
 
 
-/* memberForm end ==================================================*/
+/* memberForm.html end ==================================================*/
 
 
 
-/* memberLogin start ================================================*/
+/* memberLogin.html start ================================================*/
 
 #login_box{
     margin-top : 180px;
     margin-bottom : 200px;
-    margin-left:40%;   
+    display: grid;
+    place-items: center;
 }
 
 #login_box input{
     width : 400px;
 }
 
-/* memberLogin end ================================================*/
+#login_box div:nth-child(3){
+    margin-left:-140px;
+}
+
+
+/* memberLogin.html end ================================================*/
 
 
 
-/* memberinfo start ================================================*/
+/* memberinfo.html start ================================================*/
 #memberinfo_box{
     margin-top : 150px;
     margin-bottom : 200px;
@@ -260,22 +304,57 @@ a{
     height : 45px;
     font-size : 15px;
 }
-/* memberinfo end ================================================*/
 
 
-/* memberUpdate start ================================================*/
+
+/* memberinfo.html end ================================================*/
+
+
+/* memberUpdate.html start ================================================*/
 #member_update_box{
+    color: white;
+    width: 500px;
+    margin: auto;
     margin-top : 100px;
-    margin-bottom : 130px;
-    padding-left : 17%;
+    margin-bottom: 130px;
 }
 
+/* memberUpdate.html end ================================================*/
 
-#member_update_box input{
-    width : 500px;
+
+
+
+/* memberPasswordUpdate.html start ================================================*/
+
+#password_update_box{
+    color: white;
+    width: 500px;
+    margin: auto;
+    margin-top : 100px;
+    margin-bottom: 130px;
 }
 
-/* memberUpdate end ================================================*/
+#password_update_box button{
+    margin-top: 15px;
+}
+
+/* memberPasswordUpdate.html end ================================================*/
+
+
+
+
+
+/* memberDelete.html start ================================================*/
+
+#member_delete_box{
+    color: white;
+    width: 500px;
+    margin: auto;
+    margin-top : 100px;
+    margin-bottom: 300px;
+}
+
+/* memberDelete.html end ================================================*/
 
 
 
@@ -284,7 +363,7 @@ a{
 
 
 
-/* itemDtl start ================================================*/
+/* itemDtl.html start ================================================*/
 .item_detail_box{
 
     padding-top : 50px;
@@ -295,27 +374,31 @@ a{
 
 .item_detail_box img{
     width : 100%;
-    height: 600px;
 }
 
 
-/* itemDtl end ==================================================*/
+/* itemDtl.html end ==================================================*/
 
 
 
 
-/* itemForm start ================================================*/
+/* itemForm.html start ================================================*/
 
 #item_form{
     width : 70%;
 }
+
+#item_form div input{
+    font-size: 20px;
+}
+
 
 #item_form button{
     float : left;
     margin-right : 10px;
 }
 
-/* itemForm end ================================================*/
+/* itemForm.html end ================================================*/
 
 
 
@@ -323,13 +406,20 @@ a{
 
 
 
-/* cartList start ================================================*/
+/* cartList.html start ================================================*/
 .cart_list_box{
     background-color: #343541 !important;
     border-radius: 20px;
-    margin-bottom : 100px !important;
+    margin-bottom : 60px !important;
+    padding : 40px;
+
 }
-/* cartList end   ================================================*/
+
+.cart_list_box input{
+    padding: 0px;
+    text-align: right;
+}
+/* cartList.html end   ================================================*/
 
 
 
@@ -339,18 +429,43 @@ a{
     background-color: #343541;
     border-radius:20px;
 }
+
+#order_box table{
+    font-size: 13px;
+    width: 60%;
+}
 /* orde.html end   ================================================*/
 
 
 
 
-/* management_box start   ================================================*/
+/* management_box.html start   ================================================*/
 
 .management_box{
     margin-top: 100px;
     margin-bottom : 100px;
 }
-/* management_box end   ================================================*/
+/* management_box.html end   ================================================*/
+
+
+/* showSerial.html start ====================================================*/
+
+#show_serial_text_box{
+    border-radius: 15px;
+    background-color: #4d4f5c;
+    margin: auto;
+}
+
+#show_serial_text_box:hover{
+    background-color: #3a3c47;
+}
+
+#show_serial_box_paging{
+    margin: auto;
+}
+
+
+/* showSerial.html end   ====================================================*/
 
 
 
@@ -361,142 +476,381 @@ a{
 
 
 
-/* 모바일 화면============================================================================*/
-/* 모바일 화면============================================================================*/
 
-#m_header{
+
+
+
+
+#m_sidebar_button{
     display: none;
 }
 
+#m_sidebar{
+    display: none;
+}
+
+
+
 @media screen and (max-width:767px) {
 
-
-    /* m_header  start============================================================================*/
-    /* m_header  start============================================================================*/
-    #header_box{
-        display: none;
+    /* m_base */
+    .management_box{
+        margin-top: 30px;
+        font-size: 12px;
+        margin-bottom: 600px;
     }
 
-    #m_header{
-        display: block;
-        margin-bottom: -30px;
-    }
-
-    #m_header_box{
-        background-color: rgb(32,33,35);
-        height: 80px;
-        color: white;
-    }
-
-
-    #m_header_User{
-        top : -5px;
-    }
-
-    #m_header_User i{
-        cursor: pointer;
-        color:white;
-        margin-right: 10px;
-        font-size: 15px;
-        background-color: #1ca817;
-        width: 25px;
-        height: 25px;
-        border-radius: 5px;
-        transition: 0.5s;
-        padding : 5px;
-    }
-
-    #m_header_User i:nth-child(1):hover{
-        background-color: #5c5c5c;
-    }
-
-    #m_header_User i:nth-child(2):hover{
-        background-color: #df9a4b;
-    }
-
-
-
-
-    #m_user_Modal{
-        width : 200px;
+    .management_box>div:nth-child(2){
+        margin-top: 20px;
+        margin-top: 40px;
         position: absolute;
-        top : 53px;
-        display: none;
-        font-size : 12px;
-        left : -50px;
+        margin: auto;
+        margin-top: 40px;
     }
 
-    #m_user_Modal>div{
-        background-color: rgb(65, 84, 112, 0.9);
+    .fs12{
+        font-size: 12px !important;
+    }
+
+    .fs15{
+        font-size: 15px !important;
+    }
+
+
+    
+
+
+
+    /* m_header.html start   ================================================*/
+
+    #logo{
+    margin-left : -15px;
+    margin-top: 5px;
+    width: 110px;
+    }
+
+    #header_User i{
+        width : 25px;
+        height: 25px;
+        font-size: 10px;
+        padding: 7px;
+    }
+
+    #user_modal{
+        margin-top: -5px;
+        margin-right: -115px;
+    }
+
+    #user_modal>div{
+        font-size: 13px;
         border-radius: 10px;
-        margin-right : -10px;
-        width : 130px;
+        width : 150px;
         text-align: center;
         padding-top : 10px;
         padding-bottom : 10px;
         line-height: 30px;
     }
 
-    #m_nav{
-        padding-bottom : 2px;
-        background-color: rgb(32,33,35);
+    #management_button,#user_button,#cart_button{
+        background : none;
+        width: 25px;
+    }
+
+    #management_button i:hover{
+        background-color: #0068d6 !important;
+    }
+
+    #user_button i:hover{
+        background-color: #1b8d17 !important;
+    }
+
+    #cart_button i:hover{
+        background-color: rgb(204, 141, 25) !important;
+    }
+
+    #header_User span{
+        display: none;
+    }
+
+    #nav{
+        left : -20px;
+        font-size: 10px;
+        padding-left : 0px;
+    }
+    /* m_header.html end   ================================================*/
+
+
+
+
+
+    /* m_footer.html start   ===============================================*/
+    #footer img{
+        display: none;
+        width: 100px;
+    }
+    /* m_footer end   ================================================*/
+
+
+
+
+    /* m_sidebar.html start   ===============================================*/
+
+    #sidebar{
+        display: none;
+    }
+
+    #m_sidebar{
+        font-size: 12px;
+        width: 110px;
+        transition: 0.5s;
+        margin-left: -250px;
+        display: block;
+        position: absolute;
+        z-index: 9999;
+    }
+
+    #m_sidebar h3{
+        font-size: 20px;
+    }
+
+    #m_sidebar_button{
+        display:inline-block;
+    }
+
+    /* m_sidebar.html end  ==================================================*/
+
+
+
+    /* m_memberLogin.html start   ===============================================*/
+    #login_box{
+        margin-top : 30px;
+        font-size: 13px;
+    }
+
+    #login_box input{
+        font-size: 13px;
+        width: 110%;
+    }
+
+    #login_box div:nth-child(3){
+        margin-left: 40px;
+    }
+
+    #login_box div:nth-child(3) button{
         font-size : 12px;
     }
+    /* m_memberLogin.html end ================================================*/
 
 
-    #m_nav ul{
-        padding-left : 10px;
+
+
+    /* m_memberInfo.html start ================================================*/
+
+    #memberinfo_box{
+        margin-top: 30px;
     }
 
-    #m_nav li{
-        display : inline-block;
-        margin-right: 10px;
+    #memberinfo_box a{
+        width: 100px;
+        font-size: 12px;
+    }  
+    /* m_memberInfo.html end ================================================*/
+
+
+    /* m_memberPasswordUpdate.html start ================================================*/
+    
+    #password_update_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 70%;
     }
-    /* m_header  end============================================================================*/
-    /* m_header  end============================================================================*/
 
-
-
-
-    /* main.html start============================================================================*/
-    /* main.html start============================================================================*/
-    #img_slider{
-        margin-top:-30px;
+    #password_update_box button{
+        font-size: 12px;
     }
 
-    /* main.html end============================================================================*/
-    /* main.html end============================================================================*/
+    #password_update_box input{
+        font-size: 12px;
+    }
+    
+    /* m_memberPasswordUpdate.html end ================================================*/
+
+
+    /* m_memberUpdate.html start ================================================*/
+    
+    #member_update_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 70%;
+    }
+
+    #member_update_box button{
+        font-size: 12px;
+    }
+    
+    #member_update_box div input{
+        font-size: 12px;
+    }
+
+
+    /* m_memberUpdate.html end ================================================*/
+
+
+
+
+
+    /* m_memberDelete.html start ================================================*/
+    
+    #member_delete_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 80%;
+    }
+
+    #member_delete_box button{
+        font-size: 12px;
+    }
+    
+    #member_delete_box div input{
+        font-size: 12px;
+    }
+
+
+    /* m_memberDelete.html end ================================================*/
+
+
+
+
+
+
+    /* m_itemMng start ========================================================*/
+
+    #itemMng_search select{
+        font-size: 11px;
+        margin-right: 5px;
+    }
+
+    #itemMng_search input{
+        width: 50%;
+        margin-top: 20px;
+        font-size: 11px;      
+    }
+
+    #itemMng_search button{
+        font-size: 11px;
+        margin-top: 20px;
+    }
+       
+    /* m_itemMng end ==========================================================*/
+
+
+
+    /* m_itemForm start ========================================================*/
+
+
+    #item_form{
+        width: 90%;
+    }
+
+    #item_form select{
+        font-size: 12px;
+    }
+
+    #item_form div button{
+        font-size: 12px;
+    }
+
+    #item_form div div span{
+        font-size: 12px;
+    }
+
+    #item_form div input{
+        font-size: 12px;
+    }
+    /* m_itemForm end ==========================================================*/
+
+
+
+
+    /* m_order.html start ========================================================*/
+
+    #order_box table{
+        width: 90%;
+    }
+
+
+    /* m_order.html end ==========================================================*/
+
+
+
+
+
+    /* m_createSerial.html start ==========================================================*/
+    #createSerial_table{
+        width: 100% !important;
+    }
+
+    #createSerial_table button{
+        margin-top: -5px;
+        font-size: 11px;
+    }
+
+    /* m_createSerial.html end ============================================================*/
+
+
+
+
+    /* m_showSerail.html start ==========================================================*/
+    #show_serial_box{
+        width: 100% !important;
+        
+    }
+    
+
+    #show_serial_box_paging a{
+        font-size : 10px;
+    }
+
+    /* m_showSerail.html end ============================================================*/
+
+
+
+
+
+
+    /* m_cartList.html start ==========================================================*/
+
+    .cart_list_box{
+        padding : 10px;
+        padding-top : 30px;
+    }
+    
+
+    .cart_list_box table th{
+        font-size: 12px;
+    }
+
+    .cart_list_box table td{
+        font-size: 12px;
+    }
+
+    .cart_list_box table input{
+        text-align: right;
+        padding: 0px;
+        font-size: 12px;
+    }
+
+    .cart_list_box button span{
+        font-size: 12px;
+    }
+
+    .cart_list_box button{
+        font-size: 12px;
+    }
+
+    /* m_cartList.html end ============================================================*/
+
 }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 모바일 화면============================================================================*/
-/* 모바일 화면============================================================================*/
