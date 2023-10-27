@@ -5,15 +5,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.batch.Main;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
-import com.gamventory.constant.Category;
 import com.gamventory.constant.ItemSellStatus;
-import com.gamventory.constant.Platform;
 import com.gamventory.dto.ItemFilterSearchDto;
 import com.gamventory.dto.ItemSearchDto;
 import com.gamventory.dto.MainItemDto;
@@ -22,11 +19,8 @@ import com.gamventory.entity.Item;
 import com.gamventory.entity.QItem;
 import com.gamventory.entity.QItemImg;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

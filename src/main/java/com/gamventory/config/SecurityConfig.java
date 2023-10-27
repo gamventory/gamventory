@@ -1,5 +1,7 @@
 package com.gamventory.config;
 
+import com.gamventory.security.oauth2.CustomOAuth2UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,13 +16,15 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-
+    private final CustomOAuth2UserService customOAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+//                .csrf(AbstractHttpConfigurer::disable)
                 .csrf((csrf) -> csrf
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**"))
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/purchase")))
@@ -39,12 +43,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
+<<<<<<< HEAD
+                                        new AntPathRequestMatcher("/notices/**"),
+=======
                                         new AntPathRequestMatcher("/purchase"),
+>>>>>>> sonwonduk
                                         new AntPathRequestMatcher("/js/**"),
-                                        new AntPathRequestMatcher("/favicon/**"),
+                                        new AntPathRequestMatcher("/favicon.ico"),
                                         new AntPathRequestMatcher("/img/**"),
                                         new AntPathRequestMatcher("/"),
                                         new AntPathRequestMatcher("/members/login"),
+                                        new AntPathRequestMatcher("/members/login/oauth2/**"),
                                         new AntPathRequestMatcher("/members/new"),
                                         new AntPathRequestMatcher("/members/find/**"),
                                         new AntPathRequestMatcher("/item/**"),
@@ -67,8 +76,13 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         // ALWAYS, IF_REQUIRED, NEVER, STATLESS
                         // ALWAYS 항상 새로운 세션을 사용하도록
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
-
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .oauth2Login(oAuth2LoginConfigurer -> oAuth2LoginConfigurer
+                        .loginPage("/members/login")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/members/login/error")
+                        .userInfoEndpoint(endpoint -> endpoint
+                                .userService(customOAuth2UserService)));
                 /*
                 현재 세션 상황을 ALWAYS로 설정 했음
                 어디 까지 영향이 갈지 모르겠음

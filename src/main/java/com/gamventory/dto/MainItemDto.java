@@ -2,8 +2,6 @@ package com.gamventory.dto;
 
 import java.text.NumberFormat;
 
-import com.gamventory.constant.Category;
-import com.gamventory.constant.Platform;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Getter;

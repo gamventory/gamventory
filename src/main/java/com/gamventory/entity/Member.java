@@ -2,6 +2,7 @@ package com.gamventory.entity;
 
 import com.gamventory.dto.MemberPasswordDto;
 import com.gamventory.dto.MemberUpdateFormDto;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.gamventory.constant.Role;
@@ -15,17 +16,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 @Entity
 @Table(name = "member")
-@Getter
-@Setter
+@Data
 @ToString
 @Builder
 @AllArgsConstructor
@@ -35,7 +29,7 @@ public class Member extends BaseEntity {
     // 회원마다 존재하는 회원번호 -> 자동증가
     @Id
     @Column(name = "member_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // 이름
@@ -60,6 +54,12 @@ public class Member extends BaseEntity {
     // 계정 등급
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    // 소셜 로그인 제공자
+    private String socialProvider;
+
+    // 소셜 로그인 제공자의 사용자 ID
+    private String socialId;
 
     // 회원 가입 메소드(MemberFormDto, PasswordEncoder)
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
@@ -90,6 +90,20 @@ public class Member extends BaseEntity {
 
         String newPassword = passwordEncoder.encode(memberPasswordDto.getNewPassword());
         this.password = newPassword;
+    }
+
+    public static Member createSocialMember(String name, String email, String socialProvider, String socialId) {
+
+        //String dummyPassword = passwordEncoder.encode("dummy_password_" + System.currentTimeMillis());
+
+        return Member.builder()
+                .name(name)
+                .email(email)
+                .password("dummy_password_" + System.currentTimeMillis())
+                .socialProvider(socialProvider)
+                .socialId(socialId)
+                .role(Role.USER)
+                .build();
     }
 
 }

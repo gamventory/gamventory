@@ -1,6 +1,5 @@
 package com.gamventory.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,6 @@ import java.util.*;
 
 
 import com.gamventory.constant.Platform;
-import com.gamventory.dto.OrderDto;
 import com.gamventory.dto.SerialDto;
 import com.gamventory.entity.Member;
 import com.gamventory.entity.Serial;

@@ -3,7 +3,6 @@ package com.gamventory.dto;
 import java.time.LocalDateTime;
 
 import com.gamventory.constant.Category;
-import com.gamventory.constant.ItemSellStatus;
 import com.gamventory.constant.Platform;
 
 import lombok.Getter;

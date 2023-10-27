@@ -5,8 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-src/main/resources/application.properties
-src/main/resources/shopping.vuerd.json
+
 
 ### STS ###
 .apt_generated
@@ -27,6 +26,12 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+application.properties
+application-oauth.properties
+application-mail.properties
+application-db.properties
+shopping.vuerd.json
+
 
 ### NetBeans ###
 /nbproject/private/
@@ -42,6 +47,10 @@ out/
 application.properties
 
 # application-test.properties 파일 무시
+/application-test.properties
+/application-oauth.properties
+/application-mail.properties
+/application-db.properties
 application-test.properties
 
 # 결제시크릿키 파일무시

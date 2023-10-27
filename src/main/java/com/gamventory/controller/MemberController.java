@@ -69,8 +69,9 @@ public class MemberController {
     @GetMapping(value = "/update")
     public String memberUpdate(Model model, Principal principal) {
 
+        log.info("principal name :" + principal.getName());
         MemberUpdateFormDto memberUpdateFormDto  = memberService.getUpdateDtoFormMember(principal.getName());
-        log.info(memberUpdateFormDto.toString());
+        log.info("memberUpdateForm :" + memberUpdateFormDto.toString());
         model.addAttribute("memberUpdateFormDto", memberUpdateFormDto);
         return "/member/memberUpdate";
     }

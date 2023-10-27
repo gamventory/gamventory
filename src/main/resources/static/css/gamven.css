@@ -35,6 +35,7 @@ td {
     max-width: 70px; /* 텍스트의 최대 너비를 화면에 맞게 설정 */
 }
 
+
 .bg-orange{
     background-color: rgb(236, 162, 25);
 }
@@ -387,6 +388,11 @@ td {
     width : 70%;
 }
 
+#item_form div input{
+    font-size: 20px;
+}
+
+
 #item_form button{
     float : left;
     margin-right : 10px;
@@ -442,6 +448,25 @@ td {
 /* management_box.html end   ================================================*/
 
 
+/* showSerial.html start ====================================================*/
+
+#show_serial_text_box{
+    border-radius: 15px;
+    background-color: #4d4f5c;
+    margin: auto;
+}
+
+#show_serial_text_box:hover{
+    background-color: #3a3c47;
+}
+
+#show_serial_box_paging{
+    margin: auto;
+}
+
+
+/* showSerial.html end   ====================================================*/
+
 
 
 
@@ -471,7 +496,7 @@ td {
     /* m_base */
     .management_box{
         margin-top: 30px;
-        font-size: 10px;
+        font-size: 12px;
         margin-bottom: 600px;
     }
 
@@ -771,6 +796,22 @@ td {
     }
 
     /* m_createSerial.html end ============================================================*/
+
+
+
+
+    /* m_showSerail.html start ==========================================================*/
+    #show_serial_box{
+        width: 100% !important;
+        
+    }
+    
+
+    #show_serial_box_paging a{
+        font-size : 10px;
+    }
+
+    /* m_showSerail.html end ============================================================*/
 
 
 
