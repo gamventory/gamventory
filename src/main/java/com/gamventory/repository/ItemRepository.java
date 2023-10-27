@@ -44,5 +44,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>,QuerydslPredic
             "%:itemDetail% ", nativeQuery = true)
     List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
 
+    Item findByItemNmAndPrice(String itemNm, int parsedPrice);
+
 
 }
