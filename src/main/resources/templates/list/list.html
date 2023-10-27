@@ -45,50 +45,56 @@
             <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
         </div>
 
-        <!--필터검색-->
-        <form action="/list" method="get">
-
-            <!-- Price Filter -->
-            <select name="Price">
-                <option value="">-- 가격 선택 --</option>
-                <option value="ASC">낮은순</option>
-                <option value="DESC">높은순</option>
-            </select>
-        
-            <!-- Category Filter -->
-            <select name="category">
-                <option value="">-- 모든 카테고리 --</option>
-                <option value="ALL">모두</option>
-                <option value="ACTION">액션</option>
-                <option value="RPG">RPG</option>
-                <option value="ADVENTURE">어드벤처</option>
-                <option value="CASUAL">캐주얼</option>
-                <option value="FPS">FPS</option>
-                <option value="OTHER">기타</option>
-            </select>
-        
-            <!-- Platform Filter -->
-            <select name="platform">
-                <option value="">-- 모든 플랫폼 --</option>
-                <option value="ALL">모두</option>
-                <option value="STEAM">스팀</option>
-                <option value="EPIC_GAMES">에픽 게임즈</option>
-                <option value="ROCKSTAR_GAMES">록스타 게임즈</option>
-                <option value="UBISOFT_CONNECT">유비소프트 커넥트</option>
-                <option value="OTHER">기타</option>
-            </select>
-        
-            <!-- Release Date Filter -->
-            <select name="orderByReleaseDate">
-                <option value="">-- 출시일 선택 --</option>
-                <option value="DESC">최신순</option>
-                <option value="ASC">오래된순</option>
-            </select>
-        
-            <button type="submit">검색</button>
+       <!-- 검색 폼 -->
+        <form th:action="@{/listsearch}" method="get">
+            <div class="row">
+                <!-- Platform Filter -->
+                <div class="col-md-3 form-group">
+                    <label for="platform">플랫폼:</label>
+                    <select class="form-control" id="platform" name="platform">
+                        <option value="">-- 모든 플랫폼 --</option>
+                        <option value="STEAM" th:selected="${searchDto.platform == 'STEAM'}">Steam</option>
+                        <option value="EPIC_GAMES" th:selected="${searchDto.platform == 'EPIC_GAMES'}">Epic Games</option>
+                        <option value="ROCKSTAR_GAMES" th:selected="${searchDto.platform == 'ROCKSTAR_GAMES'}">Rockstar Games</option>
+                        <option value="UBISOFT_CONNECT" th:selected="${searchDto.platform == 'UBISOFT_CONNECT'}">Ubisoft Connect</option>
+                        <option value="OTHER" th:selected="${searchDto.platform == 'OTHER'}">기타</option>
+                    </select>
+                </div>
+                <!-- Category Filter -->
+                <div class="col-md-3 form-group">
+                    <label for="category">카테고리:</label>
+                    <select class="form-control" id="category" name="category">
+                        <option value="">-- 모든 카테고리 --</option>
+                        <option value="ACTION" th:selected="${searchDto.category == 'ACTION'}">액션</option>
+                        <option value="RPG" th:selected="${searchDto.category == 'RPG'}">RPG</option>
+                        <option value="ADVENTURE" th:selected="${searchDto.category == 'ADVENTURE'}">어드벤처</option>
+                        <option value="CASUAL" th:selected="${searchDto.category == 'CASUAL'}">캐주얼</option>
+                        <option value="FPS" th:selected="${searchDto.category == 'FPS'}">FPS</option>
+                        <option value="OTHER" th:selected="${searchDto.category == 'OTHER'}">기타</option>
+                    </select>
+                </div>
+                <!-- Price Filter -->
+                <div class="col-md-3 form-group">
+                    <label for="price">가격:</label>
+                    <select class="form-control" id="price" name="price">
+                        <option value="">-- 가격 선택 --</option>
+                        <option value="ASC" th:selected="${searchDto.price == 'ASC'}">낮은순</option>
+                        <option value="DESC" th:selected="${searchDto.price == 'DESC'}">높은순</option>
+                    </select>
+                </div>
+                <!-- Order By Release Date Filter -->
+                <div class="col-md-3 form-group">
+                    <label for="orderByReleaseDate">출시 순서:</label>
+                    <select class="form-control" id="orderByReleaseDate" name="orderByReleaseDate">
+                        <option value="">-- 출시순 --</option>
+                        <option value="asc" th:selected="${searchDto.orderByReleaseDate == 'asc'}">오름차순</option>
+                        <option value="desc" th:selected="${searchDto.orderByReleaseDate == 'desc'}">내림차순</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">검색</button>
         </form>
-        <!--/. 필터검색-->
-
+                
 
         <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px;">
             <!-- 상품 이미지 출력 for문-->
@@ -121,6 +127,7 @@
         </div>
             <!-- /. 상품 이미지 출력 for문-->
 
+
             <!-- 페이지 이동 버튼-->
             <div style="margin : auto;">
                 <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
@@ -128,7 +135,7 @@
 
                         <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
                             <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                                <span aria-hidden='true'>이전</span>
+                                <span aria-hidden='true'>&laquo;</span>
                             </a>
                         </li>
 
@@ -138,7 +145,7 @@
 
                         <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
                             <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-                                <span aria-hidden='true'>다음</span>
+                                <span aria-hidden='true'>&raquo;</span>
                             </a>
                         </li>
 

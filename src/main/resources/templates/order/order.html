@@ -12,14 +12,17 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<head>
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-</head>
+    <!--결제 pg 라이브러리-->
+    <head>
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    </head>
+    
+    <!-- 사용자 스크립트 추가 -->
+    <th:block layout:fragment="script">
 
-<!-- 사용자 스크립트 추가 -->
-<th:block layout:fragment="script">
-
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+        
     <script th:inline="javascript">
 
         $(document).ready(function(){
@@ -91,6 +94,10 @@
                 $("#orderFrm").submit();
             }
 
+            requestPay();
+            console.log("4");
+
+
             var url = "/order";
             var paramData = {
                 itemId : $("#itemId").val(),
@@ -99,37 +106,140 @@
             //서버에 보낼 주문데이터 JSON타입으로 변경
             var param = JSON.stringify(paramData);
 
-            $.ajax({
-                url      : url,
-                type     : "POST",
-                //서버에 보낼 데이터 타입을 json으로 지정
-                contentType : "application/json",
-                data     : param,
-                beforeSend : function(xhr){
-                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
-                    xhr.setRequestHeader(header, token);
-                },
-                dataType : "json",
-                cache   : false,
-                //주문 성공시 메세지
-                success  : function(result, status){
-                    alert("주문이 완료 되었습니다.");
-                    location.href='/';
-                },
-                //주문 시 에러가 발생하면 나오는 메세지
-                error : function(jqXHR, status, error){
+            // $.ajax({
+            //     url      : url,
+            //     type     : "POST",
+            //     //서버에 보낼 데이터 타입을 json으로 지정
+            //     contentType : "application/json",
+            //     data     : param,
+            //     beforeSend : function(xhr){
+            //         /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+            //         xhr.setRequestHeader(header, token);
+            //     },
+            //     dataType : "json",
+            //     cache   : false,
+            //     //주문 성공시 메세지
+            //     success  : function(result, status){
+            //         alert("주문이 완료 되었습니다.");
+            //         location.href='/';
+            //     },
+            //     //주문 시 에러가 발생하면 나오는 메세지
+            //     error : function(jqXHR, status, error){
 
-                    if(jqXHR.status == '401'){
-                        alert('로그인 후 이용해주세요');
-                        location.href='/members/login';
-                    } else{
-                        alert(jqXHR.responseText);
-                    }
+            //         if(jqXHR.status == '401'){
+            //             alert('로그인 후 이용해주세요');
+            //             location.href='/members/login';
+            //         } else{
+            //             alert(jqXHR.responseText);
+            //         }
 
-                }
-            });
+            //     }
+            // });
         }
 
+
+
+        //pg연동관련 스크립트 부분
+        var IMP = window.IMP; 
+        IMP.init('imp12522227'); 
+        
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        //가격값구하기
+        // $(document).ready(function(){
+        // var totalPrice = 0;
+        // var count = $("#quantity").val();
+        // var price = $("#price").val();
+        // var itemNm = $("#itemNm")
+        // var email = $("#email").val();
+        // console.log(email);
+        // var totalPrice = price*count;
+        // });
+        
+
+        //결제모듈 띄우는 함수
+        function requestPay() {
+            
+            var count = $("#quantity").val();
+            var price = $("#price").val();
+            var totalPrice = price*count;
+            var itemNm = $('label[for="productName"]').text();
+            var emailValue = $("#email");
+            console.log(email);
+
+            IMP.request_pay({
+                
+                pg : 'kcp',
+                pay_method : 'card',
+                merchant_uid: "IMP"+makeMerchantUid+10, 
+                name : itemNm,
+                amount : totalPrice,
+                buyer_email : email,
+                buyer_name : '아임포트 기술지원팀',
+                buyer_tel : '010-1234-5678',
+                buyer_addr : '서울특별시 강남구 삼성동',
+                buyer_postcode : '123-456',
+                m_redirect_url: "{/}"
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    console.log(rsp);
+                    console.log("2");
+
+                } else {
+                    console.log(rsp);
+                    console.log("3");
+
+                }
+                
+            });
+            
+        }
+        
+        
+          // 사용자에게 결제 화면을 보여주기 전에 서버 코드에서 금액 위변조 체크
+        //   await axios({
+            
+        //     url: "https://api.iamport.kr/payments/prepare",
+        //     method: "post",
+        //     headers: { "Content-Type": "application/json" }, 
+        //     data: {
+        //         merchant_uid: "IMP"+makeMerchantUid+10, // 가맹점 주문번호
+        //         amount: 111, // 결제 예정금액
+        //     }
+        //     });
+
+        // iframe 결제창 결과처리하는 함수
+        // IMP.request_pay({ /** 요청 객체를 추가해주세요 */ },
+        //     function (rsp) {
+        //         if (rsp.success) {
+        //         // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+        //         // jQuery로 HTTP 요청
+        //         alert("주문이 완료 되었습니다.");
+        //         window.location.href = "/";  // 페이지를 루트로 이동
+        //         console.log("1");
+        //         jQuery.ajax({
+        //             url: "{서버의 결제 정보를 받는 가맹점 endpoint}", 
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             data: {
+        //             imp_uid: rsp.imp_uid,            // 결제 고유번호
+        //             merchant_uid: rsp.merchant_uid   // 주문번호
+        //             }
+        //     }).done(function (data) {
+        //             // 가맹점 서버 결제 API 성공시 로직
+        //         alert("주문이 완료 되었습니다.");
+        //     })
+        //     } else {
+        //         alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+        //         console.log("5");
+
+        //         }
+        // });
+      
 
     </script>
 
@@ -139,17 +249,18 @@
 <!-- content -->
 <div layout:fragment="content">
     
-
+    
     <form action="/purchase" method="post" class="container">
-
+        
         
         <div id="order_box" class="row p-5 mb-5 d-flex justify-content-center">
             <!-- 등록된 상품 이미지 보여주는 곳-->
             <div class="mb-5">
                 <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; width: 100%;" th:alt="${item.itemNm}">
             </div>
-
+            
             <input type="hidden" id="itemId" th:value="${item.id}">
+            <input type="hidden" id="email" th:value="${email}">
 
 
             <!-- 테이블 시작 -->
@@ -197,12 +308,12 @@
                             <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">결제수단</span>
                         
                             <div class="list-group">
-                                <li class="list-group-item">
+                                <!-- <li class="list-group-item">
                                     <div class="radio">
                                         <label><input type="radio" name="settlekind" id="settlekind8" value="NPAY" ><img src="/api/naverpay/btn_npay.png" style="border-radius:2px;" alt="네이버페이"><span style="display:none">네이버페이</span></label>
                                     </div>
                                     <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 100 원 이상일 때만 사용이 가능합니다.</strong></div>
-                                </li>
+                                </li> -->
 
                                 <li class="list-group-item">
                                     <div class="radio">
@@ -299,7 +410,8 @@
             </div>
         </div>
     </form>
-
+    
+   
 </div>     
 
 

@@ -14,6 +14,15 @@ public interface ItemRepositoryCustom {
 
     Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 
+    // //필터검색
+    // Page<Item> filterItemSort(ItemFilterSearchDto filterSearchDto, Pageable pageable);
+
     //필터검색
-    Page<Item> filterItemSort(ItemFilterSearchDto filterSearchDto, Pageable pageable);
+    // Page<Item> findByCriteria(ItemFilterSearchDto searchDto, Pageable pageable);
+    
+    // //필터검색
+    // Page<Item> filterItemSort(ItemFilterSearchDto filterSearchDto, Pageable pageable);
+    
+    Page<MainItemDto> findByCriterias(ItemFilterSearchDto searchDto, Pageable pageable);
+
 }

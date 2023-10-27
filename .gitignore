@@ -51,3 +51,7 @@ application.properties
 /application-oauth.properties
 /application-mail.properties
 /application-db.properties
+application-test.properties
+
+# 결제시크릿키 파일무시
+Payment.application.properties
