@@ -26,11 +26,7 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-application.properties
-application-oauth.properties
-application-mail.properties
-application-db.properties
-shopping.vuerd.json
+
 
 
 ### NetBeans ###
@@ -42,9 +38,6 @@ shopping.vuerd.json
 
 ### VS Code ###
 .vscode/
-
-# application.properties 파일 무시
-application.properties
 
 # properties
 application.properties
@@ -59,7 +52,6 @@ shopping.vuerd.json
 /application-oauth.properties
 /application-mail.properties
 /application-db.properties
-
 
 # 결제시크릿키 파일무시
 Payment.application.properties
