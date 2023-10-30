@@ -21,7 +21,7 @@ public interface SerialRepository extends JpaRepository<Serial, Long>, SerialCus
     //페이징처리 추가된 시리얼 리스트정보 찾기
     Page<Serial> findAll(Pageable pageable);
 
-    List<Serial> findByMember(Member member);
+    Page<Serial> findByMember(Member member, Pageable pageable);
 
 
 }

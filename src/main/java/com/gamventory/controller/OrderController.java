@@ -109,7 +109,7 @@ public class OrderController {
             return "/"; 
         }
         String loggedInEmail = principal.getName();
-        List<Serial> serials = serialService.getSerialsByMemberEmail(loggedInEmail);
+        Page<Serial> serials = serialService.getSerialsByMemberEmail(loggedInEmail, pageable);
         
         for (Serial serial : serials) {
             System.out.println(serial);
@@ -161,6 +161,13 @@ public class OrderController {
 
 
         return "order/order";
+    }
+
+
+    //결제완료 페이지
+    @GetMapping(value = "/orderEnd")
+    public String orderEnd(){
+        return "order/orderEnd";
     }
 
 }

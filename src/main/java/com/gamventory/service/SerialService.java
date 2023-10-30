@@ -106,11 +106,11 @@ public class SerialService {
         return serialRepository.findByKeyword(keyword, pageable);
     }
 
-    public List<Serial> getSerialsByMemberEmail(String email) {
+    public Page<Serial> getSerialsByMemberEmail(String email, Pageable pageable) {
         Member member = memberRepository.findByEmail(email);
         if (member != null) {
-            return serialRepository.findByMember(member);
+            return serialRepository.findByMember(member,pageable);
         }
-        return new ArrayList<>();
+        return Page.empty();
     }
 }
