@@ -481,6 +481,7 @@ td {
 
 
 
+
 #m_sidebar_button{
     display: none;
 }
@@ -849,6 +850,25 @@ td {
     }
 
     /* m_cartList.html end ============================================================*/
+
+
+
+
+    /* m_list.html start ==========================================================*/
+    .list_filter_box{
+        width: 120% !important;
+        margin-bottom: -20px;
+    }
+
+    .list_filter_table tbody td img{
+        width: 100%;
+    }
+
+    /* m_list.html end ==========================================================*/
+
+
+
+
 
 }
 
