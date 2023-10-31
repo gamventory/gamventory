@@ -69,28 +69,6 @@
                     return false;
                 }
 
-                if(settlekind=="PAYNOW"){
-                    $("#LGD_EASYPAY_ONLY").val(settlekind);
-                    $("#LGD_CUSTOM_USABLEPAY").val("SC0010");
-                }else if(settlekind=="PAYCO"){
-                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
-                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO");
-                }else if(settlekind=="PAYCO_POINT"){
-                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
-                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO_POINT");
-                }else{
-                    if(settlekind=="SC0040"){
-                        if(hp1=="" || hp2=="" || hp3==""){
-                            alert("휴대폰번호를 입력하세요.");
-                            return false;
-                        }else{
-                            $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
-                        }
-                    }else{
-                        $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
-                    }
-                }
-
                 $("#orderFrm").attr("action","settle.html");
                 $("#orderFrm").submit();
             }
@@ -262,7 +240,7 @@
     <form action="/purchase" method="post" class="container">
         
         
-        <div id="order_box" class="row p-5 mb-5 d-flex justify-content-center">
+        <div id="order_box" class="row p-3 mb-5 d-flex justify-content-center">
             <!-- 등록된 상품 이미지 보여주는 곳-->
             <div class="mb-5">
                 <img th:src="${item.itemImgDtoList[0].imgUrl}" style="border-radius: 15px; width: 628px;" th:alt="${item.itemNm}">
@@ -314,8 +292,8 @@
 
                         <div class="cart tos" title="" style="margin-top:10px">
                         
-                            <form action="" id="joinForm"  style="width: 100%;">
-                                <ul class="join_box" style="background-color: #535461; border-radius: 10px; border: none;">
+                            <form action="" class="joinForm"  style="width: 100%;">
+                                <ul class="join_box" style="background-color: #444550; border-radius: 10px; border: ;">
 
                                     <li class="checkBox check01">
                                         <ul class="clearfix" style="font-size: 13px;">
@@ -416,60 +394,6 @@
             </div>
         </div>
     </form>
-    
-
-    <script>
-        window.onload = function () {
-            const checkAll = document.getElementById('chkAll');
-            const chks = document.querySelectorAll('.chk');  
-            const chkBoxLength = chks.length;
-            
-
-            checkAll.addEventListener('click', function(event) {
-                if(event.target.checked)  {
-                    chks.forEach(function(value){
-                    value.checked = true;
-                })
-                }else {
-                chks.forEach(function(value){
-                value.checked = false;
-                })
-                }
-            });
-            for (chk of chks){
-                chk.addEventListener('click', function() {
-                    let count = 0;
-                    chks.forEach(function(value){
-                        if(value.checked == true){
-                            count++;
-                        }
-                    })
-                    if(count !== chkBoxLength){
-                        checkAll.checked = false;
-                    }else{
-                        checkAll.checked = true;
-                    }
-                })
-            };
-
-                
-           
-            var agree1 = document.querySelector(".checkBox.check02 input.chk");
-            var agree2 = document.querySelector(".checkBox.check03 input.chk");
-
-            $(".buy_button").click(function(){
-                if (!agree1.checked || !agree2.checked) {
-                alert("이용약관 및 개인정보 수집에 동의해야 합니다.");
-                return; // 다음 페이지로 넘어가지 않음
-            }
-            });
-            
-
-
- }
-
- 
-    </script>
    
 </div>     
 

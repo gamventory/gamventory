@@ -274,7 +274,7 @@
 
 <div layout:fragment="content">
 
-    <div class="cart_list_box container">
+    <div class="cart_list_box container p-3">
 
         <div>
             <table class="table table-hover table-sm">
@@ -347,73 +347,74 @@
 
 
             <!-- 결제 수단  -->
-            <div class="row text-white fs12 buy">
+            <div class="row text-white fs12">
 
 
                 <div class="col-md-6">
+
                     <fieldset class="vm-fieldset-tos">
+
                         <div class="cart tos" title="" style="margin-top:10px">
-                            <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">결제수단</span>
-                            <div class="list-group">
+                        
+                            <form action="" class="joinForm"  style="width: 100%;">
+                                <ul class="join_box" style="background-color: #444550; border-radius: 10px; border: ;">
 
+                                    <li class="checkBox check01">
+                                        <ul class="clearfix" style="font-size: 13px;">
+                                            <li class="text-white">이용약관, 개인정보 수집 및 이용,
+                                                위치정보 이용약관(선택),<br> 프로모션 안내
+                                                메일 수신(선택)에 모두 동의합니다.</li>
+                                            <li class="checkAllBtn">
+                                                <input type="checkbox" name="chkAll" id="chkAll" class="chkAll">
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                                <li class="list-group-item">
-                                    <div class="radio">
-                                        <label><input type="radio" name="settlekind" id="settlekind8" value="NPAY" ><img src="/api/naverpay/btn_npay.png" style="border-radius:2px;" alt="네이버페이"><span style="display:none">네이버페이</span></label>
-                                    </div>
-                                    <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 100 원 이상일 때만 사용이 가능합니다.</strong></div>
-                                </li>
+                                    <li class="checkBox check02">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">이용약관 동의(필수)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk"> 
+                                            </li>
+                                        </ul>
+                                        <textarea name="" id="" style="font-size: 13px;"> 여러분을 환영합니다. 네이버 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 네이버 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘네이버’)와 이를 이용하는 네이버 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 네이버 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                                        </textarea>
+                                    </li>
 
-                                <li class="list-group-item">
-                                    <div class="radio">
-                                        <label><input type="radio" name="settlekind" id="settlekind2" value="SC0010" >신용/체크카드 결제</label>
-                                    </div>
-                                    <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 1,000 원 이상일 때만 사용이 가능합니다.</strong></div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="radio" style="display:inline-block">
-                                        <label><input type="radio" name="settlekind" id="settlekind3" value="SC0030" >계좌이체 결제</label>
-                                    </div>
-                                    <div style="display:block;"><strong class="text-danger">※ 결제 예정액이 10,000 원 이상일 때만 사용이 가능합니다.</strong></div>
-                                </li>
-
-                                <li class="list-group-item">
-                                    <div class="radio" style="display:inline-block">
-                                        <label><input type="radio" name="settlekind" id="settlekind5" value="SC0040" >가상계좌 결제</label>
-                                    </div>
-                                    <div style="display:block;">
-                                        <strong class="text-danger">※  결제 예정액이 10,000 원 이상일 때만 사용이 가능하며, 이벤트 상품의 경우 이벤트 종료 후 입금이 불가합니다.</strong>
-                                    </div>
-                                    <div id="hp_block" class="collapse">
-                                        <label>휴대폰 번호 :</label>
-                                            <select name="hp1" id="hp1" style="display:inline;">
-                                                <option value="">::선택::</option>
-                                                <option value="010" >010</option>
-                                                <option value="011" >011</option>
-                                                <option value="016" >016</option>
-                                                <option value="017" >017</option>
-                                                <option value="018" >018</option>
-                                                <option value="019" >019</option>
-                                            </select> - 
-                                        <input type="text" name="hp2" id="hp2" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value=""> -
-                                        <input type="text" name="hp3" id="hp3" size="4" maxlength="4" style="display:inline;" onkeydown="return showKeyCode(event)" value="">
-                                    </div>
-                                </li>
-
-
-                                <li class="list-group-item">
-                                    <div class="radio">
-                                        <label><input type="radio" name="settlekind" id="settlekind6" value="SC0060" >휴대폰 결제</label>
-                                    </div>
-                                    <div style="display:block;">
-                                        <p><strong class="text-danger">※ 결제 예정액이 350 원 이상일 때만 사용이 가능합니다.</strong></p>
-                                        <p><strong class="text-danger">※ 부분/이월 환불이 불가하며, 다이렉트 게임즈 포인트로 제공됩니다. 자세한 사항은 하단에 환불정책을 확인해 주시기 바랍니다.</strong></p>
-                                    </div>
-                                </li>
-                            </div>
+                                    <li class="checkBox check03">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">개인정보 수집 및 이용에 대한 안내(필수)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk">
+                                            </li>
+                                        </ul>
+                        
+                                        <textarea name="" id=""  style="font-size: 13px;">여러분을 환영합니다. 네이버 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 네이버 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘네이버’)와 이를 이용하는 네이버 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 네이버 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                                        </textarea>
+                                    </li>
+                                    <li class="checkBox check03">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">위치정보 이용약관 동의(선택)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk">
+                                            </li>
+                                        </ul>                        
+                                        <textarea name="" id=""  style="font-size: 13px;">여러분을 환영합니다. 네이버 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 네이버 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘네이버’)와 이를 이용하는 네이버 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 네이버 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                                        </textarea>
+                                    </li>
+                                    <li class="checkBox check04">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">이벤트 등 프로모션 알림 메일 수신(선택)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk">
+                                            </li>
+                                        </ul>
+                        
+                                    </li>
+                                </ul>
+                            </form>
                         </div>
-                    </fieldset>          		
+                    </fieldset>
                 </div>
 
 
