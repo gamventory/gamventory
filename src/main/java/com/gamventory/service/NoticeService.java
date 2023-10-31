@@ -1,42 +1,34 @@
 package com.gamventory.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
 import com.gamventory.entity.Notice;
 import com.gamventory.repository.NoticeRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class NoticeService {
 
-    @Autowired
-    private NoticeRepository noticeRepository;
+    private final NoticeRepository noticeRepository;
 
-    public List<Notice> getAllNotices() {
-        return noticeRepository.findAll();
-    }
+    // 공지사항 전체 목록 리스트
+    public Page<Notice> getList(int page) {
 
-    public Notice getNoticeById(Long id) {
-        return noticeRepository.findById(id).orElse(null);
-    }
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("regTime"));
 
-    public void saveNotice(Notice notice) {
-        noticeRepository.save(notice);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
+
+        return this.noticeRepository.findAll(pageable);
     }
 
-    public void deleteNotice(Long id) {
-        noticeRepository.deleteById(id);
-    }
-    
-    public NoticeService(NoticeRepository noticeRepository) {
-        this.noticeRepository = noticeRepository;
-    }
-
-    public Page<Notice> findAll(Pageable pageable) {
-        return noticeRepository.findAll(pageable);
-    }
 }

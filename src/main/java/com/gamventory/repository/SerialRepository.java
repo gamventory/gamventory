@@ -23,5 +23,4 @@ public interface SerialRepository extends JpaRepository<Serial, Long>, SerialCus
 
     List<Serial> findByMember(Member member);
 
-
 }

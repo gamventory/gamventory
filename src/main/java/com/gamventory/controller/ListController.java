@@ -38,7 +38,7 @@ public class ListController {
         model.addAttribute("itemSearchDto", itemSearchDto); // 검색조건
         model.addAttribute("maxPage", 5);  // 한페이지당 최대 보여줄 페이지 이동수
 
-        return "/list/list";
+        return "list/list";
     }
     
     

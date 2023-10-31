@@ -1,22 +1,45 @@
 package com.gamventory.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Getter
-@Setter
 @Entity
-@Table(name= "notice")
-public class Notice {
+@Table(name = "notice")
+@Data
+@Builder
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class Notice extends BaseEntity {
 
+    /**
+     * 공지사항 Entity
+     */
+
+    // 번호
     @Id
+    @Column(name = "notice_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+
+    // 제목
+    @Column(nullable = false, length = 50)
+    private String subject;
+
+    // 내용
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
+
+    // 조회수
+    private Long viewCount;
+
+    // 작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public void addViewCount(){
+        this.viewCount++;
+    }
+
 }

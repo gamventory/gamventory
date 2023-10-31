@@ -49,7 +49,7 @@ public class ItemController {
     public String itemForm(Model model){
         model.addAttribute("itemFormDto", new ItemFormDto());
 
-        return "/item/itemForm";
+        return "item/itemForm";
     }
 
      //상품등록페이지에서 완료시 메인 페이지로 가는 함수
@@ -188,7 +188,7 @@ public class ItemController {
 
         }
 
-        return "/order/order";
+        return "order/order";
      }
     
 }
