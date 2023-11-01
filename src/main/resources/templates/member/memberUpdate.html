@@ -90,7 +90,7 @@
                 <label th:for="zipCode">우편번호 및 주소</label>
                 <div class="input-group">
                     <input class="form-control" type="text" name="zipCode" id="zipCode" th:field="*{zipCode}"  readonly placeholder="우편번호를 입력하세요." />
-                    <button type="button" class="btn bg-primary text-white" onclick="execPostCode()">우편번호 찾기</button>
+                    <button type="button" class="btn text-white" style="background-color: #5994b1;" onclick="execPostCode()">우편번호 찾기</button>
                 </div>
                 <p th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" class="fieldError">Incorrect data</p>
             </div>
@@ -106,7 +106,7 @@
                 <input class="form-control" type="text" name="detailAddress" id="detailAddress" th:field="*{detailAddress}" placeholder="상세 주소" />
             </div>
             <div>
-                <button type="submit" class="btn btn-primary">수정하기</button>
+                <button type="submit" class="btn text-white" style="background-color: #5994b1;" >수정하기</button>
             </div>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
         </form>

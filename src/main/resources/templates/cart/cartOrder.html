@@ -326,7 +326,7 @@
                                 <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
                                     th:value="${cartItem.count}" min="1"
                                     onchange="changeCount(this)" class="form-control pr-1">
-                                <button type="button" class="btn bg-danger">
+                                <button type="button" class="btn text-white" style="background-color: #bd2130;">
                                     <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">x</span>
                                 </button>
                             </div>
@@ -452,7 +452,7 @@
                     </fieldset>
 
                     <div class="text-center mt-3 mb-4">
-                        <button type="button" id="btn_settle" class="btn btn-primary" onclick="orders()">주문하기</button>
+                        <button type="button" id="btn_settle" class="btn text-white" style="background-color: #5994b1;" onclick="orders()">주문하기</button>
                     </div>
                 </div>
 

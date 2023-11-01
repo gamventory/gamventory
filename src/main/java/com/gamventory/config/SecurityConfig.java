@@ -60,7 +60,6 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/error/**"),
                                         new AntPathRequestMatcher("/mail/**"),
                                         new AntPathRequestMatcher("/list/**"),
-                                        new AntPathRequestMatcher("/listsearch/**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")

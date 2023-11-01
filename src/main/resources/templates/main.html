@@ -38,7 +38,7 @@
             </div>
     
             <!--imgslider-->
-            <div id="img_slider" class="carousel slide row" data-ride="carousel">
+            <div id="img_slider" class="carousel slide row mt-1" data-ride="carousel">
                 <ul class="carousel-indicators" style="opacity: 0.5;">
                   <li data-target="#img_slider" data-slide-to="0" class="active"></li>
                   <li data-target="#img_slider" data-slide-to="1"></li>
@@ -79,18 +79,18 @@
     
     
             <!-- filter -->
-            <div id="filter" class="row mb-3" style="border-radius: 20px;"></div>
+            <div id="filter" class="row mb-3" style="border-radius: 10px;"></div>
             <!-- fliter end-->
     
     
-            <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px; font-size: 14px;">
+            <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px;">
                 <!-- 상품 이미지 출력 for문-->
                 <div class="row">
                     <th:block th:each="item, status: ${items.getContent()}">
                         <div class="col-md-4 margin">
-                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style="border-radius: 15px; background-color: rgb(32,33,35);">
+                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style=" background-color: rgb(32,33,35);">
                                 <a th:href="'/item/' +${item.id}" class="text-dark">
-                                    <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300" style="border-radius: 15px;">
+                                    <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300">
                                     <div id="main_game_card_text" class="card-body ">
                                         <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
                                         <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p>
