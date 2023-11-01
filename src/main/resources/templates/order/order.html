@@ -145,7 +145,7 @@
             var count = $("#quantity").val();
             var price = $("#price").val();
             var itemNm = $('label[for="productName"]').text();
-            var email = "sonwonduk1@naver.com"; // 값 가져오기 수정
+            var email = "test@test.com"; // 값 가져오기 수정
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -180,7 +180,7 @@
             var price = $("#price").val();
             var totalPrice = price*count;
             var itemNm = $('label[for="productName"]').text();
-            var email = "sonwonduk1@naver.com";
+            var email = "test@test.com";
 
             console.log(email);
 
@@ -188,7 +188,7 @@
 
                 pg : 'kcp',
                 pay_method : 'card',
-                merchant_uid: "IMP"+makeMerchantUid+10, 
+                merchant_uid: "IMP"+makeMerchantUid, 
                 name : itemNm,
                 amount : totalPrice,
                 buyer_email : email,
@@ -196,14 +196,14 @@
                 buyer_tel : '010-1234-5678',
                 buyer_addr : '서울특별시 강남구 삼성동',
                 buyer_postcode : '123-456',
-                m_redirect_url: "{/}"
+                m_redirect_url: "{/order/order}"
             }, function (rsp) { // callback
                 if (rsp.success) {
 
                     console.log(rsp);
                     alert("주문이 완료 되었습니다.");
                     location.href='/';
-                    window.location.href = "http://localhost:8081";
+                    window.location.href = "http://localhost:8081/orderEnd";
                     jQuery.ajax({
 
                         url: "/",
@@ -260,7 +260,7 @@
                     </tr>
                 </thead>
 
-                <tbody style="text-align: center;">               
+                <tbody style="text-align: center; font-size: 20px; font-weight: bolder;">               
                     <form action="/purchase" method="post">
                         <td class="pt-3">
                             <div>
@@ -270,7 +270,7 @@
                         <td class="pt-3">
                             <div>
                                 <span>
-                                    <input type="hidden" th:value="${item.price}" id="price" name="price">
+                                    <input type="hidden" th:value="${item.price}" id="price" name="price" >
                                     <label for="productPrice" th:text="${item.price}">원</label>
                                 </span>
                             </div>
