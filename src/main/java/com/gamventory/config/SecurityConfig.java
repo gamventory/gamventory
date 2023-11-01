@@ -26,7 +26,8 @@ public class SecurityConfig {
         http
 //                .csrf(AbstractHttpConfigurer::disable)
                 .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**")))
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/mail/**"))
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/purchase")))
                 .formLogin(formLogin ->
                         formLogin
                                 .loginPage("/members/login")
@@ -42,7 +43,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
-                                        new AntPathRequestMatcher("/customer/**"),
+                                        new AntPathRequestMatcher("/notices/**"),
+                                        new AntPathRequestMatcher("/purchase"),
                                         new AntPathRequestMatcher("/js/**"),
                                         new AntPathRequestMatcher("/favicon.ico"),
                                         new AntPathRequestMatcher("/img/**"),

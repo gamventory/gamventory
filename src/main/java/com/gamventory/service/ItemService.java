@@ -113,10 +113,21 @@ public class ItemService {
         return itemRepository.getMainItemPage(itemSearchDto, pageable);
     }
 
-    //필터검색 호출하는 메서드
-     @Transactional(readOnly = true)
-    public Page<Item> filterAndSortItems(ItemFilterSearchDto filterSearchDto, Pageable pageable) {
-        return itemRepository.filterItemSort(filterSearchDto, pageable);
+    // //필터검색 호출하는 메서드
+    //  @Transactional(readOnly = true)
+    // public Page<Item> filterAndSortItems(ItemFilterSearchDto filterSearchDto, Pageable pageable) {
+    //     return itemRepository.filterItemSort(filterSearchDto, pageable);
+    // }
+
+    // 필터검색 item으로 검색된거
+    // @Transactional(readOnly = true)
+    // public Page<Item> searchItems(ItemFilterSearchDto searchDto, Pageable pageable) {
+    //     return itemRepository.findByCriteria(searchDto, pageable);
+    // }
+
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> findItemsByCriteria(ItemFilterSearchDto searchDto, Pageable pageable) {
+        return itemRepository.findByCriterias(searchDto, pageable);
     }
 
 }

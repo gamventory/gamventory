@@ -32,15 +32,14 @@
                 <div class="input-group mt-2 px-0 justify-content-end">
 
                     <!-- management -->
-                    <div id="management_button" class="pr-2 mt-2 mr-3">
-                        <i class="fa fa-wrench bg-primary" style="color:white" aria-hidden="true" th:herf="@{/cart}"></i>
-                        <span class="text-dark mx-2">MANAGEMENT</span>
+                    <div id="management_button" class="mt-2 mr-3">
+                        <i class="fa fa-wrench bg-db" aria-hidden="true" th:herf="@{/cart}"></i>
                     </div>
                 
 
                     <!-- user_button -->
-                    <div id="user_button" class="pr-3 mr-3 mt-2" >
-                        <i class="fa fa-user-circle mr-2" style="color: white;" aria-hidden="true">
+                    <div id="user_button" class="mr-3 mt-2" >
+                        <i class="fa fa-user-circle bg-dg" style="color: white;" aria-hidden="true">
                             <div id="user_modal" class="collapse show">
                                 <div>
                                     <div sec:authorize="isAuthenticated()">
@@ -58,14 +57,17 @@
                                 </div>
                             </div>
                         </i>
-                        <span class="text-dark">USER</span>
                     </div>
 
                     <!-- cart_button -->
-                    <div id="cart_button" class="pr-2 mt-2">
-                        <i class="fa fa-shopping-cart" style="color:white" aria-hidden="true" th:herf="@{/cart}"></i>
-                        <span class="text-dark mx-2">CART</span>
+                    <div id="cart_button" class="mt-2">
+                        <i class="fa fa-shopping-cart  bg-orange" style="color:white" aria-hidden="true" th:herf="@{/cart}"></i>
                     </div>
+
+                    <!-- <div id="cart_button" class="pr-2 mt-2">
+                        <i class="fa fa-shopping-cart" style="color:white" aria-hidden="true" th:herf="@{/cart}"></i>
+                        <span class="text-dark mx-2">장바구니</span>
+                    </div> -->
 
                 </div>
             </div>

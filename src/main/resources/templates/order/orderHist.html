@@ -114,10 +114,10 @@
                     <div class="d-flex mb-3 align-self-center">
                         <span class="text-white" th:text="${order.orderDate} + ' 주문'"></span>
                         <div class="ml-3">
-                            <th:block th:if="${order.orderStatus == T(com.gamventory.constant.OrderStatus).ORDER}">
+                            <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
                                 <button type="button" style="font-size: 12px;" class="btn bg-primary text-white" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
                             </th:block>
-                            <th:block th:unless="${order.orderStatus == T(com.gamventory.constant.OrderStatus).ORDER}">
+                            <th:block th:unless="${order.orderStatus.name() == 'ORDER'}">
                                 <h5>(취소 완료)</h5>
                             </th:block>
                         </div>

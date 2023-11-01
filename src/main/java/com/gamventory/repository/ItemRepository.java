@@ -21,6 +21,10 @@ public interface ItemRepository extends JpaRepository<Item, Long>,QuerydslPredic
     
     //지정된 가격의보다 작은 금액을 내림차순으로 찾는 쿼리메서드
     List<Item> findByPriceLessThanOrderByPriceDesc(int price);
+
+    //이름과 가격이 같은 컬럼값 찾는 쿼리메서드
+    Item findByItemNmAndPrice(String itemNm, int price);
+
     
 //     //플랫폼을 기준으로 아이템 목록을 찾는 쿼리메서드
 //     List<Item> findByPlatform(Platform platform);
@@ -43,6 +47,9 @@ public interface ItemRepository extends JpaRepository<Item, Long>,QuerydslPredic
     @Query(value="select * from item i where i.item_detail like " +
             "%:itemDetail% ", nativeQuery = true)
     List<Item> findByItemDetail(@Param("itemDetail") String itemDetail);
+
+
+    // Item findByItemNmAndPrice(String itemNm, int parsedPrice);
 
 
 }
