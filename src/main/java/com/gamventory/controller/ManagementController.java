@@ -8,7 +8,7 @@ public class ManagementController {
 
     @GetMapping(value = "/managementGameDetail")
     public String managementGameDetail(){
-        return "/managementGameDetail";
+        return "managementGameDetail";
     }
 
 

@@ -63,7 +63,7 @@ public class MemberController {
     public String memberInfo(Principal principal, Model model) {
 
 
-        return "/member/memberInfo";
+        return "member/memberInfo";
     }
 
     @GetMapping(value = "/update")
@@ -73,7 +73,7 @@ public class MemberController {
         MemberUpdateFormDto memberUpdateFormDto  = memberService.getUpdateDtoFormMember(principal.getName());
         log.info("memberUpdateForm :" + memberUpdateFormDto.toString());
         model.addAttribute("memberUpdateFormDto", memberUpdateFormDto);
-        return "/member/memberUpdate";
+        return "member/memberUpdate";
     }
 
     @PostMapping(value = "/update")
@@ -86,13 +86,13 @@ public class MemberController {
         if(! memberUpdateFormDto.getEmail().equals(principal.getName())) {
 
             model.addAttribute("errorMessage", "수정할 수 있는 권한이 없습니다.");
-            return "/member/memberUpdate";
+            return "member/memberUpdate";
         }
 
         log.info("바인딩");
         log.info(bindingResult.hasErrors());
         if(bindingResult.hasErrors()) {
-            return "/member/memberUpdate";
+            return "member/memberUpdate";
         }
 
         try {
@@ -100,27 +100,27 @@ public class MemberController {
             memberService.modifyMember(memberUpdateFormDto);
         } catch(Exception e) {
             model.addAttribute("errorMessage", "회원 정보 수정 중 에러가 발생하였습니다.");
-            return "/member/memberUpdate";
+            return "member/memberUpdate";
         }
 
-        return "/member/memberInfo";
+        return "member/memberInfo";
     }
 
     @GetMapping(value = "/find")
     public String memberFind(Model model) {
 
         model.addAttribute("memberFindDto", MemberFindDto.builder().build());
-        return "/member/memberFind";
+        return "member/memberFind";
     }
 
     @PostMapping(value = "/certification_member")
     public String memberFound(@Valid MemberFindDto memberFindDto, BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()) {
-            return "/member/find";
+            return "member/find";
         }
 
-        return "/member/certificationMember";
+        return "member/certificationMember";
     }
 
     @GetMapping(value = "/memberPwUpdate")
@@ -128,7 +128,7 @@ public class MemberController {
 
         model.addAttribute("memberPasswordDto", MemberPasswordDto.builder().build());
 
-        return "/member/memberPasswordUpdate";
+        return "member/memberPasswordUpdate";
     }
 
     @PostMapping(value = "/memberPwUpdate")
@@ -137,7 +137,7 @@ public class MemberController {
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("errorMessage", "패스워드 검증에 오류가 있습니다.");
-            return "/member/memberCertify";
+            return "member/memberCertify";
         }
 
         int result = memberService.checkPassword(principal.getName(), memberPasswordDto.getPassword());
@@ -145,7 +145,7 @@ public class MemberController {
 
         if(result == 2) {
             model.addAttribute("checkErrorMessage", "기존의 비밀번호가 다릅니다.");
-            return "/member/memberPasswordUpdate";
+            return "member/memberPasswordUpdate";
         }
 
         Member member = memberService.updatePassword(memberPasswordDto, principal.getName());
@@ -157,7 +157,7 @@ public class MemberController {
     public String deleteView(MemberDeleteForm memberDeleteForm, Model model) {
 
         model.addAttribute("memberDeleteForm", MemberDeleteForm.builder().build());
-        return "/member/memberDelete";
+        return "member/memberDelete";
     }
 
     @PostMapping(value = "/withdrawal")
@@ -175,7 +175,7 @@ public class MemberController {
 
         if(result == 2) {
             model.addAttribute("checkErrorMessage", "비밀번호가 다릅니다.");
-            return "/member/memberDelete";
+            return "member/memberDelete";
         }
 
         memberService.deleteMember(principal.getName());
@@ -186,14 +186,14 @@ public class MemberController {
 
     @GetMapping(value = "/login")
     public String loginMember() {
-        return "/member/memberLogin";
+        return "member/memberLogin";
     }
 
     @GetMapping(value = "/login/error")
     public String loginError(Model model) {
 
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해 주세요.");
-        return "/member/memberLogin";
+        return "member/memberLogin";
     }
 
 }

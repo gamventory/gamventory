@@ -22,6 +22,25 @@
 <!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
 
+        <script>
+        function cancelPay() {
+            jQuery.ajax({
+            url: "{환불요청을 받을 서비스 URL}", // 예: http://www.myservice.com/payments/cancel
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                merchant_uid: "{결제건의 주문번호}", // 예: ORD20180131-0000011
+                cancel_request_amount: 2000, // 환불금액
+                reason: "테스트 결제 환불", // 환불사유
+                refund_holder: "홍길동", // [가상계좌 환불시 필수입력] 환불 수령계좌 예금주
+                refund_bank: "88", // [가상계좌 환불시 필수입력] 환불 수령계좌 은행코드(예: KG이니시스의 경우 신한은행은 88번)
+                refund_account: "56211105948400" // [가상계좌 환불시 필수입력] 환불 수령계좌 번호
+            }),
+            "dataType": "json"
+            });
+        }
+        </script>
+
     <script th:inline="javascript">
         function cancelOrder(orderId) {
             var isConfirmed = confirm("구매를 취소하시겠습니까?");
@@ -65,6 +84,7 @@
                 });
             }
         }
+
     </script>
 
 </th:block>
@@ -99,7 +119,16 @@
         .fs24{
             font-size:24px
         }
-    </style>
+        .test {
+            padding: 0;
+            background-color: RGB(40,42,55);
+        }
+
+        .custom-card-color {
+            background-color: RGB(52,53,65);
+            color: rgb(245, 245, 245);
+        }
+</style>
 </th:block>
 
 <div layout:fragment="content">
@@ -107,7 +136,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-4">
+            <div class="col-sm-4 ">
                 <!--구매목록-->
                 <div th:each="order : ${orders.getContent()}">
                         
@@ -122,65 +151,56 @@
                             </th:block>
                         </div>
                     </div>
-                    <div id="oreder_hit_text" class="card d-flex">
+                    <div id="oreder_hit_text" class="card d-flex card-body p-3 custom-card-color">
                         <div th:each="orderItem : ${order.orderItemDtoList}" class="d-flex mb-3">
                             <div class="repImgDiv">
                                 
-                                <img th:src="${orderItem.imgUrl}" class="rounded repImg" th:alt="${orderItem.itemNm}">
+                                <img th:src="${orderItem.imgUrl}" class="rounded repImg" th:alt="${orderItem.itemNm}" style="width: 200px; height: 150px;" >
                             </div>
-                            <div class="align-self-center w-75">
+                            <div class="align-self-center w-75 ">
                                 <span th:text="${orderItem.itemNm}" class="fs24 font-weight-bold"></span>
                                 <div class="fs18 font-weight-light">
-                                    <span th:text="${orderItem.orderPrice} +'원'"></span><br>
-                                    <span th:text="${orderItem.count} +'개'"></span>
-                                    
+                                    가격: <span th:text="${orderItem.orderPrice} +'원'"></span><br>
+                                    수량: <span th:text="${orderItem.count}"></span>
                                 </div>
-                                
+                                <!-- 일련 번호 목록 반복 -->
+                                <div th:each="serial, serialStat : ${serials}" th:if="${orderStat.index == serialStat.index}" class="fs18 font-weight-light">
+                                    <!-- 해당 주문과 연결된 일련 번호만 출력 -->
+                                    <div  th:if="${order.orderStatus.name() == 'ORDER'}">
+                                        시리얼번호:  <span  th:text="${serial.serialNumber}"></span>
+                                    </div>
+                                    <div>
+                                        플랫폼: <span th:text="${serial.platform}"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /. Serials 출력 -->
                 </div>
-
                 <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" >
                     <ul class="pagination justify-content-center">
-
+            
                         <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
                             <a th:href="@{'/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
-                                <span aria-hidden='true'>Previous</span>
+                                <span aria-hidden='true'>&laquo;</span>
                             </a>
                         </li>
-
+            
                         <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${orders.number eq page-1}?'active':''">
                             <a th:href="@{'/orders/' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
                         </li>
-
+            
                         <li class="page-item" th:classappend="${orders.number+1 ge orders.totalPages}?'disabled':''">
                             <a th:href="@{'/orders/' + ${orders.number+1}}" aria-label='Next' class="page-link">
-                                <span aria-hidden='true'>Next</span>
+                                <span aria-hidden='true'>&raquo;</span>
                             </a>
                         </li>
-
+            
                     </ul>
                 </div>
-            </div>
 
-            <div class="col-sm-8">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Serial Number</th>
-                        <th>Platform</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="serial : ${serials}">
-                        <td th:text="${serial.serialNumber}"></td>
-                        <td th:text="${serial.platform}"></td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
+            
         </div>
     </div>
 
