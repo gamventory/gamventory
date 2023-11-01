@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
-                                        new AntPathRequestMatcher("/notices/**"),
+                                        new AntPathRequestMatcher("/customer/**"),
                                         new AntPathRequestMatcher("/purchase"),
                                         new AntPathRequestMatcher("/js/**"),
                                         new AntPathRequestMatcher("/favicon.ico"),

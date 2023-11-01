@@ -12,10 +12,11 @@
 <div layout:fragment="content">
     <div class="container">
 
-        
-            <table>
+        <form class="container"  role="form" method="get" th:object="${noticeList}">
+
+            <table class="table bg-white board">
                 <thead>
-                    <tr>
+                    <tr style="font-weight: bold;">
                         <td>번호</td>
                         <td>제목</td>
                         <td>등록일</td>
@@ -24,15 +25,21 @@
                 </thead>
 
                 <tbody>
-                    <tr th:each="notice, status: ${}">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr th:each="notice, status: ${noticeListDto.getContent()}">
+                        <td th:text="${notice.id}"></td>
+                        <td>
+                            <a th:href="'/customer/notice/' + ${notice.id}" th:text="${notice.subject}"></a>
+                        </td>
+                        <td th:text="${#strings.replace(notice.regTime.toString().substring(0, 19), 'T', ' ')}"></td>
+                        <td th:text="${notice.viewCount}"></td>
                     </tr>
                 </tbody>
             </table>
 
+        </form>
+        <a href="/customer/notice/write">
+            <button class="btn btn-primary">글쓰기</button>
+        </a>
         
     </div>
 </div>
