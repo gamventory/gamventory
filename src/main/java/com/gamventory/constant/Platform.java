@@ -8,5 +8,8 @@ public enum Platform {
     EPIC_GAMES,
     ROCKSTAR_GAMES,
     UBISOFT_CONNECT,
+    NINTENDO,
+    X_BOX,
+    PLAY_STATION,
     OTHER;
 }

@@ -1,7 +1,7 @@
 package com.gamventory.service;
 
 
-import okhttp3.*;
+import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import com.gamventory.entity.Item;
 import com.gamventory.repository.ItemRepository;
 
-import lombok.RequiredArgsConstructor;
-
-import java.io.IOException;
-import java.util.List;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 @Service
 public class PaymentService {

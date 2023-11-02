@@ -110,15 +110,25 @@
                                 <option value="SOLD_OUT">품절</option>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <select th:field="*{GameKind}" class="custom-select">
+                                <option value="PC">PC</option>
+                                <option value="CONSOLE">콘솔</option>
+                            </select>
+                        </div>
             
                         <div class="form-group">
                             <select th:field="*{platform}" class="custom-select">
                                 <option value="STEAM">Steam</option>
                                 <option value="EPIC_GAMES">에픽게임즈</option>
+                                <option value="NINTENDO">닌텐도</option>
+                                <option value="X_BOX">엑스박스</option>
+                                <option value="PLAY_STATION">플레이스테이션</option>
                                 <option value="OTHER">기타</option>
                             </select>
                         </div>
-            
+                        
                         <div class="form-group">
                             <select th:field="*{category}" class="custom-select">
                                 <option value="ACTION">액션</option>
@@ -126,6 +136,7 @@
                                 <option value="ADVENTURE">어드벤처</option>
                                 <option value="CASUAL">캐쥬얼</option>
                                 <option value="OTHER">기타</option>
+                                
                             </select>
                         </div>
             

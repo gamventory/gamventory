@@ -111,8 +111,8 @@ public class ItemController {
     public String itemUpdate(@Valid ItemFormDto itemFormDto , BindingResult bindingResult, Model model,
                                  @RequestParam("itemImgFile") List<MultipartFile> itemImgFileList){
         
-        log.info("로그로그로그"+itemFormDto.getId());
-        log.info(itemFormDto.getPrice());
+        // log.info("로그로그로그"+itemFormDto.getId());
+        // log.info(itemFormDto.getPrice());
 
         if(bindingResult.hasErrors()){
             return "/item/itemForm";

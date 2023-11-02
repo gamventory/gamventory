@@ -1,15 +1,17 @@
 package com.gamventory.service;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,9 +22,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.gamventory.constant.Category;
+import com.gamventory.constant.GameKind;
 import com.gamventory.constant.ItemSellStatus;
 import com.gamventory.constant.Platform;
 import com.gamventory.dto.ItemFormDto;
@@ -126,6 +128,7 @@ public class EpicGamesScraper {
                 itemFormDto.setItemDetail("X");
                 itemFormDto.setItemSellStatus(ItemSellStatus.SELL);
                 itemFormDto.setPlatform(randomPlatform);
+                itemFormDto.setGameKind(GameKind.PC);
                 itemFormDto.setStockNumber(500);
 
                 ItemImgDto itemImgDto = new ItemImgDto();

@@ -6,6 +6,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 
 import com.gamventory.constant.Category;
+import com.gamventory.constant.GameKind;
 import com.gamventory.constant.ItemSellStatus;
 import com.gamventory.constant.Platform;
 import com.gamventory.entity.Item;
@@ -39,6 +40,8 @@ public class ItemFormDto {
 
     private Category category;
 
+    private GameKind gameKind;
+
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>(); //상품 이미지 저장하는 리스트
 
     private List<Long> itemImgIds = new ArrayList<>(); // 상품 이미지 아이디 저장하는 리스트
@@ -52,5 +55,5 @@ public class ItemFormDto {
     public static ItemFormDto of(Item item){
         return modelMapper.map(item,ItemFormDto.class);
     }
-    
+
 }

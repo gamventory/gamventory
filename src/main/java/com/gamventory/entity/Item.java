@@ -1,7 +1,9 @@
 package com.gamventory.entity;
 
 
+
 import com.gamventory.constant.Category;
+import com.gamventory.constant.GameKind;
 import com.gamventory.constant.ItemSellStatus;
 import com.gamventory.constant.Platform;
 import com.gamventory.dto.ItemFormDto;
@@ -72,12 +74,16 @@ public class Item extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private Category category; 
 
+    @Enumerated(EnumType.STRING)
+    private GameKind gameKind;
+
     public void updateItem(ItemFormDto itemFormDto){
         this.itemNm = itemFormDto.getItemNm();
         this.price = itemFormDto.getPrice();
         this.stockNumber = itemFormDto.getStockNumber();
         this.itemDetail = itemFormDto.getItemDetail();
         this.itemSellStatus = itemFormDto.getItemSellStatus();
+        this.gameKind = itemFormDto.getGameKind();
         if(stockNumber > 0){
             itemSellStatus = ItemSellStatus.SELL;
         }

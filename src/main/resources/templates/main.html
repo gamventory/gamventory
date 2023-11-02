@@ -91,6 +91,71 @@
                 <!-- 상품 이미지 출력 for문-->
                 <div class="row">
                     <th:block th:each="item, status: ${items.getContent()}">
+                        <div class="col-md-4 margin" >
+                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style=" background-color: rgb(32,33,35);">
+                                <a th:href="'/item/' +${item.id}" class="text-dark">
+                                    <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300">
+                                    <div id="main_game_card_text" class="card-body ">
+                                        <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
+                                        <!-- <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p> -->
+                                        <p class="card-title text-white" style="opacity: 0.5;">₩ [[${item.price}]]</p>
+                                        <div th:switch="${item.platform}">
+                                            <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                            <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                            <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                            <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                            <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                            <img th:case="'ALL'" th:src="@{/images/item/ALL_logo.png}" />
+                                            <p th:case="*" th:text="${item.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+                <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+                <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+                    <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+                </div>
+                <!-- /. 상품 이미지 출력 for문-->
+
+                
+    
+                <!-- 페이지 이동 버튼-->
+                <div style="margin : auto;">
+                    <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+                        <ul class="pagination justify-content-center">
+    
+                            <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+                                <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
+                                    <span aria-hidden='true'></span>
+                                </a>
+                            </li>
+    
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
+                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+                            </li>
+    
+                            <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+                                    <span aria-hidden='true'>></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--  /. 페이지 이동 버튼-->
+
+                  <!-- filter -->
+            <div id="filter" class="row mb-3" style="border-radius: 10px;"></div>
+            <!-- fliter end-->
+    
+    
+            <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px;">
+                <!-- 상품 이미지 출력 for문-->
+                <div class="row">
+                    <th:block th:each="item, status: ${items.getContent()}">
                         <div class="col-md-4 margin">
                             <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style=" background-color: rgb(32,33,35);">
                                 <a th:href="'/item/' +${item.id}" class="text-dark">
@@ -120,30 +185,6 @@
                 </div>
                 <!-- /. 상품 이미지 출력 for문-->
     
-                <!-- 페이지 이동 버튼-->
-                <div style="margin : auto;">
-                    <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-                        <ul class="pagination justify-content-center">
-    
-                            <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-                                <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                                    <span aria-hidden='true'></span>
-                                </a>
-                            </li>
-    
-                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
-                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
-                            </li>
-    
-                            <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-                                    <span aria-hidden='true'>></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--  /. 페이지 이동 버튼-->
     
             </div>  
     </div>    
