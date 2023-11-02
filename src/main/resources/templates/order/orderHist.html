@@ -140,6 +140,7 @@
                 <!--구매목록-->
                 <div th:each="order : ${orders.getContent()}">
                         
+                    
                     <div class="d-flex mb-3 align-self-center">
                         <span class="text-white" th:text="${order.orderDate} + ' 주문'"></span>
                         <div class="ml-3">

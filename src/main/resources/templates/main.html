@@ -98,8 +98,16 @@
                                     <div id="main_game_card_text" class="card-body ">
                                         <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
                                         <!-- <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p> -->
-                                        <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]원</p>
-                                        <p class="card-title text-white" style="opacity: 0.5;">[[${item.platform}]]</p>
+                                        <p class="card-title text-white" style="opacity: 0.5;">₩ [[${item.price}]]</p>
+                                        <div th:switch="${item.platform}">
+                                            <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                            <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                            <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                            <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                            <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                            <img th:case="'ALL'" th:src="@{/images/item/ALL_logo.png}" />
+                                            <p th:case="*" th:text="${item.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                        </div>
                                     </div>
                                 </a>
                             </div>

@@ -44,7 +44,7 @@ public class Item extends BaseEntity{
     private Long id;       
 
     //상품명
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String itemNm; 
 
     //가격

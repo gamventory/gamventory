@@ -87,6 +87,8 @@ public class EpicGamesScraper {
             List<WebElement> gamePrices = driver.findElements(By.cssSelector("span.css-119zqif"));
             List<WebElement> gameImages = driver.findElements(By.cssSelector("div.css-uwwqev img"));
 
+            
+
             for (int i = 0; i < gameNames.size(); i++) {
 
                 String originalGameName = gameNames.get(i).getText();
@@ -105,17 +107,25 @@ public class EpicGamesScraper {
                     // 예: log.warn("Game name truncated: " + originalGameName + " to " + formattedGameName);
                 }
 
+                //카테고리 플랫폼 랜덤설정
+                Random random = new Random();
+                Platform[] platforms = Platform.values();
+                Category[] categories = Category.values();
+                Platform randomPlatform = platforms[random.nextInt(platforms.length)];
+                Category randomCategory = categories[random.nextInt(categories.length)];
+
                 ItemFormDto itemFormDto = new ItemFormDto();
-                itemFormDto.setItemNm(formattedGameName);
+                itemFormDto.setItemNm(originalGameName);
                 if (!cleanedPrice.isEmpty() && cleanedPrice.matches("\\d+")) {
                     itemFormDto.setPrice(Integer.parseInt(cleanedPrice));
                 } else {
                     itemFormDto.setPrice(50000); // 기본값 설정
                 }
-                itemFormDto.setCategory(Category.ACTION);
+                
+                itemFormDto.setCategory(randomCategory);
                 itemFormDto.setItemDetail("X");
                 itemFormDto.setItemSellStatus(ItemSellStatus.SELL);
-                itemFormDto.setPlatform(Platform.EPIC_GAMES);
+                itemFormDto.setPlatform(randomPlatform);
                 itemFormDto.setStockNumber(500);
 
                 ItemImgDto itemImgDto = new ItemImgDto();

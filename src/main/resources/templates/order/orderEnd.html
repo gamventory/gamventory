@@ -61,17 +61,20 @@
 <!-- content -->
 <div layout:fragment="content">
 
+    
+    
     <div class="container orderend">
         <div class="orderend-content">
+            <img th:src=@{/images/item/orderEnd_page.png}>
             <div class="highlight">결제가 성공적으로 처리되었습니다!</div>
             구매한 게임은 '개인정보 -> 구매내역'에서 시리얼번호를 확인할 수 있습니다.
         </div>
         <div class="orderend-content">
             이메일로 영수증이 발송되었습니다.
         </div>
-        <a href="http://localhost:8081/orders" class="btn btn-primary mt-3">구매내역 페이지로 </a>  
-        <a href="http://localhost:8081/list" class="btn btn-primary mt-3">다른게임 둘러보기</a>  
-        <a href="http://localhost:8081" class="btn btn-primary mt-3">홈페이지로</a>  
+            <a href="http://localhost:8081/orders" class="btn btn-primary mt-3" style="width: 360px; height: 40px; text-align: center; font-weight: 500; font-size: large;">구매내역 페이지로</a>  
+            <a href="http://localhost:8081/list" class="btn btn-primary mt-3" style="width: 360px; height: 40px; text-align: center; font-weight: 500; font-size: large;">다른게임 둘러보기</a>  
+            <a href="http://localhost:8081" class="btn btn-primary mt-3" style="width: 360px; height: 40px; text-align: center; font-weight: 500; font-size: large;">홈화면</a>  
     </div>
 </div>     
 

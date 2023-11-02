@@ -112,7 +112,15 @@
                     <tr th:each="item : ${items}">
                         <td style="width: 20%;"><a th:href="'/item/' + ${item.id}"><img th:src="${item.imgUrl}" th:alt="${item.itemNm}" height="75" width="140"></a></td>
                         <td style="width: 20%; vertical-align: middle;" th:text="${item.itemNm}"></td>
-                        <td style="width: 20%; vertical-align: middle;" th:text="${item.platform}"></td>
+                        <td th:switch="${item.platform}" style="width: 20%; vertical-align: middle;">
+                            <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                            <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                            <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                            <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                            <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                            <img th:case="'ALL'" th:src="@{/images/item/ALL_logo.png}" />
+                            <p th:case="*" th:text="${item.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                        </td>
                         <td style="width: 20%; vertical-align: middle;" th:text="${item.category}"></td>
                         <td style="width: 20%; vertical-align: middle;" th:text="${item.formattedPrice+ '₩'}"></td>
                     </tr>
