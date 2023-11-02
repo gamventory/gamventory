@@ -1,22 +1,16 @@
 package com.gamventory.service;
 
-import com.gamventory.dto.NoticeFormDto;
-import com.gamventory.dto.NoticeListDto;
-import com.gamventory.dto.NoticeSearchDto;
+import com.gamventory.dto.*;
 import com.gamventory.entity.Member;
 import com.gamventory.entity.Notice;
 import com.gamventory.repository.MemberRepository;
 import com.gamventory.repository.NoticeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Transactional
@@ -38,7 +32,36 @@ public class NoticeService {
                 .subject(noticeFormDto.getSubject())
                 .content(noticeFormDto.getContent())
                 .member(member)
+                .viewCount(0L)
                 .build();
+        noticeRepository.save(notice);
+    }
+
+    public NoticeDetailDto getNoticeDetail(Long id) {
+
+        Notice notice = noticeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        NoticeDetailDto noticeDetailDto = NoticeDetailDto.of(notice);
+
+        return noticeDetailDto;
+    }
+
+    public NoticeUpdateFormDto getUpdateFormDtoFromNotice(Long id) {
+
+        Notice notice = noticeRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        NoticeUpdateFormDto noticeUpdateFormDto = NoticeUpdateFormDto.builder()
+                .id(notice.getId())
+                .subject(notice.getSubject())
+                .content(notice.getContent())
+                .build();
+
+        return noticeUpdateFormDto;
+    }
+
+    public void noticeUpdateFormDtoSave(NoticeUpdateFormDto noticeUpdateFormDto) {
+
+        Notice notice = noticeRepository.findById(noticeUpdateFormDto.getId()).orElseThrow(EntityNotFoundException::new);
+        notice.modifyUpdate(noticeUpdateFormDto);
         noticeRepository.save(notice);
     }
 

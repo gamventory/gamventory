@@ -1,8 +1,6 @@
 package com.gamventory.controller;
 
-import com.gamventory.dto.NoticeFormDto;
-import com.gamventory.dto.NoticeListDto;
-import com.gamventory.dto.NoticeSearchDto;
+import com.gamventory.dto.*;
 import com.gamventory.service.NoticeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Optional;
@@ -52,8 +47,10 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/notice/{id}")
-    public String noticeDetailView(@RequestParam("id") String id, Model model){
+    public String noticeDetailView(@PathVariable("id") Long id, Model model){
 
+        NoticeDetailDto noticeDetailDto = noticeService.getNoticeDetail(id);
+        model.addAttribute("noticeDetailDto", noticeDetailDto);
         return "customer/noticeDetail";
     }
 
@@ -79,6 +76,26 @@ public class CustomerController {
 
         return "redirect:/customer/notice";
     }
+
+    @GetMapping(value = "/notice/update/{id}")
+    public String noticeUpdateView(@PathVariable("id") Long id, Model model) {
+        NoticeUpdateFormDto noticeUpdateFormDto = noticeService.getUpdateFormDtoFromNotice(id);
+        model.addAttribute("noticeUpdateFormDto", noticeUpdateFormDto);
+
+        log.info("id : " + noticeUpdateFormDto.getId());
+
+        return "customer/noticeUpdate";
+    }
+
+    @PostMapping(value = "/notice/update")
+    public String noticeUpdate(@Valid NoticeUpdateFormDto noticeUpdateFormDto, BindingResult bindingResult, Model model) {
+
+        log.info("update post id : " + noticeUpdateFormDto.getId());
+        noticeService.noticeUpdateFormDtoSave(noticeUpdateFormDto);
+
+        return "redirect:/customer/notice/" + noticeUpdateFormDto.getId();
+    }
+
 
     // Q&A
 

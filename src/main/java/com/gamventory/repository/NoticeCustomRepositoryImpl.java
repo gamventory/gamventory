@@ -44,7 +44,7 @@ public class NoticeCustomRepositoryImpl implements NoticeCustomRepository {
                         notice.subject,
                         notice.content,
                         notice.viewCount,
-                        notice.member.name,
+                        notice.member.email,
                         notice.regTime
                 ))
                 .from(notice)

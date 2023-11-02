@@ -12,7 +12,15 @@
 <div layout:fragment="content">
     <div class="container">
 
-        <form class="container"  role="form" method="get" th:object="${noticeList}">
+        <div class="mb-5">
+            <span class="border-bottom border-light" style="color:whitesmoke; font-weight: bold; font-size: 40px">공지사항</span>
+        </div>
+
+        <a href="/customer/notice/write">
+            <button style="float: right" class="btn btn-primary">공지사항 작성</button>
+        </a>
+
+        <form role="form" method="get" th:object="${noticeList}">
 
             <table class="table bg-white board">
                 <thead>
@@ -30,17 +38,43 @@
                         <td>
                             <a th:href="'/customer/notice/' + ${notice.id}" th:text="${notice.subject}"></a>
                         </td>
-                        <td th:text="${#strings.replace(notice.regTime.toString().substring(0, 19), 'T', ' ')}"></td>
+                        <td th:text="${notice.regTime.toString().substring(0, 10)}"></td>
                         <td th:text="${notice.viewCount}"></td>
                     </tr>
                 </tbody>
             </table>
 
+<!--            <input type="hidden" name="searchQuery" th:value="${noticeSearchDto}">-->
+
+<!--            paginaition-->
+            <div style="margin: 0 auto;">
+                <div th:with="start = ${(noticeListDto.number / maxPage) * maxPage + 1}, end = (${(noticeListDto.totalPages == 0) ? 1 : (start + (maxPage - 1) < noticeListDto.totalPages ? start + (maxPage - 1) : noticeListDto.totalPages)})">
+                    <ul class="pagination justify-content-center">
+<!--                        Previous-->
+                        <li class="page-item" th:classappend="${noticeListDto.number eq 0} ? 'disabled' : ''">
+                            <a th:href="@{'/customer/notice' + '?page=' + ${noticeListDto.number - 1}}" aria-label="Previous" class="page-link">
+                                <span aria-hidden="true"><</span>
+                            </a>
+                        </li>
+<!--                        page number-->
+                        <li class="page-item" th:each="page : ${#numbers.sequence(start, end)}" th:classappend="${noticeListDto.number eq page - 1} ? 'active' : ''">
+                            <a th:href="@{'/customer/notice' + '?page=' + ${page - 1}}" th:inline="text" class="page-link">[[${page}]]</a>
+                        </li>
+<!--                        Next-->
+                        <li class="page-item" th:classappend="${noticeListDto.number + 1 ge noticeListDto.totalPages} ? 'disabled' : ''">
+                            <a th:href="@{'/customer/notice' + '?page=' + ${noticeListDto.number + 1}}" aria-label="Next" class="page-link">
+                                <span aria-hidden="true">></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+
+<!--            search-->
+
         </form>
-        <a href="/customer/notice/write">
-            <button class="btn btn-primary">글쓰기</button>
-        </a>
-        
+
     </div>
 </div>
 </html>
