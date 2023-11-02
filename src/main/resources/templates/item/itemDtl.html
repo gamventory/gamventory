@@ -143,10 +143,10 @@
                     </div>
                    
                     <div id="item_detail_box_buy" class="col-sm-5 pt-3" style="text-align: left; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                        <span th:if="${itemSellStatusSell.name() == 'SELL'}" class="badge badge-primary mgb-15">
+                        <span th:if="${itemSellStatusSell.name() == 'SELL'}" class="badge text-white bg-db mgb-15">
                             판매중
                         </span>
-                        <span th:if="${itemSellStatusSell.name() == 'SOLD_OUT'}" class="badge btn-danger mgb-15" >
+                        <span th:if="${itemSellStatusSell.name() == 'SOLD_OUT'}" class="badge bg-dr mgb-15" >
                             품절
                         </span>
 
@@ -155,28 +155,28 @@
                         <hr class="my-4">
 
                         <div>
-                            <div class="text-white">
+                            <div class="text-white fs12" style="font-size: 20px;">
                                 판매가격 : 
                                 <input type="hidden" th:value="${item.price}" id="price" name="price">
-                                <span th:text="${item.price}"></span>원
+                                <span th:text="${item.price}" sy></span>원
                             </div>
                         </div>
 
-                        <div class="input-group mt-3" style="width: 200px;">
-                            <span class="form-control bg-info text-white" style="text-align:center; font-size: 11px;">수량</span>
-                            <input type="number" name="count" id="count" class="form-control" value="1" min="1" style="text-align: right; font-size: 11px;"/>
-                            <span name="totalPrice" id="totalPrice" class="form-control" style="text-align: right; font-size: 11px; width: 80px;"></span>
+                        <div class="input-group mt-3" style="width: 100%">
+                            <span class="form-control bg-info text-white fs12" style="text-align:center; width:30%;">수량</span>
+                            <input type="number" name="count" id="count" class="form-control fs12" value="1" min="1" style="text-align: right; width:30%;"/>
+                            <span name="totalPrice" id="totalPrice" class="form-control fs12" style="text-align: right; width: 40%;"></span>
                         </div>
 
                         <hr class="my-4">
 
-                        <div style="float: left;">
-                            <div th:if="${itemSellStatusSell.name() == 'SELL'}" class="text-right">
-                                <button type="button" class="btn btn-light border bg-success text-white" onclick="addCart()" style="font-size: 11px;">장바구니</button>
-                                <button type="button" class="btn btn-primary" onclick="order()" style="font-size: 12px;">주문하기</button>
+                        <div style="float: left; width: 100%; height: 80px;">
+                            <div th:if="${itemSellStatusSell.name() == 'SELL'}">
+                                <button type="button" class="btn fs12 col-sm-6 text-white" onclick="addCart()" style="height: 60px; width: 50%; background-color: #6db133;">장바구니</button>
+                                <button type="button" class="btn fs12 col-sm-6 text-white" onclick="order()" style="height:60px; width: 50%; background-color: #5994b1;">주문하기</button>
                             </div>
                             <div th:if="${itemSellStatusSell.name() == 'SOLD_OUT'}" class="text-right mt-1">
-                                <button type="button" class="btn btn-danger">품절</button>
+                                <button type="button" class="btn text-white" style="width: 50%; height: 60px; background-color: #bd2130;">품절</button>
                             </div>
                         </div>
                     </div>

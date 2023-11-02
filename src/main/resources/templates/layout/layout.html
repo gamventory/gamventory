@@ -61,7 +61,7 @@
         $(document).ready(function(){
 
             $("#logo").click(function(event) {
-                window.location.href = 'http://localhost:8081/';
+                window.location.href = '/';
             });
 
             //user_modal event
@@ -80,6 +80,47 @@
                 window.location.href = 'http://localhost:8081/cart'
             });
 
+
+            const checkAll = document.getElementById('chkAll');
+            const chks = document.querySelectorAll('.chk');  
+            const chkBoxLength = chks.length;
+            
+
+            checkAll.addEventListener('click', function(event) {
+                if(event.target.checked)  {
+                    chks.forEach(function(value){
+                    value.checked = true;
+                })
+                }else {
+                chks.forEach(function(value){
+                value.checked = false;
+                })
+                }
+            });
+            for (chk of chks){
+                chk.addEventListener('click', function() {
+                    let count = 0;
+                    chks.forEach(function(value){
+                        if(value.checked == true){
+                            count++;
+                        }
+                    })
+                    if(count !== chkBoxLength){
+                        checkAll.checked = false;
+                    }else{
+                        checkAll.checked = true;
+                    }
+                })            
+            };   
+            var agree1 = document.querySelector(".checkBox.check02 input.chk");
+            var agree2 = document.querySelector(".checkBox.check03 input.chk");
+
+            $(".buy_button").click(function(){
+                if (!agree1.checked || !agree2.checked) {
+                    alert("이용약관 및 개인정보 수집에 동의해야 합니다.");
+                    return; // 다음 페이지로 넘어가지 않음
+                }
+            });
         });
     </script>
 

@@ -1,6 +1,7 @@
 package com.gamventory.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,13 +32,17 @@ public class SerialCustomRepositoryImpl implements SerialCustomRepository {
                                            .offset(pageable.getOffset())
                                            .limit(pageable.getPageSize())
                                            .fetch();
-        
-        long total = queryFactory.selectFrom(serial)
-                                 .leftJoin(serial.member)
-                                 .where(serial.id.stringValue().contains(keyword)
-                                        .or(serial.member.email.contains(keyword)))
-                                 .fetchCount();
 
-        return new PageImpl<>(serials, pageable, total);
-    }
+        Optional<Long> result = Optional.ofNullable(
+           queryFactory
+                    .select(serial.count())
+                    .from(serial)
+                    .leftJoin(serial.member)
+                    .where(serial.id.stringValue().contains(keyword)
+                            .or(serial.member.email.contains(keyword)))
+                    .fetchOne());
+
+            long total = result.orElse(0L);
+            return new PageImpl<>(serials, pageable, total);
+        }
 }

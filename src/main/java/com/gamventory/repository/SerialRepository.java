@@ -23,5 +23,4 @@ public interface SerialRepository extends JpaRepository<Serial, Long>, SerialCus
 
     Page<Serial> findByMember(Member member, Pageable pageable);
 
-
 }

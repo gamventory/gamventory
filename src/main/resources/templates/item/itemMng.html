@@ -70,7 +70,7 @@
                 <div class="container">
                     <form class="container" th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
                         <table class="table bg-white board" style="border-radius: 10px; margin-bottom: 50px; text-align: center;">
-                            <thead class="bg-primary text-white";>
+                            <thead class="bg-db text-white";>
                                 <tr style="font-weight:bold;">
                                     <td>아이디</td>
                                     <td>상품명</td>
@@ -135,7 +135,7 @@
                                 <option value="createdBy">등록자</option>
                             </select>
                             <input th:field="*{searchQuery}" type="text" class="form-control mb-2" placeholder="검색어를 입력해주세요">
-                            <button id="searchBtn" type="submit" class="btn btn-primary mb-2">검색</button>
+                            <button id="searchBtn" type="submit" class="btn text-white mb-2" style="background-color: #5994b1;">검색</button>
                         </div>
                         <!-- /. 검색창-->
                     </form>

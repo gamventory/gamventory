@@ -4,6 +4,7 @@ package com.gamventory.repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -97,13 +98,15 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                     .limit(pageable.getPageSize())
                     .fetch();
 
-            long total = queryFactory.select(Wildcard.count).from(QItem.item)
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory.select(Wildcard.count).from(QItem.item)
                     .where(regDtsAfter(itemSearchDto.getSearchDateType()),
                             searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
                             searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
                     .fetchOne()
-                    ;
+        );
 
+            long total = result.orElse(0L);
             return new PageImpl<>(content, pageable, total);
     }
 
@@ -140,14 +143,17 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = queryFactory
-                .select(Wildcard.count)
-                .from(itemImg)
-                .join(itemImg.item, item)
-                .where(itemImg.repimgYn.eq("Y"))
-                .where(itemNmLike(itemSearchDto.getSearchQuery()))
-                .fetchOne()
-                ;
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory
+                    .select(Wildcard.count)
+                    .from(itemImg)
+                    .join(itemImg.item, item)
+                    .where(itemImg.repimgYn.eq("Y"))
+                    .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                    .fetchOne()
+        );
+
+        long total = result.orElse(0L);
 
         return new PageImpl<>(content, pageable, total);
     }

@@ -179,7 +179,7 @@
                                 <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
                                     th:value="${cartItem.count}" min="1"
                                     onchange="changeCount(this)" class="form-control" >
-                                <button type="button" class="btn bg-danger">
+                                <button type="button" class="btn text-white" style="background-color: #bd2130;">
                                     <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">x</span>
                                 </button>
                             </div>
@@ -196,7 +196,7 @@
             </table>
 
             <div class="text-center">
-                <button type="button" class="btn btn-primary" onclick="orders()">주문하기</button>
+                <button type="button" class="btn text-white" style="background-color: #5994b1;" onclick="orders()">주문하기</button>
             </div>
     </div>
 </div>

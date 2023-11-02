@@ -40,10 +40,20 @@ td {
     background-color: rgb(236, 162, 25);
 }
 
-
-.bg-orange:hover{
-    filter: brightness(0.8);
+.bg-db{
+    background-color: #5994b1;
 }
+
+
+.bg-dg{
+    background-color: #6db133;
+}
+
+.bg-dr{
+    background-color: #bd2130;
+}
+
+
 
 /* base end ============================================*/
 
@@ -78,11 +88,10 @@ td {
 #header_User i{
     cursor: pointer;
     font-size : 18px;
-    background-color: #1ca817;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 5px;
-    padding : 6px;
+    padding : 9px;
 }
 
 
@@ -93,9 +102,6 @@ td {
     font-size: 13px;
 }
 
-#management_button:hover{
-    background-color: rgb(216, 216, 216);
-}
 
 #user_button{
     border-radius: 5px;
@@ -104,9 +110,7 @@ td {
     font-size: 13px;
 }
 
-#user_button:hover{
-    background-color: rgb(216, 216, 216);
-}
+
 
 #cart_button{
     border-radius: 5px;
@@ -114,15 +118,6 @@ td {
     cursor: pointer;
     font-size: 13px;
 }
-
-#cart_button i{
-    background-color: rgb(236, 162, 25);
-}
-
-#cart_button:hover{
-    background-color: rgb(216, 216, 216);
-}
-
 
 
 #nav{
@@ -146,7 +141,7 @@ td {
     top : 50px;
     display: none;
     font-size : 15px;
-    right : 45px;
+    right : -35px;
 }
 
 #user_modal>div{
@@ -213,6 +208,17 @@ td {
     height: 300px;
 }
 
+#img_slider_button li{
+    padding : 12px;
+    background-color: #444550;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+#img_slider_button li:hover{
+    opacity: 0.7;
+}
+
 #main_game_card{
     transition : 0.5s;
 }
@@ -273,7 +279,7 @@ td {
 
 #login_box{
     margin-top : 180px;
-    margin-bottom : 200px;
+    margin-bottom : 50px;
     display: grid;
     place-items: center;
 }
@@ -471,6 +477,25 @@ td {
 
 
 
+/* joinForm start ====================================================*/
+.joinForm{width: 460px;margin: 0 auto;}
+ul.join_box{border: 1px solid #ddd;background-color: #fff;}
+.checkBox,.checkBox>ul{position: relative;}
+.checkBox>ul>li{float: left;}
+.checkBox>ul>li:first-child{width: 85%;padding: 15px;font-weight: 600;color: #888;}
+.checkBox>ul>li:nth-child(2){position: absolute;top: 50%;right: 30px;margin-top: -12px;}
+.checkBox textarea{width: 96%;height: 90px; margin: 0 2%;background-color: #f7f7f7;color: #888; border: none;}
+.footBtwrap{margin-top: 15px;}
+.footBtwrap>li{float: left;width: 50%;height: 60px;}
+.footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 60px;}
+.fpmgBt1{background-color: #fff;color:#888;border-color: #eee;}
+.fpmgBt2{background-color: lightsalmon;color: #fff; border-color: #eee;}
+/* joinForm end ====================================================*/
+
+
+
+
+
 
 
 
@@ -538,7 +563,7 @@ td {
 
     #user_modal{
         margin-top: -5px;
-        margin-right: -115px;
+        margin-right: -35px;
     }
 
     #user_modal>div{
@@ -554,18 +579,6 @@ td {
     #management_button,#user_button,#cart_button{
         background : none;
         width: 25px;
-    }
-
-    #management_button i:hover{
-        background-color: #0068d6 !important;
-    }
-
-    #user_button i:hover{
-        background-color: #1b8d17 !important;
-    }
-
-    #cart_button i:hover{
-        background-color: rgb(204, 141, 25) !important;
     }
 
     #header_User span{
@@ -618,6 +631,27 @@ td {
     }
 
     /* m_sidebar.html end  ==================================================*/
+
+
+     /* m_memberForm.html start   ===============================================*/
+
+     #singup_box{
+        margin-top: 5px;
+     }
+
+
+     #singup_box>div{
+        width:70%;
+        margin: auto;
+        margin-top: 15px;
+     }
+     
+     #sinup_button{
+        margin-top: 15px;
+        margin-left: 15%;
+     }
+
+      /* m_memberForm.html end   ===============================================*/
 
 
 
@@ -778,6 +812,16 @@ td {
         width: 90%;
     }
 
+    #order_box div img{
+        width: 100% !important;
+    }
+
+    #order_box input:focus{
+        outline: none;
+        border: none;
+    }
+
+
 
     /* m_order.html end ==========================================================*/
 
@@ -849,6 +893,25 @@ td {
     }
 
     /* m_cartList.html end ============================================================*/
+
+
+
+
+    /* m_list.html start ==========================================================*/
+    .list_filter_box{
+        width: 120% !important;
+        margin-bottom: -20px;
+    }
+
+    .list_filter_table tbody td img{
+        width: 100%;
+    }
+
+    /* m_list.html end ==========================================================*/
+
+
+
+
 
 }
 
