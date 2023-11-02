@@ -135,25 +135,61 @@ td {
     margin-right: 10px;
 }
 
+#search_Form{
+    margin-left: 200px;
+    width: 40%;
+}
+
+#search_Form input{
+    background-color: rgb(78, 78, 78);
+}
+
+#search_Form input::placeholder{
+    color: white;
+}
+
+#search_Form button{
+    background-color: #5994b1;
+}
+
 #user_modal{
     width : 200px;
     position: absolute;
     top : 50px;
     display: none;
     font-size : 15px;
-    right : -35px;
+    right : -58px;
+    z-index: 9999999;
 }
 
 #user_modal>div{
     background-color: rgb(65, 84, 112, 0.9);
     border-radius: 10px;
     margin-right : -10px;
-    width : 200px;
+    width : 150px;
     text-align: center;
     padding-top : 10px;
     padding-bottom : 10px;
     line-height: 30px;
 }
+
+#notice_modal{
+    display: none;
+    position: absolute;
+    background-color: rgb(65, 84, 112, 0.9);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left : -43px;
+    width : 150px;
+    text-align: center;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    line-height: 30px;
+}
+
+
+
+
 
 /* header end ================================================*/
 
@@ -206,6 +242,22 @@ td {
 
 #img_slider div{
     height: 300px;
+}
+
+#img_slider_button li{
+    padding : 12px;
+    background-color: #444550;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+#img_slider_button li:nth-child(2){
+    margin-top: 23px;
+    margin-bottom: 23px;
+}
+
+#img_slider_button li:hover{
+    opacity: 0.7;
 }
 
 #main_game_card{
@@ -574,6 +626,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
         display: none;
     }
 
+
+
     #nav{
         left : -20px;
         font-size: 10px;
@@ -620,6 +674,67 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     }
 
     /* m_sidebar.html end  ==================================================*/
+
+
+
+    /* m_main.html start   ===============================================*/
+
+    #img_slider{
+        margin-bottom: 120px;
+        margin-top: -30px !important;        
+    }
+
+    #img_slider_img{
+        width: 100% !important;
+        margin-bottom: 10px;
+        margin-left: 35px !important;
+    }
+
+    #img_slider_button{
+        margin-left: 30px;
+        width: 900% !important;
+        height : 100px !important;
+    }
+
+    #img_slider_button li img{
+        width: 50px !important;
+    }
+
+    #img_slider_button ul{
+        text-align: center;
+    }
+
+    #img_slider_button li{
+        display: inline-block;
+        width: 75px;
+    }
+
+    #img_slider_button li:nth-child(2){
+        margin : 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #search_Form input{
+        width: 100px;
+        height: 25px;
+    }
+
+    #search_Form button{
+        height: 25px;
+        width:50px;
+        padding-top: 3px !important;
+    }
+
+
+
+    /* m_main.html end  ==================================================*/
+
+
+
+
+
+
 
 
      /* m_memberForm.html start   ===============================================*/
@@ -894,6 +1009,19 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
     .list_filter_table tbody td img{
         width: 100%;
+    }
+
+    .list_table{
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+
+    .list_table td:nth-child(2) img{
+        width: 10% !important;
+    }
+
+    .list_promotion{
+        display: none !important;
     }
 
     /* m_list.html end ==========================================================*/
