@@ -4,7 +4,6 @@ import com.gamventory.dto.*;
 import com.gamventory.service.NoticeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +20,7 @@ import java.util.Optional;
 @RequestMapping(value = "/customer")
 @RequiredArgsConstructor
 @Log4j2
-public class CustomerController {
+public class NoticeController {
 
     private final NoticeService noticeService;
 
@@ -103,14 +102,6 @@ public class CustomerController {
         noticeService.noticeDelete(id);
 
         return "redirect:/customer/notice";
-    }
-
-
-    // Q&A
-
-    @GetMapping(value = "/qna")
-    public String QnaView() {
-        return "customer/qnaList";
     }
 
 }

@@ -45,6 +45,8 @@ public class SecurityConfig {
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
                                         new AntPathRequestMatcher("/customer/notice"),
                                         new AntPathRequestMatcher("/customer/notice/read/**"),
+                                        new AntPathRequestMatcher("/customer/question/list"),
+                                        new AntPathRequestMatcher("/customer/question/read/**"),
                                         new AntPathRequestMatcher("/purchase"),
                                         new AntPathRequestMatcher("/js/**"),
                                         new AntPathRequestMatcher("/favicon.ico"),
@@ -62,9 +64,13 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/mail/**"),
                                         new AntPathRequestMatcher("/list/**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/members/**")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/members/**"),
+                                        new AntPathRequestMatcher("/customer/question/write"),
+                                        new AntPathRequestMatcher("/customer/question/modify/**"),
+                                        new AntPathRequestMatcher("/customer/question/delete/**")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**"),
-                                        new AntPathRequestMatcher("/customer/notice/**")).hasRole("ADMIN")
+                                        new AntPathRequestMatcher("/customer/notice/**"),
+                                        new AntPathRequestMatcher("/customer/question/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling ->

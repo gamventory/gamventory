@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>공지사항</title>
+</head>
+<body>
+
+    <div layout:fragment="content" class="container my-3">
+
+        <div class="mb-5">
+            <span class="border-bottom border-light" style="color:whitesmoke; font-weight: bold; font-size: 30px">Q&A 내용</span>
+        </div>
+
+        <!-- 질문 -->
+        <div class="card my-3 bg-dark">
+            <div class="card-header bg-dark">
+                
+                <div class="d-flex" style="display: inline;">
+                    <h2 class="mr-auto p-2 text-white" th:text="${question.subject}"></h2>
+                    <div th:if="${question.updateTime != null}" class="badge bg-dark text-white text-start mx-3 p-2">
+                        <div class="mb-2">수정 날짜</div>
+                        <div th:text="${question.updateTime.toString().substring(0, 10)}"></div>
+                    </div>
+                    <div class="badge bg-dark text-white text-start p-2">
+                        <div class="mb-2">
+                            <span th:if="${question.member != null}" th:text="${question.member.email}"></span>
+                        </div>
+                        <div th:text="${question.regTime.toString().substring(0, 10)}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-text text-white" style="white-space: pre-line;" th:text="${question.content}"></div>
+
+                <div class="my-3">
+                    <a th:href="@{|/customer/question/modify/${question.id}|}" class="btn btn-sm btn-secondary "
+                       sec:authorize="isAuthenticated()"
+                       th:if="${question.member != null and #authentication.getPrincipal().getUsername() == question.member.email}"
+                       th:text="수정"></a>
+                    <a href="javascript:void(0)" th:data-url="@{|/customer/question/delete/${question.id}|}"
+                       class="delete btn btn-sm btn-secondary"
+                       sec:authorize="isAuthenticated"
+                       th:if="${question.member != null and #authentication.getPrincipal.getUsername() == question.member.email}"
+                       th:text="삭제"></a>
+                </div>
+            </div>
+        </div>
+        <!-- 답변의 갯수 표시 -->
+        <h5 class="border-bottom my-3 py-2 text-white"
+            th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
+        <!-- 답변 반복 시작 -->
+        <div class="card my-3 bg-dark" th:each="answer : ${question.answerList}">
+            <a th:id="|answer_${answer.id}|"></a>
+            <div class="card-body bg-dark">
+                <div class="card-text text-white" style="white-space: pre-line;" th:text="${answer.content}"></div>
+
+                <div class="d-flex my-3 bg-dark">
+                    <a th:href="@{|/customer/question/answer/modify/${answer.id}|}" 
+                    class="btn btn-sm btn-secondary"
+                    sec:authorize="isAuthenticated()"
+                    th:if="${answer.member != null and #authentication.getPrincipal.getUsername() == answer.member.email}"
+                    th:text="수정"></a>
+                    <a th:data-url="@{|/customer/question/answer/delete/${answer.id}|}"
+                    class="delete btn btn-sm btn-secondary"
+                    sec:authorize="isAuthenticated()"
+                    th:if="${answer.member != null and #authentication.getPrincipal().getUsername() == answer.member.email}"
+                    th:text="삭제"></a>
+                    <div th:if="${answer.updateTime != null}" class="ml-auto badge bg-dark text-white p-2 text-start mx-3">
+                        <div class="mb-2 ">수정 날짜</div>
+                        <div th:text="${answer.updateTime.toString().substring(0, 10)}"></div>
+                    </div>
+                    <div class="badge bg-dark text-white p-2 text-start">
+                        <div>
+                            <span th:if="${answer.member}" th:text="${answer.member.email}"></span>
+                        </div>
+                        <div th:text="${answer.regTime.toString().substring(0, 10)}"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 답변 반복 끝  -->
+        <!-- 답변 작성 -->
+        <form sec:authorize="hasRole('ADMIN')" th:action="@{|/customer/question/answer/create/${question.id}|}" th:object="${answerForm}" method="post" class="my-3 bg-dark">
+            <div class="bg-dark" th:replace="~{customer/formErrors :: formErrorsFragment}"></div>
+            <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" rows="10" class="form-control bg-dark" placeholder="로그인 후 답변을 작성할 수 있습니다."></textarea>
+            <textarea sec:authorize="isAuthenticated()" th:field="*{content}" rows="10" class="form-control bg-secondary"></textarea>
+            <input type="submit" value="답변등록" class="btn btn-primary my-2">
+        </form>
+    </div>
+
+    <script layout:fragment="script" type="text/javascript">
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const delete_elements = document.getElementsByClassName("delete");
+            Array.from(delete_elements).forEach(function(element) {
+                element.addEventListener("click", function() {
+                    if(confirm("정말로 삭제하시겠습니까?")) {
+                        location.href = this.dataset.url;
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+</body>
+</html>
