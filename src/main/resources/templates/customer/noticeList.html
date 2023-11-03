@@ -9,6 +9,7 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>공지사항</title>
 </head>
+
 <div layout:fragment="content">
     <div class="container">
 
@@ -16,11 +17,11 @@
             <span class="border-bottom border-light" style="color:whitesmoke; font-weight: bold; font-size: 40px">공지사항</span>
         </div>
 
-        <a href="/customer/notice/write">
+        <a sec:authorize="hasRole('ADMIN')" href="/customer/notice/write">
             <button style="float: right" class="btn btn-primary">공지사항 작성</button>
         </a>
 
-        <form role="form" method="get" th:object="${noticeList}">
+        <form class="bg-dark" role="form" method="get" th:object="${noticeList}">
 
             <table class="table bg-white board">
                 <thead>
@@ -28,7 +29,7 @@
                         <td>번호</td>
                         <td>제목</td>
                         <td>등록일</td>
-                        <td>조회수</td>
+                        <!-- <td>조회수</td> -->
                     </tr>
                 </thead>
 
@@ -36,10 +37,10 @@
                     <tr th:each="notice, status: ${noticeListDto.getContent()}">
                         <td th:text="${notice.id}"></td>
                         <td>
-                            <a th:href="'/customer/notice/' + ${notice.id}" th:text="${notice.subject}"></a>
+                            <a th:href="'/customer/notice/read/' + ${notice.id}" th:text="${notice.subject}"></a>
                         </td>
                         <td th:text="${notice.regTime.toString().substring(0, 10)}"></td>
-                        <td th:text="${notice.viewCount}"></td>
+                        <!-- <td th:text="${notice.viewCount}"></td> -->
                     </tr>
                 </tbody>
             </table>
@@ -48,7 +49,7 @@
 
 <!--            paginaition-->
             <div style="margin: 0 auto;">
-                <div th:with="start = ${(noticeListDto.number / maxPage) * maxPage + 1}, end = (${(noticeListDto.totalPages == 0) ? 1 : (start + (maxPage - 1) < noticeListDto.totalPages ? start + (maxPage - 1) : noticeListDto.totalPages)})">
+                <div  th:with="start = ${(noticeListDto.number / maxPage) * maxPage + 1}, end = (${(noticeListDto.totalPages == 0) ? 1 : (start + (maxPage - 1) < noticeListDto.totalPages ? start + (maxPage - 1) : noticeListDto.totalPages)})">
                     <ul class="pagination justify-content-center">
 <!--                        Previous-->
                         <li class="page-item" th:classappend="${noticeListDto.number eq 0} ? 'disabled' : ''">

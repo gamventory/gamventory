@@ -43,7 +43,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
-                                        new AntPathRequestMatcher("/customer/**"),
+                                        new AntPathRequestMatcher("/customer/notice"),
+                                        new AntPathRequestMatcher("/customer/notice/read/**"),
                                         new AntPathRequestMatcher("/purchase"),
                                         new AntPathRequestMatcher("/js/**"),
                                         new AntPathRequestMatcher("/favicon.ico"),
@@ -62,7 +63,8 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/list/**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**")).authenticated()
-                                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+                                .requestMatchers(new AntPathRequestMatcher("/admin/**"),
+                                        new AntPathRequestMatcher("/customer/notice/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling ->

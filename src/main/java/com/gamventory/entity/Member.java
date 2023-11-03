@@ -73,7 +73,7 @@ public class Member extends BaseEntity {
                 .zipcode(memberFormDto.getZipCode())
                 .streetAddress(memberFormDto.getStreetAddress())
                 .detailAddress(memberFormDto.getDetailAddress())
-                .role(Role.ADMIN)
+                .role(Role.USER)
                 .build();
         return member;
     }

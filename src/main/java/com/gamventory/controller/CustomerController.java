@@ -46,7 +46,7 @@ public class CustomerController {
         return "customer/noticeList";
     }
 
-    @GetMapping(value = "/notice/{id}")
+    @GetMapping(value = "/notice/read/{id}")
     public String noticeDetailView(@PathVariable("id") Long id, Model model){
 
         NoticeDetailDto noticeDetailDto = noticeService.getNoticeDetail(id);
@@ -94,6 +94,15 @@ public class CustomerController {
         noticeService.noticeUpdateFormDtoSave(noticeUpdateFormDto);
 
         return "redirect:/customer/notice/" + noticeUpdateFormDto.getId();
+    }
+
+    @GetMapping(value = "/notice/delete/{id}")
+    public String noticeDelete(@PathVariable("id") Long id) {
+
+        log.info("delete notice id : " + id);
+        noticeService.noticeDelete(id);
+
+        return "redirect:/customer/notice";
     }
 
 

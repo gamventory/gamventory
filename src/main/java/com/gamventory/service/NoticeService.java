@@ -65,4 +65,8 @@ public class NoticeService {
         noticeRepository.save(notice);
     }
 
+    public void noticeDelete(Long id) {
+        noticeRepository.deleteById(id);
+    }
+
 }

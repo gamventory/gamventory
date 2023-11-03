@@ -50,6 +50,4 @@ public class Notice extends BaseEntity {
         this.content = noticeUpdateFormDto.getContent();
     }
 
-
-
 }
