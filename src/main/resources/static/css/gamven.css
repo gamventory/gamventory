@@ -465,6 +465,7 @@ td {
 .cart_list_box input{
     padding: 0px;
     text-align: right;
+    background-color: rgb(78, 78, 78);
 }
 /* cartList.html end   ================================================*/
 

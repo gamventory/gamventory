@@ -77,17 +77,18 @@
     
         <div id="nav" class="container mb-2">
             <div id="nav_list">
-                <ul>
+                <ul style="margin-top: 5px;">
                     <li><a href="/list" class="text-white">게임</a></li>
+                    <li><a href="#" class="text-white">커뮤니티</a></li>
                     <li class="text-white" >
                         <div>
                             <a id="notice_button">고객센터
                                 <div id="notice_modal" class="collapse show">
                                     <div>
-                                        <div sec:authorize="isAuthenticated()">
+                                        <div>
                                             <a href="/members/logout" class="text-white">공지사항</a>
                                         </div>
-                                        <div sec:authorize="isAuthenticated()">
+                                        <div>
                                             <a href="/members/info" class="text-white">Q&A</a>
                                         </div>
                                     </div>
@@ -95,11 +96,9 @@
                             </a>
                         </div>
                     </li>
-                    <li><a href="#" class="text-white">커뮤니티</a></li>
-                    <li><a href="#" class="text-white">회사소개</a></li>
                     <li style="float: inline-end;">                      
                         <!-- search -->
-                        <div id="search_Form" class="fs12" style="margin-left:10px; width: 100%;">
+                        <div id="search_Form" class="fs12" style="margin-left:10px; width: 100%; margin-top: -5px;">
                             <form class="input-group fs12 my-lg-0" th:action="@{/list}" method="get">
                                 <input id="searchBar" name="searchQuery" class="form-control text-white fs12" style="border: none;" type="search" placeholder="" aria-label="Search">
                                 <button class="btn text-white fs12" type="submit" style="background-color: #5994b1;">검색</button>
