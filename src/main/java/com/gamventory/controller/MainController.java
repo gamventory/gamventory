@@ -25,8 +25,12 @@ public class MainController {
     @GetMapping("/")
     public String main(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
         
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 12);
         Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+
+        for (MainItemDto item : items) {
+            System.out.println(item.getGameKind());
+        }
 
         model.addAttribute("items", items); // 목록의 아이템들
         model.addAttribute("itemSearchDto", itemSearchDto); // 검색조건

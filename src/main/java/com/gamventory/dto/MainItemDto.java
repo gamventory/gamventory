@@ -34,6 +34,7 @@ public class MainItemDto {
     //카테고리
     private String category;
 
+    //pc,콘솔여부
     private String gameKind;
 
     @QueryProjection

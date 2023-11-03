@@ -132,8 +132,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                                 itemImg.imgUrl,
                                 item.price,
                                 item.platform.stringValue(), // Enum to String
-                                item.gameKind.stringValue(), // Enum to String
-                                item.category.stringValue())
+                                item.category.stringValue(),
+                                item.gameKind.stringValue()) // Enum to String
                 )
                 .from(itemImg)
                 .join(itemImg.item, item)
@@ -270,8 +270,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 itemImg.imgUrl,
                 item.price,
                 item.platform.stringValue(),
-                item.gameKind.stringValue(),
-                item.category.stringValue()
+                item.category.stringValue(),
+                item.gameKind.stringValue()
             ))
             .from(itemImg)
             .join(itemImg.item, item)

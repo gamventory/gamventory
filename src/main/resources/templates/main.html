@@ -89,12 +89,13 @@
     
             <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px;">
                 <!-- 상품 이미지 출력 for문-->
-                <div class="row">
-                    <th:block th:each="item, status: ${items.getContent()}">
-                        <div class="col-md-4 margin" >
+                <div class="row" >
+                    <th:block th:each="item, status: ${items.getContent()}" >
+                        <div class="col-md-4 margin" th:if="${item.gameKind =='PC'}">
                             <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style=" background-color: rgb(32,33,35);">
                                 <a th:href="'/item/' +${item.id}" class="text-dark">
                                     <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300">
+                                    <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.gameKind}]]</p>
                                     <div id="main_game_card_text" class="card-body ">
                                         <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
                                         <!-- <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p> -->
@@ -129,7 +130,7 @@
     
                             <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
                                 <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                                    <span aria-hidden='true'></span>
+                                    <span aria-hidden='true'><</span>
                                 </a>
                             </li>
     
@@ -156,10 +157,11 @@
                 <!-- 상품 이미지 출력 for문-->
                 <div class="row">
                     <th:block th:each="item, status: ${items.getContent()}">
-                        <div class="col-md-4 margin">
-                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style=" background-color: rgb(32,33,35);">
+                        <div class="col-md-4 margin" th:if="${item.gameKind == 'CONSOLE'}">
+                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'} " class="card mb-5" style=" background-color: rgb(32,33,35);">
                                 <a th:href="'/item/' +${item.id}" class="text-dark">
                                     <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300">
+                                    <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.gameKind}]]</p>
                                     <div id="main_game_card_text" class="card-body ">
                                         <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
                                         <!-- <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p> -->

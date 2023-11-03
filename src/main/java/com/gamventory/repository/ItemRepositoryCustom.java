@@ -12,6 +12,7 @@ public interface ItemRepositoryCustom {
     
     Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 
+    
     Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 
     // //필터검색
