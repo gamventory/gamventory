@@ -101,7 +101,7 @@ public class OrderController {
     public String orderHist(@PathVariable("page") Optional<Integer> page, Principal principal, Model model){
 
         //한번에 가지고 올 주문의 개수는 8개로 설정
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 8);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
         Page<OrderHistDto> ordersHistDtoList = orderService.getOrderList(principal.getName(), pageable);
         Member member = memberRepository.findByEmail(principal.getName());
         if (member == null) {

@@ -360,15 +360,22 @@ td {
 /* memberinfo.html start ================================================*/
 #memberinfo_box{
     margin-top : 150px;
-    margin-bottom : 200px;
     text-align: center;
 }
 
+
 #memberinfo_box a{
-    margin-bottom: 15px;
-    width : 150px;
+    width : 100%;
     height : 45px;
     font-size : 15px;
+    margin: 0;
+    border-radius: 0;
+    background-color: #6C757D;
+    border-bottom: 1px solid rgb(95, 95, 95);
+}
+
+#memberinfo_box a:hover{
+    background-color: #5c6369;
 }
 
 
@@ -379,9 +386,7 @@ td {
 /* memberUpdate.html start ================================================*/
 #member_update_box{
     color: white;
-    width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 130px;
 }
 
@@ -396,7 +401,6 @@ td {
     color: white;
     width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 130px;
 }
 
@@ -414,9 +418,7 @@ td {
 
 #member_delete_box{
     color: white;
-    width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 300px;
 }
 
@@ -509,7 +511,6 @@ td {
 /* management_box.html start   ================================================*/
 
 .management_box{
-    margin-top: 100px;
     margin-bottom : 100px;
 }
 /* management_box.html end   ================================================*/
@@ -600,6 +601,10 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
     .fs15{
         font-size: 15px !important;
+    }
+
+    .poster{
+        display: none;
     }
 
 
@@ -820,10 +825,6 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
     /* m_memberInfo.html start ================================================*/
 
-    #memberinfo_box{
-        margin-top: 30px;
-    }
-
     #memberinfo_box a{
         width: 100px;
         font-size: 12px;
@@ -836,7 +837,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #password_update_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 70%;
+        width: 135% !important;
+        margin-left: 20%;
     }
 
     #password_update_box button{
@@ -855,7 +857,9 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_update_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 70%;
+        width: 130% !important;
+        margin-left: 15%;
+
     }
 
     #member_update_box button{
@@ -865,6 +869,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_update_box div input{
         font-size: 12px;
     }
+
+
 
 
     /* m_memberUpdate.html end ================================================*/
@@ -878,7 +884,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_delete_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 80%;
+        width: 130% !important;
+        margin-left: 20% !important;
     }
 
     #member_delete_box button{
@@ -964,6 +971,20 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
 
     /* m_order.html end ==========================================================*/
+
+
+    /* m_orderHist.html start ========================================================*/
+
+    #order_hit_box{
+        width: 130%; 
+        margin-left: 15%;
+    }
+
+    #order_hit_box_text{
+        padding-top : 5px !important;
+    }
+
+    /* m_orderHist.html end ==========================================================*/
 
 
 
