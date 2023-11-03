@@ -38,64 +38,82 @@
             </div>
     
             <!--imgslider-->
-            <div id="img_slider" class="carousel slide row mt-1" data-ride="carousel">
-                <ul class="carousel-indicators" style="opacity: 0.5;">
-                  <li data-target="#img_slider" data-slide-to="0" class="active"></li>
-                  <li data-target="#img_slider" data-slide-to="1"></li>
-                  <li data-target="#img_slider" data-slide-to="2"></li>
-                </ul>
-    
-                <div class="carousel-inner">
-                    
-                  <div class="carousel-item active">
-                    <div class="carousel-caption bg-info">
-                        <img src="/src/main/resources/static/img/img1.jpg" th:src="@{/img/img1.jpg}" alt="img1" style="width: 100%; height: 300px;"/>
-                    </div>   
-                  </div>
-    
-                  <div class="carousel-item">
-                    <div class="carousel-caption bg-success">
-                        <img src="/src/main/resources/static/img/img2.jpg" th:src="@{/img/img2.jpg}" alt="img2" style="width: 100%; height: 300px;"/>
-                    </div>   
-                  </div>
-    
-                  <div class="carousel-item">
-                    <div class="carousel-caption bg-primary">
-                        <img src="/src/main/resources/static/img/img3.jpeg" th:src="@{/img/img3.jpeg}" alt="img3" style="width: 100%; height: 300px;"/>
-                    </div>   
-                  </div>
+            <div>
+                <div id="img_slider" class="carousel slide row mt-1" data-ride="carousel" style="width: 100%; height: 350px;">
+        
+                    <div id="img_slider_img" class="carousel-inner" style="width: 70%; height: 350px; margin-left: 10px; margin-right: -10px;">                     
+                        <div class="carousel-item active">
+                            <div class="carousel-caption">
+                                <img src="/src/main/resources/static/img/img1.jpg" th:src="@{/img/img1.jpg}" alt="img1" style="width: 135%; height: 350px; margin-left: -20%;"/>
+                            </div>   
+                        </div>
+            
+                        <div class="carousel-item">
+                            <div class="carousel-caption">
+                                <img src="/src/main/resources/static/img/img2.jpg" th:src="@{/img/img2.jpg}" alt="img2" style="width: 135%; height: 350px; margin-left: -20%;"/>
+                            </div>   
+                        </div>
+            
+                        <div class="carousel-item">
+                            <div class="carousel-caption">
+                                <img src="/src/main/resources/static/img/img3.jpeg" th:src="@{/img/img3.jpeg}" alt="img3" style="width: 135%; height: 350px; margin-left: -20%;"/>
+                            </div>   
+                        </div>
+                    </div>
+
+                    <div id="img_slider_button" style="width: 30%; background-color: #343541; border-radius: 15px;" class="p-3">
+                        <ul>
+                            <li data-target="#img_slider" class=" text-white active" data-slide-to="0" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <img src="/src/main/resources/static/img/img1.jpg" class="mr-3" th:src="@{/img/img1.jpg}" alt="img1" style="width: 70px; height: 50px;"/>Play casual racing~~
+                            </li>
+                            <li data-target="#img_slider" class=" text-white" data-slide-to="1"  style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <img src="/src/main/resources/static/img/img2.jpg" class="mr-3" th:src="@{/img/img2.jpg}" alt="img1" style="width: 70px; height: 50px;"/>Please visited!!
+                            </li>
+                            <li data-target="#img_slider" class=" text-white" data-slide-to="2" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <img src="/src/main/resources/static/img/img3.jpeg" class="mr-3" th:src="@{/img/img3.jpeg}" alt="img1" style="width: 70px; height: 50px;"/>event? event!
+                            </li>
+                        </ul>
+                    </div>
     
                 </div>
-    
-                
-                <a class="carousel-control-prev" href="#img_slider" data-slide="prev">
-                  <span class="carousel-control-prev-icon"></span>
-                </a>
-                <a class="carousel-control-next" href="#img_slider" data-slide="next">
-                  <span class="carousel-control-next-icon"></span>
-                </a>
             </div>
-            <!-- imgslider end-->
-    
+        
     
             <!-- filter -->
-            <div id="filter" class="row mb-3" style="border-radius: 10px;"></div>
+            <!-- <div id="filter" class="row mb-3" style="border-radius: 10px;">
+                <div class="text-white">
+                    <a>
+                        <span class="badge bg-dr text-white mr-2" style="height: 20px; margin-top: 20px; margin-left: 20px;">new</span>최신 공지사항
+                    </a>
+                </div>
+            </div> -->
             <!-- fliter end-->
     
-    
+
+            <div>
+            <h4 style="font-weight: bold; color:white; margin-top: 50px; margin-bottom: 30px; display: inline-block;">신작게임</h4>
+
             <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px;">
                 <!-- 상품 이미지 출력 for문-->
                 <div class="row">
                     <th:block th:each="item, status: ${items.getContent()}">
-                        <div class="col-md-4 margin">
-                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style=" background-color: rgb(32,33,35);">
-                                <a th:href="'/item/' +${item.id}" class="text-dark">
-                                    <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300">
+                        <div class="col-md-3 margin">
+                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-4" style=" background-color: rgb(32,33,35); width: 100%;">
+                                <a th:href="'/item/' +${item.id}" class="text-dark" >
+                                    <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="330">
                                     <div id="main_game_card_text" class="card-body ">
                                         <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
-                                        <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p>
+                                        <!--<p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p>-->
                                         <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]원</p>
-                                        <p class="card-title text-white" style="opacity: 0.5;">[[${item.platform}]]</p>
+                                        <div th:switch="${item.platform}" style="margin-top:20px;">
+                                            <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                            <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                            <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                            <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                            <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                            <img th:case="'ALL'" th:src="@{/images/item/ALL_logo.png}" />
+                                            <p th:case="*" th:text="${item.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                        </div>
                                     </div>
                                 </a>
                             </div>
@@ -107,6 +125,7 @@
                     <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
                 </div>
                 <!-- /. 상품 이미지 출력 for문-->
+
     
                 <!-- 페이지 이동 버튼-->
                 <div style="margin : auto;">

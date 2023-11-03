@@ -26,6 +26,7 @@ a{
     cursor: pointer;
     color : white;
     font-weight: bolder;
+    text-decoration: none;
 }
 
 td {
@@ -34,6 +35,7 @@ td {
     text-overflow: ellipsis;
     max-width: 70px; /* 텍스트의 최대 너비를 화면에 맞게 설정 */
 }
+
 
 
 .bg-orange{
@@ -135,25 +137,61 @@ td {
     margin-right: 10px;
 }
 
+#search_Form{
+    margin-left: 200px;
+    width: 40%;
+}
+
+#search_Form input{
+    background-color: rgb(78, 78, 78);
+}
+
+#search_Form input::placeholder{
+    color: white;
+}
+
+#search_Form button{
+    background-color: #5994b1;
+}
+
 #user_modal{
     width : 200px;
     position: absolute;
     top : 50px;
     display: none;
     font-size : 15px;
-    right : -35px;
+    right : -58px;
+    z-index: 9999999;
 }
 
 #user_modal>div{
     background-color: rgb(65, 84, 112, 0.9);
     border-radius: 10px;
     margin-right : -10px;
-    width : 200px;
+    width : 150px;
     text-align: center;
     padding-top : 10px;
     padding-bottom : 10px;
     line-height: 30px;
 }
+
+#notice_modal{
+    display: none;
+    position: absolute;
+    background-color: rgb(65, 84, 112, 0.9);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left : -43px;
+    width : 150px;
+    text-align: center;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    line-height: 30px;
+}
+
+
+
+
 
 /* header end ================================================*/
 
@@ -161,6 +199,23 @@ td {
 /*sidebar.html start ================================================*/
 #sidebar{
     font-size: 15px;
+}
+
+#sidebar div{
+    background-color: #6C757D;
+}
+
+#sidebar div a{
+    text-decoration: none;
+}
+
+
+#sidebar div:hover{
+    background-color: #5c6369;
+}
+
+#sidebar div span{
+    color : white;
 }
 
 /*sidebar.html end ==================================================*/
@@ -206,6 +261,22 @@ td {
 
 #img_slider div{
     height: 300px;
+}
+
+#img_slider_button li{
+    padding : 12px;
+    background-color: #444550;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+#img_slider_button li:nth-child(2){
+    margin-top: 23px;
+    margin-bottom: 23px;
+}
+
+#img_slider_button li:hover{
+    opacity: 0.7;
 }
 
 #main_game_card{
@@ -289,15 +360,22 @@ td {
 /* memberinfo.html start ================================================*/
 #memberinfo_box{
     margin-top : 150px;
-    margin-bottom : 200px;
     text-align: center;
 }
 
+
 #memberinfo_box a{
-    margin-bottom: 15px;
-    width : 150px;
+    width : 100%;
     height : 45px;
     font-size : 15px;
+    margin: 0;
+    border-radius: 0;
+    background-color: #6C757D;
+    border-bottom: 1px solid rgb(95, 95, 95);
+}
+
+#memberinfo_box a:hover{
+    background-color: #5c6369;
 }
 
 
@@ -308,9 +386,7 @@ td {
 /* memberUpdate.html start ================================================*/
 #member_update_box{
     color: white;
-    width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 130px;
 }
 
@@ -325,7 +401,6 @@ td {
     color: white;
     width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 130px;
 }
 
@@ -343,9 +418,7 @@ td {
 
 #member_delete_box{
     color: white;
-    width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 300px;
 }
 
@@ -413,6 +486,7 @@ td {
 .cart_list_box input{
     padding: 0px;
     text-align: right;
+    background-color: rgb(78, 78, 78);
 }
 /* cartList.html end   ================================================*/
 
@@ -437,7 +511,6 @@ td {
 /* management_box.html start   ================================================*/
 
 .management_box{
-    margin-top: 100px;
     margin-bottom : 100px;
 }
 /* management_box.html end   ================================================*/
@@ -530,6 +603,10 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
         font-size: 15px !important;
     }
 
+    .poster{
+        display: none;
+    }
+
 
     
 
@@ -574,6 +651,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
         display: none;
     }
 
+
+
     #nav{
         left : -20px;
         font-size: 10px;
@@ -611,6 +690,22 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
         z-index: 9999;
     }
 
+    #m_sidebar div{
+        background-color: #6C757D;
+    }
+
+    #m_sidebar div a{
+        text-decoration: none;
+    }
+
+    #m_sidebar div:hover{
+        background-color: #5c6369;
+    }
+
+    #m_sidebar div span{
+        color:white;
+    }
+
     #m_sidebar h3{
         font-size: 20px;
     }
@@ -620,6 +715,67 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     }
 
     /* m_sidebar.html end  ==================================================*/
+
+
+
+    /* m_main.html start   ===============================================*/
+
+    #img_slider{
+        margin-bottom: 120px;
+        margin-top: -30px !important;        
+    }
+
+    #img_slider_img{
+        width: 100% !important;
+        margin-bottom: 10px;
+        margin-left: 35px !important;
+    }
+
+    #img_slider_button{
+        margin-left: 30px;
+        width: 900% !important;
+        height : 100px !important;
+    }
+
+    #img_slider_button li img{
+        width: 50px !important;
+    }
+
+    #img_slider_button ul{
+        text-align: center;
+    }
+
+    #img_slider_button li{
+        display: inline-block;
+        width: 75px;
+    }
+
+    #img_slider_button li:nth-child(2){
+        margin : 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #search_Form input{
+        width: 100px;
+        height: 25px;
+    }
+
+    #search_Form button{
+        height: 25px;
+        width:50px;
+        padding-top: 3px !important;
+    }
+
+
+
+    /* m_main.html end  ==================================================*/
+
+
+
+
+
+
 
 
      /* m_memberForm.html start   ===============================================*/
@@ -669,10 +825,6 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
     /* m_memberInfo.html start ================================================*/
 
-    #memberinfo_box{
-        margin-top: 30px;
-    }
-
     #memberinfo_box a{
         width: 100px;
         font-size: 12px;
@@ -685,7 +837,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #password_update_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 70%;
+        width: 135% !important;
+        margin-left: 20%;
     }
 
     #password_update_box button{
@@ -704,7 +857,9 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_update_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 70%;
+        width: 130% !important;
+        margin-left: 15%;
+
     }
 
     #member_update_box button{
@@ -714,6 +869,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_update_box div input{
         font-size: 12px;
     }
+
+
 
 
     /* m_memberUpdate.html end ================================================*/
@@ -727,7 +884,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_delete_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 80%;
+        width: 130% !important;
+        margin-left: 20% !important;
     }
 
     #member_delete_box button{
@@ -815,6 +973,20 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     /* m_order.html end ==========================================================*/
 
 
+    /* m_orderHist.html start ========================================================*/
+
+    #order_hit_box{
+        width: 130%; 
+        margin-left: 15%;
+    }
+
+    #order_hit_box_text{
+        padding-top : 5px !important;
+    }
+
+    /* m_orderHist.html end ==========================================================*/
+
+
 
 
 
@@ -894,6 +1066,19 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
     .list_filter_table tbody td img{
         width: 100%;
+    }
+
+    .list_table{
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+
+    .list_table td:nth-child(2) img{
+        width: 10% !important;
+    }
+
+    .list_promotion{
+        display: none !important;
     }
 
     /* m_list.html end ==========================================================*/
