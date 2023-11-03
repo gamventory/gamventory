@@ -26,60 +26,46 @@
 
     <div id="sidebar" class="container" style="padding : 0px; ">
         <div class="list-group row">
-            <span class="bg-db text-white pl-4"><h3 class="mt-1">List</h3></span>
+            <span class="text-white pl-4 bg-dark"><h3 class="mt-1">List</h3></span>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/admin/item/new">상품등록</a>
+                <a href="/admin/item/new"><span>상품등록</span></a>
             </div>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/admin/items">상품관리</a>
+                <a href="/admin/items"><span>상품관리</span></a>
             </div>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/admin/serials/create">시리얼생성</a>
+                <a href="/admin/serials/create"><span>시리얼생성</span></a>
             </div>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/serials/list">시리얼조회</a>
+                <a href="/serials/list"><span>시리얼조회</span></a>
             </div>
 
-            <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/notices/new">공지 작성</a>
-            </div>
-            
-            <a href="#" class="list-group-item list-group-item-action">게시판</a>
-            <a href="#" class="list-group-item list-group-item-action">기타1</a>
-            <a href="#" class="list-group-item list-group-item-action">기타2</a>
         </div>
     </div>
 
     <div id="m_sidebar" class="container" style="padding : 0px; ">
         <div class="list-group row">
-            <span class="bg-db text-white pl-4"><h3 class="mt-1">List</h3></span>
+            <span class="bg-dark text-white pl-4"><h3 class="mt-1 text-white">List</h3></span>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/admin/item/new">상품등록</a>
+                <a href="/admin/item/new"><span>상품등록</span></a>
             </div>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/admin/items">상품관리</a>
+                <a href="/admin/items"><span>상품관리</span></a>
             </div>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/admin/serials/create">시리얼생성</a>
+                <a href="/admin/serials/create"><span>시리얼생성</span></a>
             </div>
 
             <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/serials/list">시리얼조회</a>
+                <a href="/serials/list"><span>시리얼조회</span></a>
             </div>
-
-            <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <a href="/notices/new">공지 작성</a>
-            </div>
-            <a href="#" class="list-group-item list-group-item-action">게시판</a>
-            <a href="#" class="list-group-item list-group-item-action">기타1</a>
-            <a href="#" class="list-group-item list-group-item-action">기타2</a>
         </div>
     </div>
 

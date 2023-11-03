@@ -17,16 +17,6 @@
 <th:block layout:fragment="content">
     <div id="memberinfo_box" class="container">
     <ul>
-        <li>   
-            <a th:href="@{/orders}" class="badge text-white bg-orange pt-3">
-                구매 내역
-            </a>
-        </li>
-        <li>   
-            <a href="javascript:void(0)" class="badge text-white bg-orange pt-3">
-                문의 내역
-            </a>
-        </li>
         <li>
             <a th:href="@{/members/update}" class="badge bg-db text-white pt-3">
                 회원정보 수정
@@ -37,6 +27,18 @@
                 비밀번호 수정
             </a>
         </li>
+        
+        <li>   
+            <a th:href="@{/orders}" class="badge text-white bg-orange pt-3">
+                구매 내역
+            </a>
+        </li>
+        <li>   
+            <a href="javascript:void(0)" class="badge text-white bg-orange pt-3">
+                문의 내역
+            </a>
+        </li>
+        
         <li>   
             <a href="javascript:void(0)" class="badge bg-dg text-white pt-3">
                 소셜 로그인
