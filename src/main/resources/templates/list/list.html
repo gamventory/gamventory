@@ -58,6 +58,9 @@
                             <option value="EPIC_GAMES" th:selected="${searchDto.platform == 'EPIC_GAMES'}">Epic Games</option>
                             <option value="ROCKSTAR_GAMES" th:selected="${searchDto.platform == 'ROCKSTAR_GAMES'}">Rockstar Games</option>
                             <option value="UBISOFT_CONNECT" th:selected="${searchDto.platform == 'UBISOFT_CONNECT'}">Ubisoft Connect</option>
+                            <option value="NINTENDO" th:selected="${searchDto.platform == 'NINTENDO'}">닌텐도</option>
+                            <option value="X_BOX" th:selected="${searchDto.platform == 'X_BOX'}">X box</option>
+                            <option value="PLAY_STATION" th:selected="${searchDto.platform == 'PLAY_STATION'}">play station</option>
                             <option value="OTHER" th:selected="${searchDto.platform == 'OTHER'}">기타</option>
                         </select>
                     </div>
@@ -101,80 +104,82 @@
         </form>
                 
 
-        <div  class="row" style="background-color: #343541; border-radius : 20px; padding : 30px; width: 70%;">
-            <!-- 상품 이미지 출력 for문-->
-            <table class="list_filter_table table text-white" style="color: rgb(247, 241, 193); width: 100%; text-align: center;">
-                <thead class="fs12">
-                    <tr>
-                        <th style="width: 20%;"></th>
-                        <th style="width: 60%;"></th>
-                        <th style="width: 20%; text-align: right;">가격</th>
-                    </tr>
-                </thead>
-                <tbody class="fs12" style="text-align: left;">
-                    <tr th:each="item : ${items.getContent()}" >
-                        <td style="width: 20%;">
-                            <a th:href="'/item/' + ${item.id}">
-                                <img th:src="${item.imgUrl}" th:alt="${item.itemNm}" height="75" width="70%">
-                            </a>
-                        </td>
-                        <td style="width: 20%; vertical-align: middle;">
-                            NAME : <span th:text="${item.itemNm}"></span><br>
-                            <div th:switch="${item.platform}">
-                                <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
-                                <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
-                                <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
-                                <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
-                                <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
-                                <img th:case="'ALL'" th:src="@{/images/item/ALL_logo.png}" />
-                                <p th:case="*" th:text="${item.platform}"></p> 
-                            </div><br>
-                            CATEGORY : <span th:text="${item.category}"></span>
-                        </td>
-                        <td style="width: 20%; vertical-align: middle; text-align: right;" th:text="${item.formattedPrice + '₩'}"></td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
-            <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}">
-                <p th:text="${itemSearchDto.searchQuery} + ' 검색 결과'"></p>
-            </div>
-        </div>
-            <!-- /. 상품 이미지 출력 for문-->
-
-
-            <!-- 페이지 이동 버튼-->
-            <div style="margin : auto;" class="my-3">
-                <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-                    <ul class="pagination justify-content-center">
-
-                        <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
-                            <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
-                                <span aria-hidden='true'>&laquo;</span>
-                            </a>
-                        </li>
-
-                        <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
-                            <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
-                        </li>
-
-                        <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
-                            <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
-                                <span aria-hidden='true'>&raquo;</span>
-                            </a>
-                        </li>
-
-                    </ul>
+        <div style="width: 107%;" class="row">
+            <div class="list_table" style="background-color: #343541; border-radius : 20px; padding : 30px; width: 70%;">
+                <!-- 상품 이미지 출력 for문-->
+                <table class="list_filter_table table table-dark text-white" style="width: 100%; text-align: center;">
+                    <thead class="fs12" style="background-color: #202123;">
+                        <tr>
+                            <th style="width: 20%;"></th>
+                            <th style="width: 60%;"></th>
+                            <th style="width: 20%; text-align: right;">가격</th>
+                        </tr>
+                    </thead>
+                    <tbody class="fs12" style="text-align: left;">
+                        <tr th:each="item : ${items.getContent()}" >
+                            <td style="width: 20%;">
+                                <a th:href="'/item/' + ${item.id}">
+                                    <img th:src="${item.imgUrl}" th:alt="${item.itemNm}" height="100" width="70%">
+                                </a>
+                            </td>
+                            <td style="width: 20%; vertical-align: middle;">
+                                이름 : <span th:text="${item.itemNm}"></span><br>
+                                플랫폼 : <div th:switch="${item.platform}" style="margin-top: 10px; margin-bottom: -15px; margin-left: 10px; display: inline;">
+                                            <img style="height: 30px;" th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                            <img style="height: 30px;" th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                            <img style="height: 30px;" th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                            <img style="height: 30px;" th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                            <img style="height: 30px;" th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                            <p th:case="*" th:text="${item.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                       </div><br>
+                                카테고리 : <span th:text="${item.category}"></span>
+                            </td>
+                            <td style="width: 20%; vertical-align: middle; text-align: right;" th:text="${item.formattedPrice + '₩'}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+                <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}">
+                    <p th:text="${itemSearchDto.searchQuery} + ' 검색 결과'"></p>
                 </div>
             </div>
-            <!--  /. 페이지 이동 버튼-->
+            <!-- /. 상품 이미지 출력 for문--> 
 
+            <div class="list_promotion" style="width: 30%; position: sticky; top:300px;">
+                <img src="/src/main/resources/static/img/epic-img1.png" th:src="@{/img/epic-img1.png}" style="width: 80%; margin-left: 10%; margin-bottom: 30px; border-radius: 10px; cursor: pointer;"/>
+                <img src="/src/main/resources/static/img/epic-img4.png" th:src="@{/img/epic-img4.png}" style="width: 80%; margin-left: 10%; border-radius: 10px; cursor: pointer;"/>
+            </div>
         </div>
 
-    </div>
+        
+                <!-- 페이지 이동 버튼-->
+        <nav aria-label="Page navigation" class="my-3">
+            <ul class="pagination justify-content-center">
+                <!-- 이전 페이지 버튼 (첫 페이지일 경우 비활성화) -->
+                <li th:class="${items.number == 0} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" th:href="@{/listsearch(page=${items.number - 1}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                
+                <!-- 페이지 번호 -->
+                <li th:each="pageNumber : ${#numbers.sequence(0, items.totalPages - 1)}"
+                    th:class="${pageNumber == items.number} ? 'page-item active' : 'page-item'">
+                    <a class="page-link" th:href="@{/listsearch(page=${pageNumber}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" th:text="${pageNumber + 1}"></a>
+                </li>
+                
+                <!-- 다음 페이지 버튼 (마지막 페이지일 경우 비활성화) -->
+                <li th:class="${items.number + 1 == items.totalPages} ? 'page-item disabled' : 'page-item'">
+                    <a class="page-link" th:href="@{/listsearch(page=${items.number + 1}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!--  /. 페이지 이동 버튼-->
 
-    <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300">
-
+        
 </div>
 </html>

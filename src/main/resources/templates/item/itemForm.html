@@ -168,7 +168,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">상품 상세 내용</span>
                             </div>
-                            <textarea  class="form-control" aria-label="With textarea" th:field="*{itemDetail}"></textarea>
+                            <textarea  class="form-control fs12" aria-label="With textarea" th:field="*{itemDetail}"></textarea>
                         </div>
                         <p th:if="${#fields.hasErrors('itemDetail')}" th:errors="*{itemDetail}" class="fieldError">Incorrect data</p>
                     

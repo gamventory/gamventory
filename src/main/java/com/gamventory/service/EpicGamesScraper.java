@@ -65,6 +65,29 @@ public class EpicGamesScraper {
         }
     }
 
+    // Platform enum 랜덤값 가져오는 메서드
+    public Platform getRandomPlatform() {
+        Random random = new Random();
+        Platform[] selectedPlatforms = new Platform[] {
+            Platform.EPIC_GAMES,
+            Platform.ROCKSTAR_GAMES,
+            Platform.STEAM,
+            Platform.UBISOFT_CONNECT,
+            Platform.X_BOX,
+            Platform.OTHER
+        };
+        int randomIndex = random.nextInt(selectedPlatforms.length);
+        return selectedPlatforms[randomIndex];
+    }
+
+    // Category enum에서 랜덤한 값을 가져오는 메서드
+    public Category getRandomCategory() {
+        Random random = new Random();
+        Category[] categories = Category.values();
+        int randomIndex = random.nextInt(categories.length);
+        return categories[randomIndex];
+    }
+
 
     public List<ItemFormDto> scrapeEpicGames() {
         List<ItemFormDto> itemList = new ArrayList<>();
@@ -109,25 +132,17 @@ public class EpicGamesScraper {
                     // 예: log.warn("Game name truncated: " + originalGameName + " to " + formattedGameName);
                 }
 
-                //카테고리 플랫폼 랜덤설정
-                Random random = new Random();
-                Platform[] platforms = Platform.values();
-                Category[] categories = Category.values();
-                Platform randomPlatform = platforms[random.nextInt(platforms.length)];
-                Category randomCategory = categories[random.nextInt(categories.length)];
-
                 ItemFormDto itemFormDto = new ItemFormDto();
-                itemFormDto.setItemNm(originalGameName);
+                itemFormDto.setItemNm(formattedGameName);
                 if (!cleanedPrice.isEmpty() && cleanedPrice.matches("\\d+")) {
                     itemFormDto.setPrice(Integer.parseInt(cleanedPrice));
                 } else {
                     itemFormDto.setPrice(50000); // 기본값 설정
                 }
-                
-                itemFormDto.setCategory(randomCategory);
+                itemFormDto.setCategory(getRandomCategory());
                 itemFormDto.setItemDetail("X");
                 itemFormDto.setItemSellStatus(ItemSellStatus.SELL);
-                itemFormDto.setPlatform(randomPlatform);
+                itemFormDto.setPlatform(getRandomPlatform());
                 itemFormDto.setGameKind(GameKind.PC);
                 itemFormDto.setStockNumber(500);
 

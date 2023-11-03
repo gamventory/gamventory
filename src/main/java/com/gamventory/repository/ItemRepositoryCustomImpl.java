@@ -159,6 +159,96 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         return new PageImpl<>(content, pageable, total);
     }
 
+    //메인 아이템 출력 콘솔만 출력하는거
+     @Override
+    public Page<MainItemDto> getMainItemPageConsole(ItemSearchDto itemSearchDto, Pageable pageable) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        List<MainItemDto> content = queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.itemNm,
+                                item.itemDetail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.platform.stringValue(), // Enum to String
+                                item.category.stringValue(),
+                                item.gameKind.stringValue()) // Enum to String
+                )
+                .from(itemImg)
+                .join(itemImg.item, item)
+                .where(itemImg.repimgYn.eq("Y")
+                    .and(item.gameKind.stringValue().eq("CONSOLE"))) // 조건 추가
+                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory
+                    .select(Wildcard.count)
+                    .from(itemImg)
+                    .join(itemImg.item, item)
+                    .where(itemImg.repimgYn.eq("Y")
+                        .and(item.gameKind.stringValue().eq("CONSOLE"))) // 조건 추가
+                    .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                    .fetchOne()
+        );
+
+        long total = result.orElse(0L);
+
+        return new PageImpl<>(content, pageable, total);
+    }
+    //메인 아이템 출력 피씨만 출력하는거
+     @Override
+    public Page<MainItemDto> getMainItemPagePC(ItemSearchDto itemSearchDto, Pageable pageable) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        List<MainItemDto> content = queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.itemNm,
+                                item.itemDetail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.platform.stringValue(), // Enum to String
+                                item.category.stringValue(),
+                                item.gameKind.stringValue()) // Enum to String
+                )
+                .from(itemImg)
+                .join(itemImg.item, item)
+                .where(itemImg.repimgYn.eq("Y")
+                    .and(item.gameKind.stringValue().eq("PC"))) // 조건 추가
+                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory
+                    .select(Wildcard.count)
+                    .from(itemImg)
+                    .join(itemImg.item, item)
+                    .where(itemImg.repimgYn.eq("Y")
+                        .and(item.gameKind.stringValue().eq("PC"))) // 조건 추가
+                    .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                    .fetchOne()
+        );
+
+        long total = result.orElse(0L);
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
+
     // //상품의 카테고리와 일치하는 상품을 조회하는 메소드
     // private BooleanExpression categoryEq(Category category) {
     //     return category == null ? null : QItem.item.category.eq(category);
@@ -233,6 +323,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
     //     this.queryFactory = queryFactory;
     // }
 
+    //필터검색
     @Override
     public Page<MainItemDto> findByCriterias(ItemFilterSearchDto searchDto, Pageable pageable) {
         QItem item = QItem.item;
@@ -247,7 +338,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         if (searchDto.getPlatform() != null) {
             builder.and(item.platform.eq(searchDto.getPlatform()));
         }
-
+        
         // 정렬 로직
         List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
         if ("asc".equalsIgnoreCase(searchDto.getOrderByReleaseDate())) {

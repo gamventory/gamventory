@@ -5,7 +5,6 @@ public enum Platform {
     NINTENDO,
     X_BOX,
     PLAY_STATION,
-    ALL,
     STEAM,
     EPIC_GAMES,
     ROCKSTAR_GAMES,

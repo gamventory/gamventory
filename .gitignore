@@ -56,6 +56,8 @@ shopping.vuerd.json
 # 결제시크릿키 파일무시
 Payment.application.properties
 
-
-/drivers/*
+#드라이버파일무시
+ /drivers/*
 drivers/chrome-win64/chrome.dll
+
+/upload/

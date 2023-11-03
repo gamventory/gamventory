@@ -116,4 +116,6 @@ public class ListController {
         return "list/listsearch"; // 검색 결과를 표시할 뷰 페이지
     }
     
+
+    
 }

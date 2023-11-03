@@ -26,13 +26,22 @@ public class MainController {
     public String main(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
         
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 12);
-        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+        Pageable cPageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
+        Pageable pPageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
-        for (MainItemDto item : items) {
-            System.out.println(item.getGameKind());
+        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+        Page<MainItemDto> Citems = itemService.getMainItemPageConsole(itemSearchDto, cPageable);
+        Page<MainItemDto> Pitems = itemService.getMainItemPagePC(itemSearchDto, pPageable);
+
+
+        
+        for (MainItemDto Pitem : Pitems) {
+            System.out.println("PC에서 끌고와졌는지?: "+Pitem.getItemNm());
         }
 
-        model.addAttribute("items", items); // 목록의 아이템들
+        model.addAttribute("Pitems", Pitems); // PC목록의 아이템들
+        model.addAttribute("Citems", Citems); // Console목록의 아이템들
+        model.addAttribute("items", items); // 전체 목록의 아이템들
         model.addAttribute("itemSearchDto", itemSearchDto); // 검색조건
         model.addAttribute("maxPage", 5);  // 한페이지당 최대 보여줄 페이지 이동수
         return "main";

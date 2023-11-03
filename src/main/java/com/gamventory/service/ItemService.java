@@ -108,9 +108,22 @@ public class ItemService {
         return itemRepository.getAdminItemPage(itemSearchDto, pageable);
     }
 
+    //메인 아이템 전체 이미지 출력
     @Transactional(readOnly = true)
     public Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable){
         return itemRepository.getMainItemPage(itemSearchDto, pageable);
+    }
+
+    //메인 아이템 콘솔 이미지 출력
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPageConsole(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getMainItemPageConsole(itemSearchDto, pageable);
+    }
+
+    //메인 아이템 pc이미지 출력
+    @Transactional(readOnly = true)
+    public Page<MainItemDto> getMainItemPagePC(ItemSearchDto itemSearchDto, Pageable pageable){
+        return itemRepository.getMainItemPagePC(itemSearchDto, pageable);
     }
 
     // //필터검색 호출하는 메서드
