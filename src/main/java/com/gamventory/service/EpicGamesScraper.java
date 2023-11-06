@@ -133,7 +133,7 @@ public class EpicGamesScraper {
                 }
 
                 ItemFormDto itemFormDto = new ItemFormDto();
-                itemFormDto.setItemNm(formattedGameName);
+                itemFormDto.setItemNm(originalGameName);
                 if (!cleanedPrice.isEmpty() && cleanedPrice.matches("\\d+")) {
                     itemFormDto.setPrice(Integer.parseInt(cleanedPrice));
                 } else {

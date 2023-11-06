@@ -97,7 +97,7 @@ public class NintendoGamesScraper {
         try {
             driver.get("https://store.nintendo.co.kr/games/sale");
             try {
-                Thread.sleep(50000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -130,7 +130,7 @@ public class NintendoGamesScraper {
                 }
 
                 ItemFormDto itemFormDto = new ItemFormDto();
-                itemFormDto.setItemNm(formattedGameName);
+                itemFormDto.setItemNm(originalGameName);
                 if (!cleanedPrice.isEmpty() && cleanedPrice.matches("\\d+")) {
                     itemFormDto.setPrice(Integer.parseInt(cleanedPrice));
                 } else {
