@@ -174,7 +174,6 @@
                         <div class="card mb-4" style="background-color: rgb(32,33,35); width: 100%;">
                             <a th:href="'/item/' + ${Pitem.id}" class="text-dark">
                                 <img id="main_game_card" th:src="${Pitem.imgUrl}" class="card-img-top" th:alt="${Pitem.itemNm}" height="330">
-                                <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Pitem.gameKind}]]</p>
                                 <div id="main_game_card_text" class="card-body">
                                     <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Pitem.itemNm}]]</p>
                                     <p class="card-title text-white" style="opacity: 0.5;">[[${Pitem.price}]]원</p>

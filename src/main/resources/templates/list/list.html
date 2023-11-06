@@ -18,6 +18,17 @@
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
     <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    <style>
+        /* 이미지 흐린거 잡아주는 css*/
+        img {
+            /* 이미지 렌더링 방식 변경 */
+            image-rendering: -webkit-optimize-contrast;
+            /* z축을 0으로 초기화, 입체감 삭제 */
+            transform: translateZ(0);
+            /* 뒷면 숨기기, 입체감 삭제 */
+            backface-visibility: hidden;
+        }
+    </style>
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -129,8 +140,15 @@
                                             <img style="height: 30px;" th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
                                             <img style="height: 30px;" th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
                                             <img style="height: 30px;" th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                            <img style="height: 30px;" th:case="'X_BOX'" th:src="@{/images/item/XBOX_logo.png}" />
+                                            <img style="height: 30px;" th:case="'NINTENDO'" th:src="@{/images/item/nintendo_logo.png}" />
                                             <img style="height: 30px;" th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
                                             <p th:case="*" th:text="${item.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                            <d th:switch="${item.gameKind}" style="float: right;">
+                                                <img th:case="'PC'" th:src="@{/images/item/window_logo.png}" style=" height: 30px; width: 40px;"/>
+                                                <img th:case="'CONSOLE'" th:src="@{/images/item/console_logo.png}"  style="height: 30px; width: 40px;"/>
+                                                <p th:case="*" th:text="${item.gameKind}"></p>
+                                            </d>
                                        </div><br>
                                 카테고리 : <span th:text="${item.category}"></span>
                             </td>
