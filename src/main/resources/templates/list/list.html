@@ -161,6 +161,22 @@
                 <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}">
                     <p th:text="${itemSearchDto.searchQuery} + ' 검색 결과'"></p>
                 </div>
+                     <!--페이징 이동 버튼-->
+                     <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${startPage == 1} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{/listsearch(page=${startPage - 1}, size=${items.size}, ...)}">&laquo;</a>
+                            </li>
+                            <li th:each="pageNum : ${pageNumbers}" class="page-item" th:classappend="${pageNum == items.number + 1} ? 'active' : ''">
+                                <a class="page-link" th:href="@{/listsearch(page=${pageNum - 1}, size=${items.size}, ...)}" th:text="${pageNum}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${endPage == items.totalPages} ? 'disabled' : ''">
+                                <a class="page-link" th:href="@{/listsearch(page=${endPage + 1}, size=${items.size}, ...)}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                <!-- /.페이징 이동 버튼-->
             </div>
             <!-- /. 상품 이미지 출력 for문--> 
 
@@ -169,34 +185,6 @@
                 <img src="/src/main/resources/static/img/epic-img4.png" th:src="@{/img/epic-img4.png}" style="width: 80%; margin-left: 10%; border-radius: 10px; cursor: pointer;"/>
             </div>
         </div>
-
-        
-                <!-- 페이지 이동 버튼-->
-        <nav aria-label="Page navigation" class="my-3">
-            <ul class="pagination justify-content-center">
-                <!-- 이전 페이지 버튼 (첫 페이지일 경우 비활성화) -->
-                <li th:class="${items.number == 0} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/listsearch(page=${items.number - 1}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                
-                <!-- 페이지 번호 -->
-                <li th:each="pageNumber : ${#numbers.sequence(0, items.totalPages - 1)}"
-                    th:class="${pageNumber == items.number} ? 'page-item active' : 'page-item'">
-                    <a class="page-link" th:href="@{/listsearch(page=${pageNumber}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" th:text="${pageNumber + 1}"></a>
-                </li>
-                
-                <!-- 다음 페이지 버튼 (마지막 페이지일 경우 비활성화) -->
-                <li th:class="${items.number + 1 == items.totalPages} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/listsearch(page=${items.number + 1}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        
-        <!--  /. 페이지 이동 버튼-->
 
         
 </div>

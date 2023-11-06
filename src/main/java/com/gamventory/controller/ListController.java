@@ -3,6 +3,7 @@ package com.gamventory.controller;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,90 +32,70 @@ public class ListController {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 20);
         Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
         
-         Page<MainItemDto> item = itemService.findItemsByCriteria(searchDto, pageable);
+        Page<MainItemDto> item = itemService.findItemsByCriteria(searchDto, pageable);
 
-          model.addAttribute("items", item);
-        // model.addAttribute("searchDto", searchDto);  
-        // 필터 검색 결과를 모델에 추가
+        int maxPage = 5;
+
+        int currentBlock = (items.getNumber() / maxPage) + (items.getNumber() % maxPage == 0 ? 0 : 1);
+
+        int startPage = (currentBlock - 1) * maxPage + 1;
+        startPage = Math.max(startPage, 1);
+        int endPage = Math.min(startPage + maxPage - 1, items.getTotalPages());
+
+
+
+        List<Integer> pageNumbers = IntStream.rangeClosed(startPage, endPage)
+                                            .boxed()
+                                            .collect(Collectors.toList());
+
+                                             
+        List<String> formattedPrices = items.getContent().stream()
+                                                  .map(MainItemDto::getFormattedPrice)
+                                                  .collect(Collectors.toList());
+
+        model.addAttribute("items", item);
         model.addAttribute("searchResults", searchDto);
         model.addAttribute("searchDto", searchDto);
-        //  for (Item item : searchResults.getContent()) {
-            // System.out.println("카테고리: " + item.getCategory());
-            // System.out.println("플랫폼: " + item.getPlatform());
-            // System.out.println("발매일: " + item.getRegTime());
-            // System.out.println("가격: " + item.getPrice());
-            // System.out.println("가격: " + item.getItemNm());
-        // }
-
-        List<String> formattedPrices = items.getContent().stream()
-                                   .map(MainItemDto::getFormattedPrice)
-                                   .collect(Collectors.toList());
-
         model.addAttribute("formattedPrices", formattedPrices);
         model.addAttribute("items", items); // 목록의 아이템들
         model.addAttribute("itemSearchDto", itemSearchDto); // 검색조건
-        model.addAttribute("maxPage", 5);  // 한페이지당 최대 보여줄 페이지 이동수
+        model.addAttribute("pageNumbers", pageNumbers); 
+        model.addAttribute("currentBlock", currentBlock); 
+        model.addAttribute("startPage", startPage); 
+        model.addAttribute("endPage", endPage); 
+
 
         return "list/list";
     }
 
-    //  @GetMapping("/test")
-    // public String searchItems(ItemFilterSearchDto searchDto, Model model, @PageableDefault(size = 20) Pageable pageable) {
-    //     Page<Item> searchResults = itemService.searchItems(searchDto, pageable);
-
-    //     // 필터 검색 결과를 모델에 추가
-    //     model.addAttribute("searchResults", searchResults);
-    //     model.addAttribute("searchDto", searchDto);
-    //         // Java 코드로 검색 결과 출력
-    //     for (Item item : searchResults.getContent()) {
-    //         System.out.println("카테고리: " + item.getCategory());
-    //         System.out.println("플랫폼: " + item.getPlatform());
-    //         System.out.println("발매일: " + item.getRegTime());
-    //         System.out.println("가격: " + item.getPrice());
-    //     }
-
-
-    //     return "list/test"; // 검색 결과를 표시할 뷰 페이지
-    // }
-
-    // @GetMapping("/list/filter")
-    // public String filterItems(ItemFilterSearchDto filterSearchDto, Optional<Integer> page, Model model) {
-
-    //     Pageable pageable = PageRequest.of(page.orElse(0), 20);
-    //     Page<Item> items = itemService.filterAndSortItems(filterSearchDto, pageable);
-
-    //     for (Item item : items.getContent()) {
-    //         System.out.println(item);
-    //     }
-
-    //     model.addAttribute("items", items); 
-    //     model.addAttribute("filterSearchDto", filterSearchDto); 
-
-    //     return "/list/list";
-    // }
-    
     @GetMapping("/listsearch")
-    public String searchItems(ItemFilterSearchDto searchDto, Model model, @PageableDefault(size = 20) Pageable pageable) {
+    public String searchItems(ItemFilterSearchDto searchDto, Model model, @PageableDefault(size = 20) Pageable pageable ) {
         Page<MainItemDto> items = itemService.findItemsByCriteria(searchDto, pageable);
 
-         // For loop to iterate over each item in the page
-    for (MainItemDto item : items) {
-        System.out.println("ID: " + item.getId());
-        System.out.println("Name: " + item.getItemNm());
-        System.out.println("Detail: " + item.getItemDetail());
-        System.out.println("Image URL: " + item.getImgUrl());
-        System.out.println("Price: " + item.getFormattedPrice());
-        System.out.println("Platform: " + item.getPlatform());
-        System.out.println("Category: " + item.getCategory());
-        System.out.println("-------------------------");
-    }
+        int maxPage = 5;
+
+    int currentBlock = (items.getNumber() / maxPage) + (items.getNumber() % maxPage == 0 ? 0 : 1);
+
+    int startPage = (currentBlock - 1) * maxPage + 1;
+    startPage = Math.max(startPage, 1);
+    int endPage = Math.min(startPage + maxPage - 1, items.getTotalPages());
+
+
+        // Create a list of page numbers for the current block
+        List<Integer> pageNumbers = IntStream.rangeClosed(startPage, endPage)
+                                            .boxed()
+                                            .collect(Collectors.toList());
 
         model.addAttribute("items", items);
         model.addAttribute("searchDto", searchDto);  
-        model.addAttribute("maxPage", 5);  // 한페이지당 최대 보여줄 페이지 이동수
+        model.addAttribute("pageNumbers", pageNumbers); // Add the page numbers list here
+        model.addAttribute("currentBlock", currentBlock); // Current block number
+        model.addAttribute("startPage", startPage); // Start page number of the current block
+        model.addAttribute("endPage", endPage); // End page number of the current block
 
-        return "list/listsearch"; // 검색 결과를 표시할 뷰 페이지
-    }
+
+            return "list/listsearch"; // 검색 결과를 표시할 뷰 페이지
+        }
     
 
     
