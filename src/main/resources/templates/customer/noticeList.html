@@ -9,6 +9,7 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <title>공지사항</title>
 </head>
+<<<<<<< HEAD
 
 <div layout:fragment="content">
     <div class="container">
@@ -82,6 +83,33 @@
 
         </div>
 
+=======
+<div layout:fragment="content">
+    <div class="container">
+
+        
+            <table>
+                <thead>
+                    <tr>
+                        <td>번호</td>
+                        <td>제목</td>
+                        <td>등록일</td>
+                        <td>조회수</td>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="notice, status: ${}">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        
+>>>>>>> sonwonduk
     </div>
 </div>
 </html>

@@ -717,6 +717,109 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     /* m_sidebar.html end  ==================================================*/
 
 
+     /* m_memberForm.html start   ===============================================*/
+
+     #singup_box{
+        margin-top: 5px;
+     }
+
+
+     #singup_box>div{
+        width:70%;
+        margin: auto;
+        margin-top: 15px;
+     }
+     
+     #sinup_button{
+        margin-top: 15px;
+        margin-left: 15%;
+     }
+
+      /* m_memberForm.html end   ===============================================*/
+
+
+
+    /* m_main.html start   ===============================================*/
+
+    #img_slider{
+        margin-bottom: 120px;
+        margin-top: -30px !important;        
+    }
+
+    #img_slider_img{
+        width: 100% !important;
+        margin-bottom: 10px;
+        margin-left: 35px !important;
+    }
+
+    #img_slider_button{
+        margin-left: 30px;
+        width: 900% !important;
+        height : 100px !important;
+    }
+
+    #img_slider_button li img{
+        width: 50px !important;
+    }
+
+    #img_slider_button ul{
+        text-align: center;
+    }
+
+    #img_slider_button li{
+        display: inline-block;
+        width: 75px;
+    }
+
+    #img_slider_button li:nth-child(2){
+        margin : 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #search_Form input{
+        width: 100px;
+        height: 25px;
+    }
+
+    #search_Form button{
+        height: 25px;
+        width:50px;
+        padding-top: 3px !important;
+    }
+
+
+
+    /* m_main.html end  ==================================================*/
+
+
+
+
+
+
+
+
+     /* m_memberForm.html start   ===============================================*/
+
+     #singup_box{
+        margin-top: 5px;
+     }
+
+
+     #singup_box>div{
+        width:70%;
+        margin: auto;
+        margin-top: 15px;
+     }
+     
+     #sinup_button{
+        margin-top: 15px;
+        margin-left: 15%;
+     }
+
+      /* m_memberForm.html end   ===============================================*/
+
+
 
     /* m_main.html start   ===============================================*/
 
@@ -1085,6 +1188,7 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     /* m_list.html end ==========================================================*/
 
 
+<<<<<<< HEAD
  
     #notice_list_box{
         width: 100% !important;
@@ -1102,6 +1206,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     }
 
 
+=======
+>>>>>>> sonwonduk
 
 
 

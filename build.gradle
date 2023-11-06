@@ -75,6 +75,21 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
 	implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+
+	 // Selenium for web crawling
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.14.1'
+
+    // Jsoup for HTML parsing (optional if you only use Selenium)
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.16.2'
+
+	
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
+	implementation 'org.seleniumhq.selenium:selenium-support:4.14.1'
+
+	 // JUnit Jupiter API 및 엔진
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
 }
 
 

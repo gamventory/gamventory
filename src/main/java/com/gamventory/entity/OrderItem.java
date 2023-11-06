@@ -17,6 +17,7 @@ public class OrderItem extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY) 
     @JoinColumn(name = "item_id")
     private Item item;
+  
 
     //한번의 주문에 여러 상품을 주문해서 주문:주문상품 = 1:n
     @ManyToOne(fetch = FetchType.LAZY) 

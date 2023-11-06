@@ -39,9 +39,12 @@ out/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 # queryDsl generated
 /src/main/generated
 
+=======
+>>>>>>> sonwonduk
 # properties
 application.properties
 application-oauth.properties
@@ -58,3 +61,9 @@ shopping.vuerd.json
 
 # 결제시크릿키 파일무시
 Payment.application.properties
+
+#드라이버파일무시
+ /drivers/*
+drivers/chrome-win64/chrome.dll
+
+/upload/

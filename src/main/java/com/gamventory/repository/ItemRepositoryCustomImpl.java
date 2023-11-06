@@ -4,6 +4,7 @@ package com.gamventory.repository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -97,13 +98,15 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                     .limit(pageable.getPageSize())
                     .fetch();
 
-            long total = queryFactory.select(Wildcard.count).from(QItem.item)
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory.select(Wildcard.count).from(QItem.item)
                     .where(regDtsAfter(itemSearchDto.getSearchDateType()),
                             searchSellStatusEq(itemSearchDto.getSearchSellStatus()),
                             searchByLike(itemSearchDto.getSearchBy(), itemSearchDto.getSearchQuery()))
                     .fetchOne()
-                    ;
+        );
 
+            long total = result.orElse(0L);
             return new PageImpl<>(content, pageable, total);
     }
 
@@ -129,7 +132,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                                 itemImg.imgUrl,
                                 item.price,
                                 item.platform.stringValue(), // Enum to String
-                                item.category.stringValue())
+                                item.category.stringValue(),
+                                item.gameKind.stringValue()) // Enum to String
                 )
                 .from(itemImg)
                 .join(itemImg.item, item)
@@ -140,17 +144,110 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = queryFactory
-                .select(Wildcard.count)
-                .from(itemImg)
-                .join(itemImg.item, item)
-                .where(itemImg.repimgYn.eq("Y"))
-                .where(itemNmLike(itemSearchDto.getSearchQuery()))
-                .fetchOne()
-                ;
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory
+                    .select(Wildcard.count)
+                    .from(itemImg)
+                    .join(itemImg.item, item)
+                    .where(itemImg.repimgYn.eq("Y"))
+                    .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                    .fetchOne()
+        );
+
+        long total = result.orElse(0L);
 
         return new PageImpl<>(content, pageable, total);
     }
+
+    //메인 아이템 출력 콘솔만 출력하는거
+     @Override
+    public Page<MainItemDto> getMainItemPageConsole(ItemSearchDto itemSearchDto, Pageable pageable) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        List<MainItemDto> content = queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.itemNm,
+                                item.itemDetail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.platform.stringValue(), // Enum to String
+                                item.category.stringValue(),
+                                item.gameKind.stringValue()) // Enum to String
+                )
+                .from(itemImg)
+                .join(itemImg.item, item)
+                .where(itemImg.repimgYn.eq("Y")
+                    .and(item.gameKind.stringValue().eq("CONSOLE"))) // 조건 추가
+                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory
+                    .select(Wildcard.count)
+                    .from(itemImg)
+                    .join(itemImg.item, item)
+                    .where(itemImg.repimgYn.eq("Y")
+                        .and(item.gameKind.stringValue().eq("CONSOLE"))) // 조건 추가
+                    .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                    .fetchOne()
+        );
+
+        long total = result.orElse(0L);
+
+        return new PageImpl<>(content, pageable, total);
+    }
+    //메인 아이템 출력 피씨만 출력하는거
+     @Override
+    public Page<MainItemDto> getMainItemPagePC(ItemSearchDto itemSearchDto, Pageable pageable) {
+
+        QItem item = QItem.item;
+        QItemImg itemImg = QItemImg.itemImg;
+
+        List<MainItemDto> content = queryFactory
+                .select(
+                        new QMainItemDto(
+                                item.id,
+                                item.itemNm,
+                                item.itemDetail,
+                                itemImg.imgUrl,
+                                item.price,
+                                item.platform.stringValue(), // Enum to String
+                                item.category.stringValue(),
+                                item.gameKind.stringValue()) // Enum to String
+                )
+                .from(itemImg)
+                .join(itemImg.item, item)
+                .where(itemImg.repimgYn.eq("Y")
+                    .and(item.gameKind.stringValue().eq("PC"))) // 조건 추가
+                .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                .orderBy(item.id.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        Optional<Long> result = Optional.ofNullable(
+            queryFactory
+                    .select(Wildcard.count)
+                    .from(itemImg)
+                    .join(itemImg.item, item)
+                    .where(itemImg.repimgYn.eq("Y")
+                        .and(item.gameKind.stringValue().eq("PC"))) // 조건 추가
+                    .where(itemNmLike(itemSearchDto.getSearchQuery()))
+                    .fetchOne()
+        );
+
+        long total = result.orElse(0L);
+
+        return new PageImpl<>(content, pageable, total);
+    }
+
 
     // //상품의 카테고리와 일치하는 상품을 조회하는 메소드
     // private BooleanExpression categoryEq(Category category) {
@@ -226,6 +323,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
     //     this.queryFactory = queryFactory;
     // }
 
+    //필터검색
     @Override
     public Page<MainItemDto> findByCriterias(ItemFilterSearchDto searchDto, Pageable pageable) {
         QItem item = QItem.item;
@@ -240,7 +338,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
         if (searchDto.getPlatform() != null) {
             builder.and(item.platform.eq(searchDto.getPlatform()));
         }
-
+        
         // 정렬 로직
         List<OrderSpecifier<?>> orderSpecifiers = new ArrayList<>();
         if ("asc".equalsIgnoreCase(searchDto.getOrderByReleaseDate())) {
@@ -263,7 +361,8 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{
                 itemImg.imgUrl,
                 item.price,
                 item.platform.stringValue(),
-                item.category.stringValue()
+                item.category.stringValue(),
+                item.gameKind.stringValue()
             ))
             .from(itemImg)
             .join(itemImg.item, item)

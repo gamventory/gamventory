@@ -26,7 +26,7 @@ public class ItemFilterSearchDto {
     
     private String Price; 
 
-    private String orderByReleaseDate; 
-
+    private String orderByReleaseDate;
     
+    private String gameKind;
 }

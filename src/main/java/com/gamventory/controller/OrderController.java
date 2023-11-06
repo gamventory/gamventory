@@ -114,10 +114,10 @@ public class OrderController {
         for (Serial serial : serials) {
             System.out.println(serial);
         }
-        for (OrderHistDto orderHistDto : ordersHistDtoList) {
-            System.out.println(orderHistDto.getOrderId());  // 여기에서는 단순히 toString() 결과를 출력하도록 했습니다.
-            System.out.println(orderHistDto.getOrderStatus());  // 여기에서는 단순히 toString() 결과를 출력하도록 했습니다.
-        }
+        // for (OrderHistDto orderHistDto : ordersHistDtoList) {
+        //     System.out.println(orderHistDto.getOrderId());  // 여기에서는 단순히 toString() 결과를 출력하도록 했습니다.
+        //     System.out.println(orderHistDto.getOrderStatus());  // 여기에서는 단순히 toString() 결과를 출력하도록 했습니다.
+        // }
 
         // for (Serial serial : serials) {
         //     System.out.println("Serial Number: " + serial.getSerialNumber());

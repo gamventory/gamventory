@@ -12,7 +12,14 @@ public interface ItemRepositoryCustom {
     
     Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
 
+    
     Page<MainItemDto> getMainItemPage(ItemSearchDto itemSearchDto, Pageable pageable);
+    
+    //콘솔 메인아이템 출력
+    Page<MainItemDto> getMainItemPageConsole(ItemSearchDto itemSearchDto, Pageable pageable);
+    
+    //PC게임 메인 아이템 출력
+    Page<MainItemDto> getMainItemPagePC(ItemSearchDto itemSearchDto, Pageable pageable);
 
     // //필터검색
     // Page<Item> filterItemSort(ItemFilterSearchDto filterSearchDto, Pageable pageable);

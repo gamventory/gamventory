@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+      
+<!-- css link -->
+<link rel="stylesheet" type="text/css" href="../static/css/gamven.css">
+
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- index.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+    <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    <style>
+        /* 이미지 흐린거 잡아주는 css*/
+        img {
+            /* 이미지 렌더링 방식 변경 */
+            image-rendering: -webkit-optimize-contrast;
+            /* z축을 0으로 초기화, 입체감 삭제 */
+            transform: translateZ(0);
+            /* 뒷면 숨기기, 입체감 삭제 */
+            backface-visibility: hidden;
+        }
+    </style>
+</th:block>
+<!-- index.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+
+
+<!-- Content -->
+<div layout:fragment="content"  class="container">
+
+    <div style="margin-bottom:50px;">
+            
+            <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+            
+            <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+                <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+            </div>
+    
+            <!--imgslider-->
+            <div>
+                <div id="img_slider" class="carousel slide row mt-1" data-ride="carousel" style="width: 100%;">
+        
+                    <div id="img_slider_img" class="carousel-inner" style="width: 70%; margin-left: 10px; margin-right: -10px;">                     
+                        <div class="carousel-item active">
+                            <div class="carousel-caption">
+                                <img src="/src/main/resources/static/img/img1.jpg" th:src="@{/img/img1.jpg}" alt="img1" style="width: 135%; height: 300px; margin-left: -20%;"/>
+                            </div>   
+                        </div>
+            
+                        <div class="carousel-item">
+                            <div class="carousel-caption">
+                                <img src="/src/main/resources/static/img/img2.jpg" th:src="@{/img/img2.jpg}" alt="img2" style="width: 135%; height: 300px; margin-left: -20%;"/>
+                            </div>   
+                        </div>
+            
+                        <div class="carousel-item">
+                            <div class="carousel-caption">
+                                <img src="/src/main/resources/static/img/img3.jpeg" th:src="@{/img/img3.jpeg}" alt="img3" style="width: 135%; height: 300px; margin-left: -20%;"/>
+                            </div>   
+                        </div>
+                    </div>
+
+                    <div id="img_slider_button" style="width: 30%; background-color: #343541; border-radius: 15px;" class="p-3">
+                        <ul>
+                            <li data-target="#img_slider" class=" text-white active" data-slide-to="0" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <img src="/src/main/resources/static/img/img1.jpg" class="mr-3" th:src="@{/img/img1.jpg}" alt="img1" style="width: 70px; height: 50px;"/>Play casual racing~~
+                            </li>
+                            <li data-target="#img_slider" class=" text-white" data-slide-to="1"  style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <img src="/src/main/resources/static/img/img2.jpg" class="mr-3" th:src="@{/img/img2.jpg}" alt="img1" style="width: 70px; height: 50px;"/>Please visited!!
+                            </li>
+                            <li data-target="#img_slider" class=" text-white" data-slide-to="2" style="font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <img src="/src/main/resources/static/img/img3.jpeg" class="mr-3" th:src="@{/img/img3.jpeg}" alt="img1" style="width: 70px; height: 50px;"/>event? event!
+                            </li>
+                        </ul>
+                    </div>
+    
+                </div>
+            </div>
+        
+    
+            <!-- filter -->
+            <!-- <div id="filter" class="row mb-3" style="border-radius: 10px;"></div> -->
+            <!-- fliter end-->
+    
+            <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px;">
+                <h1>최신게임</h1>
+                <!-- 상품 이미지 출력 for문-->
+                <div class="row">
+                    <th:block th:each="item, status: ${items.getContent()}" >
+                        <div class="col-md-3 margin" >
+                            <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-4" style=" background-color: rgb(32,33,35); width: 100%;">
+                                <a th:href="'/item/' +${item.id}" class="text-dark" >
+                                    <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="330">
+                                    <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.gameKind}]]</p>
+                                    <div id="main_game_card_text" class="card-body ">
+                                        <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemNm}]]</p>
+                                        <!--<p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${item.itemDetail}]]</p>-->
+                                        <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]원</p>
+                                        <div th:switch="${item.platform}" style="margin-top:20px;">
+                                            <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                            <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                            <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                            <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                            <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                            <p th:case="*" th:text="${item.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+                <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
+                <div th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}" class="center">
+                    <p class="h3 font-weight-bold" th:text="${itemSearchDto.searchQuery} + '검색 결과'"></p>
+                </div>
+                <!-- /. 상품 이미지 출력 for문-->
+
+    
+                <!-- 페이지 이동 버튼-->
+                <div style="margin : auto;">
+                    <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+                        <ul class="pagination justify-content-center">
+    
+                            <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+                                <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
+                                    <span aria-hidden='true'><</span>
+                                </a>
+                            </li>
+    
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
+                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+                            </li>
+    
+                            <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+                                    <span aria-hidden='true'>></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+                <!--  /. 페이지 이동 버튼-->
+
+
+                <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px; margin-top: 10px;">
+
+                        <h1>PC게임</h1>
+                        <!-- Pitems 상품 이미지 출력 for문 -->
+                        <div class="row">
+                            <th:block th:each="Pitem, status : ${Pitems.getContent()}">
+                                <div class="col-md-3 margin">
+                                    <div class="card mb-4" style="background-color: rgb(32,33,35); width: 100%;">
+                                        <a th:href="'/item/' + ${Pitem.id}" class="text-dark">
+                                            <img id="main_game_card" th:src="${Pitem.imgUrl}" class="card-img-top" th:alt="${Pitem.itemNm}" height="330">
+                                            <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Pitem.gameKind}]]</p>
+                                            <div id="main_game_card_text" class="card-body">
+                                                <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Pitem.itemNm}]]</p>
+                                                <p class="card-title text-white" style="opacity: 0.5;">[[${Pitem.price}]]원</p>
+                                                <div th:switch="${Pitem.platform}" style="margin-top:20px;">
+                                                    <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                                    <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                                    <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                                    <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                                    <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                                    <p th:case="*" th:text="${Pitem.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                
+                    <!-- /. Pitems 상품 이미지 출력 for문 -->
+
+                <!-- Pitems 페이지 이동 버튼 -->
+                <!-- <div style="margin: auto;">
+                    <div th:with="Pstart=${(Pitems.number/maxPage)*maxPage + 1}, 
+                                Pend=(${(Pitems.totalPages == 0) ? 1 : (Pstart + (maxPage - 1) < Pitems.totalPages ? Pstart + (maxPage - 1) : Pitems.totalPages)})">
+                        <ul class="pagination justify-content-center">
+                            
+                            <li class="page-item" th:classappend="${Pitems.number eq 0}?'disabled':''">
+                                <a th:href="@{'/?searchQuery=' + ${itemSearchDto.searchQuery} + '&Ppage=' + ${Pitems.number-1}}" aria-label='Previous' class="page-link">
+                                    <span aria-hidden='true'>&lt;</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item" th:each="Ppage : ${#numbers.sequence(Pstart, Pend)}" th:classappend="${Pitems.number eq Ppage-1}?'active':''">
+                                <a th:href="@{'/?searchQuery=' + ${itemSearchDto.searchQuery} + '&Ppage=' + ${Ppage-1}}" th:inline="text" class="page-link">[[${Ppage}]]</a>
+                            </li>
+
+                            <li class="page-item" th:classappend="${Pitems.number+1 ge Pitems.totalPages}?'disabled':''">
+                                <a th:href="@{'/?searchQuery=' + ${itemSearchDto.searchQuery} + '&Ppage=' + ${Pitems.number+1}}" aria-label='Next' class="page-link">
+                                    <span aria-hidden='true'>&gt;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+                <!-- /. Pitems 페이지 이동 버튼 -->
+
+                
+                <!-- Citems 상품 이미지 출력 for문 -->
+                <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px; margin-top: 10px;">
+                        <h1> console게임</h1>
+                    <div class="row">
+                        <th:block th:each="Citem, status: ${Citems.getContent()}">
+                            <div class="col-md-3 margin"">
+                                <div class="card mb-4" style="background-color: rgb(32,33,35); width: 100%;">
+                                    <a th:href="'/item/' + ${Citem.id}" class="text-dark">
+                                        <img id="main_game_card" th:src="${Citem.imgUrl}" class="card-img-top" th:alt="${Citem.itemNm}" height="182">
+                                        <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Citem.gameKind}]]</p>
+                                        <div id="main_game_card_text" class="card-body">
+                                            <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Citem.itemNm}]]</p>
+                                            <!-- <p class="card-text text-white" style="opacity: 0.5; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Citem.itemDetail}]]</p> -->
+                                            <p class="card-title text-white" style="opacity: 0.5;">[[${Citem.price}]]원</p>
+                                            <div th:switch="${Citem.platform}" style="margin-top:20px;">
+                                                <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                                <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                                <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                                <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                                <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                                <p th:case="*" th:text="${Citem.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+                <!-- /. Citems 상품 이미지 출력 for문 -->
+
+               <!-- 페이지 이동 버튼-->
+                <!-- <div style="margin : auto;">
+                    <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
+                        <ul class="pagination justify-content-center">
+    
+                            <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
+                                <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
+                                    <span aria-hidden='true'><</span>
+                                </a>
+                            </li>
+    
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?'active':''">
+                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
+                            </li>
+    
+                            <li class="page-item" th:classappend="${items.number+1 ge items.totalPages}?'disabled':''">
+                                <a th:href="@{'/' +'?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number+1}}" aria-label='Next' class="page-link">
+                                    <span aria-hidden='true'>></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div> -->
+                <!--  /. 페이지 이동 버튼-->
+<!-- 
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <th:block th:each="Pitem, status : ${Pitems.getContent()}">
+                        <li data-target="#carouselExampleIndicators" th:data-slide-to="${status.index}" th:class="${status.isFirst()} ? 'active' : ''"></li>
+                      </th:block>
+                    </ol>
+                    <div class="carousel-inner">
+                      <th:block th:each="Pitem, status : ${Pitems.getContent()}">
+                        <div th:class="'carousel-item' + (${status.isFirst()} ? ' active' : '')">
+                          <div class="row">
+                            <div class="col-md-3 margin" th:if="${Pitem.gameKind =='PC' }">
+                              <div class="card mb-4" style="background-color: rgb(32,33,35); width: 100%;">
+                                <a th:href="'/item/' + ${Pitem.id}" class="text-dark">
+                                  <img id="main_game_card" th:src="${Pitem.imgUrl}" class="d-block w-100" th:alt="${Pitem.itemNm}" height="330">
+                                  <div id="main_game_card_text" class="card-body">
+                                    <h5 class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Pitem.itemNm}]]</h5>
+                                    <p class="card-text text-white" style="opacity: 0.5;">[[${Pitem.price}]]원</p>
+                                  </div>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </th:block>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">이전</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">다음</span>
+                    </a>
+                  </div> -->
+
+                  
+
+
+
+            </div>  
+    </div>    
+</div>
+</html>

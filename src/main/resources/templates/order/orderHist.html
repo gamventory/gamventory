@@ -136,6 +136,7 @@
 
     <div style="width: 100%; margin: auto; margin-bottom: 200px;" class="container row">
 
+<<<<<<< HEAD
 
         <div style="width: 80%;">
             <div class="container" style="width: 100%;">
@@ -150,6 +151,23 @@
                             <img src="/src/main/resources/static/img/epic-img2.png" th:src="@{/img/epic-img2.png}" style="width: 110%; margin-bottom: 10px; border-radius: 10px; cursor: pointer;"/>
                             <img src="/src/main/resources/static/img/epic-img4.png" th:src="@{/img/epic-img4.png}" style="width: 110%; border-radius: 10px; cursor: pointer;"/>
                         </div>      
+=======
+            <div class="col-sm-4 ">
+                <!--구매목록-->
+                <div th:each="order : ${orders.getContent()}">
+                        
+                    
+                    <div class="d-flex mb-3 align-self-center">
+                        <span class="text-white" th:text="${order.orderDate} + ' 주문'"></span>
+                        <div class="ml-3">
+                            <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
+                                <button type="button" style="font-size: 12px;" class="btn bg-primary text-white" th:value="${order.orderId}" onclick="cancelOrder(this.value)">주문취소</button>
+                            </th:block>
+                            <th:block th:unless="${order.orderStatus.name() == 'ORDER'}">
+                                <h5>(취소 완료)</h5>
+                            </th:block>
+                        </div>
+>>>>>>> sonwonduk
                     </div>
 
                     <div style="width: 70%;">
@@ -194,6 +212,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div th:switch="${serial.platform}">
+                                        <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                        <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                        <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                        <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                        <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                        <p th:case="*" th:text="${serial.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
                                     </div>
                                 </div>
                                 <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" >

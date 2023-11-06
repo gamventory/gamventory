@@ -34,8 +34,11 @@ public class MainItemDto {
     //카테고리
     private String category;
 
+    //pc,콘솔여부
+    private String gameKind;
+
     @QueryProjection
-    public MainItemDto(Long id, String itemNm, String itemDetail, String imgUrl, Integer price, String platform, String category){
+    public MainItemDto(Long id, String itemNm, String itemDetail, String imgUrl, Integer price, String platform, String category, String gameKind){
         this.id = id;
         this.imgUrl = imgUrl;
         this.itemDetail = itemDetail;
@@ -43,6 +46,7 @@ public class MainItemDto {
         this.price = price;
         this.platform = platform;
         this.category = category;
+        this.gameKind = gameKind;
     }
 
     //숫자포맷으로 설정하는거

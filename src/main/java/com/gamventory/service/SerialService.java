@@ -17,12 +17,10 @@ import com.gamventory.repository.SerialRepository;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 @Service
 @RequiredArgsConstructor
 @Builder
-@Log4j2
 public class SerialService {
 
     private final SerialRepository serialRepository;

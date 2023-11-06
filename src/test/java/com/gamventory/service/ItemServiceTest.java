@@ -51,31 +51,31 @@ class ItemServiceTest {
         return multipartFileList;
     }
 
-    // @Test
-    // @DisplayName("상품 등록 테스트")
-    // @WithMockUser(username = "admin", roles = "ADMIN")
-    // void saveItem() throws Exception {
-    //     ItemFormDto itemFormDto = new ItemFormDto();
-    //     itemFormDto.setItemNm("테스트상품");
-    //     itemFormDto.setItemSellStatus(ItemSellStatus.SELL);
-    //     itemFormDto.setItemDetail("테스트 상품 입니다.");
-    //     itemFormDto.setPrice(1000);
-    //     itemFormDto.setStockNumber(100);
+    @Test
+    @DisplayName("상품 등록 테스트")
+    @WithMockUser(username = "admin", roles = "ADMIN")
+    void saveItem() throws Exception {
+        ItemFormDto itemFormDto = new ItemFormDto();
+        itemFormDto.setItemNm("테스트상품");
+        itemFormDto.setItemSellStatus(ItemSellStatus.SELL);
+        itemFormDto.setItemDetail("테스트 상품 입니다.");
+        itemFormDto.setPrice(1000);
+        itemFormDto.setStockNumber(100);
 
-    //     List<MultipartFile> multipartFileList = createMultipartFiles();
-    //     Long itemId = itemService.saveItem(itemFormDto, multipartFileList);
-    //     List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
+        List<MultipartFile> multipartFileList = createMultipartFiles();
+        Long itemId = itemService.saveItem(itemFormDto, multipartFileList);
+        List<ItemImg> itemImgList = itemImgRepository.findByItemIdOrderByIdAsc(itemId);
 
-    //     Item item = itemRepository.findById(itemId)
-    //             .orElseThrow(EntityNotFoundException::new);
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(EntityNotFoundException::new);
 
-    //     assertEquals(itemFormDto.getItemNm(), item.getItemNm());
-    //     assertEquals(itemFormDto.getItemSellStatus(), item.getItemSellStatus());
-    //     assertEquals(itemFormDto.getItemDetail(), item.getItemDetail());
-    //     assertEquals(itemFormDto.getPrice(), item.getPrice());
-    //     assertEquals(itemFormDto.getStockNumber(), item.getStockNumber());
-    //     assertEquals(multipartFileList.get(0).getOriginalFilename(), itemImgList.get(0).getOriImgName());
-    // }
+        assertEquals(itemFormDto.getItemNm(), item.getItemNm());
+        assertEquals(itemFormDto.getItemSellStatus(), item.getItemSellStatus());
+        assertEquals(itemFormDto.getItemDetail(), item.getItemDetail());
+        assertEquals(itemFormDto.getPrice(), item.getPrice());
+        assertEquals(itemFormDto.getStockNumber(), item.getStockNumber());
+        assertEquals(multipartFileList.get(0).getOriginalFilename(), itemImgList.get(0).getOriImgName());
+    }
 
 //     @Test
 //     @DisplayName("상품 수정 테스트")

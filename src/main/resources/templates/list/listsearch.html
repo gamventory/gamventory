@@ -18,6 +18,17 @@
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
     <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+    <style>
+        /* 이미지 흐린거 잡아주는 css*/
+        img {
+            /* 이미지 렌더링 방식 변경 */
+            image-rendering: -webkit-optimize-contrast;
+            /* z축을 0으로 초기화, 입체감 삭제 */
+            transform: translateZ(0);
+            /* 뒷면 숨기기, 입체감 삭제 */
+            backface-visibility: hidden;
+        }
+    </style>
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -38,7 +49,11 @@
 <div layout:fragment="content">
 
     <div class="container" style="margin-bottom:50px;">
+<<<<<<< HEAD
         <h1 style="font-weight: bold; color:white; margin-top: 30px; margin-bottom: 30px;">게임 목록</h1>
+=======
+        
+>>>>>>> sonwonduk
       <!-- 검색 폼 -->
         <form th:action="@{/listsearch}" method="get" class="mb-5">
             <div class="row text-white p-4 fs12" style="background-color: #202123; border-radius: 15px;">
@@ -52,10 +67,20 @@
                             <option value="EPIC_GAMES" th:selected="${searchDto.platform == 'EPIC_GAMES'}">Epic Games</option>
                             <option value="ROCKSTAR_GAMES" th:selected="${searchDto.platform == 'ROCKSTAR_GAMES'}">Rockstar Games</option>
                             <option value="UBISOFT_CONNECT" th:selected="${searchDto.platform == 'UBISOFT_CONNECT'}">Ubisoft Connect</option>
+<<<<<<< HEAD
+=======
+                            <option value="NINTENDO" th:selected="${searchDto.platform == 'NINTENDO'}">닌텐도</option>
+                            <option value="X_BOX" th:selected="${searchDto.platform == 'X_BOX'}">X box</option>
+                            <option value="PLAY_STATION" th:selected="${searchDto.platform == 'PLAY_STATION'}">play station</option>
+>>>>>>> sonwonduk
                             <option value="OTHER" th:selected="${searchDto.platform == 'OTHER'}">기타</option>
                         </select>
                     </div>
                     <!-- Category Filter -->
+<<<<<<< HEAD
+=======
+                    
+>>>>>>> sonwonduk
                     <div class="col-md-3 form-group">
                         <label for="category">카테고리:</label>
                         <select class="form-control fs12" id="category" name="category">
@@ -82,8 +107,13 @@
                         <label for="orderByReleaseDate">출시 순서:</label>
                         <select class="form-control fs12" id="orderByReleaseDate" name="orderByReleaseDate">
                             <option value="">-- 출시순 --</option>
+<<<<<<< HEAD
                             <option value="asc" th:selected="${searchDto.orderByReleaseDate == 'asc'}">오름차순</option>
                             <option value="desc" th:selected="${searchDto.orderByReleaseDate == 'desc'}">내림차순</option>
+=======
+                            <option value="asc" th:selected="${searchDto.orderByReleaseDate == 'asc'}">오래된 순</option>
+                            <option value="desc" th:selected="${searchDto.orderByReleaseDate == 'desc'}">최신순</option>
+>>>>>>> sonwonduk
                         </select>
                     </div>
                 </div>
@@ -113,17 +143,22 @@
                                     <img th:src="${item.imgUrl}" th:alt="${item.itemNm}" height="100" width="70%">
                                 </a>
                             </td>
-                            
                             <td style="width: 20%; vertical-align: middle;">
                                 이름 : <span th:text="${item.itemNm}"></span><br>
                                 플랫폼 : <div th:switch="${item.platform}" style="margin-top: 10px; margin-bottom: -15px; margin-left: 10px; display: inline;">
-                                            <img style="height: 30px; width: ;" th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                            <img style="height: 30px;" th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
                                             <img style="height: 30px;" th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
                                             <img style="height: 30px;" th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
                                             <img style="height: 30px;" th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                            <img style="height: 30px;" th:case="'X_BOX'" th:src="@{/images/item/XBOX_logo.png}" />
+                                            <img style="height: 30px;" th:case="'NINTENDO'" th:src="@{/images/item/nintendo_logo.png}" />
                                             <img style="height: 30px;" th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
-                                            <img style="height: 30px;" th:case="'ALL'" th:src="@{/images/item/ALL_logo.png}" />
                                             <p th:case="*" th:text="${item.platform}"></p> 
+                                            <d th:switch="${item.gameKind}" style="float: right;">
+                                                <img th:case="'PC'" th:src="@{/images/item/window_logo.png}" style=" height: 30px; width: 40px;"/>
+                                                <img th:case="'CONSOLE'" th:src="@{/images/item/console_logo.png}"  style="height: 30px; width: 40px;"/>
+                                                <p th:case="*" th:text="${item.gameKind}"></p>
+                                            </d>
                                        </div><br>
                                 카테고리 : <span th:text="${item.category}"></span>
                             </td>
@@ -131,43 +166,31 @@
                         </tr>
                     </tbody>
                 </table>
+                <!--페이징 이동 버튼-->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${startPage == 1} ? 'disabled' : ''">
+                            <a class="page-link" th:href="@{/listsearch(page=${startPage - 1}, size=${items.size}, ...)}">&laquo;</a>
+                        </li>
+                        <li th:each="pageNum : ${pageNumbers}" class="page-item" th:classappend="${pageNum == items.number + 1} ? 'active' : ''">
+                            <a class="page-link" th:href="@{/listsearch(page=${pageNum - 1}, size=${items.size}, ...)}" th:text="${pageNum}"></a>
+                        </li>
+                        <li class="page-item" th:classappend="${endPage == items.totalPages} ? 'disabled' : ''">
+                            <a class="page-link" th:href="@{/listsearch(page=${endPage + 1}, size=${items.size}, ...)}">&raquo;</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- /.페이징 이동 버튼-->
             </div>
+             <!-- /. 상품 이미지 출력 for문--> 
             <div class="list_promotion" style="width: 30%;">
                 <img src="/src/main/resources/static/img/epic-img1.png" th:src="@{/img/epic-img1.png}" style="width: 80%; margin-left: 10%; margin-bottom: 30px; border-radius: 10px; cursor: pointer;"/>
                 <img src="/src/main/resources/static/img/epic-img4.png" th:src="@{/img/epic-img4.png}" style="width: 80%; margin-left: 10%; border-radius: 10px; cursor: pointer;"/>
             </div>
         </div>
-
-        <!-- Pagination (If you want to add it later) -->
-        <!-- ... -->
         
-        <!-- 페이지 이동 버튼-->
-        <nav aria-label="Page navigation" class="my-3">
-            <ul class="pagination justify-content-center">
-                <!-- 이전 페이지 버튼 (첫 페이지일 경우 비활성화) -->
-                <li th:class="${items.number == 0} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/listsearch(page=${items.number - 1}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                
-                <!-- 페이지 번호 -->
-                <li th:each="pageNumber : ${#numbers.sequence(0, items.totalPages - 1)}"
-                    th:class="${pageNumber == items.number} ? 'page-item active' : 'page-item'">
-                    <a class="page-link" th:href="@{/listsearch(page=${pageNumber}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" th:text="${pageNumber + 1}"></a>
-                </li>
-                
-                <!-- 다음 페이지 버튼 (마지막 페이지일 경우 비활성화) -->
-                <li th:class="${items.number + 1 == items.totalPages} ? 'page-item disabled' : 'page-item'">
-                    <a class="page-link" th:href="@{/listsearch(page=${items.number + 1}, size=${items.size}, platform=${searchDto.platform}, category=${searchDto.category}, price=${searchDto.price}, orderByReleaseDate=${searchDto.orderByReleaseDate})}" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        
-        <!--  /. 페이지 이동 버튼-->
 
+    
     </div>
 </div>
 </html>

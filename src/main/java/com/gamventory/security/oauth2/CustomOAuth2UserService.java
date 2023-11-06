@@ -1,10 +1,6 @@
 package com.gamventory.security.oauth2;
 
-import com.gamventory.entity.BaseEntity;
-import com.gamventory.entity.Member;
-import com.gamventory.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.Map;
 
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -13,7 +9,11 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
+import com.gamventory.entity.Member;
+import com.gamventory.repository.MemberRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2

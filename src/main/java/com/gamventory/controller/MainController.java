@@ -2,6 +2,7 @@ package com.gamventory.controller;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,19 +25,36 @@ public class MainController {
     @GetMapping("/")
     public String main(ItemSearchDto itemSearchDto, Optional<Integer> page, Model model){
         
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 6);
-        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 12);
+        Pageable cPageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
+        Pageable pPageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4);
 
-        model.addAttribute("items", items); // 목록의 아이템들
+        Page<MainItemDto> items = itemService.getMainItemPage(itemSearchDto, pageable);
+        Page<MainItemDto> Citems = itemService.getMainItemPageConsole(itemSearchDto, cPageable);
+        Page<MainItemDto> Pitems = itemService.getMainItemPagePC(itemSearchDto, pPageable);
+
+
+        
+        for (MainItemDto Pitem : Pitems) {
+            System.out.println("PC에서 끌고와졌는지?: "+Pitem.getItemNm());
+        }
+
+        model.addAttribute("Pitems", Pitems); // PC목록의 아이템들
+        model.addAttribute("Citems", Citems); // Console목록의 아이템들
+        model.addAttribute("items", items); // 전체 목록의 아이템들
         model.addAttribute("itemSearchDto", itemSearchDto); // 검색조건
         model.addAttribute("maxPage", 5);  // 한페이지당 최대 보여줄 페이지 이동수
         return "main";
 
     }
 
-    @GetMapping("/test")
-    public String test(){
-        return "/test";
-    }
+    //  @Autowired
+    // private SeleniumSearchScraper scraperService;
+
+    // @GetMapping("/test")
+    // public String test() {
+    //     scraperService.scrapeAndSaveGames();  // 스크래핑 메서드 호출
+    //     return "/test";
+    // }
 
 }
