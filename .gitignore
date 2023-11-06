@@ -39,6 +39,9 @@ out/
 ### VS Code ###
 .vscode/
 
+# queryDsl generated
+/src/main/generated
+
 # properties
 application.properties
 application-oauth.properties

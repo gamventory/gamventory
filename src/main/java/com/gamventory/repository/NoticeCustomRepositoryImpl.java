@@ -8,6 +8,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,7 @@ import org.thymeleaf.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 public class NoticeCustomRepositoryImpl implements NoticeCustomRepository {
 
     private final JPAQueryFactory queryFactory;
@@ -42,12 +44,13 @@ public class NoticeCustomRepositoryImpl implements NoticeCustomRepository {
                         notice.subject,
                         notice.content,
                         notice.viewCount,
-                        notice.member.name,
+                        notice.member.email,
                         notice.regTime
                 ))
                 .from(notice)
                 .where(subjectLike(noticeSearchDto.getSubjectQuery()))
                 .where(contentLike(noticeSearchDto.getContentQuery()))
+                .orderBy(QNotice.notice.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
