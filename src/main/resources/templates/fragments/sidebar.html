@@ -44,6 +44,10 @@
                 <a href="/serials/list"><span>시리얼조회</span></a>
             </div>
 
+            <div class="list-group-item list-group-item-action" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <a href="/customer/notice/write"><span>공지사항 작성</span></a>
+            </div>
+
         </div>
     </div>
 

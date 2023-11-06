@@ -1015,6 +1015,7 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #show_serial_box_paging a{
         font-size : 10px;
     }
+    
 
     /* m_showSerail.html end ============================================================*/
 
@@ -1082,6 +1083,23 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     }
 
     /* m_list.html end ==========================================================*/
+
+
+ 
+    #notice_list_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
+
+    #notice_detail_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
+
+    #notice_update_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
 
 
 
