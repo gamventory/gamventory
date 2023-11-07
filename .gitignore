@@ -39,12 +39,9 @@ out/
 ### VS Code ###
 .vscode/
 
-<<<<<<< HEAD
 # queryDsl generated
 /src/main/generated
 
-=======
->>>>>>> sonwonduk
 # properties
 application.properties
 application-oauth.properties

@@ -51,7 +51,10 @@ public class NoticeCustomRepositoryImpl implements NoticeCustomRepository {
                 .where(subjectLike(noticeSearchDto.getSubjectQuery()))
                 .where(contentLike(noticeSearchDto.getContentQuery()))
                 .orderBy(QNotice.notice.id.desc())
+                .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .fetch();
+
         Optional<Long> result = Optional.ofNullable(
             queryFactory
                     .select(Wildcard.count)
@@ -63,6 +66,11 @@ public class NoticeCustomRepositoryImpl implements NoticeCustomRepository {
 
 
         long total = result.orElse(0L);
+
+        log.info("------NoticeCustomRepositoryImpl-----");
+        log.info("content : " + content);
+        log.info("pageable : " + pageable);
+        log.info("total : " + total);
 
         return new PageImpl<>(content, pageable, total);
     }

@@ -49,11 +49,7 @@
 <div layout:fragment="content">
 
     <div class="container" style="margin-bottom:50px;">
-<<<<<<< HEAD
         <h1 style="font-weight: bold; color:white; margin-top: 30px; margin-bottom: 30px;">게임 목록</h1>
-=======
-        
->>>>>>> sonwonduk
       <!-- 검색 폼 -->
         <form th:action="@{/listsearch}" method="get" class="mb-5">
             <div class="row text-white p-4 fs12" style="background-color: #202123; border-radius: 15px;">
@@ -67,20 +63,14 @@
                             <option value="EPIC_GAMES" th:selected="${searchDto.platform == 'EPIC_GAMES'}">Epic Games</option>
                             <option value="ROCKSTAR_GAMES" th:selected="${searchDto.platform == 'ROCKSTAR_GAMES'}">Rockstar Games</option>
                             <option value="UBISOFT_CONNECT" th:selected="${searchDto.platform == 'UBISOFT_CONNECT'}">Ubisoft Connect</option>
-<<<<<<< HEAD
-=======
                             <option value="NINTENDO" th:selected="${searchDto.platform == 'NINTENDO'}">닌텐도</option>
                             <option value="X_BOX" th:selected="${searchDto.platform == 'X_BOX'}">X box</option>
                             <option value="PLAY_STATION" th:selected="${searchDto.platform == 'PLAY_STATION'}">play station</option>
->>>>>>> sonwonduk
                             <option value="OTHER" th:selected="${searchDto.platform == 'OTHER'}">기타</option>
                         </select>
                     </div>
                     <!-- Category Filter -->
-<<<<<<< HEAD
-=======
                     
->>>>>>> sonwonduk
                     <div class="col-md-3 form-group">
                         <label for="category">카테고리:</label>
                         <select class="form-control fs12" id="category" name="category">
@@ -107,13 +97,8 @@
                         <label for="orderByReleaseDate">출시 순서:</label>
                         <select class="form-control fs12" id="orderByReleaseDate" name="orderByReleaseDate">
                             <option value="">-- 출시순 --</option>
-<<<<<<< HEAD
-                            <option value="asc" th:selected="${searchDto.orderByReleaseDate == 'asc'}">오름차순</option>
-                            <option value="desc" th:selected="${searchDto.orderByReleaseDate == 'desc'}">내림차순</option>
-=======
                             <option value="asc" th:selected="${searchDto.orderByReleaseDate == 'asc'}">오래된 순</option>
                             <option value="desc" th:selected="${searchDto.orderByReleaseDate == 'desc'}">최신순</option>
->>>>>>> sonwonduk
                         </select>
                     </div>
                 </div>

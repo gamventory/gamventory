@@ -64,10 +64,6 @@ public class ListController {
         model.addAttribute("startPage", startPage); 
         model.addAttribute("endPage", endPage); 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> sonwonduk
         return "list/list";
     }
 

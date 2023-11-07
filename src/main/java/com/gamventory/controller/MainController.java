@@ -36,7 +36,13 @@ public class MainController {
 
         
         for (MainItemDto Pitem : Pitems) {
-            System.out.println("PC에서 끌고와졌는지?: "+Pitem.getItemNm());
+            System.out.println("P에서 끌고와졌는지?: "+Pitem.getItemNm());
+        }
+        for (MainItemDto item : items) {
+            System.out.println("i에서 끌고와졌는지?: "+item.getItemNm());
+        }
+        for (MainItemDto Citem : Citems) {
+            System.out.println("c에서 끌고와졌는지?: "+Citem.getItemNm());
         }
 
         model.addAttribute("Pitems", Pitems); // PC목록의 아이템들
