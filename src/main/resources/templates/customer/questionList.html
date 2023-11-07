@@ -7,59 +7,86 @@
     <meta charset="UTF-8">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title>Q&A</title>
 </head>
 
-<div layout:fragment="content" class="container my-3">
-    <table class="table">
-        <thead class="table-dark">
-        <tr class="text-center">
-            <th>번호</th>
-            <th style="width: 50%">제목</th>
-            <th>글쓴이</th>
-            <th>작성일시</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="text-center" th:each="question, loop : ${paging}">
-            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-            <td class="text-start">
-                <a th:href="@{|/customer/question/read/${question.id}|}" th:text="${question.subject}"></a>
-                <span class="text-danger small ms-2"
-                      th:if="${#lists.size(question.answerList) > 0}"
-                      th:text="${#lists.size(question.answerList)}"></span>
-            </td>
-            <td>
-                <span th:if="${question.member != null}" th:text="${question.member.email}"></span>
-            </td>
-            <td th:text="${question.regTime.toString().substring(0, 10)}"></td>
-        </tr>
-        </tbody>
-    </table>
+<div layout:fragment="content" class="container">
+    <h1 style="font-weight: bold; color:white; margin-top: 30px; margin-bottom: 30px;">Q&A</h1>
+    <div style="width: 100%;" class="row">
 
-    <!-- paging start -->
-    <div th:if="${!paging.isEmpty()}">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${paging.number - 1}|}">
-                    <span>이전</span>
-                </a>
-            </li>
-            <li th:each="page : ${#numbers.sequence(0, paging.totalPages - 1)}"
-                th:if="${page >= paging.number -5 and page <= paging.number + 5}"
-                th:classappend="${page == paging.number} ? 'active'" class="page-item">
-                <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}|}"></a>
-            </li>
-            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${paging.number + 1}|}">
-                    <span>다음</span>
-                </a>
-            </li>
-        </ul>
+        <div class="list_promotion" style="width: 30%;">
+            <div id="memberinfo_box" class="container mb-5" style="margin-top : 0px; width: 90%; margin-left: -0px;">
+                <ul>
+                    <li>
+                        <a th:href="@{/customer/notice}" class="badge text-white pt-3">
+                            공지사항
+                        </a>
+                    </li>
+                    <li>   
+                        <a th:href="@{/customer/question/list}" class="badge text-white pt-3">
+                            Q&A
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <img src="/src/main/resources/static/img/epic-img5.png" th:src="@{/img/epic-img5.png}" style="width: 80%; margin-left: 5%; margin-bottom: 30px; border-radius: 10px; cursor: pointer;"/>
+            <img src="/src/main/resources/static/img/epic-img6.png" th:src="@{/img/epic-img6.png}" style="width: 80%; margin-left: 5%; border-radius: 10px; cursor: pointer;"/>
+        </div>
+
+        <div id="notice_detail_box" class="text-white" style="width: 70%;">
+            <table class="table table-dark">
+                <thead style="background-color: #202123;">
+                <tr class="text-center fs12">
+                    <th style="width: 13%; text-align: left;">번호</th>
+                    <th style="width: 37%; text-align: left;">제목</th>
+                    <th style="width: 25%;">글쓴이</th>
+                    <th style="width: 20%;">작성일시</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center fs12" th:each="question, loop : ${paging}">
+                    <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}" style="text-align: left; color: rgb(163, 163, 163);"></td>
+                    <td class="text-start" style="text-align: left;">
+                        <a th:href="@{|/customer/question/read/${question.id}|}" th:text="${question.subject}" style="text-decoration: none; color: white;"></a>
+                        <span class="badge badge-secondary text-white small ms-2"
+                            th:if="${#lists.size(question.answerList) > 0}"
+                            th:text="${#lists.size(question.answerList)}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${question.member != null}" th:text="${question.member.email}" style="color: rgb(163, 163, 163);"></span>
+                    </td>
+                    <td th:text="${question.regTime.toString().substring(0, 10)}" style="color: rgb(163, 163, 163);"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-bottom: 20px; text-align: right;">
+                <a th:href="@{/customer/question/write}" class="btn text-white fs12 btn-secondary" >질문 등록하기</a>
+            </div>
+            <!-- paging start -->
+            <div th:if="${!paging.isEmpty()}">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                        <a class="page-link" th:href="@{|?page=${paging.number - 1}|}">
+                            <span>이전</span>
+                        </a>
+                    </li>
+                    <li th:each="page : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                        th:if="${page >= paging.number -5 and page <= paging.number + 5}"
+                        th:classappend="${page == paging.number} ? 'active'" class="page-item">
+                        <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}|}"></a>
+                    </li>
+                    <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                        <a class="page-link" th:href="@{|?page=${paging.number + 1}|}">
+                            <span>다음</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- paging end -->
+
+            
+        </div>
     </div>
-    <!-- paging end -->
-
-    <a th:href="@{/customer/question/write}" class="btn btn-primary">질문 등록하기</a>
 </div>
 
 </html>
