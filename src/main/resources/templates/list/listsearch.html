@@ -140,8 +140,8 @@
                                             <img style="height: 30px;" th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
                                             <p th:case="*" th:text="${item.platform}"></p> 
                                             <d th:switch="${item.gameKind}" style="float: right;">
-                                                <img th:case="'PC'" th:src="@{/images/item/window_logo.png}" style=" height: 30px; width: 40px;"/>
-                                                <img th:case="'CONSOLE'" th:src="@{/images/item/console_logo.png}"  style="height: 30px; width: 40px;"/>
+                                                <img th:case="'PC'" th:src="@{/images/item/window_logo.png}"style=" height: 20px; width: 30px;"/>
+                                                <img th:case="'CONSOLE'" th:src="@{/images/item/console_logo.png}"  style="height: 20px; width: 30px;"/>
                                                 <p th:case="*" th:text="${item.gameKind}"></p>
                                             </d>
                                        </div><br>

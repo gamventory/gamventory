@@ -173,14 +173,6 @@
                                     <div>
                                         플랫폼: <span th:text="${serial.platform}"></span>
                                     </div>
-                                    <div th:switch="${serial.platform}">
-                                        <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
-                                        <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
-                                        <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
-                                        <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
-                                        <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
-                                        <p th:case="*" th:text="${serial.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
-                                    </div>
                                 </div>
                             </div>
                         </div>

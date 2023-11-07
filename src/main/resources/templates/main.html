@@ -99,15 +99,15 @@
             <!-- 상품 이미지 출력 for문-->
             <div class="row">
                 <th:block th:each="item, status: ${items.getContent()}">
-                    <div class="col-md-4 margin">
-                        <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style="border-radius: 15px; background-color: rgb(32,33,35);">
+                    <div class="col-md-3 margin">
+                        <div th:if="${itemSearchDto.getSearchSellStatus() != 'SELL'}" class="card mb-5" style=" background-color: rgb(32,33,35);">
                             <a th:href="'/item/' +${item.id}" class="text-dark">
-                                <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300" style="border-radius: 15px;">
-                                <div id="main_game_card_text" class="card-body ">
+                                <img id="main_game_card" th:src="${item.imgUrl}" class="card-img-top" th:alt="${item.itemNm}" height="300">
+                                <div id="main_game_card_text" class="card-body" style="height: 150px;">
                                     <p class="card-title text-white">[[${item.itemNm}]]</p>
                                     <!-- <p class="card-text text-white" style="opacity: 0.5;">[[${item.itemDetail}]]</p> -->
                                     <p class="card-title text-white" style="opacity: 0.5;">[[${item.price}]]₩</p>
-                                    <div th:switch="${item.platform}" style="margin-top:20px;">
+                                    <div th:switch="${item.platform}" style="margin-top:20px; height: 30px;">
                                         <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
                                         <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
                                         <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
