@@ -10,9 +10,40 @@
     <title>Q&A</title>
 </head>
 
+<th:block layout:fragment="css">
+
+    <style>
+
+        /* 이전(Previous)과 다음(Next) 버튼을 위한 기본 스타일 */
+        .page-item .page-link {
+            color: #ddd; /* 버튼의 기본 텍스트 색상 */
+            background-color: #333; /* 배경을 어두운 색으로 설정 */
+            border-color: #444; /* 버튼의 테두리 색상 */
+        }
+
+        /* 호버 상태일 때의 이전(Previous)과 다음(Next) 버튼 스타일 */
+        .page-item .page-link:hover {
+            color: #fff; /* 호버 상태의 텍스트 색상을 밝게 */
+            background-color: #555; /* 호버 상태의 배경을 조금 더 어둡게 */
+            border-color: #666; /* 호버 상태의 테두리 색상도 조금 더 어둡게 */
+        }
+
+        /* 활성화된 페이지 번호를 위한 스타일 */
+        .page-item.active .page-link {
+            z-index: 1;
+            color: #fff; /* 활성화된 페이지 번호의 텍스트 색상을 흰색으로 */
+            background-color: #2ac4ea; /* 여기에 원하시는 색상 코드를 입력 */
+            border-color: #2ac4ea; /* 테두리 색상도 같게 */
+            font-weight:bold; /* 글자를 굵게 */
+        }
+
+    </style>
+
+</th:block>
+
 <div layout:fragment="content" class="container my-3">
-    <table class="table">
-        <thead class="table-dark">
+    <table class="table table-bordered table-dark">
+        <thead class="thead-dark">
         <tr class="text-center">
             <th>번호</th>
             <th style="width: 50%">제목</th>
@@ -39,10 +70,10 @@
 
     <!-- paging start -->
     <div th:if="${!paging.isEmpty()}">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+        <ul class="pagination pagination-sm justify-content-center">
+            <li class="page-item" th:if="${paging.hasPrevious()}" th:classappend="${!paging.hasPrevious} ? 'disabled'">
                 <a class="page-link" th:href="@{|?page=${paging.number - 1}|}">
-                    <span>이전</span>
+                    <span><</span>
                 </a>
             </li>
             <li th:each="page : ${#numbers.sequence(0, paging.totalPages - 1)}"
@@ -50,16 +81,16 @@
                 th:classappend="${page == paging.number} ? 'active'" class="page-item">
                 <a th:text="${page + 1}" class="page-link" th:href="@{|?page=${page}|}"></a>
             </li>
-            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+            <li class="page-item" th:if="${paging.hasNext()}" th:classappend="${!paging.hasNext} ? 'disabled'">
                 <a class="page-link" th:href="@{|?page=${paging.number + 1}|}">
-                    <span>다음</span>
+                    <span>></span>
                 </a>
             </li>
         </ul>
     </div>
     <!-- paging end -->
 
-    <a th:href="@{/customer/question/write}" class="btn btn-primary">질문 등록하기</a>
+    <a th:href="@{/customer/question/write}" class="btn btn-primary" style="background-color: #2ac4ea">질문 등록하기</a>
 </div>
 
 </html>

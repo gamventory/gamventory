@@ -39,7 +39,7 @@
                 <div class="card-text text-white" style="white-space: pre-line;" th:text="${question.content}"></div>
 
                 <div class="my-3">
-                    <a th:href="@{|/customer/question/modify/${question.id}|}" class="btn btn-sm btn-secondary "
+                    <a th:href="@{|/customer/question/update/${question.id}|}" class="btn btn-sm btn-secondary "
                        sec:authorize="isAuthenticated()"
                        th:if="${question.member != null and #authentication.getPrincipal().getUsername() == question.member.email}"
                        th:text="수정"></a>

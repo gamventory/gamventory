@@ -39,16 +39,17 @@ td {
 
 
 .bg-orange{
-    background-color: rgb(236, 162, 25);
+    /*background-color: rgb(236, 162, 25);*/
+    background-color: #FFA500;
 }
 
 .bg-db{
-    background-color: #5994b1;
+    background-color: #77cc6d;
 }
 
 
 .bg-dg{
-    background-color: #6db133;
+    background-color: #3897b0;
 }
 
 .bg-dr{
@@ -58,14 +59,6 @@ td {
 
 
 /* base end ============================================*/
-
-
-
-
-
-
-
-
 
 
 

@@ -9,6 +9,7 @@ import com.gamventory.validation.QuestionForm;
 import jakarta.validation.Path;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -23,6 +24,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping(value = "/customer/question")
 @RequiredArgsConstructor
+@Log4j2
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -72,7 +74,7 @@ public class QuestionController {
 
     // 수정 페이지
     @GetMapping(value = "/update/{id}")
-    public String questionUpdateView(QuestionForm questionForm, @PathVariable("id") Long id, Principal principal) {
+    public String questionUpdateView(QuestionForm questionForm, Model model, @PathVariable("id") Long id, Principal principal) {
 
         Question question = this.questionService.getQuestion(id);
 
@@ -80,8 +82,14 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다.");
         }
 
+        log.info("question : " + question.toString());
+
         questionForm.setContent(question.getContent());
         questionForm.setSubject(question.getSubject());
+
+        log.info("questionForm" + questionForm.toString());
+
+        model.addAttribute("questionForm", questionForm);
 
         return "customer/questionUpdate";
     }

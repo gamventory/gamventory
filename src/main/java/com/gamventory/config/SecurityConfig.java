@@ -66,7 +66,7 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/order/**")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/members/**"),
                                         new AntPathRequestMatcher("/customer/question/write"),
-                                        new AntPathRequestMatcher("/customer/question/modify/**"),
+                                        new AntPathRequestMatcher("/customer/question/update/**"),
                                         new AntPathRequestMatcher("/customer/question/delete/**")).authenticated()
                                 .requestMatchers(new AntPathRequestMatcher("/admin/**"),
                                         new AntPathRequestMatcher("/customer/notice/**"),

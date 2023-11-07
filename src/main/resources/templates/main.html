@@ -18,6 +18,40 @@
 <!-- index.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
     <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
+
+    <style>
+
+        .page-item:not(.active) .page-link {
+            color: #ddd; /* Lighter text color for visibility on non-active pages */
+            background-color: #24272a; /* Slightly lighter than the background for a subtle contrast */
+            border-color: #24272a; /* Border color matching the background of the buttons */
+        }
+
+        .page-item:not(.active) .page-link:hover {
+            color: #fff; /* White text on hover for better visibility */
+            background-color: #2c2f33; /* A shade darker on hover for a "button press" effect */
+            border-color: #2c2f33; /* Border color to match the hover background */
+        }
+
+        /* Styles for active page link */
+        .page-item.active .page-link {
+            z-index: 1;
+            color: #fff; /* White text color for the active page number */
+            background-color: #2ac4ea; /* The provided blue color for the active page number background */
+            border-color: #2ac4ea; /* Border color to match the active page number background */
+            font-weight:bold; /* Optional: makes the active page number bold */
+        }
+
+        /* Adjusted hover effects for the 'Previous' and 'Next' buttons, not affecting the active page link */
+        .page-item:not(.active) .page-link:focus,
+        .page-item:not(.active) .page-link:hover {
+            color: #fff; /* White text color on hover for the 'Previous' and 'Next' buttons */
+            background-color: #1b9dd9; /* A darker shade of the active color for a hover effect */
+            border-color: #1b9dd9; /* Border color to match the hover background for 'Previous' and 'Next' buttons */
+        }
+
+    </style>
+
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -130,7 +164,7 @@
                 <!-- 페이지 이동 버튼-->
                 <div style="margin : auto;">
                     <div th:with="start=${(items.number/maxPage)*maxPage + 1}, end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})" >
-                        <ul class="pagination justify-content-center">
+                        <ul class="pagination pg-dark pagination-sm justify-content-center">
     
                             <li class="page-item" th:classappend="${items.number eq 0}?'disabled':''">
                                 <a th:href="@{'/' + '?searchQuery=' + ${itemSearchDto.searchQuery} + '&page=' + ${items.number-1}}" aria-label='Previous' class="page-link">
@@ -151,8 +185,8 @@
                     </div>
                 </div>
                 <!--  /. 페이지 이동 버튼-->
-    
-            </div>  
+
+            </div>
     </div>    
 </div>
 </html>
