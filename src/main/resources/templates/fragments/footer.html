@@ -11,10 +11,21 @@
 
 <!--footerFragment 선언-->
 <div th:fragment="footerFragment">
-    <div id="footer" class="container-fluid">       
+    <div id="footer" class="container">       
         <div class="d-flex justify-content-center">
             <img class="mt-3 mb-5" src="/src/main/resources/static/img/logo3.png" th:src="@{/img/logo3.png}" alt="로고"/>
         </div>
+        <div class="footer-section" style="text-align: center;">
+            <div class="footer-section">
+                <ul>
+                    <li>고객센터 연락처: 010 -1234-5678</li>
+                    <li>주소: 서울시 관악구 남부순환로 1820,에그엘로우14층</li>
+                    <li>이메일: Gemventory@google.com</li>
+                </ul>
+            </div>
+            <p>&copy; 2023 [Gemventory]. All rights reserved.</p>
+        </div>
+       
     </div>
 </div>
 </html>

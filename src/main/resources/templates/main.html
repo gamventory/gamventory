@@ -216,13 +216,13 @@
                                     <p class="card-title text-white" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">[[${Pitem.itemNm}]]</p>
                                     <p class="card-title text-white" style="opacity: 0.5;">[[${Pitem.price}]]원</p>
                                     <div th:switch="${Pitem.platform}" style="margin-top:20px;">
-                                        <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
-                                        <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
-                                        <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
-                                        <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
-                                        <img th:case="'X_BOX'" th:src="@{/images/item/XBOX_logo.png}" />
-                                        <img th:case="'NINTENDO'" th:src="@{/images/item/nintendo_logo.png}" />
-                                        <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                        <img style="height: 30px;" th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                        <img style="height: 30px;" th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                        <img style="height: 30px;" th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                        <img style="height: 30px;" th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                        <img style="height: 30px;" th:case="'X_BOX'" th:src="@{/images/item/XBOX_logo.png}" />
+                                        <img style="height: 30px;" th:case="'NINTENDO'" th:src="@{/images/item/nintendo_logo.png}" />
+                                        <img style="height: 30px;" th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
                                         <p th:case="*" th:text="${Pitem.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
                                         <d th:switch="${Pitem.gameKind}" style="float: right;">
                                             <img th:case="'PC'" th:src="@{/images/item/window_logo.png}" style=" height: 30px; width: 40px;"/>
@@ -253,13 +253,14 @@
                                 
                                     <p class="card-title text-white" style="opacity: 0.5;">[[${Citem.price}]]원</p>
                                     <div th:switch="${Citem.platform}" style="margin-top:20px;">
-                                        <img th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
-                                        <img th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
-                                        <img th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
-                                        <img th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
-                                        <img th:case="'X_BOX'" th:src="@{/images/item/XBOX_logo.png}" />
-                                        <img th:case="'NINTENDO'" th:src="@{/images/item/nintendo_logo.png}" />
-                                        <img th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
+                                        <img style="height: 30px;" th:case="'STEAM'" th:src="@{/images/item/STEAM_logo.png}" />
+                                        <img style="height: 30px;" th:case="'ROCKSTAR_GAMES'" th:src="@{/images/item/RockStar_logo.png}" />
+                                        <img style="height: 30px;" th:case="'UBISOFT_CONNECT'" th:src="@{/images/item/Ubisoft_logo.png}" />
+                                        <img style="height: 30px;" th:case="'EPIC_GAMES'" th:src="@{/images/item/EpicGames_logo.png}" />
+                                        <img style="height: 30px;" th:case="'X_BOX'" th:src="@{/images/item/XBOX_logo.png}" />
+                                        <img style="height: 30px;" th:case="'NINTENDO'" th:src="@{/images/item/nintendo_logo.png}" />
+                                        <img style="height: 30px;" th:case="'PLAY_STATION'" th:src="@{/images/item/play_station_logo.png}" />
+                                        <img style="height: 30px;" th:case="'OTHER'" th:src="@{/images/item/OTHER_logo.png}" />
                                         <p th:case="*" th:text="${Citem.platform}"></p> <!-- 플랫폼에 맞는 이미지가 없을 때 텍스트 출력 -->
                                         <d th:switch="${Citem.gameKind}" style="float: right;">
                                             <img th:case="'PC'" th:src="@{/images/item/window_logo.png}" />
