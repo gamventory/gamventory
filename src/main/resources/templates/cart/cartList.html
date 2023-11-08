@@ -136,68 +136,63 @@
 
 
 <div layout:fragment="content">
+    <div class="container mb-5">
+        <h1 style="font-weight: bold; color: white;" class="mt-3 mb-4" >장바구니</h1>
+        <div style="width: 107%;" class="row">
+            <div class="list_table" style="background-color: #343541; border-radius : 20px; padding : 30px; width: 70%;">
+                <table class="list_filter_table table table-dark text-white" style="width: 100%; text-align: center;">
+                    <thead class="fs12" style="background-color: #202123;">
+                        <tr class="text-white text-center">
+                            <th style="width: 20%;"></th>
+                            <th style="width: 40%;"></th>                 
+                            <th style="width: 40%; text-align: right;">수량</th>
+                        </tr>
+                    </thead>
+                    <tbody class="fs12" style="text-align: left;">
+                        <tr th:each="cartItem : ${cartItems}">
+                            <!-- 이미지 들어가는 칸-->
+                            <td style="width: 20%;">
+                                <div class="text-center align-middle" style="margin: auto;">
+                                    <img th:src="${cartItem.imgUrl}" th:alt="${cartItem.itemNm}"  height="100" width="70%">
+                                </div>
+                            </td>
+                                        
+                            <td style="width: 20%; vertical-align: middle;">
+                                <!-- 게임명 -->
+                                이름 :<span th:text="${cartItem.itemNm}" class="text-white"></span>
+                                <br>
+                                <!-- 금액 -->
+                                가격 :
+                                <span th:id="'price_' + ${cartItem.cartItemId}"
+                                        th:data-price="${cartItem.price}"
+                                        th:text="${cartItem.price} + '원'" class="align-self-center mr-2 text-white">
+                                </span>
+                            </td>
+                                        
+                            <td style="vertical-align: middle;">
+                                <div class="input-group fs12" style="width: 120px; float: right;">
+                                    <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
+                                        th:value="${cartItem.count}" min="1"
+                                        onchange="changeCount(this)" class="form-control fs12 text-white" style="background-color: rgb(78, 78, 78); border: none;">
+                                    <button type="button" class="btn text-white fs12" style="background-color: #8d202b;">
+                                        <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">x</span>
+                                    </button>
+                                </div>
+                            </td>                                       
+                        </tr>
+                    </tbody>
+                </table>
 
-    <div class="cart_list_box container">
-            <table class="table table-hover table-sm">
-                <thead>
-                    <tr class="bg-orange text-white text-center">
-                        <th style="width : 100px;">이미지</th>
-                        <th>게임명</th>
-                        <th>금액</th>
-                        <th style="width: 120px;">수량</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="cartItem : ${cartItems}">
-
-                        <!-- 이미지 들어가는 칸-->
-                        <td>
-                            <div class="text-center align-middle" style="margin: auto;">
-                                <img th:src="${cartItem.imgUrl}" class = "rounded" th:alt="${cartItem.itemNm}"  style="width: 100%;">
-                            </div>
-                        </td>
-                            
-
-                        <!-- 게임명 -->
-                        <td class="text-center align-middle">
-                            <span th:text="${cartItem.itemNm}" class="text-white"></span>
-                        </td>
-
-
-                        <!-- 금액 -->
-                        <td class="text-center align-middle">
-                            <span th:id="'price_' + ${cartItem.cartItemId}"
-                                    th:data-price="${cartItem.price}"
-                                    th:text="${cartItem.price} + '원'" class="align-self-center mr-2 text-white">
-                            </span>
-                        </td>
-
-                                            
-                                            
-                        <td class="text-center align-middle pl-4">
-                            <div class="input-group" style="width: 85px;">
-                                <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
-                                    th:value="${cartItem.count}" min="1"
-                                    onchange="changeCount(this)" class="form-control" >
-                                <button type="button" class="btn text-white" style="background-color: #bd2130;">
-                                    <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">x</span>
-                                </button>
-                            </div>
-                        </td>                                       
-                                                               
-                      
-                        <!-- <td class="text-center align-middle">
-                            <span th:id="'totalPrice_' + ${cartItem.cartItemId}"
-                                name="totalPrice" th:text="${cartItem.price * cartItem.count} + '원'">
-                            </span>
-                        </td> -->
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="text-center">
-                <button type="button" class="btn text-white" style="background-color: #5994b1;" onclick="orders()">주문하기</button>
+                <div class="text-center">
+                    <button type="button" class="btn text-white" style="background-color: #5994b1;" onclick="orders()">주문하기</button>
+                </div>
             </div>
+
+            <div class="list_promotion" style="width: 30%;">
+                <img src="/src/main/resources/static/img/epic-img2.png" th:src="@{/img/epic-img2.png}" style="width: 80%; margin-left: 10%; margin-bottom: 30px; border-radius: 10px; cursor: pointer;"/>
+                <img src="/src/main/resources/static/img/epic-img3.png" th:src="@{/img/epic-img3.png}" style="width: 80%; margin-left: 10%; border-radius: 10px; cursor: pointer;"/>
+            </div>
+        </div>
     </div>
 </div>
 

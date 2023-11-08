@@ -51,5 +51,7 @@ public interface ItemRepository extends JpaRepository<Item, Long>,QuerydslPredic
 
     // Item findByItemNmAndPrice(String itemNm, int parsedPrice);
 
+    
+
 
 }

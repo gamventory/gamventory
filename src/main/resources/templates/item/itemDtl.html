@@ -63,19 +63,15 @@
                 dataType: "json",
                 cache: false,
                 success: function (result, status) {
-                    // 사용자에게 구매 페이지로 이동할지 물어봅니다.
-                    var goOrderPage = confirm("구매 페이지로 이동하시겠습니까?");
-                    if (goOrderPage) {
-                        // 사용자가 '예'를 선택하면 /order/{itemId}로 리디렉션합니다.
                         location.href = '/order/' + itemId;
-                    }
                 },
                 error: function (jqXHR, status, error) {
                     if (jqXHR.status == '401') {
                         alert('로그인 후 이용해주세요');
                         location.href = '/members/login';
                     } else {
-                        alert(jqXHR.responseText);
+                        alert('로그인 후 이용해주세요');
+                        location.href = '/members/login';
                     }
                 }
             });

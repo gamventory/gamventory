@@ -143,4 +143,26 @@ public class ItemRepositoryTest {
     // }
 
 
+    // @Test
+    // public void testWebScraping() {
+    //     SeleniumSearchScraper scraper = new SeleniumSearchScraper();
+    //     scraper.main(new String[]{});  // 웹 크롤링 실행
+
+    //     // 데이터베이스에서 게임 이름을 기준으로 아이템을 조회
+    //     List<Item> items = itemRepository.findByItemNm("Some Game Name");  // "Some Game Name"을 크롤링한 실제 게임 이름으로 대체해야 합니다.
+
+    //     // 아이템 리스트가 비어있지 않은지 확인
+    //     assertThat(items).isNotEmpty();
+
+    //     // 첫 번째 아이템을 가져옵니다.
+    //     Item item = items.get(0);
+
+    //     // 아이템의 속성을 검증합니다.
+    //     assertThat(item.getPrice()).isEqualTo(10000);  // 예상 가격 값 (예시)
+
+    //     // 필요한 경우 추가적인 검증 로직 추가
+    // }
+
+
+
 }

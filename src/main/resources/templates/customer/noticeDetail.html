@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>공지사항 상세내용</title>
+
+<th:block layout:fragment="script">
+
+    <script type="text/javascript">
+
+        const notice_id = [[${noticeDetailDto.id}]]
+        function deleteCheck() {
+
+            if(!confirm("삭제 하시겠습니까?")) {
+                return false;
+            } else{
+                window.location.href = "/customer/notice/delete/" + notice_id;
+            }
+
+        }
+
+    </script>
+
+</th:block>
+
+</head>
+<body>
+    <div layout:fragment="content" class="container" th:object="${noticeDetailDto}">
+
+        <h1 style="font-weight: bold; color:white; margin-top: 30px; margin-bottom: 30px;">공지사항</h1>
+
+        <div style="width: 100%;" class="row">
+        
+            <div class="list_promotion" style="width: 30%; position: sticky; top:300px;">
+                <div id="memberinfo_box" class="container mb-5" style="margin-top : 0px; width: 90%; margin-left: -0px;">
+                    <ul>
+                        <li>
+                            <a th:href="@{/customer/notice}" class="badge text-white pt-3">
+                                공지사항
+                            </a>
+                        </li>
+                        <li>   
+                            <a th:href="@{/customer/question/list}" class="badge text-white pt-3">
+                                Q&A
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <img src="/src/main/resources/static/img/epic-img5.png" th:src="@{/img/epic-img5.png}" style="width: 80%; margin-left: 5%; margin-bottom: 30px; border-radius: 10px; cursor: pointer;"/>
+                <img src="/src/main/resources/static/img/epic-img6.png" th:src="@{/img/epic-img6.png}" style="width: 80%; margin-left: 5%; border-radius: 10px; cursor: pointer;"/>
+            </div>
+            
+            <div id="notice_detail_box" class="text-white" style="width: 70%;">
+                <div class="card-header" style="background-color: #202123;">
+                    <h5 style="display: inline" th:text="*{subject}" class="fs15"></h5>
+                    <h6 style="float: right" th:text="*{regTime.toString().substring(0, 10)}" class="fs12">시간</h6>
+                </div>
+                <div class="card-body bg-dark" style="min-height: 300px">
+                    <p class="card-text" th:text="*{content}"></p>
+                </div>
+
+                <div class="mt-3" style="text-align: right;">
+                    <a href="/customer/notice">
+                        <button class="btn btn-secondary text-white fs12" style="font-weight: 600;">돌아가기</button>
+                    </a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{'/customer/notice/update/' + *{id}}">
+                        <button class="btn btn-secondary text-white ml-2 fs12" style="font-weight: 600;" >수정하기</button>
+                    </a>
+                    <a sec:authorize="hasRole('ADMIN')" >
+                        <button class="btn btn-danger ml-2 fs12" style="font-weight: 600;" onclick="deleteCheck()">삭제하기</button>
+                    </a>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+
+</body>
+</html>

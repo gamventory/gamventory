@@ -64,9 +64,28 @@
                 window.location.href = '/';
             });
 
-            //user_modal event
-            $("#user_button").click(function(){
-                $("#user_modal").slideToggle("fast");
+            //user_modal event           
+            $("#user_button").click(function (event) {
+                event.stopPropagation();
+                $("#user_modal").slideToggle().fast;
+            });
+
+            $(document).click(function (event) {
+                if (!$(event.target).closest("#user_modal").length) {
+                    $("#user_modal").slideUp();
+                }
+            });
+
+
+            $("#notice_button").click(function (event) {
+                event.stopPropagation();
+                $("#notice_modal").slideToggle();
+            });
+
+            $(document).click(function (event) {
+                if (!$(event.target).closest("#notice_modal").length) {
+                    $("#notice_modal").slideUp();
+                }
             });
 
 
