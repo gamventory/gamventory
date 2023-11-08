@@ -92,7 +92,7 @@ public class NoticeController {
         log.info("update post id : " + noticeUpdateFormDto.getId());
         noticeService.noticeUpdateFormDtoSave(noticeUpdateFormDto);
 
-        return "redirect:/customer/notice/" + noticeUpdateFormDto.getId();
+        return "redirect:/customer/notice/read/" + noticeUpdateFormDto.getId();
     }
 
     @GetMapping(value = "/notice/delete/{id}")
