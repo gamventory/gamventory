@@ -46,7 +46,7 @@
                                         <a href="/members/logout" class="text-white">로그아웃</a>
                                     </div>
                                     <div sec:authorize="isAuthenticated()">
-                                        <a href="/members/info" class="text-white">개인정보</a>
+                                        <a href="/members/update" class="text-white">개인정보</a>
                                     </div>
                                     <div sec:authorize="isAnonymous()">
                                         <a href="/members/login" class="text-white">로그인</a>
@@ -61,7 +61,7 @@
 
                     <!-- cart_button -->
                     <div id="cart_button" class="mt-2">
-                        <i class="fa fa-shopping-cart  bg-orange" style="color:white" aria-hidden="true" th:herf="@{/cart}"></i>
+                        <i class="fa fa-shopping-cart  bg-db" style="color:white" aria-hidden="true" th:herf="@{/cart}"></i>
                     </div>
 
                     <!-- <div id="cart_button" class="pr-2 mt-2">
@@ -79,20 +79,20 @@
             <div id="nav_list">
                 <ul style="margin-top: 5px;">
                     <li><a href="/list" class="text-white">게임</a></li>
-                    <li><a href="#" class="text-white">커뮤니티</a></li>
+                    <li><a href="https://discord.gg/EJHy95vq" target="_blank" class="text-white">커뮤니티</a></li>
                     <li class="text-white" >
                         <div>
-                            <a id="notice_button">고객센터
-                                <div id="notice_modal" class="collapse show">
+                            <a id="notice_button" href="/customer/notice" style="color: white;">고객센터
+                                <!-- <div id="notice_modal" class="collapse show">
                                     <div>
                                         <div>
-                                            <a href="/members/logout" class="text-white">공지사항</a>
+                                            <a href="/customer/notice" class="text-white">공지사항</a>
                                         </div>
                                         <div>
-                                            <a href="/members/info" class="text-white">Q&A</a>
+                                            <a href="/customer/question/list" class="text-white">Q&A</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </a>
                         </div>
                     </li>
@@ -101,7 +101,7 @@
                         <div id="search_Form" class="fs12" style="margin-left:10px; width: 100%; margin-top: -5px;">
                             <form class="input-group fs12 my-lg-0" th:action="@{/list}" method="get">
                                 <input id="searchBar" name="searchQuery" class="form-control text-white fs12" style="border: none;" type="search" placeholder="" aria-label="Search">
-                                <button class="btn text-white fs12" type="submit" style="background-color: #5994b1;">검색</button>
+                                <button class="btn text-white fs12" type="submit" style="background-color: rgb(42, 196, 234);">검색</button>
                             </form>
                         </div>
                     </li>

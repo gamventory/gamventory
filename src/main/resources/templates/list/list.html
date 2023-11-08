@@ -28,6 +28,14 @@
             /* 뒷면 숨기기, 입체감 삭제 */
             backface-visibility: hidden;
         }
+
+       
+        .page-item.disabled .page-link {
+            color: #ddd; /* 비활성화된 버튼의 텍스트 색상 */
+            background-color: #333; /* 비활성화된 버튼의 배경 색상 */
+            border-color: #444; /* 비활성화된 버튼의 테두리 색상 */
+        }
+
     </style>
 </th:block>
 <!-- index.html 고유 스크립트 추가 -->
@@ -49,6 +57,8 @@
 <div layout:fragment="content">
 
     <div class="container" style="margin-bottom:50px;">
+
+        <h1 style="font-weight: bold; color:white; margin-top: 30px; margin-bottom: 30px;">게임 목록</h1>
 
         <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}">
         

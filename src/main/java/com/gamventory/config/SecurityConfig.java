@@ -43,7 +43,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers(new AntPathRequestMatcher("/css/**"),
-                                        new AntPathRequestMatcher("/notices/**"),
+                                        new AntPathRequestMatcher("/customer/notice"),
+                                        new AntPathRequestMatcher("/customer/notice/read/**"),
+                                        new AntPathRequestMatcher("/customer/question/list"),
+                                        new AntPathRequestMatcher("/customer/question/read/**"),
                                         new AntPathRequestMatcher("/purchase"),
                                         new AntPathRequestMatcher("/js/**"),
                                         new AntPathRequestMatcher("/favicon.ico"),
@@ -62,8 +65,13 @@ public class SecurityConfig {
                                         new AntPathRequestMatcher("/list/**"),
                                         new AntPathRequestMatcher("/listsearch**"),
                                         new AntPathRequestMatcher("/order/**")).permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/members/**")).authenticated()
-                                .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasRole("ADMIN")
+                                .requestMatchers(new AntPathRequestMatcher("/members/**"),
+                                        new AntPathRequestMatcher("/customer/question/write"),
+                                        new AntPathRequestMatcher("/customer/question/update/**"),
+                                        new AntPathRequestMatcher("/customer/question/delete/**")).authenticated()
+                                .requestMatchers(new AntPathRequestMatcher("/admin/**"),
+                                        new AntPathRequestMatcher("/customer/notice/**"),
+                                        new AntPathRequestMatcher("/customer/question/**")).hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(exceptionHandling ->

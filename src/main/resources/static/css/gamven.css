@@ -26,6 +26,7 @@ a{
     cursor: pointer;
     color : white;
     font-weight: bolder;
+    text-decoration: none;
 }
 
 td {
@@ -36,17 +37,19 @@ td {
 }
 
 
+
 .bg-orange{
-    background-color: rgb(236, 162, 25);
+    /*background-color: rgb(236, 162, 25);*/
+    background-color: #FFA500;
 }
 
 .bg-db{
-    background-color: #5994b1;
+    background-color: #77cc6d;
 }
 
 
 .bg-dg{
-    background-color: #6db133;
+    background-color: #3897b0;
 }
 
 .bg-dr{
@@ -56,14 +59,6 @@ td {
 
 
 /* base end ============================================*/
-
-
-
-
-
-
-
-
 
 
 
@@ -197,6 +192,23 @@ td {
 /*sidebar.html start ================================================*/
 #sidebar{
     font-size: 15px;
+}
+
+#sidebar div{
+    background-color: #6C757D;
+}
+
+#sidebar div a{
+    text-decoration: none;
+}
+
+
+#sidebar div:hover{
+    background-color: #5c6369;
+}
+
+#sidebar div span{
+    color : white;
 }
 
 /*sidebar.html end ==================================================*/
@@ -341,15 +353,22 @@ td {
 /* memberinfo.html start ================================================*/
 #memberinfo_box{
     margin-top : 150px;
-    margin-bottom : 200px;
     text-align: center;
 }
 
+
 #memberinfo_box a{
-    margin-bottom: 15px;
-    width : 150px;
+    width : 100%;
     height : 45px;
     font-size : 15px;
+    margin: 0;
+    border-radius: 0;
+    background-color: #6C757D;
+    border-bottom: 1px solid rgb(95, 95, 95);
+}
+
+#memberinfo_box a:hover{
+    background-color: #5c6369;
 }
 
 
@@ -360,9 +379,7 @@ td {
 /* memberUpdate.html start ================================================*/
 #member_update_box{
     color: white;
-    width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 130px;
 }
 
@@ -377,7 +394,6 @@ td {
     color: white;
     width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 130px;
 }
 
@@ -395,9 +411,7 @@ td {
 
 #member_delete_box{
     color: white;
-    width: 500px;
     margin: auto;
-    margin-top : 100px;
     margin-bottom: 300px;
 }
 
@@ -490,7 +504,6 @@ td {
 /* management_box.html start   ================================================*/
 
 .management_box{
-    margin-top: 100px;
     margin-bottom : 100px;
 }
 /* management_box.html end   ================================================*/
@@ -533,6 +546,39 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 .fpmgBt1{background-color: #fff;color:#888;border-color: #eee;}
 .fpmgBt2{background-color: lightsalmon;color: #fff; border-color: #eee;}
 /* joinForm end ====================================================*/
+
+/* page button=======================================================*/
+.page-item .page-link {
+    color: #ddd; /* 버튼의 기본 텍스트 색상 */
+    background-color: #333; /* 배경을 어두운 색으로 설정 */
+    border-color: #444; /* 버튼의 테두리 색상 */
+}
+
+.page-item .page-link:hover {
+    color: #fff; /* 호버 상태의 텍스트 색상을 밝게 */
+    background-color: #555; /* 호버 상태의 배경을 조금 더 어둡게 */
+    border-color: #666; /* 호버 상태의 테두리 색상도 조금 더 어둡게 */
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff; /* 활성화된 페이지 번호의 텍스트 색상을 흰색으로 */
+    background-color: #2ac4ea; /* 여기에 원하시는 색상 코드를 입력 */
+    border-color: #2ac4ea; /* 테두리 색상도 같게 */
+    font-weight:bold; /* 글자를 굵게 */
+}
+.page-item .disabled{
+    color: #ddd; /* 버튼의 기본 텍스트 색상 */
+    background-color: #333; /* 배경을 어두운 색으로 설정 */
+    border-color: #444; /* 버튼의 테두리 색상 */
+    
+}
+.page-item.disabled .page-link {
+    color: #ddd; /* 비활성화된 버튼의 텍스트 색상 */
+    background-color: #333; /* 비활성화된 버튼의 배경 색상 */
+    border-color: #444; /* 비활성화된 버튼의 테두리 색상 */
+}
+/* page button end=======================================================*/
 
 
 
@@ -581,6 +627,10 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
     .fs15{
         font-size: 15px !important;
+    }
+
+    .poster{
+        display: none;
     }
 
 
@@ -666,6 +716,22 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
         z-index: 9999;
     }
 
+    #m_sidebar div{
+        background-color: #6C757D;
+    }
+
+    #m_sidebar div a{
+        text-decoration: none;
+    }
+
+    #m_sidebar div:hover{
+        background-color: #5c6369;
+    }
+
+    #m_sidebar div span{
+        color:white;
+    }
+
     #m_sidebar h3{
         font-size: 20px;
     }
@@ -675,6 +741,88 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     }
 
     /* m_sidebar.html end  ==================================================*/
+
+
+     /* m_memberForm.html start   ===============================================*/
+
+     #singup_box{
+        margin-top: 5px;
+     }
+
+
+     #singup_box>div{
+        width:70%;
+        margin: auto;
+        margin-top: 15px;
+     }
+     
+     #sinup_button{
+        margin-top: 15px;
+        margin-left: 15%;
+     }
+
+      /* m_memberForm.html end   ===============================================*/
+
+
+
+    /* m_main.html start   ===============================================*/
+
+    #img_slider{
+        margin-bottom: 120px;
+        margin-top: -30px !important;        
+    }
+
+    #img_slider_img{
+        width: 100% !important;
+        margin-bottom: 10px;
+        margin-left: 35px !important;
+    }
+
+    #img_slider_button{
+        margin-left: 30px;
+        width: 900% !important;
+        height : 100px !important;
+    }
+
+    #img_slider_button li img{
+        width: 50px !important;
+    }
+
+    #img_slider_button ul{
+        text-align: center;
+    }
+
+    #img_slider_button li{
+        display: inline-block;
+        width: 75px;
+    }
+
+    #img_slider_button li:nth-child(2){
+        margin : 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #search_Form input{
+        width: 100px;
+        height: 25px;
+    }
+
+    #search_Form button{
+        height: 25px;
+        width:50px;
+        padding-top: 3px !important;
+    }
+
+
+
+    /* m_main.html end  ==================================================*/
+
+
+
+
+
+
 
 
      /* m_memberForm.html start   ===============================================*/
@@ -806,10 +954,6 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
 
     /* m_memberInfo.html start ================================================*/
 
-    #memberinfo_box{
-        margin-top: 30px;
-    }
-
     #memberinfo_box a{
         width: 100px;
         font-size: 12px;
@@ -822,7 +966,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #password_update_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 70%;
+        width: 135% !important;
+        margin-left: 20%;
     }
 
     #password_update_box button{
@@ -841,7 +986,9 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_update_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 70%;
+        width: 130% !important;
+        margin-left: 15%;
+
     }
 
     #member_update_box button{
@@ -851,6 +998,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_update_box div input{
         font-size: 12px;
     }
+
+
 
 
     /* m_memberUpdate.html end ================================================*/
@@ -864,7 +1013,8 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #member_delete_box{
         font-size: 13px;
         margin-top: 30px;
-        width: 80%;
+        width: 130% !important;
+        margin-left: 20% !important;
     }
 
     #member_delete_box button{
@@ -952,6 +1102,20 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     /* m_order.html end ==========================================================*/
 
 
+    /* m_orderHist.html start ========================================================*/
+
+    #order_hit_box{
+        width: 130%; 
+        margin-left: 15%;
+    }
+
+    #order_hit_box_text{
+        padding-top : 5px !important;
+    }
+
+    /* m_orderHist.html end ==========================================================*/
+
+
 
 
 
@@ -980,6 +1144,7 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     #show_serial_box_paging a{
         font-size : 10px;
     }
+    
 
     /* m_showSerail.html end ============================================================*/
 
@@ -1047,6 +1212,23 @@ ul.join_box{border: 1px solid #ddd;background-color: #fff;}
     }
 
     /* m_list.html end ==========================================================*/
+
+
+ 
+    #notice_list_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
+
+    #notice_detail_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
+
+    #notice_update_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
 
 
 

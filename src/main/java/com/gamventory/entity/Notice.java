@@ -1,5 +1,8 @@
 package com.gamventory.entity;
 
+import com.gamventory.dto.ItemFormDto;
+import com.gamventory.dto.NoticeDetailDto;
+import com.gamventory.dto.NoticeUpdateFormDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,6 +43,11 @@ public class Notice extends BaseEntity {
 
     public void addViewCount(){
         this.viewCount++;
+    }
+
+    public void modifyUpdate(NoticeUpdateFormDto noticeUpdateFormDto) {
+        this.subject = noticeUpdateFormDto.getSubject();
+        this.content = noticeUpdateFormDto.getContent();
     }
 
 }
