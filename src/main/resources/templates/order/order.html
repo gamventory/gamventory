@@ -74,9 +74,9 @@
                 $("#orderFrm").attr("action","settle.html");
                 $("#orderFrm").submit();
             }
+            // console.log("order실행되는지체크");
             verifyAndRequestPay();
             requestPay();
-            // console.log("order실행되는지체크");
 
 
             var url = "/order";
@@ -208,7 +208,7 @@
                     window.location.href = "http://localhost:8081/orderEnd";
                     jQuery.ajax({
 
-                        url: "/",
+                        url: "/order",
                         method: "POST",
                         headers: { "Content-Type": "application/json"},
                         data:{
@@ -216,6 +216,42 @@
                             merchant_uid: rsp.merchant_uid   // 주문번호
                         }
                     }).done(function (data){
+                        var url = "/order";
+                        var paramData = {
+                            itemId : $("#itemId").val(),
+                            count : $("#quantity").val()
+                        };
+                        //서버에 보낼 주문데이터 JSON타입으로 변경
+                        var param = JSON.stringify(paramData);
+                                $.ajax({
+                        url      : url,
+                        type     : "POST",
+                        //서버에 보낼 데이터 타입을 json으로 지정
+                        contentType : "application/json",
+                        data     : param,
+                        beforeSend : function(xhr){
+                            /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                            xhr.setRequestHeader(header, token);
+                        },
+                        dataType : "json",
+                        cache   : false,
+                        //주문 성공시 메세지
+                        success  : function(result, status){
+                            alert("주문이 완료 되었습니다.");
+                            location.href='/';
+                        },
+                        //주문 시 에러가 발생하면 나오는 메세지
+                        error : function(jqXHR, status, error){
+
+                            if(jqXHR.status == '401'){
+                                alert('로그인 후 이용해주세요');
+                                location.href='/members/login';
+                            } else{
+                                alert(jqXHR.responseText);
+                            }
+
+                        }
+                    });
 
                         //가맹점 서버 결제 API성공시 로직
                     })
