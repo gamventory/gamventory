@@ -36,45 +36,13 @@
             $("#totalPrice").html(totalPrice + '원');
         }
         //csrf토큰 값을 조회, 상품 아이디와 주문 수량 전달하는 객체 생성
-        function order() {
+        function goOrder() {
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
             var itemId = $("#itemId").val();  // 상품 아이디를 가져옵니다.
             var url = "/order/" + itemId;  // URL을 동적으로 구성합니다.
-            
-            var paramData = {
-                itemId: itemId,
-                count: $("#count").val()
-            };
-
-            // 서버에 보낼 주문데이터 JSON타입으로 변경
-            var param = JSON.stringify(paramData);
-
-            $.ajax({
-                url: url,
-                type: "POST",
-                contentType: "application/json",
-                data: param,
-                beforeSend: function (xhr) {
-                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
-                    xhr.setRequestHeader(header, token);
-                },
-                dataType: "json",
-                cache: false,
-                success: function (result, status) {
-                        location.href = '/order/' + itemId;
-                },
-                error: function (jqXHR, status, error) {
-                    if (jqXHR.status == '401') {
-                        alert('로그인 후 이용해주세요');
-                        location.href = '/members/login';
-                    } else {
-                        alert('로그인 후 이용해주세요');
-                        location.href = '/members/login';
-                    }
-                }
-            });
+            location.href = '/order/' + itemId;
         }
         
 
@@ -170,7 +138,7 @@
                         <div style="float: left; width: 100%; height: 80px;">
                             <div th:if="${itemSellStatusSell.name() == 'SELL'}">
                                 <button type="button" class="btn fs12 col-sm-6 text-white" onclick="addCart()" style="height: 60px; width: 50%; background-color: #6db133;">장바구니</button>
-                                <button type="button" class="btn fs12 col-sm-6 text-white" onclick="order()" style="height:60px; width: 50%; background-color: #5994b1;">주문하기</button>
+                                <button type="button" class="btn fs12 col-sm-6 text-white" onclick="goOrder()" style="height:60px; width: 50%; background-color: #5994b1;">주문하기</button>
                             </div>
                             <div th:if="${itemSellStatusSell.name() == 'SOLD_OUT'}" class="text-right mt-1">
                                 <button type="button" class="btn text-white" style="width: 50%; height: 60px; background-color: #bd2130;">품절</button>
