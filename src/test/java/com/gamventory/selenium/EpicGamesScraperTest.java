@@ -41,10 +41,14 @@ public class EpicGamesScraperTest {
         // 스크레이핑한 아이템 목록을 가져옵니다.
         List<ItemFormDto> scrapedItems = epicGamesScraper.scrapeEpicGames();
 
-        for (ItemFormDto item : scrapedItems) {
+        for (int i = scrapedItems.size() - 1; i >= 0; i--) {
+            ItemFormDto item = scrapedItems.get(i);
+        
             // 아이템 이미지 리스트를 생성합니다.
             List<MultipartFile> itemImgFileList = new ArrayList<>();
-            for (ItemImgDto imgDto : item.getItemImgDtoList()) {
+            // 여기서도 이미지 리스트를 뒤에서부터 처리해야 한다면 같은 방식으로 인덱스를 계산합니다.
+            for (int j = item.getItemImgDtoList().size() - 1; j >= 0; j--) {
+                ItemImgDto imgDto = item.getItemImgDtoList().get(j);
                 Path imagePath = Path.of(imgDto.getOriImgName());
                 String imageName = imagePath.getFileName().toString();
                 String contentType = "image/jpeg"; // 이미지의 MIME 타입 설정
@@ -52,7 +56,7 @@ public class EpicGamesScraperTest {
                 MultipartFile multipartFile = new MockMultipartFile(imageName, imageName, contentType, content);
                 itemImgFileList.add(multipartFile);
             }
-
+        
             // ItemService의 saveItem 메서드를 사용하여 아이템과 이미지를 저장합니다.
             itemService.saveItem(item, itemImgFileList);
         }
