@@ -32,34 +32,22 @@
             $("#quantity").change( function(){
                 // calculateToalPrice();
             });
-            });
+        });
             //현재 주문할 수량과 상품 한개당 가격을 곱해서 결제 금액을 구해주는 함수
             function calculateToalPrice(){
-            var count = $("#quantity").val();
-            var price = $("#price").val();
-            var totalPrice = price*count;
-            $("#totalPrice").html(totalPrice + '원');
+                var count = $("#quantity").val();
+                var price = $("#price").val();
+                var totalPrice = price*count;
+                $("#totalPrice").html(totalPrice + '원');
             }
             //csrf토큰 값을 조회, 상품 아이디와 주문 수량 전달하는 객체 생성
             function order(){
                 var token = $("meta[name='_csrf']").attr("content");
                 var header = $("meta[name='_csrf_header']").attr("content");
 
-            // var settlekind = $('input[name="settlekind"]:checked').val();
-            // var useEmoney = parseInt($('input[name="use_emoney"]').val());
-            // var memberEmoney = parseInt("0");
-            // var emoney_chk = $('input[name="emoney_chk"]').val();
             var termAgree_orderCheck = $('input[name="termAgree_orderCheck"]:checked').val();
             var chk1 = document.querySelector(".chk1");
             var chk2 = document.querySelector(".chk2");
-
-            // if(memberEmoney==0){
-            //     $('input[name="use_emoney"]').val("0");
-            // }
-
-            // if(emoney_chk!="Y"){
-            //     $('input[name="use_emoney"]').val("0");
-            // }
 
             if(!chk1.checked && !chk2.checked){
                 alert("약관에 동의해주세요.");
@@ -74,48 +62,54 @@
                 $("#orderFrm").attr("action","settle.html");
                 $("#orderFrm").submit();
             }
+            // console.log("order실행되는지체크");
             verifyAndRequestPay();
             requestPay();
-            // console.log("order실행되는지체크");
 
+        }
 
+        //결제함수
+        function orderEnd(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
             var url = "/order";
-            var paramData = {
-                itemId : $("#itemId").val(),
-                count : $("#quantity").val()
-            };
-            //서버에 보낼 주문데이터 JSON타입으로 변경
-            var param = JSON.stringify(paramData);
 
-            // $.ajax({
-            //     url      : url,
-            //     type     : "POST",
-            //     //서버에 보낼 데이터 타입을 json으로 지정
-            //     contentType : "application/json",
-            //     data     : param,
-            //     beforeSend : function(xhr){
-            //         /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
-            //         xhr.setRequestHeader(header, token);
-            //     },
-            //     dataType : "json",
-            //     cache   : false,
-            //     //주문 성공시 메세지
-            //     success  : function(result, status){
-            //         alert("주문이 완료 되었습니다.");
-            //         location.href='/';
-            //     },
-            //     //주문 시 에러가 발생하면 나오는 메세지
-            //     error : function(jqXHR, status, error){
-
-            //         if(jqXHR.status == '401'){
-            //             alert('로그인 후 이용해주세요');
-            //             location.href='/members/login';
-            //         } else{
-            //             alert(jqXHR.responseText);
-            //         }
-
-            //     }
-            // });
+              var paramData = {
+                  itemId : $("#itemId").val(),
+                  count : $("#quantity").val()
+              };
+              //서버에 보낼 주문데이터 JSON타입으로 변경
+              var param = JSON.stringify(paramData);
+  
+              $.ajax({
+                  url      : url,
+                  type     : "POST",
+                  //서버에 보낼 데이터 타입을 json으로 지정
+                  contentType : "application/json",
+                  data     : param,
+                  beforeSend : function(xhr){
+                      /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                      xhr.setRequestHeader(header, token);
+                  },
+                  dataType : "json",
+                  cache   : false,
+                  //주문 성공시 메세지
+                  success  : function(result, status){
+                      alert("주문이 완료 되었습니다.");
+                      location.href='/';
+                  },
+                  //주문 시 에러가 발생하면 나오는 메세지
+                  error : function(jqXHR, status, error){
+  
+                      if(jqXHR.status == '401'){
+                          alert('로그인 후 이용해주세요');
+                          location.href='/members/login';
+                      } else{
+                          alert(jqXHR.responseText);
+                      }
+  
+                  }
+              });
         }
         
 
@@ -201,13 +195,21 @@
                 m_redirect_url: "{/order/order}"
             }, function (rsp) { // callback
                 if (rsp.success) {
+                    var url = "/order";
+                    var paramData = {
+                        itemId : $("#itemId").val(),
+                        count : $("#quantity").val()
+                };
 
                     // console.log(rsp);
-                    // alert("주문이 완료 되었습니다.");
-                    location.href='/';
+                    alert("주문이 완료 되었습니다.");
+                    // location.href='/';
                     window.location.href = "http://localhost:8081/orderEnd";
+                    orderEnd();
                     jQuery.ajax({
 
+                        dataType : "json",
+                        cache   : false,
                         url: "/",
                         method: "POST",
                         headers: { "Content-Type": "application/json"},
@@ -215,10 +217,46 @@
                             imp_uid: rsp.imp_uid,            // 결제 고유번호
                             merchant_uid: rsp.merchant_uid   // 주문번호
                         }
-                    }).done(function (data){
-
-                        //가맹점 서버 결제 API성공시 로직
                     })
+                        .done(function (data){
+                            //가맹점 서버 결제 API성공시 로직
+                            //     var paramData = {
+                            //         itemId : $("#itemId").val(),
+                            //         count : $("#quantity").val()
+                            //     };
+                            //     //서버에 보낼 주문데이터 JSON타입으로 변경
+                            //     var param = JSON.stringify(paramData);
+
+                            // $.ajax({
+                            //         url      : "/order",
+                            //         type     : "POST",
+                            //         //서버에 보낼 데이터 타입을 json으로 지정
+                            //         contentType : "application/json",
+                            //         data     : param,
+                            //         beforeSend : function(xhr){
+                            //             /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                            //             xhr.setRequestHeader(header, token);
+                            //         },
+                            //         dataType : "json",
+                            //         cache   : false,
+                            //         //주문 성공시 메세지
+                            //         success  : function(result, status){
+                            //             alert("주문이 완료 되었습니다.");
+                            //             location.href='/';
+                            //         },
+                            //         //주문 시 에러가 발생하면 나오는 메세지
+                            //         error : function(jqXHR, status, error){
+
+                            //             if(jqXHR.status == '401'){
+                            //                 alert('로그인 후 이용해주세요');
+                            //                 location.href='/members/login';
+                            //             } else{
+                            //                 alert(jqXHR.responseText);
+                            //             }
+
+                            //         }
+                            //     });
+                        })
                 } else {
                     console.log(rsp);
                     console.log("결제를 실패하였습니다.");
