@@ -69,7 +69,7 @@ public class CartController {
         List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName());
         model.addAttribute("cartItems", cartDetailList);
         
-        return "/cart/cartOrder";
+        return "cart/cartOrder";
     }
 
     //장바구니의 수량을 변경하는 메서드
@@ -141,7 +141,7 @@ public class CartController {
 
         List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName());
         model.addAttribute("cartItems", cartDetailList);
-        return "/cart/cartList";
+        return "cart/cartList";
     }
 
 }

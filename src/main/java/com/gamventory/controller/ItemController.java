@@ -103,7 +103,7 @@ public class ItemController {
             return "/item/itemForm";
         }
         
-        return "/item/itemForm";
+        return "item/itemForm";
     }
 
     //상품 수정 완료 후 상세페이지로 이동하는 메소드
@@ -121,7 +121,7 @@ public class ItemController {
         if(itemImgFileList.get(0).isEmpty() && itemFormDto.getId() == null){
 
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
-            return "/item/itemForm";
+            return "item/itemForm";
         }
 
         try {
@@ -130,7 +130,7 @@ public class ItemController {
             e.printStackTrace();
             model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
 
-            return "/item/itemForm";
+            return "item/itemForm";
         }
 
         return "redirect:/";
@@ -158,7 +158,7 @@ public class ItemController {
         //maxPage 페이지 이동 번호 보여줄 개수
         model.addAttribute("maxPage", 5);
 
-        return "/item/itemMng";
+        return "item/itemMng";
     }
 
      //상세보기 페이지로 이동하는 getmapping
@@ -171,7 +171,7 @@ public class ItemController {
         model.addAttribute("itemSellStatusSell", status);
         model.addAttribute("item", itemFormDto);
 
-        return "/item/itemDtl";
+        return "item/itemDtl";
      }
 
      @PostMapping(value = "/item/{itemId}")

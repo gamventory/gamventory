@@ -74,9 +74,9 @@
                 $("#orderFrm").attr("action","settle.html");
                 $("#orderFrm").submit();
             }
-            // console.log("order실행되는지체크");
             verifyAndRequestPay();
             requestPay();
+            // console.log("order실행되는지체크");
 
 
             var url = "/order";
@@ -201,25 +201,14 @@
                 m_redirect_url: "{/order/order}"
             }, function (rsp) { // callback
                 if (rsp.success) {
-                    var url = "/order";
-            var paramData = {
-                itemId : $("#itemId").val(),
-                count : $("#quantity").val()
-            };
 
                     // console.log(rsp);
                     // alert("주문이 완료 되었습니다.");
                     location.href='/';
                     window.location.href = "http://localhost:8081/orderEnd";
-                    sendOrderDetails();
-                    
                     jQuery.ajax({
 
-                        contentType : "application/json",
-                        data: param,
-                        dataType : "json",
-                        cache   : false,
-                        url: "/order",
+                        url: "/",
                         method: "POST",
                         headers: { "Content-Type": "application/json"},
                         data:{
@@ -227,6 +216,7 @@
                             merchant_uid: rsp.merchant_uid   // 주문번호
                         }
                     }).done(function (data){
+
                         //가맹점 서버 결제 API성공시 로직
                     })
                 } else {
