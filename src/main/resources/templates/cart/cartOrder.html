@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
+    <script th:inline="javascript">
+
+        //주문할 상품을 체크하거나 해제할 경우 총 주문금액을 구하는 함수 호출
+        $(document).ready(function() {
+            // cartChkBox 체크박스 변경 이벤트 처리
+            $("input[name=cartChkBox]").change(function() {
+                getOrderTotalPrice();
+            });
+
+
+            $('input[name="settlekind"]').bind("click",function(){
+                var settlekind = $('input[name="settlekind"]:checked').val();
+                if(settlekind=="SC0040"){
+                    $(".collapse").collapse('show');
+                }else{
+                    $(".collapse").collapse('hide');
+                }
+            });
+
+            $("input[name='use_emoney']").on("keyup",function(key){
+                if(key.keyCode==13) {
+                    check_use_emoney();
+                }
+            });
+        });
+
+        //총 주문금액을 구하는 함수
+        function getOrderTotalPrice(){
+            var orderTotalPrice = 0;
+            $("input[name=cartChkBox]:checked").each(function() {
+                var cartItemId = $(this).val();
+                var price = $("#price_" + cartItemId).attr("data-price");
+                var count = $("#count_" + cartItemId).val();
+                orderTotalPrice += price*count;
+            });
+
+            $("#orderTotalPrice").html(orderTotalPrice+'원');
+        }
+
+        //장바구니에 들어있는 상품 수량을 변경 할 경우 상품 가격*수량 으로 금액 변경. 마지막에 변경금액 계산을 위해 총 주문금액 함수를 다시 호출
+        function changeCount(obj){
+            var count = obj.value;
+            var cartItemId = obj.id.split('_')[1];
+            var price = $("#price_" + cartItemId).data("price");
+            var totalPrice = count*price;
+            $("#totalPrice_" + cartItemId).html(totalPrice+"원");
+            getOrderTotalPrice();
+            updateCartItemCount(cartItemId, count);
+        }
+
+        //장바구니 전체상품을 체크하거나 해제하는 함수, 마지막 변경된 금액 계산을 위해 총 주문금액 함수 다시 호출
+        function checkAll(){
+            if($("#checkall").prop("checked")){
+                $("input[name=cartChkBox]").prop("checked",true);
+            }else{
+                $("input[name=cartChkBox]").prop("checked",false);
+            }
+            getOrderTotalPrice();
+        }
+
+        function updateCartItemCount(cartItemId, count){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/cartItem/" + cartItemId+"?count=" + count;
+
+            $.ajax({
+                url      : url,
+                type     : "PATCH",
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    console.log("cartItem count update success");
+                },
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseJSON.message);
+                    }
+
+                }
+            });
+        }
+
+        function deleteCartItem(obj){
+            var cartItemId = obj.dataset.id;
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/cartItem/" + cartItemId;
+
+            $.ajax({
+                url      : url,
+                type     : "DELETE",
+                beforeSend : function(xhr){
+                    /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache   : false,
+                success  : function(result, status){
+                    location.href='/cart';
+                },
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login';
+                    } else{
+                        alert(jqXHR.responseJSON.message);
+                    }
+
+                }
+            });
+        }
+
+        function orders(){
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var settlekind = $('input[name="settlekind"]:checked').val();
+            console.log("settlenkind" + settlekind);
+            var useEmoney = parseInt($('input[name="use_emoney"]').val());
+            var termAgree_orderCheck = $('input[name="termAgree_orderCheck"]:checked').val();
+
+            var hp1 = $('select[name="hp1"] option:selected').val();
+            var hp2 = $('input[name="hp2"]').val();
+            var hp3 = $('input[name="hp3"]').val();
+             var chk1 = document.querySelector(".chk1");
+            var chk2 = document.querySelector(".chk2");
+
+
+            //체크박스 항목 가져오기
+            var checkboxes = document.querySelectorAll('input[name="cartChkBox"]:checked');
+            
+
+            var url = "/cart/orders";
+
+            // 선택된 체크박스의 수를 확인합니다.
+            if(!chk1.checked && !chk2.checked){
+                alert("약관에 동의해주세요.");
+                return false;
+            }
+            else{
+                if($.type(termAgree_orderCheck)=="undefined"){
+                    alert("청약의사 재확인에 동의해 주셔야 주문진행이 가능합니다.");
+                    return false;
+                }
+
+                if(settlekind=="PAYNOW"){
+                    $("#LGD_EASYPAY_ONLY").val(settlekind);
+                    $("#LGD_CUSTOM_USABLEPAY").val("SC0010");
+                }else if(settlekind=="PAYCO"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO");
+                }else if(settlekind=="PAYCO_POINT"){
+                    $("#LGD_EASYPAY_ONLY").val("PAYCO");
+                    $("#LGD_CUSTOM_USABLEPAY").val("PAYCO_POINT");
+                }else{
+                    if(settlekind=="SC0040"){
+                        if(hp1=="" || hp2=="" || hp3==""){
+                            alert("휴대폰번호를 입력하세요.");
+                            return false;
+                        }else{
+                            $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                        }
+                    }else{
+                        $("#LGD_CUSTOM_USABLEPAY").val(settlekind);
+                    }
+                }
+
+                $("#orderFrm").attr("action","settle.html");
+                $("#orderFrm").submit();
+            }
+
+            var dataList = new Array();
+            var paramData = new Object();
+
+            $("input[name=cartChkBox]:checked").each(function() {
+                var cartItemId = $(this).val();
+                var data = new Object();
+                data["cartItemId"] = cartItemId;
+                dataList.push(data);
+            });
+
+            paramData['cartOrderDtoList'] = dataList;
+
+            var param = JSON.stringify(paramData);
+
+            // verifyAndRequestPay(); 
+            requestPay(function(){
+
+                $.ajax({
+                        url      : url,
+                        type     : "POST",
+                        contentType : "application/json",
+                        data     : param,
+                        beforeSend : function(xhr){
+                            /* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+                            xhr.setRequestHeader(header, token);
+                        },
+                        dataType : "json",
+                        cache   : false,
+                        success  : function(result, status){
+                            location.href='/orders';
+                        },
+                        error : function(jqXHR, status, error){
+    
+                            if(jqXHR.status == '401'){
+                                alert('로그인 후 이용해주세요');
+                                location.href='/members/login';
+                            } else{
+                                alert(jqXHR.responseJSON.message);
+                            }
+    
+                        }
+                    });
+
+            });
+            
+        }
+
+         //pg연동관련 스크립트 부분
+         var IMP = window.IMP; 
+        IMP.init('imp12522227'); 
+        
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        // 가격값구하기
+        // $(document).ready(function(){
+        // var orderTotalPrice = 0;
+        // var count = $("#quantity").val();
+        // var price = $("#price").val();
+        // var itemNm = $("#itemNm")
+        // var email = $("#email").val();
+        // var orderTotalPrice = getOrderTotalPrice();
+        // console.log(orderTotalPrice);
+        // var totalPrice = price*count;
+        // });
+
+        //가격 총합 숫자만 빼오기
+        function getOrderTotalPriceInt(){
+            var orderTotalPrice = 0;
+            $("input[name=cartChkBox]:checked").each(function() {
+                var cartItemId = $(this).val();
+                var price = $("#price_" + cartItemId).attr("data-price");
+                var count = $("#count_" + cartItemId).val();
+                orderTotalPrice += parseInt(price) * parseInt(count);  // 숫자로 변환하여 계산
+            });
+
+            $("#orderTotalPrice").html(orderTotalPrice+'원');
+            
+            return orderTotalPrice;  // 숫자만 반환
+        }
+
+        // //결제시 서버에 post방식으로 값을 보내서 실제 결제금액과 일치하는지 검증하는 코드
+        // function verifyAndRequestPay() {
+        //     var count = $("#quantity").val();
+        //     var price = $("#price").val();
+        //     var itemNm = $('label[for="productName"]').text();
+        //     var email = "test@test.com"; // 값 가져오기 수정
+        //     var token = $("meta[name='_csrf']").attr("content");
+        //     var header = $("meta[name='_csrf_header']").attr("content");
+
+        //     // 먼저 서버에 검증 요청
+        //     jQuery.ajax({
+        //         url: "/verify-payment", // 검증 요청을 처리하는 서버의 엔드포인트
+        //         method: "POST",
+        //         headers: { 
+        //             "Content-Type": "application/json",
+        //             [header]: token // CSRF 헤더에 토큰 추가
+        //         },
+        //         data: JSON.stringify({
+        //             price: price,
+        //             itemNm: itemNm
+        //         })
+        //     }).done(function(response) {
+        //         if (response.isValid) {
+        //             // 검증 성공 -> 결제 요청 진행
+        //             alert("검증이 완료되었습니다.")
+        //         } else {
+        //             alert("데이터가 올바르지 않습니다.");
+        //         }
+        //     });
+        // }
+
+
+
+        //결제모듈 띄우는 함수
+        function requestPay(callback) {
+            
+            // var count = $("#quantity").val();
+            // var price = $("#price").val();
+            // var orderTotalPrice = 0;
+            // var orderTotalPrice = getOrderTotalPrice();
+            console.log(orderTotalPrice);
+            // var itemNm = $('label[for="productName"]').text();
+            var totalPrice = getOrderTotalPriceInt();
+            console.log(totalPrice); 
+
+            console.log("orderTotalPrice =" + orderTotalPrice);
+            var email = "test@test.com";
+
+            console.log(email);
+
+            IMP.request_pay({
+
+                pg : 'kcp',
+                pay_method : 'card',
+                merchant_uid: "IMP"+makeMerchantUid, 
+                name : "gamventory",
+                amount : totalPrice,
+                buyer_email : email,
+                buyer_name : 'gamventory',
+                buyer_tel : '010-1234-5678',
+                buyer_addr : '서울특별시 관악구 봉천동',
+                buyer_postcode : '123-456',
+                m_redirect_url: "{/order/order}"
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
+                    console.log(rsp);
+                    alert("주문이 완료 되었습니다.");
+                    // location.href='/';
+                    // window.location.href = "http://localhost:8081/orderEnd";
+                    jQuery.ajax({
+
+                        url: "/",
+                        method: "POST",
+                        headers: { "Content-Type": "application/json"},
+                        data:{
+                            imp_uid: rsp.imp_uid,            // 결제 고유번호
+                            merchant_uid: rsp.merchant_uid   // 주문번호
+                        }
+                    })
+                    .done(function (data){
+                        //가맹점 서버 결제 API성공시 로직
+                    })
+                } else {
+                    console.log(rsp);
+                    console.log("결제를 실패하였습니다.");
+
+                }
+                
+            });
+            
+        }
+      
+
+    </script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('input[name="settlekind"]').bind("click",function(){
+            var settlekind = $('input[name="settlekind"]:checked').val();
+            if(settlekind=="SC0040"){
+                $(".collapse").collapse('show');
+            }else{
+                $(".collapse").collapse('hide');
+            }
+        });
+
+        $("input[name='use_emoney']").on("keyup",function(key){
+            if(key.keyCode==13) {
+                check_use_emoney();
+            }
+        });
+    });
+
+</script>
+
+
+</th:block>
+
+
+<div layout:fragment="content">
+
+    <div class="container">
+        <h1 style="font-weight: bold; color: white;" class="mt-3 mb-4" >장바구니 결제하기</h1>
+    </div>
+
+    <div class="cart_list_box container p-3">
+        <div>
+            <table class="table table-dark table-sm">
+                <thead class="fs12" style="background-color: #202123;">
+                    <tr class="text-white text-center">
+                        <th style="width: 40px;">
+                            <input type="checkbox" id="checkall" onclick="checkAll()">
+                        </th>
+                        <th style="width : 100px;">이미지</th>
+                        <th>게임명</th>
+                        <th>금액</th>
+                        <th style="width: 120px;">수량</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cartItem : ${cartItems}">
+
+                        <!-- 체크박스칸 -->
+                        <td class="text-center align-middle">
+                            <input type="checkbox" name="cartChkBox" th:value="${cartItem.cartItemId}">
+                        </td>
+
+                        <!-- 이미지 들어가는 칸-->
+                        <td>
+                            <div class="text-center align-middle" style="margin: auto;">
+                                <img th:src="${cartItem.imgUrl}" class = "rounded" th:alt="${cartItem.itemNm}"  style="width: 100%;">
+                            </div>
+                        </td>
+                            
+
+                        <!-- 게임명 -->
+                        <td class="text-center align-middle">
+                            <span th:text="${cartItem.itemNm}" class="text-white"></span>
+                        </td>
+
+
+                        <!-- 금액 -->
+                        <td class="text-center align-middle">
+                            <span th:id="'price_' + ${cartItem.cartItemId}"
+                                    th:data-price="${cartItem.price}"
+                                    th:text="${cartItem.price} + '원'" class="align-self-center mr-2 text-white">
+                            </span>
+                        </td>
+
+                                            
+                                            
+                        <td class="text-center align-middle pl-4">
+                            <div class="input-group" style="width: 85px;">
+                                <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
+                                    th:value="${cartItem.count}" min="1"
+                                    onchange="changeCount(this)" class="form-control pr-1 text-white" style="background-color: rgb(78, 78, 78); border: none;">
+                                <button type="button" class="btn text-white" style="background-color: #8d202b;">
+                                    <span aria-hidden="true" th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)">x</span>
+                                </button>
+                            </div>
+                        </td>                                       
+                                                            
+                    
+                        <!-- <td class="text-center align-middle">
+                            <span th:id="'totalPrice_' + ${cartItem.cartItemId}"
+                                name="totalPrice" th:text="${cartItem.price * cartItem.count} + '원'">
+                            </span>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+            <!-- 결제 수단  -->
+            <div class="row text-white fs12">
+
+
+                <div class="col-md-6">
+
+                    <fieldset class="vm-fieldset-tos">
+
+                        <div class="cart tos" title="" style="margin-top:10px">
+                        
+                            <form action="" class="joinForm"  style="width: 100%;">
+                                <ul class="join_box" style="background-color: #444550; border-radius: 10px;">
+
+                                    <li class="checkBox check01">
+                                        <ul class="clearfix" style="font-size: 13px;">
+                                            <li class="text-white">이용약관, 개인정보 수집 및 이용,
+                                                위치정보 이용약관(선택),<br> 프로모션 안내
+                                                메일 수신(선택)에 모두 동의합니다.</li>
+                                            <li class="checkAllBtn">
+                                                <input type="checkbox" name="chkAll" id="chkAll" class="chkAll">
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li class="checkBox check02">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">이용약관 동의(필수)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk chk1"> 
+                                            </li>
+                                        </ul>
+                                        <textarea name="" id="" style="font-size: 13px;"> 여러분을 환영합니다. 네이버 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 네이버 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘네이버’)와 이를 이용하는 네이버 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 네이버 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                                        </textarea>
+                                    </li>
+
+                                    <li class="checkBox check03">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">개인정보 수집 및 이용에 대한 안내(필수)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk chk2">
+                                            </li>
+                                        </ul>
+                        
+                                        <textarea name="" id=""  style="font-size: 13px;">여러분을 환영합니다. 네이버 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 네이버 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘네이버’)와 이를 이용하는 네이버 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 네이버 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                                        </textarea>
+                                    </li>
+                                    <li class="checkBox check03">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">위치정보 이용약관 동의(선택)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk chk3">
+                                            </li>
+                                        </ul>                        
+                                        <textarea name="" id=""  style="font-size: 13px;">여러분을 환영합니다. 네이버 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 네이버 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘네이버’)와 이를 이용하는 네이버 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 네이버 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                                        </textarea>
+                                    </li>
+                                    <li class="checkBox check04">
+                                        <ul class="clearfix">
+                                            <li  class="text-white">이벤트 등 프로모션 알림 메일 수신(선택)</li>
+                                            <li class="checkBtn">
+                                                <input type="checkbox" name="chk" class="chk chk4">
+                                            </li>
+                                        </ul>
+                        
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </fieldset>
+                </div>
+
+
+
+
+                <div class="col-md-6">
+
+                    <fieldset class="vm-fieldset-tos">
+                        <div class="cart tos" title="" style="margin-top:10px">
+                            <span class="cart customer-note" style="height:45px;line-height:45px;font-weight:bold;">최종결제 정보</span>
+
+                            <div style="border:1px solid rgba(255,255,255,0.1);">
+                                <div style="height:60px;">
+                                    <dl style="clear:both;width:100%;padding:10px">
+                                        <dt style="float:left;width:80px;line-height:40px;">결제예정액</dt>
+                                        <dd style="float:right;line-height:40px;"><span class="PricebillTotal" id="orderTotalPrice" > </span> </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                        
+
+                    <fieldset class="vm-fieldset-tos">
+                        <div class="terms-of-service" style="margin-top:10px;margin-bottom:20px;">
+                            <span class="cart customer-note" style="height:40px;line-height:40px;font-weight:bold;">청약의사 재확인</span>
+                            
+                            <div style="border:1px solid rgba(255,255,255,0.1);padding:10px 15px">
+                                <label for="termAgree_orderCheck" style="">
+                                    <input class="terms-of-service required" id="termAgree_orderCheck" type="checkbox" name="termAgree_orderCheck" value="1" required>
+                                    <span class="vmicon"></span>구매할 상품의 상품정보 및 가격을 확인하였으며, 이에 동의합니다. <br/>
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <div class="text-center mt-3 mb-4">
+                        <button type="button" id="btn_settle" class="btn text-white" style="background-color: #5994b1;" onclick="orders()">주문하기</button>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+    </div>
+
+        
+</html>

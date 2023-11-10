@@ -1,0 +1,1240 @@
+/* base start ============================================*/
+
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+.nanum { font-family: 'Nanum Barun Gothic'; } 
+
+
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background : rgb(68,70,84) !important;
+    padding-top : 140px;
+
+}
+
+ul,li{
+    margin : 0px;
+    padding : 0px;
+}
+
+li{
+    list-style: none;
+}
+
+a{
+    cursor: pointer;
+    color : white;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px; /* 텍스트의 최대 너비를 화면에 맞게 설정 */
+}
+
+
+
+.bg-orange{
+    /*background-color: rgb(236, 162, 25);*/
+    background-color: #FFA500;
+}
+
+.bg-db{
+    background-color: #77cc6d;
+}
+
+
+.bg-dg{
+    background-color: #3897b0;
+}
+
+.bg-dr{
+    background-color: #bd2130;
+}
+
+
+
+/* base end ============================================*/
+
+
+
+
+/* header.html start ==========================================*/
+
+#header_box{
+    background-color: rgb(32,33,35);
+}
+
+
+#logo{
+    cursor: pointer;
+    width: 200px;
+}
+
+#header_User {
+    color : white;
+    width: 100%;
+}
+
+#header_User i{
+    cursor: pointer;
+    font-size : 18px;
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    padding : 9px;
+}
+
+
+#management_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+
+#user_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+
+
+#cart_button{
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+
+#nav{
+    padding-bottom : 1px;
+}
+
+
+#nav ul{
+    padding-left : 10px;
+    padding-top: 10px;
+}
+
+#nav li{
+    display : inline-block;
+    margin-right: 10px;
+}
+
+#search_Form{
+    margin-left: 200px;
+    width: 40%;
+}
+
+#search_Form input{
+    background-color: rgb(78, 78, 78);
+}
+
+#search_Form input::placeholder{
+    color: white;
+}
+
+#search_Form button{
+    background-color: #5994b1;
+}
+
+#user_modal{
+    width : 200px;
+    position: absolute;
+    top : 50px;
+    display: none;
+    font-size : 15px;
+    right : -58px;
+    z-index: 9999999;
+}
+
+#user_modal>div{
+    background-color: rgb(65, 84, 112, 0.9);
+    border-radius: 10px;
+    margin-right : -10px;
+    width : 150px;
+    text-align: center;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    line-height: 30px;
+}
+
+#notice_modal{
+    display: none;
+    position: absolute;
+    background-color: rgb(65, 84, 112, 0.9);
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left : -43px;
+    width : 150px;
+    text-align: center;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    line-height: 30px;
+}
+
+
+
+
+
+/* header end ================================================*/
+
+
+/*sidebar.html start ================================================*/
+#sidebar{
+    font-size: 15px;
+}
+
+#sidebar div{
+    background-color: #6C757D;
+}
+
+#sidebar div a{
+    text-decoration: none;
+}
+
+
+#sidebar div:hover{
+    background-color: #5c6369;
+}
+
+#sidebar div span{
+    color : white;
+}
+
+/*sidebar.html end ==================================================*/
+
+
+
+
+
+
+
+/*footer start ===============================================*/
+
+#footer>div{
+    margin-left: auto !important;
+}
+
+#footer img{
+    width: 155px;
+}
+/*footer ends ================================================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* main.html start ================================================*/
+
+#img_slider{
+
+    height : 300px;
+    margin-top:30px;
+    margin-bottom:30px;
+    padding-bottom : 10px;
+}
+
+#img_slider div{
+    height: 300px;
+}
+
+#img_slider_button li{
+    padding : 12px;
+    background-color: #444550;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+#img_slider_button li:nth-child(2){
+    margin-top: 23px;
+    margin-bottom: 23px;
+}
+
+#img_slider_button li:hover{
+    opacity: 0.7;
+}
+
+#main_game_card{
+    transition : 0.5s;
+}
+
+#main_game_card_text{
+    background-color: rgb(32,33,35);
+    border-radius: 15px;
+}
+
+#main_game_card_text p{
+    margin-bottom: 0;
+}
+
+#main_game_card:hover{
+    scale: 1.1;
+}
+
+
+
+
+#filter{
+    height : 100px;
+    background-color: rgb(32,33,35);
+}
+
+/* main.html end ================================================*/
+
+
+
+
+
+
+
+
+/* memberForm.html start ================================================*/
+
+#singup_box{
+    margin-top : 80px;
+    color: white;
+    margin-bottom : 100px;
+}
+
+#singup_box>div{
+    width : 50%;
+    margin-left : 25%;
+}
+
+#sinup_button{
+    margin-left : 25%;
+}
+
+
+/* memberForm.html end ==================================================*/
+
+
+
+/* memberLogin.html start ================================================*/
+
+#login_box{
+    margin-top : 180px;
+    margin-bottom : 50px;
+    display: grid;
+    place-items: center;
+}
+
+#login_box input{
+    width : 400px;
+}
+
+#login_box div:nth-child(3){
+    margin-left:-140px;
+}
+
+
+/* memberLogin.html end ================================================*/
+
+
+
+/* memberinfo.html start ================================================*/
+#memberinfo_box{
+    margin-top : 150px;
+    text-align: center;
+}
+
+
+#memberinfo_box a{
+    width : 100%;
+    height : 45px;
+    font-size : 15px;
+    margin: 0;
+    border-radius: 0;
+    background-color: #6C757D;
+    border-bottom: 1px solid rgb(95, 95, 95);
+}
+
+#memberinfo_box a:hover{
+    background-color: #5c6369;
+}
+
+
+
+/* memberinfo.html end ================================================*/
+
+
+/* memberUpdate.html start ================================================*/
+#member_update_box{
+    color: white;
+    margin: auto;
+    margin-bottom: 130px;
+}
+
+/* memberUpdate.html end ================================================*/
+
+
+
+
+/* memberPasswordUpdate.html start ================================================*/
+
+#password_update_box{
+    color: white;
+    width: 500px;
+    margin: auto;
+    margin-bottom: 130px;
+}
+
+#password_update_box button{
+    margin-top: 15px;
+}
+
+/* memberPasswordUpdate.html end ================================================*/
+
+
+
+
+
+/* memberDelete.html start ================================================*/
+
+#member_delete_box{
+    color: white;
+    margin: auto;
+    margin-bottom: 300px;
+}
+
+/* memberDelete.html end ================================================*/
+
+
+
+
+
+
+
+
+/* itemDtl.html start ================================================*/
+.item_detail_box{
+
+    padding-top : 50px;
+    padding-bottom: 50px;
+    border-radius: 20px;
+    background-color: #343541;
+}
+
+.item_detail_box img{
+    width : 100%;
+}
+
+
+/* itemDtl.html end ==================================================*/
+
+
+
+
+/* itemForm.html start ================================================*/
+
+#item_form{
+    width : 70%;
+}
+
+#item_form div input{
+    font-size: 20px;
+}
+
+
+#item_form button{
+    float : left;
+    margin-right : 10px;
+}
+
+/* itemForm.html end ================================================*/
+
+
+
+
+
+
+
+/* cartList.html start ================================================*/
+.cart_list_box{
+    background-color: #343541 !important;
+    border-radius: 20px;
+    margin-bottom : 60px !important;
+    padding : 40px;
+
+}
+
+.cart_list_box input{
+    padding: 0px;
+    text-align: right;
+    background-color: rgb(78, 78, 78);
+}
+/* cartList.html end   ================================================*/
+
+
+
+
+/* orde.html start   ================================================*/
+#order_box{
+    background-color: #343541;
+    border-radius:20px;
+}
+
+#order_box table{
+    font-size: 13px;
+    width: 60%;
+}
+/* orde.html end   ================================================*/
+
+
+
+
+/* management_box.html start   ================================================*/
+
+.management_box{
+    margin-bottom : 100px;
+}
+/* management_box.html end   ================================================*/
+
+
+/* showSerial.html start ====================================================*/
+
+#show_serial_text_box{
+    border-radius: 15px;
+    background-color: #4d4f5c;
+    margin: auto;
+}
+
+#show_serial_text_box:hover{
+    background-color: #3a3c47;
+}
+
+#show_serial_box_paging{
+    margin: auto;
+}
+
+
+/* showSerial.html end   ====================================================*/
+
+
+
+
+
+/* joinForm start ====================================================*/
+.joinForm{width: 460px;margin: 0 auto;}
+ul.join_box{border: 1px solid #ddd;background-color: #fff;}
+.checkBox,.checkBox>ul{position: relative;}
+.checkBox>ul>li{float: left;}
+.checkBox>ul>li:first-child{width: 85%;padding: 15px;font-weight: 600;color: #888;}
+.checkBox>ul>li:nth-child(2){position: absolute;top: 50%;right: 30px;margin-top: -12px;}
+.checkBox textarea{width: 96%;height: 90px; margin: 0 2%;background-color: #f7f7f7;color: #888; border: none;}
+.footBtwrap{margin-top: 15px;}
+.footBtwrap>li{float: left;width: 50%;height: 60px;}
+.footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 60px;}
+.fpmgBt1{background-color: #fff;color:#888;border-color: #eee;}
+.fpmgBt2{background-color: lightsalmon;color: #fff; border-color: #eee;}
+/* joinForm end ====================================================*/
+
+/* page button=======================================================*/
+.page-item .page-link {
+    color: #ddd; /* 버튼의 기본 텍스트 색상 */
+    background-color: #333; /* 배경을 어두운 색으로 설정 */
+    border-color: #444; /* 버튼의 테두리 색상 */
+}
+
+.page-item .page-link:hover {
+    color: #fff; /* 호버 상태의 텍스트 색상을 밝게 */
+    background-color: #555; /* 호버 상태의 배경을 조금 더 어둡게 */
+    border-color: #666; /* 호버 상태의 테두리 색상도 조금 더 어둡게 */
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff; /* 활성화된 페이지 번호의 텍스트 색상을 흰색으로 */
+    background-color: #2ac4ea; /* 여기에 원하시는 색상 코드를 입력 */
+    border-color: #2ac4ea; /* 테두리 색상도 같게 */
+    font-weight:bold; /* 글자를 굵게 */
+}
+.page-item .disabled{
+    color: #ddd; /* 버튼의 기본 텍스트 색상 */
+    background-color: #333; /* 배경을 어두운 색으로 설정 */
+    border-color: #444; /* 버튼의 테두리 색상 */
+    
+}
+.page-item.disabled .page-link {
+    color: #ddd; /* 비활성화된 버튼의 텍스트 색상 */
+    background-color: #333; /* 비활성화된 버튼의 배경 색상 */
+    border-color: #444; /* 비활성화된 버튼의 테두리 색상 */
+}
+/* page button end=======================================================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#m_sidebar_button{
+    display: none;
+}
+
+#m_sidebar{
+    display: none;
+}
+
+
+
+@media screen and (max-width:767px) {
+
+    /* m_base */
+    .management_box{
+        margin-top: 30px;
+        font-size: 12px;
+        margin-bottom: 600px;
+    }
+
+    .management_box>div:nth-child(2){
+        margin-top: 20px;
+        margin-top: 40px;
+        position: absolute;
+        margin: auto;
+        margin-top: 40px;
+    }
+
+    .fs12{
+        font-size: 12px !important;
+    }
+
+    .fs15{
+        font-size: 15px !important;
+    }
+
+    .poster{
+        display: none;
+    }
+
+
+    
+
+
+
+    /* m_header.html start   ================================================*/
+
+    #logo{
+    margin-left : -15px;
+    margin-top: 5px;
+    width: 110px;
+    }
+
+    #header_User i{
+        width : 25px;
+        height: 25px;
+        font-size: 10px;
+        padding: 7px;
+    }
+
+    #user_modal{
+        margin-top: -5px;
+        margin-right: -35px;
+    }
+
+    #user_modal>div{
+        font-size: 13px;
+        border-radius: 10px;
+        width : 150px;
+        text-align: center;
+        padding-top : 10px;
+        padding-bottom : 10px;
+        line-height: 30px;
+    }
+
+    #management_button,#user_button,#cart_button{
+        background : none;
+        width: 25px;
+    }
+
+    #header_User span{
+        display: none;
+    }
+
+
+
+    #nav{
+        left : -20px;
+        font-size: 10px;
+        padding-left : 0px;
+    }
+    /* m_header.html end   ================================================*/
+
+
+
+
+
+    /* m_footer.html start   ===============================================*/
+    #footer img{
+        display: none;
+        width: 100px;
+    }
+    /* m_footer end   ================================================*/
+
+
+
+
+    /* m_sidebar.html start   ===============================================*/
+
+    #sidebar{
+        display: none;
+    }
+
+    #m_sidebar{
+        font-size: 12px;
+        width: 110px;
+        transition: 0.5s;
+        margin-left: -250px;
+        display: block;
+        position: absolute;
+        z-index: 9999;
+    }
+
+    #m_sidebar div{
+        background-color: #6C757D;
+    }
+
+    #m_sidebar div a{
+        text-decoration: none;
+    }
+
+    #m_sidebar div:hover{
+        background-color: #5c6369;
+    }
+
+    #m_sidebar div span{
+        color:white;
+    }
+
+    #m_sidebar h3{
+        font-size: 20px;
+    }
+
+    #m_sidebar_button{
+        display:inline-block;
+    }
+
+    /* m_sidebar.html end  ==================================================*/
+
+
+     /* m_memberForm.html start   ===============================================*/
+
+     #singup_box{
+        margin-top: 5px;
+     }
+
+
+     #singup_box>div{
+        width:70%;
+        margin: auto;
+        margin-top: 15px;
+     }
+     
+     #sinup_button{
+        margin-top: 15px;
+        margin-left: 15%;
+     }
+
+      /* m_memberForm.html end   ===============================================*/
+
+
+
+    /* m_main.html start   ===============================================*/
+
+    #img_slider{
+        margin-bottom: 120px;
+        margin-top: -30px !important;        
+    }
+
+    #img_slider_img{
+        width: 100% !important;
+        margin-bottom: 10px;
+        margin-left: 35px !important;
+    }
+
+    #img_slider_button{
+        margin-left: 30px;
+        width: 900% !important;
+        height : 100px !important;
+    }
+
+    #img_slider_button li img{
+        width: 50px !important;
+    }
+
+    #img_slider_button ul{
+        text-align: center;
+    }
+
+    #img_slider_button li{
+        display: inline-block;
+        width: 75px;
+    }
+
+    #img_slider_button li:nth-child(2){
+        margin : 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #search_Form input{
+        width: 100px;
+        height: 25px;
+    }
+
+    #search_Form button{
+        height: 25px;
+        width:50px;
+        padding-top: 3px !important;
+    }
+
+
+
+    /* m_main.html end  ==================================================*/
+
+
+
+
+
+
+
+
+     /* m_memberForm.html start   ===============================================*/
+
+     #singup_box{
+        margin-top: 5px;
+     }
+
+
+     #singup_box>div{
+        width:70%;
+        margin: auto;
+        margin-top: 15px;
+     }
+     
+     #sinup_button{
+        margin-top: 15px;
+        margin-left: 15%;
+     }
+
+      /* m_memberForm.html end   ===============================================*/
+
+
+
+    /* m_main.html start   ===============================================*/
+
+    #img_slider{
+        margin-bottom: 120px;
+        margin-top: -30px !important;        
+    }
+
+    #img_slider_img{
+        width: 100% !important;
+        margin-bottom: 10px;
+        margin-left: 35px !important;
+    }
+
+    #img_slider_button{
+        margin-left: 30px;
+        width: 900% !important;
+        height : 100px !important;
+    }
+
+    #img_slider_button li img{
+        width: 50px !important;
+    }
+
+    #img_slider_button ul{
+        text-align: center;
+    }
+
+    #img_slider_button li{
+        display: inline-block;
+        width: 75px;
+    }
+
+    #img_slider_button li:nth-child(2){
+        margin : 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #search_Form input{
+        width: 100px;
+        height: 25px;
+    }
+
+    #search_Form button{
+        height: 25px;
+        width:50px;
+        padding-top: 3px !important;
+    }
+
+
+
+    /* m_main.html end  ==================================================*/
+
+
+
+
+
+
+
+
+     /* m_memberForm.html start   ===============================================*/
+
+     #singup_box{
+        margin-top: 5px;
+     }
+
+
+     #singup_box>div{
+        width:70%;
+        margin: auto;
+        margin-top: 15px;
+     }
+     
+     #sinup_button{
+        margin-top: 15px;
+        margin-left: 15%;
+     }
+
+      /* m_memberForm.html end   ===============================================*/
+
+
+
+    /* m_memberLogin.html start   ===============================================*/
+    #login_box{
+        margin-top : 30px;
+        font-size: 13px;
+    }
+
+    #login_box input{
+        font-size: 13px;
+        width: 110%;
+    }
+
+    #login_box div:nth-child(3){
+        margin-left: 40px;
+    }
+
+    #login_box div:nth-child(3) button{
+        font-size : 12px;
+    }
+    /* m_memberLogin.html end ================================================*/
+
+
+
+
+    /* m_memberInfo.html start ================================================*/
+
+    #memberinfo_box a{
+        width: 100px;
+        font-size: 12px;
+    }  
+    /* m_memberInfo.html end ================================================*/
+
+
+    /* m_memberPasswordUpdate.html start ================================================*/
+    
+    #password_update_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 135% !important;
+        margin-left: 20%;
+    }
+
+    #password_update_box button{
+        font-size: 12px;
+    }
+
+    #password_update_box input{
+        font-size: 12px;
+    }
+    
+    /* m_memberPasswordUpdate.html end ================================================*/
+
+
+    /* m_memberUpdate.html start ================================================*/
+    
+    #member_update_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 130% !important;
+        margin-left: 15%;
+
+    }
+
+    #member_update_box button{
+        font-size: 12px;
+    }
+    
+    #member_update_box div input{
+        font-size: 12px;
+    }
+
+
+
+
+    /* m_memberUpdate.html end ================================================*/
+
+
+
+
+
+    /* m_memberDelete.html start ================================================*/
+    
+    #member_delete_box{
+        font-size: 13px;
+        margin-top: 30px;
+        width: 130% !important;
+        margin-left: 20% !important;
+    }
+
+    #member_delete_box button{
+        font-size: 12px;
+    }
+    
+    #member_delete_box div input{
+        font-size: 12px;
+    }
+
+
+    /* m_memberDelete.html end ================================================*/
+
+
+
+
+
+
+    /* m_itemMng start ========================================================*/
+
+    #itemMng_search select{
+        font-size: 11px;
+        margin-right: 5px;
+    }
+
+    #itemMng_search input{
+        width: 50%;
+        margin-top: 20px;
+        font-size: 11px;      
+    }
+
+    #itemMng_search button{
+        font-size: 11px;
+        margin-top: 20px;
+    }
+       
+    /* m_itemMng end ==========================================================*/
+
+
+
+    /* m_itemForm start ========================================================*/
+
+
+    #item_form{
+        width: 90%;
+    }
+
+    #item_form select{
+        font-size: 12px;
+    }
+
+    #item_form div button{
+        font-size: 12px;
+    }
+
+    #item_form div div span{
+        font-size: 12px;
+    }
+
+    #item_form div input{
+        font-size: 12px;
+    }
+    /* m_itemForm end ==========================================================*/
+
+
+
+
+    /* m_order.html start ========================================================*/
+
+    #order_box table{
+        width: 90%;
+    }
+
+    #order_box div img{
+        width: 100% !important;
+    }
+
+    #order_box input:focus{
+        outline: none;
+        border: none;
+    }
+
+
+
+    /* m_order.html end ==========================================================*/
+
+
+    /* m_orderHist.html start ========================================================*/
+
+    #order_hit_box{
+        width: 130%; 
+        margin-left: 15%;
+    }
+
+    #order_hit_box_text{
+        padding-top : 5px !important;
+    }
+
+    /* m_orderHist.html end ==========================================================*/
+
+
+
+
+
+    /* m_createSerial.html start ==========================================================*/
+    #createSerial_table{
+        width: 100% !important;
+    }
+
+    #createSerial_table button{
+        margin-top: -5px;
+        font-size: 11px;
+    }
+
+    /* m_createSerial.html end ============================================================*/
+
+
+
+
+    /* m_showSerail.html start ==========================================================*/
+    #show_serial_box{
+        width: 100% !important;
+        
+    }
+    
+
+    #show_serial_box_paging a{
+        font-size : 10px;
+    }
+    
+
+    /* m_showSerail.html end ============================================================*/
+
+
+
+
+
+
+    /* m_cartList.html start ==========================================================*/
+
+    .cart_list_box{
+        padding : 10px;
+        padding-top : 30px;
+    }
+    
+
+    .cart_list_box table th{
+        font-size: 12px;
+    }
+
+    .cart_list_box table td{
+        font-size: 12px;
+    }
+
+    .cart_list_box table input{
+        text-align: right;
+        padding: 0px;
+        font-size: 12px;
+    }
+
+    .cart_list_box button span{
+        font-size: 12px;
+    }
+
+    .cart_list_box button{
+        font-size: 12px;
+    }
+
+    /* m_cartList.html end ============================================================*/
+
+
+
+
+    /* m_list.html start ==========================================================*/
+    .list_filter_box{
+        width: 120% !important;
+        margin-bottom: -20px;
+    }
+
+    .list_filter_table tbody td img{
+        width: 100%;
+    }
+
+    .list_table{
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+
+    .list_table td:nth-child(2) img{
+        width: 10% !important;
+    }
+
+    .list_promotion{
+        display: none !important;
+    }
+
+    /* m_list.html end ==========================================================*/
+
+
+ 
+    #notice_list_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
+
+    #notice_detail_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
+
+    #notice_update_box{
+        width: 100% !important;
+        margin-left: 5% !important;
+    }
+
+
+
+
+
+}
+
+
+
