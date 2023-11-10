@@ -37,11 +37,14 @@ out/
 ### VS Code ###
 .vscode/
 
+<<<<<<< HEAD
 
 # Secrets
 secrets.properties
 
 
+=======
+>>>>>>> dev
 # queryDsl generated
 /src/main/generated
 
@@ -68,5 +71,9 @@ drivers/chrome-win64/chrome.dll
 /drivers
 /upload/
 /upload
+<<<<<<< HEAD
 drivers/
 upload/
+=======
+drivers/
+>>>>>>> dev
