@@ -132,7 +132,7 @@
 
 
         <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px; margin-top: 10px;">
-            <h3 style="font-weight: bold;" class="text-white mb-4">최신게임</h3>
+            <a href="http://localhost:8081/listsearch?platform=&category=&price=&orderByReleaseDate=desc"><h3 style="font-weight: bold;" class="text-white mb-4">최신게임</h3></a>
             <!-- 상품 이미지 출력 for문-->
             <div class="row">
                 <th:block th:each="item, status: ${items.getContent()}">
@@ -204,7 +204,7 @@
 
         <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px; margin-top: 10px;">
 
-            <h3 style="font-weight: bold;" class="text-white mb-4">PC게임</h3>
+            <a href="http://localhost:8081/listsearch?platform=STEAM&category=&price=&orderByReleaseDate=desc"><h3 style="font-weight: bold;" class="text-white mb-4">PC게임</h3></a>
              <!-- Pitems 상품 이미지 출력 for문 -->
             <div class="row">
                 <th:block th:each="Pitem, status : ${Pitems.getContent()}">
@@ -240,7 +240,7 @@
         
         <!-- Citems 상품 이미지 출력 for문 -->
         <div  class="row" style="background-color: #343541; border-radius : 10px; padding : 30px; font-size: 14px; margin-top: 10px;">
-            <h3 style="font-weight: bold;" class="text-white mb-4">CONSOLE게임</h3>>
+            <a href="http://localhost:8081/listsearch?platform=X_BOX&category=&price=&orderByReleaseDate=desc"><h3 style="font-weight: bold;" class="text-white mb-4">CONSOLE게임</h3></a>
             <div class="row">
                 <th:block th:each="Citem, status: ${Citems.getContent()}">
                     <div class="col-md-3 margin">
